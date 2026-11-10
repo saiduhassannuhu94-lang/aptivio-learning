@@ -19,7 +19,10 @@ A browser redirect, client-side success message, or unverified webhook body neve
 ## Server-only environment variables
 
 - `PAYSTACK_SECRET_KEY`: Paystack test or live secret API key.
-- `PAYSTACK_WEBHOOK_SECRET`: webhook signing secret generated/configured in Paystack's developer API settings. Keep the full secret, including its prefix.
+- `PAYSTACK_WEBHOOK_SECRET`: current webhook signing secret generated/configured in Paystack's developer API settings. Keep the full secret, including its prefix.
+- `PAYSTACK_WEBHOOK_SECRET_PREVIOUS`: optional previous signing secret during Paystack's rotation overlap. Remove it after the overlap ends.
+
+The webhook validates the timestamped `Paystack-Signature` header using raw request bytes. Until Paystack begins sending that header, it falls back to the legacy `x-paystack-signature` HMAC using `PAYSTACK_SECRET_KEY`. Once the timestamped header is present, the current signing secret is required.
 - `SUPABASE_SECRET_KEY`: Supabase server secret key used only by server routes.
 
 Never prefix any of these with `NEXT_PUBLIC_`. Never place them in client components, source control, logs, or browser responses.
