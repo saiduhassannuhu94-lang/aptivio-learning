@@ -34,6 +34,14 @@ export async function verifyAndFulfilPayment(
   const transaction = verification.data;
 
   if (transaction.status !== "success") {
+    if (["failed", "abandoned", "reversed"].includes(transaction.status)) {
+      await admin
+        .from("payments")
+        .update({ status: transaction.status })
+        .eq("id", payment.id)
+        .eq("status", "pending");
+    }
+
     return { status: "not_successful" };
   }
 
