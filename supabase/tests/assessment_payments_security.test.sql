@@ -1,5 +1,5 @@
 begin;
-select extensions.plan(28);
+select extensions.plan(30);
 
 select extensions.ok(to_regclass('public.quizzes') is not null, 'quizzes table exists');
 select extensions.ok(to_regclass('public.quiz_questions') is not null, 'quiz questions table exists');
@@ -205,6 +205,48 @@ select extensions.throws_ok(
 select extensions.throws_ok(
   'select public.start_quiz_attempt(''99999999-9999-4999-8999-999999999999'',''55555555-5555-4555-8555-555555555555'',''88888888-8888-4888-8888-888888888888'')',
   'P0001','maximum_attempts_reached','attempt limits are enforced'
+);
+
+
+-- Verify atomic Paystack fulfilment and duplicate delivery behaviour.
+insert into public.courses (id,slug,status,price_minor,currency)
+values ('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb','pgtap-payment-rpc-test','draft',250000,'NGN');
+insert into public.course_versions (id,course_id,version_number,title)
+values ('cccccccc-cccc-4ccc-8ccc-cccccccccccc','bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',1,'Payment RPC Course');
+update public.courses
+set status='published',
+    published_version_id='cccccccc-cccc-4ccc-8ccc-cccccccccccc',
+    published_at=now()
+where id='bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb';
+
+insert into public.payments (
+  id,user_id,course_id,course_version_id,provider,provider_reference,
+  amount_minor,currency,status
+) values (
+  'dddddddd-dddd-4ddd-8ddd-dddddddddddd',
+  '55555555-5555-4555-8555-555555555555',
+  'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
+  'cccccccc-cccc-4ccc-8ccc-cccccccccccc',
+  'paystack','apt_pgtap_payment_test',250000,'NGN','pending'
+);
+
+create temporary table test_payment_enrollment (id uuid);
+insert into test_payment_enrollment
+select public.fulfill_verified_paystack_payment(
+  'apt_pgtap_payment_test',123456,250000,'NGN',now(),'card'
+);
+
+select extensions.ok(
+  (select p.status='success' and e.status='active' and e.payment_id=p.id
+   from public.payments p
+   join public.enrollments e on e.payment_id=p.id
+   where p.id='dddddddd-dddd-4ddd-8ddd-dddddddddddd'),
+  'verified payment and active enrolment are committed together'
+);
+
+select extensions.lives_ok(
+  'select public.fulfill_verified_paystack_payment(''apt_pgtap_payment_test'',123456,250000,''NGN'',now(),''card'')',
+  'duplicate payment fulfilment is safe to retry'
 );
 
 select * from extensions.finish();
