@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: aptivio-ci-${{ github.ref }}
@@ -18,19 +18,35 @@ jobs:
   quality:
     name: Lint, typecheck, test, build
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      # Bootstrap a lockfile in CI until the generated lockfile is committed.
-      - name: Generate dependency lockfile
-        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+      # Bootstrap the missing lockfile once; normal runs use the committed lockfile.
+      - name: Generate dependency lockfile when missing
+        run: |
+          if [ ! -f package-lock.json ]; then
+            npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+          fi
+
+      - name: Commit bootstrapped lockfile on main
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        run: |
+          git add package-lock.json
+          if ! git diff --cached --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "chore: commit npm dependency lockfile"
+            git push
+          fi
 
       - name: Install locked dependencies
         run: npm ci --no-audit --no-fund
@@ -43,6 +59,9 @@ jobs:
 
       - name: Run unit tests
         run: npm run test
+
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
 
       - name: Build production application
         run: npm run build
