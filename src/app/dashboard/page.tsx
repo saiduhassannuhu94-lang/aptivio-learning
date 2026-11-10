@@ -14,13 +14,14 @@ type DashboardPageProps = {
 
 export default async function DashboardPage({ searchParams }: DashboardPageProps) {
   const query = await searchParams;
-  const paymentNotice = {
+  const paymentNotices: Record<string, string> = {
     success: "Payment verified. Your course access is ready.",
     pending: "Your payment is still being confirmed. Do not pay again while verification is pending.",
     "verification-needed": "We could not confirm the payment yet. Your access has not been granted. Contact support with your payment reference.",
     invalid: "The payment return link was invalid. Check your payment history before trying again.",
     "not-found": "We could not find a payment linked to this account.",
-  }[query.payment ?? ""];
+  };
+  const paymentNotice = query.payment ? paymentNotices[query.payment] : undefined;
   const supabase = await createClient();
   const { data: claimsData, error: claimsError } = await supabase.auth.getClaims();
   const subject = claimsData?.claims?.sub;
