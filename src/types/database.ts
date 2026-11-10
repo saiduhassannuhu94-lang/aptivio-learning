@@ -773,6 +773,7 @@ export type Database = {
           id: string
           instructions: string
           is_published: boolean
+          locked_at: string | null
           max_attempts: number | null
           pass_mark: number
           time_limit_seconds: number | null
@@ -786,6 +787,7 @@ export type Database = {
           id?: string
           instructions?: string
           is_published?: boolean
+          locked_at?: string | null
           max_attempts?: number | null
           pass_mark?: number
           time_limit_seconds?: number | null
@@ -799,6 +801,7 @@ export type Database = {
           id?: string
           instructions?: string
           is_published?: boolean
+          locked_at?: string | null
           max_attempts?: number | null
           pass_mark?: number
           time_limit_seconds?: number | null
