@@ -1,5 +1,5 @@
 begin;
-select extensions.plan(30);
+select extensions.plan(32);
 
 select extensions.ok(to_regclass('public.quizzes') is not null, 'quizzes table exists');
 select extensions.ok(to_regclass('public.quiz_questions') is not null, 'quiz questions table exists');
@@ -106,12 +106,35 @@ select extensions.throws_ok(
   'published_quiz_questions_are_immutable',
   'published question content cannot be changed'
 );
+
+-- A second unpublished quiz proves locked content cannot be moved out.
+insert into public.quizzes (id,course_version_id,title,pass_mark,is_published)
+values ('33333334-3333-4333-8333-333333333334','22222222-2222-4222-8222-222222222222','Unlocked Destination Quiz',70,false);
+insert into public.quiz_questions (id,quiz_id,prompt,question_type,options,points,sort_order)
+values ('44444445-4444-4444-8444-444444444445','33333334-3333-4333-8333-333333333334','Destination question?','single_choice','[{"id":"a","text":"A"},{"id":"b","text":"B"}]'::jsonb,1,0);
+insert into public.quiz_answer_keys (question_id,correct_option_ids)
+values ('44444445-4444-4444-8444-444444444445',array['a']);
+
 select extensions.throws_ok(
   'update public.quiz_answer_keys set correct_option_ids = array[''a''] where question_id = ''44444444-4444-4444-8444-444444444444''',
   '55000',
   'published_quiz_answer_keys_are_immutable',
   'published answer keys cannot be changed'
 );
+
+select extensions.throws_ok(
+  'update public.quiz_questions set quiz_id = ''33333334-3333-4333-8333-333333333334'' where id = ''44444444-4444-4444-8444-444444444444''',
+  '55000',
+  'published_quiz_questions_are_immutable',
+  'a locked question cannot be moved into an unlocked quiz'
+);
+select extensions.throws_ok(
+  'update public.quiz_answer_keys set question_id = ''44444445-4444-4444-8444-444444444445'' where question_id = ''44444444-4444-4444-8444-444444444444''',
+  '55000',
+  'published_quiz_answer_keys_are_immutable',
+  'a locked answer key cannot be moved to another question'
+);
+
 select extensions.lives_ok(
   'update public.quizzes set is_published = false where id = ''33333333-3333-4333-8333-333333333333''',
   'a locked quiz can be unpublished without changing its content'
