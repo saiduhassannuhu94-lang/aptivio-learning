@@ -7,7 +7,7 @@ type Payment = Tables<"payments">;
 export type FulfilmentResult =
   | { status: "fulfilled"; enrollmentId: string }
   | { status: "already_fulfilled"; enrollmentId: string | null }
-  | { status: "not_successful" };
+  | { status: "not_successful"; providerStatus: string };
 
 export async function verifyAndFulfilPayment(
   admin: SupabaseClient<Database>,
@@ -42,7 +42,7 @@ export async function verifyAndFulfilPayment(
         .eq("status", "pending");
     }
 
-    return { status: "not_successful" };
+    return { status: "not_successful", providerStatus: transaction.status };
   }
 
   if (!transaction.paid_at || !transaction.channel) {
