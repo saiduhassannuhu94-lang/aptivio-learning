@@ -144,4 +144,3 @@ export async function signOutAction() {
   redirect("/");
 }
 
-export const initialAuthActionState = emptyState;
