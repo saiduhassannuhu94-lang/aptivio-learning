@@ -17,6 +17,12 @@ export default async function DashboardPage() {
     redirect("/sign-in");
   }
 
+  const { data: authUserData, error: authUserError } = await supabase.auth.getUser();
+
+  if (authUserError || !authUserData.user || authUserData.user.id !== subject) {
+    redirect("/sign-in");
+  }
+
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
     .select("display_name")
@@ -30,7 +36,13 @@ export default async function DashboardPage() {
   if (!profile) {
     const { error: createProfileError } = await supabase
       .from("profiles")
-      .insert({ id: subject });
+      .insert({
+        id: subject,
+        display_name:
+          typeof authUserData.user.user_metadata.display_name === "string"
+            ? authUserData.user.user_metadata.display_name.slice(0, 100)
+            : "",
+      });
 
     if (createProfileError && createProfileError.code !== "23505") {
       throw new Error("We could not create your learner profile. Please try again.");
