@@ -34,13 +34,14 @@ Scoring is deterministic and exact-match:
 
 ## API routes
 
+- `GET /api/quizzes/{quizId}/attempts` checks access and returns the current in-progress attempt, if one exists, plus questions without answer keys.
 - `POST /api/quizzes/{quizId}/attempts` starts an attempt and returns questions without answer keys.
 - `POST /api/quizzes/attempts/{attemptId}/submit` validates, grades, and submits answers.
 
 ## Remaining work
 
 - Admin quiz authoring and review interface.
-- Learner quiz-taking interface with timer, autosave, and resume behaviour.
+- Learner quiz-taking interface with timer, answer autosave, and a polished resume experience. The API can find an active attempt, but responses are not autosaved yet.
 - Rich feedback and question explanations.
 - Application-level integration tests with separate learner accounts.
 - Decide whether to support manual grading or additional question types.
