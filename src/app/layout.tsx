@@ -10,7 +10,6 @@ export const metadata: Metadata = {
   description:
     "Build practical skills through structured, accessible online learning with APTIVIO.",
   applicationName: "APTIVIO",
-  metadataBase: new URL("https://aptivio.com"),
   openGraph: {
     type: "website",
     siteName: "APTIVIO",
