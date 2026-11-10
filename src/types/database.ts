@@ -852,6 +852,20 @@ export type Database = {
         }
         Returns: string
       }
+      start_quiz_attempt: {
+        Args: { p_enrollment_id: string; p_quiz_id: string; p_user_id: string }
+        Returns: string
+      }
+      submit_quiz_attempt: {
+        Args: {
+          p_answers: Json
+          p_attempt_id: string
+          p_max_score: number
+          p_score: number
+          p_user_id: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       app_role: "admin" | "content_manager" | "support"
