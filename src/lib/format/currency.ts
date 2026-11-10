@@ -17,8 +17,11 @@ export function formatMoney(
     throw new TypeError("currency must be a three-letter ISO 4217 code");
   }
 
-  return new Intl.NumberFormat(locale, {
+  const formatter = new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
-  }).format(amountMinor / 100);
+  });
+  const fractionDigits = formatter.resolvedOptions().maximumFractionDigits;
+
+  return formatter.format(amountMinor / 10 ** fractionDigits);
 }
