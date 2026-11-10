@@ -1,13 +1,14 @@
 import { createHmac } from "node:crypto";
 import { describe, expect, it } from "vitest";
-import { paystackVerificationSchema, verifyPaystackWebhookSignature } from "./paystack";
+import { paystackVerificationSchema, verifyPaystackLegacyWebhookSignature, verifyPaystackWebhookSignature } from "./paystack";
 
 const secret = "whsec_test_signing_secret";
 const body = '{"event":"charge.success","data":{"reference":"apt_test"}}';
 
 function makeHeader(timestamp: number) {
   const digest = createHmac("sha512", secret)
-    .update(`${timestamp}.${body}`, "utf8")
+    .update(`${timestamp}.`, "utf8")
+    .update(Buffer.from(body, "utf8"))
     .digest("hex");
 
   return `t=${timestamp},v1=whk_test:${digest}`;
@@ -57,5 +58,15 @@ describe("verifyPaystackWebhookSignature", () => {
   it("rejects missing or malformed signatures", () => {
     expect(verifyPaystackWebhookSignature(null, body, secret)).toBe(false);
     expect(verifyPaystackWebhookSignature("t=123,v1=bad", body, secret)).toBe(false);
+    expect(verifyPaystackWebhookSignature("t=1800000000,v1=abcdef", body, secret, 1_800_000_000_000)).toBe(false);
+  });
+
+  it("accepts the legacy raw-body signature while migration is incomplete", () => {
+    const legacy = createHmac("sha512", "sk_test_legacy_secret")
+      .update(Buffer.from(body, "utf8"))
+      .digest("hex");
+
+    expect(verifyPaystackLegacyWebhookSignature(legacy, Buffer.from(body), "sk_test_legacy_secret")).toBe(true);
+    expect(verifyPaystackLegacyWebhookSignature(legacy, `${body} `, "sk_test_legacy_secret")).toBe(false);
   });
 });
