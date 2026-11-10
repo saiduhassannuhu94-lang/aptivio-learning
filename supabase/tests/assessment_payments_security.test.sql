@@ -101,23 +101,23 @@ select extensions.ok(
   'first publication sets an immutable lock timestamp'
 );
 select extensions.throws_ok(
-  $update public.quiz_questions set prompt='Changed prompt' where id='44444444-4444-4444-8444-444444444444'$,
+  'update public.quiz_questions set prompt = ''Changed prompt'' where id = ''44444444-4444-4444-8444-444444444444''',
   '55000',
   'published_quiz_questions_are_immutable',
   'published question content cannot be changed'
 );
 select extensions.throws_ok(
-  $update public.quiz_answer_keys set correct_option_ids=array['a'] where question_id='44444444-4444-4444-8444-444444444444'$,
+  'update public.quiz_answer_keys set correct_option_ids = array[''a''] where question_id = ''44444444-4444-4444-8444-444444444444''',
   '55000',
   'published_quiz_answer_keys_are_immutable',
   'published answer keys cannot be changed'
 );
 select extensions.lives_ok(
-  $update public.quizzes set is_published=false where id='33333333-3333-4333-8333-333333333333'$,
+  'update public.quizzes set is_published = false where id = ''33333333-3333-4333-8333-333333333333''',
   'a locked quiz can be unpublished without changing its content'
 );
 select extensions.throws_ok(
-  $update public.quizzes set title='Changed quiz' where id='33333333-3333-4333-8333-333333333333'$,
+  'update public.quizzes set title = ''Changed quiz'' where id = ''33333333-3333-4333-8333-333333333333''',
   '55000',
   'published_quiz_content_is_immutable',
   'unpublishing does not unlock quiz content'
