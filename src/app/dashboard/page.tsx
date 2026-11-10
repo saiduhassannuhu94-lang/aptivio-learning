@@ -17,6 +17,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
   const paymentNotices: Record<string, string> = {
     success: "Payment verified. Your course access is ready.",
     pending: "Your payment is still being confirmed. Do not pay again while verification is pending.",
+    failed: "The payment provider did not confirm a successful charge. You can return to the course and try again.",
     "verification-needed": "We could not confirm the payment yet. Your access has not been granted. Contact support with your payment reference.",
     invalid: "The payment return link was invalid. Check your payment history before trying again.",
     "not-found": "We could not find a payment linked to this account.",
