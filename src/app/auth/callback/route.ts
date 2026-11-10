@@ -1,4 +1,5 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { redirect } from "next/navigation";
+import type { NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { safeInternalPath } from "@/lib/security/redirect";
 
@@ -8,15 +9,16 @@ export async function GET(request: NextRequest) {
   const nextPath = safeInternalPath(requestUrl.searchParams.get("next"));
 
   if (!code) {
-    return NextResponse.redirect(new URL("/sign-in?error=callback", requestUrl.origin));
+    redirect("/sign-in?error=callback");
   }
 
   const supabase = await createClient();
   const { error } = await supabase.auth.exchangeCodeForSession(code);
 
   if (error) {
-    return NextResponse.redirect(new URL("/sign-in?error=callback", requestUrl.origin));
+    redirect("/sign-in?error=callback");
   }
 
-  return NextResponse.redirect(new URL(nextPath, requestUrl.origin));
+  // Next's redirect helper preserves cookie mutations made by the SSR client.
+  redirect(nextPath);
 }
