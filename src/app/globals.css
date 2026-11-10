@@ -485,3 +485,16 @@ h1, h2, h3, p { margin-top: 0; }
   .course-curriculum-section { padding: 17px; }
   .course-curriculum-section li { flex-direction: column; gap: 4px; }
 }
+
+
+.payment-notice {
+  max-width: 700px;
+  margin: 22px 0 0;
+  padding: 13px 15px;
+  border: 1px solid #c7e2d1;
+  border-radius: 5px;
+  background: #f1faf4;
+  color: #245c3d;
+  font-size: 11px;
+  line-height: 1.7;
+}
