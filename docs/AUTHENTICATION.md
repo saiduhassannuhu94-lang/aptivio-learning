@@ -69,3 +69,16 @@ Do not add an invented production domain. Replace the placeholder only after the
 - Production deployment and live email round-trip verification.
 
 This is an implemented application foundation, not a production security certification.
+
+## Pre-launch acceptance checklist
+
+- [ ] Registration with valid and invalid input.
+- [ ] Confirmation email arrives and its callback establishes a session.
+- [ ] A confirmed user can sign in and sign out.
+- [ ] An unauthenticated visitor cannot render the learner dashboard.
+- [ ] A learner can read only their own profile and enrolments.
+- [ ] Password reset email returns through the allow-listed callback.
+- [ ] Expired or malformed recovery links cannot update a password.
+- [ ] Callback redirects reject external and protocol-relative destinations.
+- [ ] Production callback URLs use HTTPS and the verified canonical domain.
+- [ ] Auth email delivery, CAPTCHA, and abuse controls are tested before launch.
