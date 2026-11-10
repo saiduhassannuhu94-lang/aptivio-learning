@@ -45,6 +45,10 @@ export async function verifyAndFulfilPayment(
     return { status: "not_successful" };
   }
 
+  if (!transaction.paid_at || !transaction.channel) {
+    throw new Error("Paystack marked this transaction successful without complete settlement details.");
+  }
+
   if (
     transaction.reference !== payment.provider_reference ||
     transaction.amount !== payment.amount_minor ||
