@@ -1,0 +1,47 @@
+# APTIVIO Assessment Foundation
+
+**Status:** Initial backend foundation implemented; admin authoring UI and learner assessment UI remain pending.
+
+## Supported question types
+
+- Single choice
+- Multiple choice
+- True/false
+
+Every question has an ordered option list and a separate answer-key row. Answer keys are stored in `quiz_answer_keys`, which has RLS enabled and no browser-role table grants. The learner-facing question query returns prompts and options only.
+
+## Access rules
+
+- A quiz belongs to one immutable course version.
+- Only published quizzes are available to learners.
+- Learners must have an active or completed enrolment for that exact course version.
+- Attempt creation is performed by a server-only RPC. It validates the enrolment, serializes concurrent starts by locking the quiz row, prevents multiple in-progress attempts, and enforces the configured attempt limit.
+- Attempt and answer rows are read-only to browser roles.
+- The server loads answer keys and grades submissions. The browser never submits a score or pass/fail value.
+- The submission RPC locks the attempt, checks its state, verifies answer/question relationships and score totals, stores answers, and records the final grade atomically.
+- Repeated submissions are rejected.
+- Time limits are checked server-side when a learner submits.
+
+## Scoring
+
+Scoring is deterministic and exact-match:
+
+- Single-choice and true/false require the correct single option.
+- Multiple-choice requires the complete correct set. Partial credit is not awarded.
+- Unanswered questions receive zero points.
+- The pass result is calculated from the quiz's stored pass mark.
+
+## API routes
+
+- `POST /api/quizzes/{quizId}/attempts` starts an attempt and returns questions without answer keys.
+- `POST /api/quizzes/attempts/{attemptId}/submit` validates, grades, and submits answers.
+
+## Remaining work
+
+- Admin quiz authoring and review interface.
+- Learner quiz-taking interface with timer, autosave, and resume behaviour.
+- Rich feedback and question explanations.
+- Application-level integration tests with separate learner accounts.
+- Decide whether to support manual grading or additional question types.
+
+No certificate or accreditation is implied by a quiz result.
