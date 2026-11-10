@@ -34,20 +34,26 @@ export async function POST(request: Request) {
   const reference =
     typeof payload.data?.reference === "string" ? payload.data.reference : "";
 
-  if (!eventType || !reference || reference.length > 100) {
+  if (!eventType || reference.length > 100) {
     return NextResponse.json({ error: "Invalid webhook event." }, { status: 400 });
   }
 
+  if (eventType === "charge.success" && !reference) {
+    return NextResponse.json({ error: "Successful charge event has no reference." }, { status: 400 });
+  }
+
   const admin = createAdminClient();
-  const eventKey = `${eventType}:${reference}`;
+  const payloadHash = sha256Hex(rawBody);
+  const eventKey = `${eventType}:${reference || payloadHash}`;
+
   const { error: insertError } = await admin
     .from("payment_webhook_events")
     .insert({
       provider: "paystack",
       event_key: eventKey,
       event_type: eventType,
-      provider_reference: reference,
-      payload_sha256: sha256Hex(rawBody),
+      provider_reference: reference || null,
+      payload_sha256: payloadHash,
       processing_status: "received",
     });
 
