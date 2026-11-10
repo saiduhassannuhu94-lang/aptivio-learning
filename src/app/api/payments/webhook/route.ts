@@ -101,7 +101,23 @@ export async function POST(request: Request) {
   }
 
   try {
-    await verifyAndFulfilPayment(admin, payment);
+    const result = await verifyAndFulfilPayment(admin, payment);
+
+    if (result.status === "not_successful") {
+      if (["failed", "abandoned", "reversed"].includes(result.providerStatus)) {
+        await admin
+          .from("payment_webhook_events")
+          .update({
+            processing_status: "failed",
+            failure_code: `provider_${result.providerStatus}`,
+          })
+          .eq("id", existingEvent.id);
+
+        return NextResponse.json({ received: true, processed: false });
+      }
+
+      throw new Error("Paystack has not settled this transaction yet.");
+    }
 
     await admin
       .from("payment_webhook_events")
