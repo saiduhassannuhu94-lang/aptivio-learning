@@ -17,7 +17,7 @@ The test suite lives in `supabase/tests/`. Keep tests transaction-scoped and rol
 
 The assessment/payment security suite was executed against the linked Supabase project using pgTAP:
 
-- 30 assertions passed. Coverage includes RLS and client grants, quiz publication immutability, attempt start/submission/retake limits, and atomic Paystack payment fulfilment with safe duplicate retries.
+- 32 assertions passed. Coverage includes RLS and client grants, quiz publication immutability (including attempts to move locked questions/keys), attempt start/submission/retake limits, and atomic Paystack payment fulfilment with safe duplicate retries.
 - Seven assessment/payment tables exist.
 - RLS is enabled on all seven.
 - Browser roles cannot read quiz answer keys or webhook events.
