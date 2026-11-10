@@ -1,6 +1,6 @@
 # APTIVIO Paystack Payments
 
-**Status:** Server-side checkout and verification foundation implemented. Live transactions remain disabled until production secrets, callback URLs, and webhook settings are configured and tested.
+**Status:** Server-side checkout, course-detail purchase entry point, callback verification, and webhook fulfilment implemented. Live transactions remain disabled until production secrets, callback URLs, and webhook settings are configured and tested.
 
 ## Payment lifecycle
 
