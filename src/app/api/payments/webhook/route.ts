@@ -13,13 +13,18 @@ type PaystackWebhookPayload = {
 export async function POST(request: Request) {
   const rawBodyBytes = Buffer.from(await request.arrayBuffer());
   const rawBody = rawBodyBytes.toString("utf8");
-  const signingSecret = process.env.PAYSTACK_WEBHOOK_SECRET;
+  const signingSecrets = [
+    process.env.PAYSTACK_WEBHOOK_SECRET,
+    process.env.PAYSTACK_WEBHOOK_SECRET_PREVIOUS,
+  ].filter((secret): secret is string => Boolean(secret));
   const currentSignature = request.headers.get("paystack-signature");
   const legacySignature = request.headers.get("x-paystack-signature");
   const legacySecret = process.env.PAYSTACK_SECRET_KEY;
 
   const signatureIsValid = currentSignature
-    ? Boolean(signingSecret && verifyPaystackWebhookSignature(currentSignature, rawBodyBytes, signingSecret))
+    ? signingSecrets.some((secret) =>
+        verifyPaystackWebhookSignature(currentSignature, rawBodyBytes, secret),
+      )
     : Boolean(legacySecret && verifyPaystackLegacyWebhookSignature(legacySignature, rawBodyBytes, legacySecret));
 
   if (!signatureIsValid) {
