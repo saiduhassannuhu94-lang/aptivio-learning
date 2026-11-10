@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { verifyAndFulfilPayment } from "@/lib/payments/fulfill";
-import { sha256Hex, verifyPaystackWebhookSignature } from "@/lib/payments/paystack";
+import { sha256Hex, verifyPaystackLegacyWebhookSignature, verifyPaystackWebhookSignature } from "@/lib/payments/paystack";
 
 export const runtime = "nodejs";
 
@@ -11,14 +11,18 @@ type PaystackWebhookPayload = {
 };
 
 export async function POST(request: Request) {
-  const rawBody = await request.text();
+  const rawBodyBytes = Buffer.from(await request.arrayBuffer());
+  const rawBody = rawBodyBytes.toString("utf8");
   const signingSecret = process.env.PAYSTACK_WEBHOOK_SECRET;
-  const signature = request.headers.get("paystack-signature");
+  const currentSignature = request.headers.get("paystack-signature");
+  const legacySignature = request.headers.get("x-paystack-signature");
+  const legacySecret = process.env.PAYSTACK_SECRET_KEY;
 
-  if (
-    !signingSecret ||
-    !verifyPaystackWebhookSignature(signature, rawBody, signingSecret)
-  ) {
+  const signatureIsValid = currentSignature
+    ? Boolean(signingSecret && verifyPaystackWebhookSignature(currentSignature, rawBodyBytes, signingSecret))
+    : Boolean(legacySecret && verifyPaystackLegacyWebhookSignature(legacySignature, rawBodyBytes, legacySecret));
+
+  if (!signatureIsValid) {
     return NextResponse.json({ error: "Invalid webhook signature." }, { status: 401 });
   }
 
@@ -43,7 +47,7 @@ export async function POST(request: Request) {
   }
 
   const admin = createAdminClient();
-  const payloadHash = sha256Hex(rawBody);
+  const payloadHash = sha256Hex(rawBodyBytes);
   const eventKey = `${eventType}:${reference || payloadHash}`;
 
   const { error: insertError } = await admin
