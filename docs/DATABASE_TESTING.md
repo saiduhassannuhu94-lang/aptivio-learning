@@ -17,7 +17,7 @@ The test suite lives in `supabase/tests/`. Keep tests transaction-scoped and rol
 
 The assessment/payment security suite was executed against the linked Supabase project using pgTAP:
 
-- 18 assertions passed.
+- 23 assertions passed, including five checks proving published quiz content and answer keys cannot be changed.
 - Seven assessment/payment tables exist.
 - RLS is enabled on all seven.
 - Browser roles cannot read quiz answer keys or webhook events.
