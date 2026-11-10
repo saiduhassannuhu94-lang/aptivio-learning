@@ -8,7 +8,19 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
-export default async function DashboardPage() {
+type DashboardPageProps = {
+  searchParams: Promise<{ payment?: string }>;
+};
+
+export default async function DashboardPage({ searchParams }: DashboardPageProps) {
+  const query = await searchParams;
+  const paymentNotice = {
+    success: "Payment verified. Your course access is ready.",
+    pending: "Your payment is still being confirmed. Do not pay again while verification is pending.",
+    "verification-needed": "We could not confirm the payment yet. Your access has not been granted. Contact support with your payment reference.",
+    invalid: "The payment return link was invalid. Check your payment history before trying again.",
+    "not-found": "We could not find a payment linked to this account.",
+  }[query.payment ?? ""];
   const supabase = await createClient();
   const { data: claimsData, error: claimsError } = await supabase.auth.getClaims();
   const subject = claimsData?.claims?.sub;
@@ -64,6 +76,7 @@ export default async function DashboardPage() {
       <section className="dashboard-content">
         <span className="eyebrow">YOUR LEARNING SPACE</span>
         <h1>Welcome to your next chapter.</h1>
+        {paymentNotice && <p className="payment-notice" role="status">{paymentNotice}</p>}
         <p className="dashboard-intro">
           Your account is ready. Your learning dashboard will grow here as you enrol in courses and make progress.
         </p>
