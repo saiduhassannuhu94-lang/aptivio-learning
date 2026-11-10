@@ -58,7 +58,7 @@ The initial baseline still needs to be reconciled into a clean, replayable migra
 
 ## Verification
 
-- The committed pgTAP assessment/payment security suite has 30 assertions and has been executed against the linked Supabase project.
+- The committed pgTAP assessment/payment security suite has 32 assertions and has been executed against the linked Supabase project.
 - The suite verifies table existence, RLS, client grants, server-only RPC permissions, quiz publication immutability, attempt start/submission/attempt limits, and atomic payment fulfilment/idempotency.
 - Security and health advisors must be re-run after schema changes.
 - The performance advisor may report unused indexes while the project has no real workload; retain justified foreign-key and policy indexes until query telemetry supports a change.
