@@ -99,7 +99,7 @@ export async function verifyPaystackTransaction(reference: string): Promise<Pays
  */
 export function verifyPaystackWebhookSignature(
   header: string | null,
-  rawBody: string,
+  rawBody: string | Buffer,
   signingSecret: string,
   nowMs = Date.now(),
 ): boolean {
@@ -120,15 +120,17 @@ export function verifyPaystackWebhookSignature(
     .filter((part) => part.startsWith("v1="))
     .map((part) => part.slice(3))
     .map((value) => {
-      const separator = value.indexOf(":");
-      return separator >= 0 ? value.slice(separator + 1) : value;
+      const match = /^whk_[^:]+:([a-f0-9]{128})$/i.exec(value);
+      return match?.[1] ?? null;
     })
-    .filter((value) => /^[a-f0-9]{128}$/i.test(value));
+    .filter((value): value is string => value !== null);
 
   if (signatures.length === 0) return false;
 
+  const bodyBytes = typeof rawBody === "string" ? Buffer.from(rawBody, "utf8") : rawBody;
   const expected = createHmac("sha512", signingSecret)
-    .update(`${timestamp}.${rawBody}`, "utf8")
+    .update(`${timestamp}.`, "utf8")
+    .update(bodyBytes)
     .digest();
 
   return signatures.some((signature) => {
@@ -137,6 +139,20 @@ export function verifyPaystackWebhookSignature(
   });
 }
 
-export function sha256Hex(value: string) {
-  return createHash("sha256").update(value, "utf8").digest("hex");
+export function verifyPaystackLegacyWebhookSignature(
+  header: string | null,
+  rawBody: string | Buffer,
+  secretKey: string,
+): boolean {
+  if (!header || !/^[a-f0-9]{128}$/i.test(header) || !secretKey) return false;
+
+  const bodyBytes = typeof rawBody === "string" ? Buffer.from(rawBody, "utf8") : rawBody;
+  const expected = createHmac("sha512", secretKey).update(bodyBytes).digest();
+  const supplied = Buffer.from(header, "hex");
+
+  return supplied.length === expected.length && timingSafeEqual(supplied, expected);
+}
+
+export function sha256Hex(value: string | Buffer) {
+  return createHash("sha256").update(value).digest("hex");
 }
