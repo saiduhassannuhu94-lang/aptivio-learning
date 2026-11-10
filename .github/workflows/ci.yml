@@ -32,9 +32,10 @@ jobs:
 
       # Bootstrap the missing lockfile once; normal runs use the committed lockfile.
       - name: Generate dependency lockfile when missing
+        timeout-minutes: 5
         run: |
           if [ ! -f package-lock.json ]; then
-            npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+            npm install --package-lock-only --ignore-scripts --no-audit --no-fund --fetch-retries=1 --fetch-timeout=60000 --loglevel=verbose
           fi
 
       - name: Commit bootstrapped lockfile on main
