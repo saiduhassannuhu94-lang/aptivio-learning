@@ -43,7 +43,7 @@ export async function GET(request: Request) {
 
   try {
     const result = await verifyAndFulfilPayment(admin, payment);
-    return dashboardRedirect(result.status === "not_successful" ? "pending" : "success");
+    return dashboardRedirect(result.status === "not_successful" ? (["failed", "abandoned", "reversed"].includes(result.providerStatus) ? "failed" : "pending") : "success");
   } catch {
     return dashboardRedirect("verification-needed");
   }
