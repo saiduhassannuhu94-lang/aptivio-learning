@@ -45,10 +45,13 @@ export async function POST(_request: Request, context: RouteContext) {
     return NextResponse.json({ error: "You need access to this course before taking its assessment." }, { status: 403 });
   }
 
+  // Load the safe question payload before creating an attempt, so a transient
+  // question-read failure cannot strand the learner with an empty attempt.
   const { data: questions, error: questionsError } = await admin
     .from("quiz_questions")
-    .select("id")
-    .eq("quiz_id", quiz.id);
+    .select("id, prompt, question_type, options, points, sort_order")
+    .eq("quiz_id", quiz.id)
+    .order("sort_order", { ascending: true });
 
   if (questionsError || !questions?.length) {
     return NextResponse.json({ error: "This assessment is not ready yet." }, { status: 409 });
@@ -70,20 +73,14 @@ export async function POST(_request: Request, context: RouteContext) {
     return NextResponse.json({ error: message }, { status: 409 });
   }
 
-  const { data: attempt } = await admin
+  const { data: attempt, error: attemptReadError } = await admin
     .from("quiz_attempts")
     .select("id, attempt_number, started_at")
     .eq("id", attemptId)
     .single();
 
-  const { data: safeQuestions, error: safeQuestionsError } = await admin
-    .from("quiz_questions")
-    .select("id, prompt, question_type, options, points, sort_order")
-    .eq("quiz_id", quiz.id)
-    .order("sort_order", { ascending: true });
-
-  if (safeQuestionsError || !safeQuestions || !attempt) {
-    return NextResponse.json({ error: "The assessment could not be loaded." }, { status: 500 });
+  if (attemptReadError || !attempt) {
+    return NextResponse.json({ error: "The assessment attempt could not be loaded." }, { status: 500 });
   }
 
   return NextResponse.json({
@@ -95,6 +92,6 @@ export async function POST(_request: Request, context: RouteContext) {
       passMark: quiz.pass_mark,
       timeLimitSeconds: quiz.time_limit_seconds,
     },
-    questions: safeQuestions,
+    questions,
   });
 }
