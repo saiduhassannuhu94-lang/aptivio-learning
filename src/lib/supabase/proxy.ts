@@ -4,6 +4,14 @@ import type { Database } from "@/types/database";
 import { getSupabasePublicEnvironment } from "./env";
 
 export async function updateSession(request: NextRequest) {
+  const hasSupabaseConfiguration =
+    Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
+    Boolean(process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY);
+
+  if (!hasSupabaseConfiguration && process.env.NODE_ENV !== "production") {
+    return NextResponse.next({ request });
+  }
+
   const environment = getSupabasePublicEnvironment();
 
   let response = NextResponse.next({ request });
