@@ -100,7 +100,7 @@ export default async function CoursesPage() {
                   <p>{version.description}</p>
                   <div className="catalogue-card-foot">
                     <strong>{course.price_minor === 0 ? "Free" : formatMoney(course.price_minor, course.currency)}</strong>
-                    <span>Course details coming next</span>
+                    <Link className="text-link" href={`/courses/${course.slug}`}>View course <span aria-hidden="true">↗</span></Link>
                   </div>
                 </article>
               );
