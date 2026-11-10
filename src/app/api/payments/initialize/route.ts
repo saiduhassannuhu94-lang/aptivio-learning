@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getSiteUrl } from "@/lib/supabase/env";
 import { initializePaystackTransaction } from "@/lib/payments/paystack";
+import { verifyAndFulfilPayment } from "@/lib/payments/fulfill";
 
 export const runtime = "nodejs";
 
@@ -56,25 +57,41 @@ export async function POST(request: Request) {
 
   const { data: pendingPayment } = await admin
     .from("payments")
-    .select("id, expires_at")
+    .select("*")
     .eq("user_id", authData.user.id)
     .eq("course_id", course.id)
     .eq("status", "pending")
     .maybeSingle();
 
   if (pendingPayment) {
-    if (new Date(pendingPayment.expires_at).getTime() > Date.now()) {
+    try {
+      const reconciliation = await verifyAndFulfilPayment(admin, pendingPayment);
+
+      if (reconciliation.status !== "not_successful") {
+        return NextResponse.json(
+          { error: "A previous payment has been confirmed. Your course access is being updated." },
+          { status: 409 },
+        );
+      }
+
+      const { data: refreshedPayment } = await admin
+        .from("payments")
+        .select("status")
+        .eq("id", pendingPayment.id)
+        .single();
+
+      if (refreshedPayment?.status === "pending") {
+        return NextResponse.json(
+          { error: "Your previous payment is still being confirmed. Please do not pay twice." },
+          { status: 409 },
+        );
+      }
+    } catch {
       return NextResponse.json(
-        { error: "A checkout is already in progress for this course. Complete it or wait for it to expire." },
-        { status: 409 },
+        { error: "We could not safely reconcile your previous payment. Please retry later; do not start another payment." },
+        { status: 503 },
       );
     }
-
-    await admin
-      .from("payments")
-      .update({ status: "expired" })
-      .eq("id", pendingPayment.id)
-      .eq("status", "pending");
   }
 
   const reference = `apt_${randomUUID().replaceAll("-", "")}`;
@@ -111,14 +128,10 @@ export async function POST(request: Request) {
       reference: checkout.reference,
     });
   } catch {
-    await admin
-      .from("payments")
-      .update({ status: "failed" })
-      .eq("id", payment.id)
-      .eq("status", "pending");
-
+    // Keep the payment pending: a network failure can happen after Paystack
+    // accepted the request. Reconcile with Paystack before allowing another charge.
     return NextResponse.json(
-      { error: "The payment provider could not start checkout. No course access has been granted." },
+      { error: "The payment provider did not confirm checkout initialization. Check payment status before trying again." },
       { status: 502 },
     );
   }
