@@ -1,5 +1,5 @@
 begin;
-select extensions.plan(23);
+select extensions.plan(28);
 
 select extensions.ok(to_regclass('public.quizzes') is not null, 'quizzes table exists');
 select extensions.ok(to_regclass('public.quiz_questions') is not null, 'quiz questions table exists');
@@ -121,6 +121,90 @@ select extensions.throws_ok(
   '55000',
   'published_quiz_content_is_immutable',
   'unpublishing does not unlock quiz content'
+);
+
+
+-- Exercise the atomic quiz attempt RPCs with isolated transactional fixtures.
+insert into auth.users (
+  id,aud,role,email,encrypted_password,email_confirmed_at,
+  raw_app_meta_data,raw_user_meta_data,created_at,updated_at
+) values (
+  '55555555-5555-4555-8555-555555555555','authenticated','authenticated',
+  'aptivio-pgtap-quiz@example.test','',now(),'{}'::jsonb,'{}'::jsonb,now(),now()
+);
+
+insert into public.courses (id,slug,status,price_minor,currency)
+values ('66666666-6666-4666-8666-666666666666','pgtap-quiz-rpc-test','draft',0,'NGN');
+insert into public.course_versions (id,course_id,version_number,title)
+values ('77777777-7777-4777-8777-777777777777','66666666-6666-4666-8666-666666666666',1,'RPC Test Course');
+update public.courses
+set status='published',
+    published_version_id='77777777-7777-4777-8777-777777777777',
+    published_at=now()
+where id='66666666-6666-4666-8666-666666666666';
+
+insert into public.enrollments (
+  id,user_id,course_id,course_version_id,status,amount_minor,currency
+) values (
+  '88888888-8888-4888-8888-888888888888',
+  '55555555-5555-4555-8555-555555555555',
+  '66666666-6666-4666-8666-666666666666',
+  '77777777-7777-4777-8777-777777777777',
+  'active',0,'NGN'
+);
+
+insert into public.quizzes (id,course_version_id,title,pass_mark,max_attempts,is_published)
+values (
+  '99999999-9999-4999-8999-999999999999',
+  '77777777-7777-4777-8777-777777777777',
+  'RPC Quiz',70,1,false
+);
+insert into public.quiz_questions (id,quiz_id,prompt,question_type,options,points,sort_order)
+values (
+  'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
+  '99999999-9999-4999-8999-999999999999',
+  'Correct option?','single_choice',
+  '[{"id":"x","text":"Wrong"},{"id":"y","text":"Right"}]'::jsonb,
+  1,0
+);
+insert into public.quiz_answer_keys (question_id,correct_option_ids)
+values ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',array['y']);
+update public.quizzes set is_published=true
+where id='99999999-9999-4999-8999-999999999999';
+
+create temporary table test_attempt (id uuid);
+insert into test_attempt
+select public.start_quiz_attempt(
+  '99999999-9999-4999-8999-999999999999',
+  '55555555-5555-4555-8555-555555555555',
+  '88888888-8888-4888-8888-888888888888'
+);
+
+select extensions.ok(
+  (select count(*)=1 from public.quiz_attempts
+   where id=(select id from test_attempt) and status='in_progress'),
+  'start RPC creates an in-progress attempt'
+);
+
+select extensions.lives_ok(
+  'select public.submit_quiz_attempt((select id from test_attempt),''55555555-5555-4555-8555-555555555555'',1,1,''[{"question_id":"aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa","response":{"optionIds":["y"]},"awarded_points":1}]''::jsonb)',
+  'submit RPC accepts valid server-graded answers'
+);
+
+select extensions.ok(
+  (select status='graded' and score=1 and passed
+   from public.quiz_attempts where id=(select id from test_attempt)),
+  'submitted attempt stores score and pass result'
+);
+
+select extensions.throws_ok(
+  'select public.submit_quiz_attempt((select id from test_attempt),''55555555-5555-4555-8555-555555555555'',1,1,''[{"question_id":"aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa","response":{"optionIds":["y"]},"awarded_points":1}]''::jsonb)',
+  'P0001','attempt_already_submitted','duplicate submissions are rejected'
+);
+
+select extensions.throws_ok(
+  'select public.start_quiz_attempt(''99999999-9999-4999-8999-999999999999'',''55555555-5555-4555-8555-555555555555'',''88888888-8888-4888-8888-888888888888'')',
+  'P0001','maximum_attempts_reached','attempt limits are enforced'
 );
 
 select * from extensions.finish();
