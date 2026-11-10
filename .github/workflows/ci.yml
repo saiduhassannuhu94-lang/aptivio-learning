@@ -19,7 +19,7 @@ jobs:
     name: Bootstrap committed lockfile
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 10
     permissions:
       contents: write
     steps:
@@ -34,10 +34,10 @@ jobs:
           node-version: 22
 
       - name: Generate dependency lockfile when missing
-        timeout-minutes: 15
+        timeout-minutes: 5
         run: |
           if [ ! -f package-lock.json ]; then
-            npm install --package-lock-only --ignore-scripts --no-audit --no-fund --fetch-retries=1 --fetch-timeout=60000 --loglevel=verbose
+            npm install --package-lock-only --ignore-scripts --no-audit --no-fund --legacy-peer-deps --fetch-retries=1 --fetch-timeout=60000 --loglevel=notice
           fi
 
       - name: Commit bootstrapped lockfile
@@ -73,7 +73,7 @@ jobs:
         run: test -f package-lock.json
 
       - name: Install locked dependencies
-        run: npm ci --no-audit --no-fund
+        run: npm ci --legacy-peer-deps --no-audit --no-fund
 
       - name: Run ESLint
         run: npm run lint
