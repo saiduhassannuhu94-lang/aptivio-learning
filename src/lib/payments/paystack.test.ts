@@ -1,6 +1,6 @@
 import { createHmac } from "node:crypto";
 import { describe, expect, it } from "vitest";
-import { verifyPaystackWebhookSignature } from "./paystack";
+import { paystackVerificationSchema, verifyPaystackWebhookSignature } from "./paystack";
 
 const secret = "whsec_test_signing_secret";
 const body = '{"event":"charge.success","data":{"reference":"apt_test"}}';
@@ -12,6 +12,27 @@ function makeHeader(timestamp: number) {
 
   return `t=${timestamp},v1=whk_test:${digest}`;
 }
+
+describe("Paystack verification response parsing", () => {
+  it("accepts pending transactions with no settlement timestamp or channel", () => {
+    const parsed = paystackVerificationSchema.safeParse({
+      status: true,
+      message: "Verification successful",
+      data: {
+        id: 123,
+        status: "pending",
+        reference: "apt_pending",
+        amount: 250000,
+        currency: "NGN",
+        paid_at: null,
+        channel: null,
+        customer: { email: "learner@example.com" },
+      },
+    });
+
+    expect(parsed.success).toBe(true);
+  });
+});
 
 describe("verifyPaystackWebhookSignature", () => {
   it("accepts a valid timestamped signature", () => {
