@@ -145,7 +145,7 @@ export function AuthForm({ mode, action, initialState }: AuthFormProps) {
       )}
 
       <p className="auth-legal">
-        By continuing, you agree to use APTIVIO responsibly and in accordance with our terms and privacy policy.
+        Keep your password private. APTIVIO will never ask you to send it by email or message.
       </p>
     </section>
   );
