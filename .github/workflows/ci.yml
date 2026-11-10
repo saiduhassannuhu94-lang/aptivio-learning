@@ -8,17 +8,20 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: aptivio-ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  quality:
-    name: Lint, typecheck, test, build
+  lockfile:
+    name: Bootstrap committed lockfile
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 10
+    permissions:
+      contents: write
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -30,7 +33,6 @@ jobs:
         with:
           node-version: 22
 
-      # Bootstrap the missing lockfile once; normal runs use the committed lockfile.
       - name: Generate dependency lockfile when missing
         timeout-minutes: 5
         run: |
@@ -38,8 +40,7 @@ jobs:
             npm install --package-lock-only --ignore-scripts --no-audit --no-fund --fetch-retries=1 --fetch-timeout=60000 --loglevel=verbose
           fi
 
-      - name: Commit bootstrapped lockfile on main
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      - name: Commit bootstrapped lockfile
         run: |
           git add package-lock.json
           if ! git diff --cached --quiet; then
@@ -48,6 +49,28 @@ jobs:
             git commit -m "chore: commit npm dependency lockfile"
             git push
           fi
+
+  quality:
+    name: Lint, typecheck, test, audit, build
+    needs: lockfile
+    if: ${{ always() && (needs.lockfile.result == 'success' || needs.lockfile.result == 'skipped') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && 'main' || github.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify committed dependency lockfile
+        run: test -f package-lock.json
 
       - name: Install locked dependencies
         run: npm ci --no-audit --no-fund
