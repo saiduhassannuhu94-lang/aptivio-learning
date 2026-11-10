@@ -1,6 +1,6 @@
 # APTIVIO Assessment Foundation
 
-**Status:** Initial backend foundation implemented; admin authoring UI and learner assessment UI remain pending.
+**Status:** Backend foundation and server APIs implemented; admin authoring UI and learner assessment player remain pending.
 
 ## Supported question types
 
