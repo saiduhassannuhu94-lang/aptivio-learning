@@ -68,7 +68,7 @@ export async function POST(request: Request, context: RouteContext) {
 
   if (
     quiz.time_limit_seconds !== null &&
-    Date.now() - new Date(attempt.started_at).getTime() > quiz.time_limit_seconds * 1000
+    Date.now() - new Date(attempt.started_at).getTime() >= quiz.time_limit_seconds * 1000
   ) {
     await admin
       .from("quiz_attempts")
