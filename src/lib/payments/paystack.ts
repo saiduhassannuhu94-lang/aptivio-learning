@@ -20,8 +20,8 @@ export const paystackVerificationSchema = z.object({
     reference: z.string(),
     amount: z.number().int().nonnegative(),
     currency: z.string().length(3),
-    paid_at: z.string().datetime({ offset: true }),
-    channel: z.string().min(1),
+    paid_at: z.string().datetime({ offset: true }).nullable(),
+    channel: z.string().min(1).nullable(),
     customer: z.object({ email: z.string().email() }),
   }),
 });
