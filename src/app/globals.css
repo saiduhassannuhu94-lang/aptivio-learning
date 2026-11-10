@@ -335,3 +335,57 @@ h1, h2, h3, p { margin-top: 0; }
   .dashboard-content { padding-top: 54px; }
 }
 
+/* Public course catalogue */
+.catalogue-page { min-height: 100svh; background: var(--paper); }
+.catalogue-content { width: min(100% - 40px, 1040px); margin: 0 auto; padding-block: 78px 100px; }
+.catalogue-content > h1 {
+  max-width: 700px;
+  margin: 19px 0 13px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(43px, 7vw, 68px);
+  line-height: .98;
+  font-weight: 500;
+  letter-spacing: -.05em;
+}
+.catalogue-content > p { max-width: 560px; color: var(--muted); font-size: 13px; line-height: 1.85; }
+.catalogue-empty {
+  display: grid;
+  justify-items: start;
+  margin-top: 48px;
+  padding: clamp(25px, 5vw, 42px);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: white;
+}
+.catalogue-empty h2 {
+  margin: 22px 0 8px;
+  font-family: Georgia, serif;
+  font-size: clamp(25px, 4vw, 34px);
+  font-weight: 500;
+  letter-spacing: -.035em;
+}
+.catalogue-empty > p { max-width: 560px; color: var(--muted); font-size: 12px; line-height: 1.85; }
+.catalogue-empty .text-link { margin-top: 12px; }
+.catalogue-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 17px; margin-top: 48px; }
+.catalogue-card {
+  display: flex;
+  min-height: 260px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+}
+.catalogue-kicker { color: var(--green); font-size: 8px; font-weight: 800; letter-spacing: .15em; }
+.catalogue-card h2 { margin: 18px 0 8px; font-family: Georgia, serif; font-size: 27px; font-weight: 500; letter-spacing: -.035em; }
+.catalogue-card p { color: var(--muted); font-size: 11px; line-height: 1.8; }
+.catalogue-card .catalogue-subtitle { margin-bottom: 8px; color: var(--ink-soft); font-weight: 700; }
+.catalogue-card-foot { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: auto; padding-top: 18px; border-top: 1px solid var(--line); }
+.catalogue-card-foot strong { color: var(--green); font-size: 13px; }
+.catalogue-card-foot span { color: #929d98; font-size: 9px; }
+@media (max-width: 620px) {
+  .catalogue-content { padding-top: 56px; }
+  .catalogue-grid { grid-template-columns: 1fr; }
+}
+
