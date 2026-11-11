@@ -21,11 +21,11 @@
 | 13 | Modern JavaScript for Browser Applications | — | Draft authored; structurally audited; not academically reviewed; not published |
 | 14 | TypeScript for Reliable Frontend Code | — | Draft authored; structurally audited; not academically reviewed; not published |
 | 15 | React: Components, State and Effects | — | Draft authored; structurally audited; not academically reviewed; not published |
-| 16 | Next.js App Router and Full-Stack Patterns | — | Not started |
-| 17 | Node.js and Express API Development | — | Not started |
-| 18 | REST API Design and Documentation | — | Not started |
-| 19 | Web Performance and Core Web Vitals | — | Not started |
-| 20 | Progressive Web Apps and Offline-First Design | — | Not started |
+| 16 | Next.js App Router and Full-Stack Patterns | — | Draft authored; structurally audited; not academically reviewed; not published |
+| 17 | Node.js and Express API Development | — | Draft authored; structurally audited; not academically reviewed; not published |
+| 18 | REST API Design and Documentation | — | Draft authored; structurally audited; not academically reviewed; not published |
+| 19 | Web Performance and Core Web Vitals | — | Draft authored; structurally audited; not academically reviewed; not published |
+| 20 | Progressive Web Apps and Offline-First Design | — | Draft authored; structurally audited; not academically reviewed; not published |
 
 ## Status definitions
 
