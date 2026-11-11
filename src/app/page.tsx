@@ -3,146 +3,176 @@ import Link from "next/link";
 const learningPaths = [
   {
     number: "01",
-    title: "Technology",
-    description: "Develop practical digital skills, from programming fundamentals to modern tools.",
-    tag: "Build useful skills",
+    title: "Technology & computing",
+    description: "Build a strong foundation in programming, web development, databases, and modern digital tools.",
+    tag: "Build practical systems",
+    icon: "⌘",
   },
   {
     number: "02",
-    title: "Business",
-    description: "Understand the principles behind better decisions, stronger teams, and sustainable work.",
-    tag: "Think strategically",
+    title: "Business & innovation",
+    description: "Learn to analyse problems, make informed decisions, and turn useful ideas into sustainable work.",
+    tag: "Think with clarity",
+    icon: "↗",
   },
   {
     number: "03",
-    title: "Personal growth",
-    description: "Build the habits, communication, and problem-solving skills that compound over time.",
-    tag: "Keep improving",
+    title: "Personal development",
+    description: "Strengthen communication, critical thinking, and the habits that support lifelong learning.",
+    tag: "Grow with intention",
+    icon: "◎",
   },
 ];
 
 const principles = [
-  ["Learn with direction", "Clear outcomes and structured lessons, not endless videos with no destination."],
-  ["Practice what matters", "Exercises and knowledge checks that help turn information into ability."],
-  ["See your progress", "A focused learning space that makes your next step easy to understand."],
+  ["A clear learning path", "Know what you are learning, why it matters, and what comes next."],
+  ["Practice that proves progress", "Use exercises and knowledge checks to turn concepts into real capability."],
+  ["Progress you can understand", "A focused learner workspace built around your actual course activity."],
 ];
+
+function BrandMark() {
+  return <span className="brand-mark" aria-hidden="true">A</span>;
+}
 
 export default function HomePage() {
   return (
-    <main>
-      <header className="site-header">
+    <main className="engineering-home">
+      <header className="site-header engineering-header">
         <Link className="brand" href="/" aria-label="APTIVIO home">
-          <span className="brand-mark">A</span>
+          <BrandMark />
           <span>APTIVIO</span>
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
-          <Link href="#learning">Explore learning</Link>
-          <Link href="#approach">Our approach</Link>
+          <Link href="#learning">Learning paths</Link>
+          <Link href="#approach">How it works</Link>
+          <Link href="/courses">Course catalogue</Link>
         </nav>
         <div className="header-actions">
           <Link className="sign-in" href="/sign-in">Sign in</Link>
-          <Link className="button button-small button-dark" href="/sign-up">Get started <span aria-hidden="true">↗</span></Link>
+          <Link className="button button-small button-dark engineering-header-cta" href="/sign-up">
+            Create account <span aria-hidden="true">↗</span>
+          </Link>
         </div>
       </header>
 
-      <section className="hero section-shell">
-        <div className="hero-copy">
-          <div className="eyebrow"><span className="eyebrow-dot" /> A clearer way to grow</div>
-          <h1>Turn what you want to know into <em>what you can do.</em></h1>
-          <p className="hero-description">
-            Learn practical skills through structured courses built around real outcomes.
-            Move at your pace, practise with purpose, and keep making progress.
+      <section className="engineering-hero section-shell">
+        <div className="engineering-hero-copy">
+          <div className="engineering-eyebrow"><span className="eyebrow-dot" /> THE LEARNING SYSTEM FOR WHAT COMES NEXT</div>
+          <h1>Build skills.<br /><em>Build what matters.</em></h1>
+          <p className="engineering-hero-description">
+            APTIVIO turns learning into a clear, practical process. Follow structured courses,
+            practise the concepts, and develop skills you can carry into real projects.
           </p>
-          <div className="hero-actions">
-            <Link className="button button-primary" href="/courses">Explore courses <span aria-hidden="true">↗</span></Link>
-            <Link className="text-link" href="#approach">How learning works <span aria-hidden="true">↓</span></Link>
+          <div className="engineering-hero-actions">
+            <Link className="button button-primary" href="/courses">Explore learning paths <span aria-hidden="true">↗</span></Link>
+            <Link className="engineering-secondary-link" href="/sign-up">Start learning <span aria-hidden="true">→</span></Link>
           </div>
-          <div className="hero-note">
-            <span className="note-line" />
-            <span>Built for curious minds. Designed for real progress.</span>
+          <div className="engineering-proofline">
+            <span className="proofline-check">✓</span>
+            <span>Structured learning</span><i />
+            <span>Practical focus</span><i />
+            <span>Clear progress</span>
           </div>
         </div>
 
-        <div className="hero-art" aria-label="Illustration of a structured learning journey">
-          <div className="art-orbit orbit-one" />
-          <div className="art-orbit orbit-two" />
-          <div className="art-card card-back">
-            <span className="mini-label">YOUR NEXT CHAPTER</span>
-            <span className="back-lines"><i /><i /><i /></span>
+        <div className="engineering-hero-visual" aria-label="Illustrative preview of the APTIVIO learning workspace">
+          <div className="engineering-visual-grid" />
+          <div className="engineering-visual-label"><span /> WORKSPACE PREVIEW <b>01 / 03</b></div>
+          <div className="engineering-dashboard">
+            <div className="engineering-dashboard-top">
+              <div className="engineering-mini-brand"><BrandMark /><span>APTIVIO <small>LEARNING OS</small></span></div>
+              <span className="engineering-status"><i /> LEARNER SPACE</span>
+            </div>
+            <div className="engineering-dashboard-body">
+              <div className="engineering-dashboard-sidebar">
+                <span className="engineering-side-active">▦</span><span>▤</span><span>◈</span><span>⚙</span>
+              </div>
+              <div className="engineering-dashboard-content">
+                <span className="engineering-ui-kicker">YOUR LEARNING OVERVIEW</span>
+                <h2>Make progress<br />with purpose.</h2>
+                <p>A clear next step makes all the difference.</p>
+                <div className="engineering-ui-course">
+                  <div className="engineering-ui-course-icon">⌘</div>
+                  <div><b>Programming foundations</b><small>Build from the fundamentals</small></div>
+                  <span>↗</span>
+                </div>
+                <div className="engineering-ui-bottom">
+                  <span><i /> Structured lessons</span>
+                  <span>Designed to focus</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="art-card card-main">
-            <div className="card-topline"><span>LEARNING PATH</span><span className="live-dot">●</span></div>
-            <div className="progress-ring"><span>01</span></div>
-            <h2>Start with<br />one good step.</h2>
-            <p>Small lessons. Meaningful momentum.</p>
-            <div className="card-progress"><span /></div>
-            <div className="card-foot"><span>YOUR JOURNEY</span><span>IN PROGRESS</span></div>
-          </div>
-          <div className="floating-chip chip-top"><span>✳</span> Learn with purpose</div>
-          <div className="floating-chip chip-bottom"><span>↗</span> Progress, made visible</div>
-          <div className="art-index">APTIVIO / 001</div>
+          <div className="engineering-float-note note-top"><span>✳</span><div><b>Learn with direction</b><small>One step at a time</small></div></div>
+          <div className="engineering-float-note note-bottom"><span className="note-check">✓</span><div><b>Built around outcomes</b><small>Knowledge into capability</small></div></div>
+          <div className="engineering-visual-foot">APTIVIO / LEARNING EXPERIENCE</div>
         </div>
       </section>
 
-      <section className="trust-strip" aria-label="APTIVIO learning principles">
-        <div className="section-shell trust-inner">
-          <span>THE APTIVIO STANDARD</span>
-          <p>Clarity <b>·</b> Practice <b>·</b> Progress <b>·</b> Possibility</p>
+      <section className="engineering-ribbon" aria-label="APTIVIO learning principles">
+        <div className="section-shell engineering-ribbon-inner">
+          <span>THE APTIVIO METHOD</span>
+          <p><b>01</b> Understand <i /> <b>02</b> Practise <i /> <b>03</b> Apply <i /> <b>04</b> Improve</p>
         </div>
       </section>
 
-      <section className="learning-section section-shell" id="learning">
-        <div className="section-heading">
+      <section className="engineering-learning section-shell" id="learning">
+        <div className="engineering-section-heading">
           <div>
-            <div className="eyebrow">FIND YOUR DIRECTION</div>
-            <h2>Skills worth<br /><em>building.</em></h2>
+            <div className="engineering-eyebrow"><span className="eyebrow-dot" /> EXPLORE YOUR DIRECTION</div>
+            <h2>Choose a direction.<br /><em>Build your edge.</em></h2>
           </div>
-          <p>Good learning starts with a clear direction. Explore areas designed to help you build knowledge you can actually use.</p>
+          <p>Start with the area that matters to you. Every strong skill begins with a foundation and grows through deliberate practice.</p>
         </div>
-        <div className="path-grid">
+        <div className="engineering-path-grid">
           {learningPaths.map((path) => (
-            <article className="path-card" key={path.number}>
-              <div className="path-card-top"><span>{path.number} / PATH</span><span aria-hidden="true">↗</span></div>
-              <div>
-                <span className="path-tag">{path.tag}</span>
+            <article className="engineering-path-card" key={path.number}>
+              <div className="engineering-path-top"><span>{path.number} / LEARNING AREA</span><span className="engineering-path-icon">{path.icon}</span></div>
+              <div className="engineering-path-copy">
+                <span className="engineering-path-tag">{path.tag}</span>
                 <h3>{path.title}</h3>
                 <p>{path.description}</p>
               </div>
-              <Link href="/courses" className="path-link">Explore courses <span aria-hidden="true">→</span></Link>
+              <Link href="/courses" className="engineering-path-link">Explore courses <span aria-hidden="true">↗</span></Link>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="approach-section" id="approach">
-        <div className="section-shell approach-inner">
-          <div className="approach-intro">
-            <div className="eyebrow eyebrow-light">LEARNING, WITH INTENTION</div>
-            <h2>Less noise.<br /><em>More becoming.</em></h2>
-            <p>Learning should leave you more capable than when you started. That is the standard we are building toward.</p>
-            <Link className="button button-light" href="/courses">Find your next step <span aria-hidden="true">↗</span></Link>
+      <section className="engineering-approach" id="approach">
+        <div className="section-shell engineering-approach-inner">
+          <div className="engineering-approach-intro">
+            <div className="engineering-eyebrow engineering-eyebrow-light"><span className="eyebrow-dot" /> BUILT WITH INTENTION</div>
+            <h2>Less noise.<br /><em>More capability.</em></h2>
+            <p>Education should do more than fill a screen. It should help you understand, build, solve, and keep improving.</p>
+            <Link className="button button-light" href="/courses">View course catalogue <span aria-hidden="true">↗</span></Link>
           </div>
-          <div className="principle-list">
+          <div className="engineering-principles">
             {principles.map(([title, description], index) => (
-              <article className="principle" key={title}>
-                <span className="principle-number">0{index + 1}</span>
+              <article className="engineering-principle" key={title}>
+                <span className="engineering-principle-number">0{index + 1}</span>
                 <div><h3>{title}</h3><p>{description}</p></div>
-                <span className="principle-arrow" aria-hidden="true">↗</span>
+                <span className="engineering-principle-arrow" aria-hidden="true">↗</span>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <footer className="site-footer">
+      <section className="engineering-final-cta section-shell">
+        <div><span className="engineering-eyebrow"><span className="eyebrow-dot" /> YOUR NEXT STEP STARTS HERE</span><h2>Make learning<br /><em>move you forward.</em></h2></div>
+        <Link className="button button-primary" href="/sign-up">Create your free account <span aria-hidden="true">↗</span></Link>
+      </section>
+
+      <footer className="site-footer engineering-footer">
         <div className="section-shell footer-main">
-          <Link className="brand brand-footer" href="/"><span className="brand-mark">A</span><span>APTIVIO</span></Link>
+          <Link className="brand brand-footer" href="/"><BrandMark /><span>APTIVIO</span></Link>
           <p>Knowledge That Moves You Forward.</p>
           <span className="footer-location">Built for the world. Starting from Nigeria.</span>
         </div>
         <div className="section-shell footer-bottom">
           <span>© {new Date().getFullYear()} APTIVIO. All rights reserved.</span>
-          <span>Learn with direction.</span>
+          <span>Clarity · Practice · Progress</span>
         </div>
       </footer>
     </main>
