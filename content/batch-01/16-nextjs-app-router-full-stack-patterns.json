@@ -1,0 +1,371 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "nextjs-app-router-full-stack-patterns",
+    "title": "Next.js App Router and Full-Stack Patterns",
+    "subtitle": "Build secure, server-first web applications with routing, data access, APIs and production workflows.",
+    "description": "A practical intermediate course on the Next.js App Router. Learners build a secure course module while learning route conventions, server and client component boundaries, data access, mutations, HTTP handlers, caching, authentication, testing, performance and deployment. The course emphasises real authorization and verification rather than UI-only demonstrations.",
+    "level": "intermediate",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 720,
+    "target_audience": [
+      "React developers moving into full-stack application development",
+      "Computing students building production-style web applications",
+      "Frontend developers learning server rendering and secure data access"
+    ],
+    "prerequisites": [
+      "JavaScript fundamentals and modern ES modules",
+      "Basic React components, props, state and hooks",
+      "HTML, CSS, HTTP and JSON fundamentals",
+      "Basic SQL and authentication concepts are helpful"
+    ],
+    "outcomes": [
+      "Explain App Router route and special-file conventions",
+      "Choose server or client components based on actual requirements",
+      "Fetch and mutate data without exposing secrets or trusting client input",
+      "Design route handlers with correct HTTP semantics and validation",
+      "Apply authentication, authorization and row-level security to protected resources",
+      "Choose cache and revalidation policies that preserve privacy and freshness",
+      "Test full-stack journeys, including denial and retry cases",
+      "Deploy and observe a Next.js application using a repeatable release checklist"
+    ],
+    "equipment": [
+      "Computer with Node.js 22.12 or later and a code editor",
+      "Internet access for documentation and package installation",
+      "A Supabase project or local test database for the capstone"
+    ],
+    "accessibility": "Use semantic HTML, keyboard-operable controls, visible focus, labelled forms and readable code examples. Provide text alternatives for diagrams. Capstone can be completed with a local mock service if hosted database access is unavailable, but authorization rules must still be demonstrated and tested.",
+    "sections": [
+      {
+        "title": "App Router Foundations",
+        "description": "Understand route conventions, layouts, navigation and dynamic resources.",
+        "lessons": [
+          {
+            "title": "How Next.js Extends React",
+            "duration_minutes": 25,
+            "body_markdown": "## How Next.js Extends React\n\nReact provides component composition and state, while Next.js adds routing, rendering strategies, server capabilities, build optimisation and deployment conventions. Treat the framework as an application architecture, not merely a shortcut for creating URLs.\n\n### Worked application example\n\nA course catalogue can render its public description on the server, while a small filter control runs in the browser. A server-side domain function can retrieve published course versions and return only the fields needed by the page.\n\n### Common failure to avoid\n\nA framework does not automatically make an application secure. Server-rendered code can still expose private records if it fails to check authorization. Separate UI responsibilities from domain rules and database access.\n\n### Practice task\n\nMap a catalogue, course detail, learner dashboard and lesson reader. For each route, identify its data, user permissions and interactive elements.\n\n### Check your understanding\n\nExplain the design decision in your own words. Identify the assumption it depends on, then describe one test that would expose an incorrect implementation. A solution is not complete merely because the happy path works; demonstrate what happens when data is missing, permission is denied or a request is repeated.",
+            "exercise": "Map a catalogue, course detail, learner dashboard and lesson reader. For each route, identify its data, user permissions and interactive elements.",
+            "key_takeaways": [
+              "Keep route, rendering and data responsibilities explicit.",
+              "Validate and authorize on the server; client UI is not a security boundary.",
+              "Test failure, denial and retry paths as well as successful use."
+            ]
+          },
+          {
+            "title": "Project Structure and Route Segments",
+            "duration_minutes": 25,
+            "body_markdown": "## Project Structure and Route Segments\n\nFolders under `app` define route segments. `page.tsx` exposes a route, `layout.tsx` wraps child routes, and dynamic folders such as `[slug]` capture route values. Route groups such as `(learner)` organise layouts without appearing in the URL.\n\n### Worked application example\n\nA `app/courses/[slug]/page.tsx` route can display a course identified by a slug. A `(public)` group and a `(learner)` group can use different layouts while keeping clean URLs.\n\n### Common failure to avoid\n\nA URL parameter is untrusted input, not proof of permission. Validate it, use parameterised queries and check access before returning protected content. Avoid putting secrets in modules imported by client code.\n\n### Practice task\n\nDesign a folder tree for public catalogue, sign-in, learner dashboard and protected lessons. Explain which layout each route should inherit.\n\n### Check your understanding\n\nExplain the design decision in your own words. Identify the assumption it depends on, then describe one test that would expose an incorrect implementation. A solution is not complete merely because the happy path works; demonstrate what happens when data is missing, permission is denied or a request is repeated.",
+            "exercise": "Design a folder tree for public catalogue, sign-in, learner dashboard and protected lessons. Explain which layout each route should inherit.",
+            "key_takeaways": [
+              "Keep route, rendering and data responsibilities explicit.",
+              "Validate and authorize on the server; client UI is not a security boundary.",
+              "Test failure, denial and retry paths as well as successful use."
+            ]
+          },
+          {
+            "title": "Layouts, Pages and Templates",
+            "duration_minutes": 25,
+            "body_markdown": "## Layouts, Pages and Templates\n\nThe root layout defines the document shell. Nested layouts share navigation or providers across a route area. Pages provide route-specific content. Templates are similar to layouts but create a new instance during navigation when state should reset.\n\n### Worked application example\n\nA learner layout can keep a sidebar and course navigation stable while a lesson page changes. A public layout can use a simpler header without loading learner-only components.\n\n### Common failure to avoid\n\nLayouts may persist across navigation, so do not assume all state resets when the URL changes. Keep layouts small and avoid fetching every application's data from the root layout.\n\n### Practice task\n\nImplement a root layout, public layout and learner layout. List the state that should persist and the state that should reset.\n\n### Check your understanding\n\nExplain the design decision in your own words. Identify the assumption it depends on, then describe one test that would expose an incorrect implementation. A solution is not complete merely because the happy path works; demonstrate what happens when data is missing, permission is denied or a request is repeated.",
+            "exercise": "Implement a root layout, public layout and learner layout. List the state that should persist and the state that should reset.",
+            "key_takeaways": [
+              "Keep route, rendering and data responsibilities explicit.",
+              "Validate and authorize on the server; client UI is not a security boundary.",
+              "Test failure, denial and retry paths as well as successful use."
+            ]
+          },
+          {
+            "title": "Navigation and Dynamic Routes",
+            "duration_minutes": 40,
+            "body_markdown": "## Navigation and Dynamic Routes\n\nUse `Link` for internal navigation and programmatic navigation after completed actions. Dynamic route segments identify resources, but the server must still verify that the current user may access the requested resource.\n\n### Worked application example\n\nA learner clicking a course card can navigate to `/courses/python-basics`. A protected lesson route should resolve the lesson ID and then verify an active enrolment in the exact course version.\n\n### Common failure to avoid\n\nA hidden link is not access control. Return a safe not-found or forbidden state for unavailable content, and do not reveal private lesson details in error messages.\n\n### Practice task\n\nTest a valid course slug, unknown slug, malformed slug and a course the current learner is not allowed to access.\n\n### Check your understanding\n\nExplain the design decision in your own words. Identify the assumption it depends on, then describe one test that would expose an incorrect implementation. A solution is not complete merely because the happy path works; demonstrate what happens when data is missing, permission is denied or a request is repeated.",
+            "exercise": "Test a valid course slug, unknown slug, malformed slug and a course the current learner is not allowed to access.",
+            "key_takeaways": [
+              "Keep route, rendering and data responsibilities explicit.",
+              "Validate and authorize on the server; client UI is not a security boundary.",
+              "Test failure, denial and retry paths as well as successful use."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Server Components and Data Access",
+        "description": "Use server/client boundaries, safe data fetching and controlled mutations.",
+        "lessons": [
+          {
+            "title": "Server Components and Server-Side Boundaries",
+            "duration_minutes": 25,
+            "body_markdown": "## Server Components and Server-Side Boundaries\n\nApp Router components are server components by default. They can load data and keep server-only modules out of the browser bundle. Server components may pass serialisable data to client components, but they must still enforce authentication and authorization.\n\n### Worked application example\n\nA course page can load its title and section list on the server, then pass the current bookmark state and lesson ID to a small interactive bookmark control.\n\n### Common failure to avoid\n\nServer execution is not a security permission. Never expose service-role keys or database clients to the browser. Return only fields required by the UI and use row-level security for protected data.\n\n### Practice task\n\nSeparate a lesson page into server responsibilities and client interactions. List the exact fields the browser needs.\n\n### Check your understanding\n\nExplain the design decision in your own words. Identify the assumption it depends on, then describe one test that would expose an incorrect implementation. A solution is not complete merely because the happy path works; demonstrate what happens when data is missing, permission is denied or a request is repeated.",
+            "exercise": "Separate a lesson page into server responsibilities and client interactions. List the exact fields the browser needs.",
+            "key_takeaways": [
+              "Keep route, rendering and data responsibilities explicit.",
+              "Validate and authorize on the server; client UI is not a security boundary.",
+              "Test failure, denial and retry paths as well as successful use."
+            ]
+          },
+          {
+            "title": "Client Components and the use-client Boundary",
+            "duration_minutes": 25,
+            "body_markdown": "## Client Components and the use-client Boundary\n\nA client component is needed for browser APIs, event handlers, local state and effects. The `use client` directive establishes a client entry point. Keep the boundary as low and narrow as possible to limit JavaScript sent to the browser.\n\n### Worked application example\n\nA lesson reader may be server-rendered while a progress toggle, menu or quiz answer selector is client-side. This keeps static teaching content out of unnecessary hydration work.\n\n### Common failure to avoid\n\nDo not mark the whole application client-side just because one menu needs state. Client-side validation improves usability but never replaces server validation.\n\n### Practice task\n\nBuild a bookmark button as a client component while keeping the lesson body server-rendered. Explain what data crosses the boundary.\n\n### Check your understanding\n\nExplain the design decision in your own words. Identify the assumption it depends on, then describe one test that would expose an incorrect implementation. A solution is not complete merely because the happy path works; demonstrate what happens when data is missing, permission is denied or a request is repeated.",
+            "exercise": "Build a bookmark button as a client component while keeping the lesson body server-rendered. Explain what data crosses the boundary.",
+            "key_takeaways": [
+              "Keep route, rendering and data responsibilities explicit.",
+              "Validate and authorize on the server; client UI is not a security boundary.",
+              "Test failure, denial and retry paths as well as successful use."
+            ]
+          },
+          {
+            "title": "Fetching Data Without Waterfalls",
+            "duration_minutes": 25,
+            "body_markdown": "## Fetching Data Without Waterfalls\n\nLoad data close to the component that needs it, but start independent requests concurrently. Sequentially awaiting unrelated requests creates a waterfall. Use clear domain functions and distinguish missing records from service failures.\n\n### Worked application example\n\nCourse metadata, an instructor summary and the learner's enrolment status may be fetched concurrently if none depends on another. A later lesson-body query must wait until access is authorised.\n\n### Common failure to avoid\n\nRepeated ad hoc queries create inconsistent rules. A function called `getPublishedCourse` must filter to a published version. Do not cache private learner records in a shared response.\n\n### Practice task\n\nPlan the data requests for a course detail page. Identify independent requests, dependencies, loading boundaries and failure states.\n\n### Check your understanding\n\nExplain the design decision in your own words. Identify the assumption it depends on, then describe one test that would expose an incorrect implementation. A solution is not complete merely because the happy path works; demonstrate what happens when data is missing, permission is denied or a request is repeated.",
+            "exercise": "Plan the data requests for a course detail page. Identify independent requests, dependencies, loading boundaries and failure states.",
+            "key_takeaways": [
+              "Keep route, rendering and data responsibilities explicit.",
+              "Validate and authorize on the server; client UI is not a security boundary.",
+              "Test failure, denial and retry paths as well as successful use."
+            ]
+          },
+          {
+            "title": "Server Actions and Safe Mutations",
+            "duration_minutes": 40,
+            "body_markdown": "## Server Actions and Safe Mutations\n\nServer actions let forms and interactions invoke server-side mutations. They are callable entry points and must authenticate, validate input, authorise the resource and return minimal results. Treat them with the same care as HTTP endpoints.\n\n### Worked application example\n\nA mark-complete action should derive the learner ID from the session, validate the lesson ID, verify enrolment and upsert one progress record. A repeated request should not create duplicate completion records.\n\n### Common failure to avoid\n\nNever trust a user ID from a hidden field. A mobile retry may arrive after the first write succeeded, so design idempotent operations and do not show permanent success before server confirmation.\n\n### Practice task\n\nSpecify a profile update action with validation, session-derived identity, ownership rules and tests for a forged user ID.\n\n### Check your understanding\n\nExplain the design decision in your own words. Identify the assumption it depends on, then describe one test that would expose an incorrect implementation. A solution is not complete merely because the happy path works; demonstrate what happens when data is missing, permission is denied or a request is repeated.",
+            "exercise": "Specify a profile update action with validation, session-derived identity, ownership rules and tests for a forged user ID.",
+            "key_takeaways": [
+              "Keep route, rendering and data responsibilities explicit.",
+              "Validate and authorize on the server; client UI is not a security boundary.",
+              "Test failure, denial and retry paths as well as successful use."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Production Patterns and Reliability",
+        "description": "Design APIs, caching, security and dependable application states.",
+        "lessons": [
+          {
+            "title": "Route Handlers and HTTP Semantics",
+            "duration_minutes": 25,
+            "body_markdown": "## Route Handlers and HTTP Semantics\n\nRoute handlers expose HTTP endpoints. Choose methods according to intent: GET reads, POST creates or triggers, PATCH updates part of a resource and DELETE removes when permitted. Use status codes to communicate outcomes clearly.\n\n### Worked application example\n\nA progress endpoint can accept a POST request, validate the lesson and position, verify the session and return 201 or 200 when the progress record is saved. Invalid data should return 400; missing authentication 401.\n\n### Common failure to avoid\n\nDo not return status 200 for every failure with an error object. Validate body size and field limits, avoid raw exception messages and return only fields the caller needs.\n\n### Practice task\n\nDesign `POST /api/lesson-progress`: request schema, authentication, authorization, idempotency, status codes and response body.\n\n### Check your understanding\n\nExplain the design decision in your own words. Identify the assumption it depends on, then describe one test that would expose an incorrect implementation. A solution is not complete merely because the happy path works; demonstrate what happens when data is missing, permission is denied or a request is repeated.",
+            "exercise": "Design `POST /api/lesson-progress`: request schema, authentication, authorization, idempotency, status codes and response body.",
+            "key_takeaways": [
+              "Keep route, rendering and data responsibilities explicit.",
+              "Validate and authorize on the server; client UI is not a security boundary.",
+              "Test failure, denial and retry paths as well as successful use."
+            ]
+          },
+          {
+            "title": "Caching, Revalidation and Freshness",
+            "duration_minutes": 25,
+            "body_markdown": "## Caching, Revalidation and Freshness\n\nCaching improves speed but can leak data if user-specific responses are shared. Public catalogue descriptions may be cacheable; enrolment, progress and profile data must be isolated. Identify the cache layer and choose explicit freshness rules.\n\n### Worked application example\n\nA published course description may tolerate a short refresh window. A learner's progress should be read in a request-specific context. After an authorised course edit, revalidate the affected catalogue data only after the write succeeds.\n\n### Common failure to avoid\n\nDo not cache private data under a key shared by all learners. Test with two accounts to ensure one learner never receives another learner's response.\n\n### Practice task\n\nClassify course metadata, lesson bodies, enrolments and progress. Define a cache policy and invalidation event for each.\n\n### Check your understanding\n\nExplain the design decision in your own words. Identify the assumption it depends on, then describe one test that would expose an incorrect implementation. A solution is not complete merely because the happy path works; demonstrate what happens when data is missing, permission is denied or a request is repeated.",
+            "exercise": "Classify course metadata, lesson bodies, enrolments and progress. Define a cache policy and invalidation event for each.",
+            "key_takeaways": [
+              "Keep route, rendering and data responsibilities explicit.",
+              "Validate and authorize on the server; client UI is not a security boundary.",
+              "Test failure, denial and retry paths as well as successful use."
+            ]
+          },
+          {
+            "title": "Authentication, Authorization and RLS",
+            "duration_minutes": 25,
+            "body_markdown": "## Authentication, Authorization and RLS\n\nAuthentication identifies the caller; authorization determines what that caller may do. A valid session does not grant access to every course or learner record. Supabase row-level security can enforce user-scoped access at the database boundary.\n\n### Worked application example\n\nA lesson reader should check the session, active enrolment and exact published course version. The query should be scoped to that version, with an RLS policy independently limiting which lesson rows the learner may read.\n\n### Common failure to avoid\n\nNever send a service-role key to the browser. Do not trust a role supplied by a form. Test missing session, wrong learner, revoked enrolment and stale course version.\n\n### Practice task\n\nCreate an access matrix for learner, instructor, content editor and administrator. Map each permission to a server check and database policy.\n\n### Check your understanding\n\nExplain the design decision in your own words. Identify the assumption it depends on, then describe one test that would expose an incorrect implementation. A solution is not complete merely because the happy path works; demonstrate what happens when data is missing, permission is denied or a request is repeated.",
+            "exercise": "Create an access matrix for learner, instructor, content editor and administrator. Map each permission to a server check and database policy.",
+            "key_takeaways": [
+              "Keep route, rendering and data responsibilities explicit.",
+              "Validate and authorize on the server; client UI is not a security boundary.",
+              "Test failure, denial and retry paths as well as successful use."
+            ]
+          },
+          {
+            "title": "Errors, Loading and Not-Found States",
+            "duration_minutes": 40,
+            "body_markdown": "## Errors, Loading and Not-Found States\n\nUse loading boundaries for work that takes time, error boundaries for unexpected rendering failures and not-found handling for missing resources. Expected business states should be represented deliberately rather than disguised as generic errors.\n\n### Worked application example\n\nA course detail page can show a skeleton while course metadata loads. An unknown slug can render not-found. A database outage should show a recoverable service message without exposing SQL or credentials.\n\n### Common failure to avoid\n\nDo not use fake course content to make loading states appear complete. Log technical details securely on the server and give the user a safe message with a support reference when needed.\n\n### Practice task\n\nDesign loading, empty, not-found, forbidden and service-failure states for a learner's course dashboard.\n\n### Check your understanding\n\nExplain the design decision in your own words. Identify the assumption it depends on, then describe one test that would expose an incorrect implementation. A solution is not complete merely because the happy path works; demonstrate what happens when data is missing, permission is denied or a request is repeated.",
+            "exercise": "Design loading, empty, not-found, forbidden and service-failure states for a learner's course dashboard.",
+            "key_takeaways": [
+              "Keep route, rendering and data responsibilities explicit.",
+              "Validate and authorize on the server; client UI is not a security boundary.",
+              "Test failure, denial and retry paths as well as successful use."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Full-Stack Project and Verification",
+        "description": "Combine architecture, testing, performance and deployment into a secure feature.",
+        "lessons": [
+          {
+            "title": "Testing Routes and Protected Data",
+            "duration_minutes": 25,
+            "body_markdown": "## Testing Routes and Protected Data\n\nUnit tests check isolated rules, component tests check UI behaviour, integration tests exercise real server and database boundaries, and end-to-end tests verify complete journeys. Security tests must prove that denied data is not returned.\n\n### Worked application example\n\nFor a lesson reader, test unauthenticated access, a learner without enrolment, revoked enrolment, wrong course version and a valid learner. Assert the response body does not contain protected lesson text for denied cases.\n\n### Common failure to avoid\n\nA passing component test cannot prove that RLS works. Keep integration tests against a controlled database and include negative cases rather than testing only successful paths.\n\n### Practice task\n\nCreate a test matrix for sign-in, free enrolment, lesson access, progress updates and dashboard isolation.\n\n### Check your understanding\n\nExplain the design decision in your own words. Identify the assumption it depends on, then describe one test that would expose an incorrect implementation. A solution is not complete merely because the happy path works; demonstrate what happens when data is missing, permission is denied or a request is repeated.",
+            "exercise": "Create a test matrix for sign-in, free enrolment, lesson access, progress updates and dashboard isolation.",
+            "key_takeaways": [
+              "Keep route, rendering and data responsibilities explicit.",
+              "Validate and authorize on the server; client UI is not a security boundary.",
+              "Test failure, denial and retry paths as well as successful use."
+            ]
+          },
+          {
+            "title": "Performance and Mobile Experience",
+            "duration_minutes": 25,
+            "body_markdown": "## Performance and Mobile Experience\n\nPerformance matters on low-cost phones and limited data. Reduce client JavaScript, optimise images, avoid request waterfalls, reserve image dimensions and defer nonessential media. Measure loading, interactivity and layout stability instead of guessing.\n\n### Worked application example\n\nA course-reading page should prioritise lesson text and controls. Large promotional videos can be deferred, while small responsive images and server-rendered text keep the first view useful on a slow connection.\n\n### Common failure to avoid\n\nA performance shortcut must not weaken authorization. Never cache private progress across users. Test on a throttled connection and a viewport representative of the learner's device.\n\n### Practice task\n\nAudit a course page's assets, client boundaries and requests. Propose three measurable improvements and define how to verify them.\n\n### Check your understanding\n\nExplain the design decision in your own words. Identify the assumption it depends on, then describe one test that would expose an incorrect implementation. A solution is not complete merely because the happy path works; demonstrate what happens when data is missing, permission is denied or a request is repeated.",
+            "exercise": "Audit a course page's assets, client boundaries and requests. Propose three measurable improvements and define how to verify them.",
+            "key_takeaways": [
+              "Keep route, rendering and data responsibilities explicit.",
+              "Validate and authorize on the server; client UI is not a security boundary.",
+              "Test failure, denial and retry paths as well as successful use."
+            ]
+          },
+          {
+            "title": "Deployment, Environment and Observability",
+            "duration_minutes": 25,
+            "body_markdown": "## Deployment, Environment and Observability\n\nA preview deployment is not production. Verify environment variables, OAuth callbacks, email delivery, database policies and migrations in the environment where the feature will run. A green build proves compilation, not end-to-end correctness.\n\n### Worked application example\n\nA release pipeline can run lint, type checks, unit tests and a production build. A separate smoke test can verify sign-in, catalogue access and protected lesson denial against a controlled environment.\n\n### Common failure to avoid\n\nOnly expose public configuration to the browser. Keep service keys and payment secrets server-side. Do not log passwords, access tokens or private learner data. Prepare rollback criteria before a migration.\n\n### Practice task\n\nWrite a release checklist covering preview review, environment parity, migrations, smoke tests, rollback and post-release monitoring.\n\n### Check your understanding\n\nExplain the design decision in your own words. Identify the assumption it depends on, then describe one test that would expose an incorrect implementation. A solution is not complete merely because the happy path works; demonstrate what happens when data is missing, permission is denied or a request is repeated.",
+            "exercise": "Write a release checklist covering preview review, environment parity, migrations, smoke tests, rollback and post-release monitoring.",
+            "key_takeaways": [
+              "Keep route, rendering and data responsibilities explicit.",
+              "Validate and authorize on the server; client UI is not a security boundary.",
+              "Test failure, denial and retry paths as well as successful use."
+            ]
+          },
+          {
+            "title": "Capstone: Build a Secure Course Module",
+            "duration_minutes": 40,
+            "body_markdown": "## Capstone: Build a Secure Course Module\n\nBuild a catalogue, dynamic course page, free-enrolment action and protected lesson reader. Use server-first rendering, small client components and domain services. The database must enforce invariants that should remain true even when requests race or retry.\n\n### Worked application example\n\nA learner browses a published course, signs in, enrols for free, opens a lesson and records progress. Duplicate enrolment retries must not create duplicate rows. Another learner must not be able to read the first learner's progress or protected content.\n\n### Common failure to avoid\n\nDo not treat a hidden button as a security control. Derive identity from the session, validate every input, scope access to the exact course version and test forbidden cases at the server and database boundaries.\n\n### Practice task\n\nSubmit a route map, architecture diagram, source code, database policy evidence, negative test matrix, accessibility notes, performance audit and deployment checklist.\n\n### Check your understanding\n\nExplain the design decision in your own words. Identify the assumption it depends on, then describe one test that would expose an incorrect implementation. A solution is not complete merely because the happy path works; demonstrate what happens when data is missing, permission is denied or a request is repeated.",
+            "exercise": "Submit a route map, architecture diagram, source code, database policy evidence, negative test matrix, accessibility notes, performance audit and deployment checklist.",
+            "key_takeaways": [
+              "Keep route, rendering and data responsibilities explicit.",
+              "Validate and authorize on the server; client UI is not a security boundary.",
+              "Test failure, denial and retry paths as well as successful use."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "Next.js App Router and Full-Stack Patterns: Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions. Include code or diagrams where requested. Explain security assumptions and distinguish framework behaviour from application policy.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short_answer",
+          "prompt": "Explain the difference between a server component and a client component. Give one appropriate use case for each and identify one risk of making an entire route client-side.",
+          "marks": 8,
+          "rubric": [
+            "Explains server-first default and client interactivity (3)",
+            "Gives appropriate examples (2)",
+            "Identifies bundle, secret-boundary or hydration concern (3)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "architecture",
+          "prompt": "Design a route tree for a learning platform with public catalogue, course details, sign-in, learner dashboard and protected lesson reader. Explain layouts, dynamic segments and special files.",
+          "marks": 10,
+          "rubric": [
+            "Valid route structure and dynamic segment (4)",
+            "Appropriate layout boundaries (3)",
+            "Explains loading, error and not-found behaviour (3)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "security",
+          "prompt": "A signed-in learner requests a lesson. Describe the checks required before returning its body and explain why a session alone is insufficient.",
+          "marks": 12,
+          "rubric": [
+            "Session authentication (2)",
+            "Active enrolment and exact course-version authorization (4)",
+            "RLS/database enforcement (3)",
+            "Negative cases and no content leakage (3)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "http_api",
+          "prompt": "Specify a POST endpoint for lesson progress. Include request validation, status codes, idempotency and a minimal response body.",
+          "marks": 10,
+          "rubric": [
+            "Input validation and bounds (3)",
+            "Correct status codes (2)",
+            "Idempotent persistence and retry handling (3)",
+            "Minimal safe response (2)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "caching",
+          "prompt": "Classify public course metadata, learner enrolment and learner progress as cacheable or user-specific. Propose safe freshness and invalidation rules.",
+          "marks": 10,
+          "rubric": [
+            "Correct privacy classification (4)",
+            "Reasonable freshness policy (3)",
+            "Correct invalidation and cross-account isolation (3)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit the secure course module capstone with route map, source, tests, accessibility notes and deployment checklist.",
+          "marks": 20,
+          "rubric": [
+            "Functional route and enrolment journey (4)",
+            "Protected lesson access and server-side authorization (5)",
+            "Tests including denial, retry and isolation (5)",
+            "Accessibility and mobile performance evidence (3)",
+            "Reproducible deployment and documentation (3)"
+          ]
+        }
+      ],
+      "total_marks": 70
+    },
+    "final_project": {
+      "title": "Secure Course Module",
+      "deliverables": [
+        "Route map and architecture diagram",
+        "Catalogue, course detail, enrolment and protected lesson routes",
+        "Server-side validation and authorization logic",
+        "Database policy or equivalent access-control evidence",
+        "Unit, integration and end-to-end test matrix",
+        "Accessibility and mobile performance audit",
+        "Deployment and rollback checklist"
+      ],
+      "acceptance_criteria": [
+        "Public visitors can read only published catalogue metadata",
+        "Authenticated learners can enrol in free courses without duplicate records",
+        "Lesson body is withheld from unauthorized users at server and database boundaries",
+        "Progress updates are scoped to the authenticated learner and exact course version",
+        "Negative tests cover missing session, wrong learner, revoked access and stale version",
+        "Build and tests pass in a reproducible environment"
+      ]
+    },
+    "references": [
+      {
+        "title": "Next.js App Router Documentation",
+        "url": "https://nextjs.org/docs/app",
+        "note": "Primary reference for routing, layouts, server and client components, data fetching and route handlers."
+      },
+      {
+        "title": "React Documentation",
+        "url": "https://react.dev/learn",
+        "note": "Foundational reference for components, state, effects and client interaction."
+      },
+      {
+        "title": "Supabase Row Level Security",
+        "url": "https://supabase.com/docs/guides/database/postgres/row-level-security",
+        "note": "Reference for enforcing data access policies at the database boundary."
+      },
+      {
+        "title": "MDN HTTP Overview",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview",
+        "note": "Reference for HTTP methods, status codes and request-response semantics."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft. Verify framework APIs against the selected Next.js version, run examples, review security claims and align with the local curriculum before publication. No reviewer identity or approval is claimed.",
+      "language": "English",
+      "content_quality": "Four sections and sixteen lesson drafts covering App Router foundations, server/client boundaries, data access, APIs, caching, security, testing, performance and a full-stack capstone. Technical and academic review remains required."
+    }
+  }
+}
