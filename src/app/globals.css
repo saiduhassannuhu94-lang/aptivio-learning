@@ -715,3 +715,52 @@ h1, h2, h3, p { margin-top: 0; }
 @media (prefers-reduced-motion: reduce) {
   .support-action, .support-email { transition: none; }
 }
+
+
+/* Data-backed learner dashboard */
+.dashboard-enrolled-card { min-width: 0; }
+.dashboard-course-list { display: grid; gap: 0; margin-top: 17px; }
+.dashboard-course-row {
+  display: grid;
+  grid-template-columns: minmax(130px, 1fr) minmax(145px, 1.1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-top: 1px solid var(--dash-line);
+  transition: background .18s ease;
+}
+.dashboard-course-row:hover .dashboard-course-main strong { color: var(--dash-green); }
+.dashboard-course-main { min-width: 0; display: grid; gap: 5px; }
+.dashboard-course-main strong {
+  overflow: hidden;
+  color: var(--dash-ink);
+  font-size: 10px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color .18s ease;
+}
+.dashboard-course-main small { color: var(--dash-muted); font-size: 8px; text-transform: capitalize; }
+.dashboard-course-progress { min-width: 0; display: grid; gap: 7px; }
+.dashboard-course-progress-label { color: var(--dash-muted); font-size: 8px; }
+.dashboard-progress-track { height: 5px; overflow: hidden; border-radius: 8px; background: var(--dash-line); }
+.dashboard-progress-track > span { display: block; height: 100%; border-radius: inherit; background: var(--dash-green); transition: width .35s ease; }
+.dashboard-course-status {
+  padding: 6px 8px;
+  border-radius: 20px;
+  background: var(--dash-green-soft);
+  color: var(--dash-green);
+  font-size: 7px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+.dashboard-course-status.is-completed { background: rgba(215,173,89,.14); color: #b88a35; }
+.dashboard-empty-learning { padding: 16px 0 2px; border-top: 1px solid var(--dash-line); }
+.dashboard-empty-learning p { max-width: 420px; margin: 0 0 13px; color: var(--dash-muted); font-size: 9px; line-height: 1.8; }
+.dashboard-empty-learning a { color: var(--dash-green); font-size: 9px; font-weight: 850; }
+.dashboard-empty-learning a span { padding-left: 7px; }
+@media (max-width: 760px) {
+  .dashboard-course-row { grid-template-columns: minmax(0,1fr) auto; gap: 9px 12px; }
+  .dashboard-course-progress { grid-column: 1 / -1; grid-row: 2; }
+  .dashboard-course-status { grid-column: 2; grid-row: 1; }
+}
