@@ -7,6 +7,7 @@ import { signOutAction } from "@/app/(auth)/actions";
 type DashboardShellProps = {
   displayName: string;
   paymentNotice?: string;
+  initialTheme: "light" | "dark";
 };
 
 function AptivioMark() {
@@ -38,12 +39,16 @@ function Icon({ name }: { name: "grid" | "book" | "compass" | "menu" | "sun" | "
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
 }
 
-export default function DashboardShell({ displayName, paymentNotice }: DashboardShellProps) {
+export default function DashboardShell({ displayName, paymentNotice, initialTheme }: DashboardShellProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(initialTheme === "dark");
 
   function toggleTheme() {
-    setDark((current) => !current);
+    setDark((current) => {
+      const next = !current;
+      document.cookie = `aptivio-theme=${next ? "dark" : "light"}; Path=/; Max-Age=31536000; SameSite=Lax`;
+      return next;
+    });
   }
 
   return (
