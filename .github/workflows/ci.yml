@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   lockfile:
-    name: Bootstrap committed lockfile
+    name: Synchronize dependency lockfile
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -33,20 +33,18 @@ jobs:
         with:
           node-version: 22
 
-      - name: Generate dependency lockfile when missing
+      - name: Synchronize npm lockfile
         timeout-minutes: 5
         run: |
-          if [ ! -f package-lock.json ]; then
-            npm install --package-lock-only --ignore-scripts --no-audit --no-fund --legacy-peer-deps --fetch-retries=1 --fetch-timeout=60000 --loglevel=notice
-          fi
+          npm install --package-lock-only --ignore-scripts --no-audit --no-fund --legacy-peer-deps --fetch-retries=1 --fetch-timeout=60000 --loglevel=notice
 
-      - name: Commit bootstrapped lockfile
+      - name: Commit synchronized lockfile
         run: |
           git add package-lock.json
           if ! git diff --cached --quiet; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "chore: commit npm dependency lockfile"
+            git commit -m "chore: synchronize npm dependency lockfile"
             git push
           fi
 
@@ -69,7 +67,11 @@ jobs:
         with:
           node-version: 22
 
-      - name: Verify committed dependency lockfile
+      - name: Generate lockfile for pull request validation
+        if: ${{ github.event_name == 'pull_request' }}
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund --legacy-peer-deps --fetch-retries=1 --fetch-timeout=60000 --loglevel=notice
+
+      - name: Verify dependency lockfile
         run: test -f package-lock.json
 
       - name: Install locked dependencies
