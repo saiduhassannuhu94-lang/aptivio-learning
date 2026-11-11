@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import DashboardShell from "./dashboard-shell";
+import { summarizeCourseProgress, summarizeOverallProgress } from "@/lib/learning/progress";
 
 export const metadata = {
   title: "Your learning dashboard",
@@ -142,14 +143,6 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
       lessonsByVersion.set(versionId, existing);
     }
 
-    const completedByEnrollment = new Map<string, Set<string>>();
-    for (const progress of progressRows ?? []) {
-      if (!progress.is_completed) continue;
-      const existing = completedByEnrollment.get(progress.enrollment_id) ?? new Set<string>();
-      existing.add(progress.lesson_id);
-      completedByEnrollment.set(progress.enrollment_id, existing);
-    }
-
     learningCourses = enrollmentRows.map((enrollment) => {
       const course = courseById.get(enrollment.course_id);
       const version = versionById.get(enrollment.course_version_id);
@@ -158,13 +151,8 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
         throw new Error("An enrolled course version could not be matched. Please contact support.");
       }
 
-      const lessonIds = lessonsByVersion.get(enrollment.course_version_id) ?? new Set<string>();
-      const completedIds = completedByEnrollment.get(enrollment.id) ?? new Set<string>();
-      let completedLessons = 0;
-      for (const lessonId of lessonIds) {
-        if (completedIds.has(lessonId)) completedLessons += 1;
-      }
-      const totalLessons = lessonIds.size;
+      const lessonIds = [...(lessonsByVersion.get(enrollment.course_version_id) ?? new Set<string>())];
+      const progress = summarizeCourseProgress(enrollment.id, lessonIds, progressRows ?? []);
 
       return {
         enrollmentId: enrollment.id,
@@ -175,20 +163,13 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
         languageCode: course.language_code.toUpperCase(),
         enrollmentStatus: enrollment.status as "active" | "completed",
         enrolledAt: enrollment.enrolled_at,
-        completedLessons,
-        totalLessons,
-        progressPercent: totalLessons > 0
-          ? Math.round((completedLessons / totalLessons) * 100)
-          : 0,
+        ...progress,
       };
     });
   }
 
-  const totalLessons = learningCourses.reduce((sum, course) => sum + course.totalLessons, 0);
-  const completedLessons = learningCourses.reduce((sum, course) => sum + course.completedLessons, 0);
-  const overallProgress = totalLessons > 0
-    ? Math.round((completedLessons / totalLessons) * 100)
-    : 0;
+  const overall = summarizeOverallProgress(learningCourses);
+  const { totalLessons, completedLessons, progressPercent: overallProgress } = overall;
 
   return (
     <DashboardShell
