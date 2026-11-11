@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
+import { clampLessonPosition } from "@/lib/learning/progress";
 
 const progressSchema = z.object({
   lessonId: z.string().uuid(),
@@ -82,7 +83,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "An active enrolment for this course version is required." }, { status: 403 });
   }
 
-  const positionSeconds = Math.min(parsed.data.positionSeconds, lesson.duration_seconds || parsed.data.positionSeconds);
+  const positionSeconds = clampLessonPosition(parsed.data.positionSeconds, lesson.duration_seconds);
   const completedAt = parsed.data.completed ? new Date().toISOString() : null;
 
   const { error: upsertError } = await supabase
