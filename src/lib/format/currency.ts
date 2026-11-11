@@ -21,7 +21,7 @@ export function formatMoney(
     style: "currency",
     currency,
   });
-  const fractionDigits = formatter.resolvedOptions().maximumFractionDigits;
+  const fractionDigits = formatter.resolvedOptions().maximumFractionDigits ?? 2;
 
   return formatter.format(amountMinor / 10 ** fractionDigits);
 }
