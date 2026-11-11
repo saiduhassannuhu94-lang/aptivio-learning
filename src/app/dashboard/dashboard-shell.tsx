@@ -4,10 +4,28 @@ import Link from "next/link";
 import { useState } from "react";
 import { signOutAction } from "@/app/(auth)/actions";
 
+type DashboardCourse = {
+  enrollmentId: string;
+  courseId: string;
+  slug: string;
+  title: string;
+  level: string;
+  languageCode: string;
+  enrollmentStatus: "active" | "completed";
+  enrolledAt: string;
+  completedLessons: number;
+  totalLessons: number;
+  progressPercent: number;
+};
+
 type DashboardShellProps = {
   displayName: string;
   paymentNotice?: string;
   initialTheme: "light" | "dark";
+  learningCourses: DashboardCourse[];
+  completedLessons: number;
+  totalLessons: number;
+  overallProgress: number;
 };
 
 function AptivioMark() {
@@ -39,7 +57,15 @@ function Icon({ name }: { name: "grid" | "book" | "compass" | "menu" | "sun" | "
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
 }
 
-export default function DashboardShell({ displayName, paymentNotice, initialTheme }: DashboardShellProps) {
+export default function DashboardShell({
+  displayName,
+  paymentNotice,
+  initialTheme,
+  learningCourses,
+  completedLessons,
+  totalLessons,
+  overallProgress,
+}: DashboardShellProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dark, setDark] = useState(initialTheme === "dark");
 
@@ -96,9 +122,9 @@ export default function DashboardShell({ displayName, paymentNotice, initialThem
           {paymentNotice && <p className="payment-notice" role="status">{paymentNotice}</p>}
 
           <div className="dashboard-metric-grid">
-            <article className="dashboard-metric-card"><span className="metric-label">YOUR LEARNING SPACE</span><strong>Ready</strong><small>Your account is active</small><span className="metric-decoration metric-decoration-one" /></article>
-            <article className="dashboard-metric-card"><span className="metric-label">NEXT STEP</span><strong>Discover</strong><small>Find a course to begin</small><span className="metric-decoration metric-decoration-two" /></article>
-            <article className="dashboard-metric-card"><span className="metric-label">YOUR PACE</span><strong>Yours</strong><small>Learn on your schedule</small><span className="metric-decoration metric-decoration-three" /></article>
+            <article className="dashboard-metric-card"><span className="metric-label">ENROLLED COURSES</span><strong>{learningCourses.length}</strong><small>{learningCourses.length === 1 ? "Course in your library" : "Courses in your library"}</small><span className="metric-decoration metric-decoration-one" /></article>
+            <article className="dashboard-metric-card"><span className="metric-label">LESSONS COMPLETED</span><strong>{completedLessons}</strong><small>{totalLessons} lessons across your courses</small><span className="metric-decoration metric-decoration-two" /></article>
+            <article className="dashboard-metric-card"><span className="metric-label">OVERALL PROGRESS</span><strong>{overallProgress}%</strong><small>{totalLessons > 0 ? "Based on completed lessons" : "Starts when a course is available"}</small><span className="metric-decoration metric-decoration-three" /></article>
           </div>
 
           <section className="dashboard-start-card">
@@ -107,7 +133,42 @@ export default function DashboardShell({ displayName, paymentNotice, initialThem
           </section>
 
           <section className="dashboard-lower-grid">
-            <article className="dashboard-lower-card"><div className="lower-card-heading"><div><span className="dashboard-kicker">YOUR LEARNING</span><h3>Continue your journey</h3></div><span className="lower-card-icon"><Icon name="book" /></span></div><p>Your enrolled courses will appear here, ready for you to pick up where you left off.</p><Link href="/courses">Find your first course <span>→</span></Link></article>
+            <article className="dashboard-lower-card dashboard-enrolled-card">
+              <div className="lower-card-heading">
+                <div><span className="dashboard-kicker">YOUR LEARNING</span><h3>Continue your journey</h3></div>
+                <span className="lower-card-icon"><Icon name="book" /></span>
+              </div>
+              {learningCourses.length > 0 ? (
+                <div className="dashboard-course-list">
+                  {learningCourses.map((course) => (
+                    <Link className="dashboard-course-row" href={`/courses/${course.slug}`} key={course.enrollmentId}>
+                      <span className="dashboard-course-main">
+                        <strong>{course.title}</strong>
+                        <small>{course.level} · {course.languageCode}</small>
+                      </span>
+                      <span className="dashboard-course-progress">
+                        <span className="dashboard-course-progress-label">
+                          {course.totalLessons > 0
+                            ? `${course.completedLessons}/${course.totalLessons} lessons · ${course.progressPercent}%`
+                            : "Curriculum not available"}
+                        </span>
+                        <span className="dashboard-progress-track" aria-label={`${course.progressPercent}% complete`}>
+                          <span style={{ width: `${course.progressPercent}%` }} />
+                        </span>
+                      </span>
+                      <span className={`dashboard-course-status ${course.enrollmentStatus === "completed" ? "is-completed" : ""}`}>
+                        {course.enrollmentStatus === "completed" ? "Completed" : "In progress"}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <div className="dashboard-empty-learning">
+                  <p>You have not enrolled in a course yet. Your real course progress will appear here after you enrol.</p>
+                  <Link href="/courses">Explore available courses <span>→</span></Link>
+                </div>
+              )}
+            </article>
             <article className="dashboard-lower-card lower-card-quote"><span className="dashboard-kicker">A NOTE TO KEEP</span><blockquote>“Progress is built through the things you practise, not just the things you know.”</blockquote><span className="quote-rule" /><small>THE APTIVIO PRINCIPLE</small></article>
           </section>
           <footer className="dashboard-footer"><span>© {new Date().getFullYear()} APTIVIO</span><span>Knowledge that moves you forward.</span></footer>
