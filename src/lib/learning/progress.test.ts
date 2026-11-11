@@ -80,7 +80,8 @@ describe("clampLessonPosition", () => {
     expect(clampLessonPosition(150, 90)).toBe(90);
   });
 
-  it("does not clamp when lesson duration is unknown", () => {
+  it("does not clamp to duration when duration is unknown but respects database integer bounds", () => {
     expect(clampLessonPosition(150, 0)).toBe(150);
+    expect(clampLessonPosition(3_000_000_000, 0)).toBe(2_147_483_647);
   });
 });
