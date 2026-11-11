@@ -64,7 +64,7 @@ export function AuthForm({ mode, action, initialState }: AuthFormProps) {
         <div className="auth-showcase-foot"><span>DESIGNED FOR CONSISTENT PROGRESS</span><span>01 / 03</span></div>
       </aside>
 
-      <main className="auth-main">
+      <div className="auth-main">
         <section className="auth-card" aria-labelledby="auth-title">
           <div className="auth-mobile-brand">
             <Link className="brand" href="/" aria-label="APTIVIO home"><span className="brand-mark">A</span><span>APTIVIO</span></Link>
@@ -115,7 +115,7 @@ export function AuthForm({ mode, action, initialState }: AuthFormProps) {
           <div className="auth-security"><span className="auth-security-icon">⌑</span><p><strong>Private by design</strong><br />Your password stays yours. Never share it by email or message.</p><span className="auth-security-code">SECURE / 256</span></div>
         </section>
         <footer className="auth-main-footer"><span>© 2026 APTIVIO LEARNING</span><span>LEARN WITH INTENT. ADVANCE WITH PROOF.</span></footer>
-      </main>
+      </div>
     </div>
   );
 }
