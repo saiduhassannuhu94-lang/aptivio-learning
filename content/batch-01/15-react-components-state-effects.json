@@ -1,0 +1,358 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "react-components-state-effects",
+    "title": "React: Components, State and Effects",
+    "subtitle": "Build reusable, accessible React interfaces with predictable state and disciplined side effects.",
+    "description": "A practical React course covering component composition, JSX, props, list keys, state snapshots, events, controlled forms, conditional and derived UI, Effects as external synchronization, dependencies and cleanup, context, custom Hooks, asynchronous data, accessibility, component testing and server/client rendering boundaries. Learners build a tested course catalogue.",
+    "level": "beginner_to_intermediate",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 640,
+    "target_audience": [
+      "Frontend learners with JavaScript fundamentals",
+      "Computing students building component-based applications",
+      "Developers preparing for modern React and Next.js work"
+    ],
+    "prerequisites": [
+      "JavaScript functions, arrays and objects",
+      "HTML and CSS foundations",
+      "Basic TypeScript knowledge is helpful but not required"
+    ],
+    "outcomes": [
+      "Break an interface into cohesive reusable components",
+      "Use JSX, props and stable list keys correctly",
+      "Model state updates as immutable snapshots",
+      "Handle events and controlled forms accessibly",
+      "Derive UI from minimal state rather than duplicate values",
+      "Use Effects only to synchronize with external systems",
+      "Share state through context and custom Hooks appropriately",
+      "Test async, accessible React user journeys"
+    ],
+    "equipment": [
+      "Laptop or desktop computer",
+      "Node.js development environment",
+      "React-compatible project tooling",
+      "Browser and developer tools"
+    ],
+    "accessibility": "Components use semantic HTML, labels and keyboard-operable controls. Examples include focus, error and loading states. All diagrams have text descriptions.",
+    "sections": [
+      {
+        "title": "React Components and Declarative UI",
+        "description": "Describe interfaces with reusable components, JSX and props.",
+        "lessons": [
+          {
+            "title": "What React is and how components compose",
+            "duration_minutes": 25,
+            "body_markdown": "## What React is and how components compose\n\nReact is a library for describing user interfaces as reusable components. A component receives inputs and returns a description of what should appear. Components can be nested to form a tree, allowing a page to be divided into cohesive units such as a navigation bar, course card and progress panel. A component should be predictable from its props and state. Avoid designing components as miniature pages with unrelated responsibilities. Composition lets a parent choose which children to render without forcing every component into a rigid inheritance hierarchy.\n\n### Worked example\n\nSketch a course dashboard tree containing a header, catalogue list, course card and progress summary. Identify which parts should be separate components.\n\n### Common failure to avoid\n\nDo not create a component for every wrapper element; components should have a meaningful responsibility or reuse boundary.\n\n### Check your understanding\n\nExplain the component's inputs, state and visible result. Identify whether the behaviour belongs in rendering, an event handler or an Effect, and describe how cleanup, loading and error states are handled. Keep the user's observable behaviour as the test target.\n",
+            "exercise": "Break a page into components and explain the data each child needs.",
+            "key_takeaways": [
+              "Explain the React concept behind what react is and how components compose.",
+              "Identify one state, accessibility, rendering or effect-lifecycle condition that must be tested."
+            ]
+          },
+          {
+            "title": "JSX and rendering values",
+            "duration_minutes": 25,
+            "body_markdown": "## JSX and rendering values\n\nJSX is a syntax extension that lets components describe UI using markup-like expressions. It compiles to JavaScript calls and is not HTML text inserted directly into the source file. JavaScript expressions can be embedded with braces, while statements such as `if` need to be expressed through surrounding JavaScript logic or conditional rendering patterns. Text and attributes should be treated as values; rendering untrusted content as raw HTML needs special care. Keep rendering logic readable and avoid deeply nested conditional expressions.\n\n### Worked example\n\nCreate JSX for a course card using a title expression, a level label and a conditional badge.\n\n### Common failure to avoid\n\nDo not assume JSX is a string template or insert untrusted HTML without an explicit sanitisation strategy.\n\n### Check your understanding\n\nExplain the component's inputs, state and visible result. Identify whether the behaviour belongs in rendering, an event handler or an Effect, and describe how cleanup, loading and error states are handled. Keep the user's observable behaviour as the test target.\n",
+            "exercise": "Translate a data object into a JSX component and identify expressions versus markup.",
+            "key_takeaways": [
+              "Explain the React concept behind jsx and rendering values.",
+              "Identify one state, accessibility, rendering or effect-lifecycle condition that must be tested."
+            ]
+          },
+          {
+            "title": "Props, composition and component contracts",
+            "duration_minutes": 25,
+            "body_markdown": "## Props, composition and component contracts\n\nProps are inputs passed from a parent to a child component. They should be treated as read-only by the receiving component. A well-designed component has a small, clear prop contract with meaningful names and appropriate types. Composition through children or named slots can make a component flexible without adding dozens of Boolean flags. Avoid copying props into state unless there is a deliberate reason to manage a separate editable value. Stable component contracts make reuse and testing easier.\n\n### Worked example\n\nCreate a `CourseCard` component that receives a course object and an optional action area through children.\n\n### Common failure to avoid\n\nDo not mutate props or create duplicated state that can drift away from the source value.\n\n### Check your understanding\n\nExplain the component's inputs, state and visible result. Identify whether the behaviour belongs in rendering, an event handler or an Effect, and describe how cleanup, loading and error states are handled. Keep the user's observable behaviour as the test target.\n",
+            "exercise": "Write a prop contract for a reusable course card and identify which values belong to the parent.",
+            "key_takeaways": [
+              "Explain the React concept behind props, composition and component contracts.",
+              "Identify one state, accessibility, rendering or effect-lifecycle condition that must be tested."
+            ]
+          },
+          {
+            "title": "Rendering lists and keys",
+            "duration_minutes": 25,
+            "body_markdown": "## Rendering lists and keys\n\nReact renders collections by mapping data into elements. Each sibling in a list needs a stable key that helps React match items across updates. A database identifier is usually better than an array index when records can be reordered, inserted or deleted. Keys are not passed to the child as ordinary props. Missing or unstable keys can produce incorrect state association and warnings. Avoid using random values as keys during rendering because they force unnecessary remounting.\n\n### Worked example\n\nRender a course list using stable course IDs and test what happens when one item is inserted at the beginning.\n\n### Common failure to avoid\n\nDo not use an array index as a key for a list whose ordering or membership can change.\n\n### Check your understanding\n\nExplain the component's inputs, state and visible result. Identify whether the behaviour belongs in rendering, an event handler or an Effect, and describe how cleanup, loading and error states are handled. Keep the user's observable behaviour as the test target.\n",
+            "exercise": "Explain why stable keys matter when a learner's course list is sorted or filtered.",
+            "key_takeaways": [
+              "Explain the React concept behind rendering lists and keys.",
+              "Identify one state, accessibility, rendering or effect-lifecycle condition that must be tested."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "State, Events and Rendering",
+        "description": "Model interface state and handle user interaction predictably.",
+        "lessons": [
+          {
+            "title": "State as a snapshot",
+            "duration_minutes": 25,
+            "body_markdown": "## State as a snapshot\n\nReact state belongs to a component instance and each render receives a snapshot of that state. Calling a setter schedules a future render; it does not change the state variable inside the already-running handler. When a new state depends on the previous state, use the updater function form to avoid stale values. State should be treated as immutable: create a new object or array rather than mutating the existing one. These rules help React detect changes and keep event behaviour predictable.\n\n### Worked example\n\nCreate a counter with increment and reset actions, then update an array of selected course IDs without mutating it.\n\n### Common failure to avoid\n\nDo not expect reading a state variable immediately after calling its setter to return the updated value.\n\n### Check your understanding\n\nExplain the component's inputs, state and visible result. Identify whether the behaviour belongs in rendering, an event handler or an Effect, and describe how cleanup, loading and error states are handled. Keep the user's observable behaviour as the test target.\n",
+            "exercise": "Trace two state updates in one event and explain why an updater function may be necessary.",
+            "key_takeaways": [
+              "Explain the React concept behind state as a snapshot.",
+              "Identify one state, accessibility, rendering or effect-lifecycle condition that must be tested."
+            ]
+          },
+          {
+            "title": "Events and user interaction",
+            "duration_minutes": 25,
+            "body_markdown": "## Events and user interaction\n\nReact event handlers are functions passed to JSX elements. They run in response to user interactions such as clicks, form input and keyboard activation. Keep handlers focused on a user action and move complex logic into named functions when helpful. Event propagation follows familiar browser concepts, but React's event system has its own implementation details. Use semantic buttons, links and form controls so keyboard and assistive-technology behaviour are available by default. A visible control must perform the action its label promises.\n\n### Worked example\n\nBuild an enrolment button with a handler that updates local status and prevents duplicate submissions while pending.\n\n### Common failure to avoid\n\nDo not attach interactive behaviour to a generic `div` when a native button or link expresses the action.\n\n### Check your understanding\n\nExplain the component's inputs, state and visible result. Identify whether the behaviour belongs in rendering, an event handler or an Effect, and describe how cleanup, loading and error states are handled. Keep the user's observable behaviour as the test target.\n",
+            "exercise": "Test an interaction with pointer and keyboard and verify the control's disabled/loading state.",
+            "key_takeaways": [
+              "Explain the React concept behind events and user interaction.",
+              "Identify one state, accessibility, rendering or effect-lifecycle condition that must be tested."
+            ]
+          },
+          {
+            "title": "Controlled forms and validation",
+            "duration_minutes": 25,
+            "body_markdown": "## Controlled forms and validation\n\nA controlled input receives its current value from React state and updates that state through an event handler. This allows a component to display validation feedback and keep the visible value consistent with application state. For larger forms, group related state and validate at clear boundaries. Client-side validation improves feedback but the server remains responsible for checking input and permissions. Associate errors with fields and preserve user-entered values when submission fails. Avoid making the UI state more complicated than the form's actual rules require.\n\n### Worked example\n\nBuild a controlled course-search input and a form that reports a missing course selection.\n\n### Common failure to avoid\n\nDo not treat React state as a security boundary or assume a controlled input guarantees valid submitted data.\n\n### Check your understanding\n\nExplain the component's inputs, state and visible result. Identify whether the behaviour belongs in rendering, an event handler or an Effect, and describe how cleanup, loading and error states are handled. Keep the user's observable behaviour as the test target.\n",
+            "exercise": "Write tests for empty, valid and malformed form values and verify the error appears beside the correct field.",
+            "key_takeaways": [
+              "Explain the React concept behind controlled forms and validation.",
+              "Identify one state, accessibility, rendering or effect-lifecycle condition that must be tested."
+            ]
+          },
+          {
+            "title": "Conditional rendering and derived values",
+            "duration_minutes": 25,
+            "body_markdown": "## Conditional rendering and derived values\n\nReact can render different UI based on state and props using conditions, early returns and logical expressions. Derived values should usually be calculated from existing props and state instead of stored separately. Duplicate state creates synchronization problems: when one value changes, every copied value must also be updated. Use memoization only when a measured performance need or stable reference requirement justifies it. Conditional branches should cover loading, empty, success and failure states explicitly.\n\n### Worked example\n\nRender a course list with separate loading, empty and populated views derived from one data state.\n\n### Common failure to avoid\n\nDo not store a filtered list in separate state when it can be derived from the source list and active filter.\n\n### Check your understanding\n\nExplain the component's inputs, state and visible result. Identify whether the behaviour belongs in rendering, an event handler or an Effect, and describe how cleanup, loading and error states are handled. Keep the user's observable behaviour as the test target.\n",
+            "exercise": "Model a search result panel using a minimal state shape and derive its visible list.",
+            "key_takeaways": [
+              "Explain the React concept behind conditional rendering and derived values.",
+              "Identify one state, accessibility, rendering or effect-lifecycle condition that must be tested."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Effects, Context and Reusable Logic",
+        "description": "Synchronize with external systems and share state responsibly.",
+        "lessons": [
+          {
+            "title": "Effects as synchronization with external systems",
+            "duration_minutes": 25,
+            "body_markdown": "## Effects as synchronization with external systems\n\nAn Effect synchronizes a component with an external system after rendering. Examples include subscribing to an event source, controlling a non-React widget or connecting to a browser API. Effects are not a general-purpose place to calculate derived values or respond to every user action; those tasks often belong in render logic or event handlers. The dependency list describes the reactive values used by the Effect, and cleanup reverses the setup when the dependency changes or component unmounts. Keep the external synchronization boundary explicit.\n\n### Worked example\n\nSubscribe to a browser event in an Effect and remove the listener in its cleanup function.\n\n### Common failure to avoid\n\nDo not use an Effect to copy one state variable into another when a derived calculation can solve the problem.\n\n### Check your understanding\n\nExplain the component's inputs, state and visible result. Identify whether the behaviour belongs in rendering, an event handler or an Effect, and describe how cleanup, loading and error states are handled. Keep the user's observable behaviour as the test target.\n",
+            "exercise": "Identify which parts of a component need an Effect and which belong in render or an event handler.",
+            "key_takeaways": [
+              "Explain the React concept behind effects as synchronization with external systems.",
+              "Identify one state, accessibility, rendering or effect-lifecycle condition that must be tested."
+            ]
+          },
+          {
+            "title": "Effect dependencies and cleanup",
+            "duration_minutes": 25,
+            "body_markdown": "## Effect dependencies and cleanup\n\nEffect dependencies must include the reactive values used by the Effect so that synchronization stays correct as values change. Omitting a dependency can create stale closures; adding unstable dependencies can cause repeated setup. A cleanup function runs before the Effect re-synchronizes and when the component unmounts. Development Strict Mode may intentionally run setup and cleanup more than once to reveal unsafe assumptions. Write Effects so setup and cleanup form a repeatable pair, and avoid suppressing lint rules without understanding the dependency model.\n\n### Worked example\n\nCreate an Effect that starts a timer using a stable callback and clears it whenever the relevant configuration changes.\n\n### Common failure to avoid\n\nDo not hide a missing dependency warning by disabling the lint rule; determine why the effect needs the value.\n\n### Check your understanding\n\nExplain the component's inputs, state and visible result. Identify whether the behaviour belongs in rendering, an event handler or an Effect, and describe how cleanup, loading and error states are handled. Keep the user's observable behaviour as the test target.\n",
+            "exercise": "Trace setup, cleanup and re-setup when a prop changes.",
+            "key_takeaways": [
+              "Explain the React concept behind effect dependencies and cleanup.",
+              "Identify one state, accessibility, rendering or effect-lifecycle condition that must be tested."
+            ]
+          },
+          {
+            "title": "Context and state sharing",
+            "duration_minutes": 25,
+            "body_markdown": "## Context and state sharing\n\nContext lets a component read a value provided by an ancestor without passing it through every intermediate component. It is useful for cross-cutting values such as theme, locale or an authenticated user's display context. Context does not replace all state management, and frequent broad context changes can cause many consumers to rerender. Keep providers as close as practical to the components that need them and separate unrelated contexts. For complex domain state, a reducer or dedicated state layer may be clearer.\n\n### Worked example\n\nCreate a theme context for a course dashboard and keep course filter state local to the catalogue.\n\n### Common failure to avoid\n\nDo not put every application value into one global context simply to avoid passing props.\n\n### Check your understanding\n\nExplain the component's inputs, state and visible result. Identify whether the behaviour belongs in rendering, an event handler or an Effect, and describe how cleanup, loading and error states are handled. Keep the user's observable behaviour as the test target.\n",
+            "exercise": "Choose which values belong in local state, lifted state or context and explain why.",
+            "key_takeaways": [
+              "Explain the React concept behind context and state sharing.",
+              "Identify one state, accessibility, rendering or effect-lifecycle condition that must be tested."
+            ]
+          },
+          {
+            "title": "Custom Hooks and reusable behaviour",
+            "duration_minutes": 25,
+            "body_markdown": "## Custom Hooks and reusable behaviour\n\nA custom Hook is a function whose name begins with `use` and that can call React Hooks at its top level. It packages reusable stateful behaviour, such as tracking online status or managing a form, without creating a new component layer. Hooks must be called in the same order on every render and not inside conditions or loops. A custom Hook should return a small useful interface and avoid hiding too much behaviour behind vague names. Reuse should simplify the caller rather than create an abstraction that is harder to understand.\n\n### Worked example\n\nCreate a `useOnlineStatus` Hook that subscribes to browser online/offline events and cleans up its listeners.\n\n### Common failure to avoid\n\nDo not call a Hook conditionally or from an ordinary utility function.\n\n### Check your understanding\n\nExplain the component's inputs, state and visible result. Identify whether the behaviour belongs in rendering, an event handler or an Effect, and describe how cleanup, loading and error states are handled. Keep the user's observable behaviour as the test target.\n",
+            "exercise": "Write a custom Hook contract and list the state and actions exposed to its caller.",
+            "key_takeaways": [
+              "Explain the React concept behind custom hooks and reusable behaviour.",
+              "Identify one state, accessibility, rendering or effect-lifecycle condition that must be tested."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Testing and Production-Ready React",
+        "description": "Build accessible, tested components and integrate asynchronous data.",
+        "lessons": [
+          {
+            "title": "Asynchronous data and loading states",
+            "duration_minutes": 25,
+            "body_markdown": "## Asynchronous data and loading states\n\nA component that loads data must represent the request lifecycle: pending, success, empty and failure. Starting requests in Effects can be appropriate for client-only synchronization, but framework data-loading patterns or dedicated query libraries may be better for caching, deduplication and server rendering. Cancel obsolete requests or ignore stale responses when parameters change. Preserve clear loading semantics and do not show old data as fresh after a failed request. Every asynchronous operation needs a defined error path.\n\n### Worked example\n\nLoad a list of courses with an Effect, cancel or disregard obsolete requests and display a retry action on failure.\n\n### Common failure to avoid\n\nDo not assume a fetch Promise rejects on an HTTP 404; inspect the Response status and handle it.\n\n### Check your understanding\n\nExplain the component's inputs, state and visible result. Identify whether the behaviour belongs in rendering, an event handler or an Effect, and describe how cleanup, loading and error states are handled. Keep the user's observable behaviour as the test target.\n",
+            "exercise": "Test delayed success, empty results, HTTP failure and a request that becomes obsolete.",
+            "key_takeaways": [
+              "Explain the React concept behind asynchronous data and loading states.",
+              "Identify one state, accessibility, rendering or effect-lifecycle condition that must be tested."
+            ]
+          },
+          {
+            "title": "Accessibility and component testing",
+            "duration_minutes": 25,
+            "body_markdown": "## Accessibility and component testing\n\nAccessible React components use semantic HTML, labels, headings, focus management and clear status messages. Automated tests should query elements the way users perceive them, using roles and accessible names where practical. Test observable behaviour rather than component internals. Include keyboard interaction, form errors and loading/disabled states. A snapshot test alone rarely proves that a workflow is usable. Keep test data realistic and avoid depending on production accounts or network services for routine component tests.\n\n### Worked example\n\nWrite a component test that submits an enrolment form and checks the accessible error message and success status.\n\n### Common failure to avoid\n\nDo not test only internal state setters when the user's actual interaction and displayed outcome matter.\n\n### Check your understanding\n\nExplain the component's inputs, state and visible result. Identify whether the behaviour belongs in rendering, an event handler or an Effect, and describe how cleanup, loading and error states are handled. Keep the user's observable behaviour as the test target.\n",
+            "exercise": "Create a test matrix for a course card, search form and enrolment button.",
+            "key_takeaways": [
+              "Explain the React concept behind accessibility and component testing.",
+              "Identify one state, accessibility, rendering or effect-lifecycle condition that must be tested."
+            ]
+          },
+          {
+            "title": "Server and client rendering boundaries",
+            "duration_minutes": 25,
+            "body_markdown": "## Server and client rendering boundaries\n\nReact can participate in different rendering environments. Traditional client-rendered components execute in the browser, while server-rendered or framework-managed components may produce HTML before browser hydration. Browser-only APIs cannot be accessed during server rendering unless guarded or moved into a client-side boundary. Hydration expects the initial client render to match the server-rendered HTML; reading unstable values such as the current time during the initial render can create mismatches. Frameworks such as Next.js define explicit server/client component patterns beyond core React.\n\n### Worked example\n\nExplain why accessing `window.localStorage` during a server render can fail and show where browser-only work belongs.\n\n### Common failure to avoid\n\nDo not assume every React component runs only in the browser when using a server-rendering framework.\n\n### Check your understanding\n\nExplain the component's inputs, state and visible result. Identify whether the behaviour belongs in rendering, an event handler or an Effect, and describe how cleanup, loading and error states are handled. Keep the user's observable behaviour as the test target.\n",
+            "exercise": "Identify server-safe and browser-only operations in a sample component tree.",
+            "key_takeaways": [
+              "Explain the React concept behind server and client rendering boundaries.",
+              "Identify one state, accessibility, rendering or effect-lifecycle condition that must be tested."
+            ]
+          },
+          {
+            "title": "Build a complete React application",
+            "duration_minutes": 25,
+            "body_markdown": "## Build a complete React application\n\nA well-structured React application uses components for cohesive UI units, state for values that change, derived calculations for values that can be recomputed, and Effects only for external synchronization. Define data contracts and request states before wiring a service. Use semantic controls, stable keys and testable boundaries. Keep asynchronous failures visible and check the application at mobile widths and with keyboard navigation. A project is not complete because the first route renders; test the main user journey and document remaining gaps.\n\n### Worked example\n\nBuild a course catalogue with filters, detail views, enrolment state, request loading/error handling and responsive components.\n\n### Common failure to avoid\n\nDo not bury all state and data logic inside one page component or use Effects as a substitute for a clear event flow.\n\n### Check your understanding\n\nExplain the component's inputs, state and visible result. Identify whether the behaviour belongs in rendering, an event handler or an Effect, and describe how cleanup, loading and error states are handled. Keep the user's observable behaviour as the test target.\n",
+            "exercise": "Submit a working React application with component tests, keyboard review and a short architecture note.",
+            "key_takeaways": [
+              "Explain the React concept behind build a complete react application.",
+              "Identify one state, accessibility, rendering or effect-lifecycle condition that must be tested."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "React: Components, State and Effects Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions with component and lifecycle reasoning. Code should use stable keys, clear state contracts and tested user-visible behaviour.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short_answer",
+          "prompt": "Explain the difference between props and state, and why a child component should not mutate its props.",
+          "marks": 8,
+          "rubric": [
+            "Defines props and state (3)",
+            "Explains one-way input contract (3)",
+            "Provides valid example (2)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "state_design",
+          "prompt": "Design the minimal state for a course catalogue with a search term, selected level and request lifecycle. Identify values that should be derived.",
+          "marks": 10,
+          "rubric": [
+            "Minimal source state (4)",
+            "Derived filtering values (3)",
+            "Explicit request states (3)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "effect_analysis",
+          "prompt": "A component uses an Effect to copy a filtered array into state whenever the source array changes. Explain why this is unnecessary and propose a derived render calculation.",
+          "marks": 12,
+          "rubric": [
+            "Identifies duplicated state (4)",
+            "Explains synchronization risk (4)",
+            "Provides derived approach (4)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "debugging",
+          "prompt": "An Effect adds an event listener but never removes it. Explain the lifecycle defect and provide a cleanup strategy.",
+          "marks": 10,
+          "rubric": [
+            "Identifies repeated subscription/leak risk (3)",
+            "Explains cleanup timing (3)",
+            "Correct cleanup approach (4)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "accessibility_testing",
+          "prompt": "Design tests for an enrolment form using keyboard interaction, labelled errors, pending state and successful submission.",
+          "marks": 10,
+          "rubric": [
+            "Keyboard semantics (3)",
+            "Accessible validation feedback (3)",
+            "Pending/success behaviour (2)",
+            "Observable assertions (2)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit the course catalogue application with source, tests and architecture note.",
+          "marks": 20,
+          "rubric": [
+            "Component composition (4)",
+            "State and request design (4)",
+            "Accessible interactions (4)",
+            "Testing and error states (4)",
+            "Documentation and responsive review (4)"
+          ]
+        }
+      ],
+      "total_marks": 70
+    },
+    "final_project": {
+      "title": "React Course Catalogue",
+      "brief": "Build a catalogue where learners can search and filter courses, open a detail view and begin a simulated enrolment. Use reusable components, minimal state, derived filtering and stable keys. Handle asynchronous data with explicit loading, empty and error states. Use Effects only for external synchronization such as subscriptions or request lifecycle where appropriate. Include accessible forms and component tests.",
+      "deliverables": [
+        "Component tree and data contracts",
+        "React source components and hooks",
+        "Search and filtering state model",
+        "Async loading/error/empty handling",
+        "At least 10 component or utility tests",
+        "Keyboard and accessibility checklist",
+        "README with setup and run instructions",
+        "Known limitations and architecture reflection"
+      ],
+      "acceptance_criteria": [
+        "Search and filters produce correct results",
+        "State updates do not mutate existing objects or arrays",
+        "Lists use stable unique keys",
+        "No unnecessary duplicated derived state",
+        "Effects clean up external subscriptions",
+        "Form and buttons are keyboard accessible",
+        "Errors and pending states are visible",
+        "Tests verify user-observable behaviour"
+      ]
+    },
+    "references": [
+      {
+        "title": "React: Describing the UI",
+        "url": "https://react.dev/learn/describing-the-ui",
+        "note": "Official guide to components, JSX and composition."
+      },
+      {
+        "title": "React: Managing State",
+        "url": "https://react.dev/learn/managing-state",
+        "note": "Current guidance on structuring and sharing component state."
+      },
+      {
+        "title": "React: Synchronizing with Effects",
+        "url": "https://react.dev/learn/synchronizing-with-effects",
+        "note": "Official explanation of when and how to use Effects."
+      },
+      {
+        "title": "React: Responding to Events",
+        "url": "https://react.dev/learn/responding-to-events",
+        "note": "Official event-handler and propagation guide."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft informed by current official React documentation. No authorised academic review has been recorded. Do not invent reviewer identities or dates and do not publish until a real review decision exists.",
+      "language": "English",
+      "content_quality": "Four sections and sixteen substantive lessons, examples, exercises, takeaways, six assessment rubrics, applied project, acceptance criteria and current official React references are included. Technical and academic review remain required."
+    }
+  }
+}
