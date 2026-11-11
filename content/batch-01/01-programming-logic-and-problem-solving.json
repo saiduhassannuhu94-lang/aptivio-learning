@@ -165,7 +165,7 @@
           {
             "title": "Dry Runs and Trace Tables",
             "duration_minutes": 25,
-            "body_markdown": true,
+            "body_markdown": "## Execute the logic by hand\n\nA dry run means manually following an algorithm with selected input values. A trace table records important variables after each step or iteration.\n\n### Worked example\n\n```text\nx <- 2\ny <- 1\nWHILE x <= 8\n    y <- y * 2\n    x <- x + 2\nEND WHILE\nOUTPUT y\n```\n\nTrace the loop:\n\n| Iteration | x before | y after multiply | x after increment |\n|---:|---:|---:|---:|\n| 1 | 2 | 2 | 4 |\n| 2 | 4 | 4 | 6 |\n| 3 | 6 | 8 | 8 |\n| 4 | 8 | 16 | 10 |\n\nThe next condition is false, so the output is 16. The body executes when x is 8 because the condition uses <=, not <.\n\n### Practice\n\nDry-run a loop that starts at 10 and subtracts 3 while the value is greater than zero. Record each value and the final output.\n\n### Common error\n\nDo not check the loop condition after changing the variable and then forget whether the body ran. Record the value at the point where the condition is tested, then record each update in order.\n\n### Self-check\n\nExplain why the loop runs four times, identify the final value of x, and state what would change if the condition were x < 8.",
             "exercise": "Provide a trace table for a loop of your choice and explain how you know the loop terminates.",
             "key_takeaways": [
               "Trace tables show exact variable changes.",
