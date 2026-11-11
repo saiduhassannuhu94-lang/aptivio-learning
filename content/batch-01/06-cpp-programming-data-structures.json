@@ -1,0 +1,352 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "cpp-programming-data-structures",
+    "title": "C++ Programming and Data Structures",
+    "subtitle": "Build C++ programs with object-oriented design, standard containers and safe resource management.",
+    "description": "A practical introduction to modern C++ covering compilation, types, functions, classes, encapsulation, RAII, inheritance, standard containers, iterators, algorithms, templates, smart pointers, testing and build systems. Learners focus on clear ownership and reliable data-structure choices rather than unsafe pointer habits.",
+    "level": "beginner_to_intermediate",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 640,
+    "target_audience": [
+      "Computing students studying C++ and data structures",
+      "Learners who understand basic programming and want stronger systems concepts",
+      "Students preparing for algorithm and object-oriented programming modules"
+    ],
+    "prerequisites": [
+      "Basic programming logic and variables",
+      "Basic computer literacy"
+    ],
+    "outcomes": [
+      "Compile and organise a C++ project with a stated language standard",
+      "Use types, initialization, expressions and functions accurately",
+      "Design classes that protect valid object state",
+      "Explain RAII and choose suitable ownership models",
+      "Use inheritance and polymorphism only when justified",
+      "Select standard containers based on operation requirements",
+      "Use iterators and standard algorithms safely",
+      "Build and test a small data-processing application"
+    ],
+    "equipment": [
+      "Laptop or desktop computer",
+      "C++ compiler supporting a modern standard",
+      "Text editor or IDE",
+      "Debugger and sanitizer where available"
+    ],
+    "accessibility": "Source code is selectable text; diagrams require text descriptions. Exercises state expected output and must not depend on colour alone.",
+    "sections": [
+      {
+        "title": "C++ Language Foundations",
+        "description": "Understand compilation, types, expressions and modern program structure.",
+        "lessons": [
+          {
+            "title": "C++ source, compilation and program structure",
+            "duration_minutes": 25,
+            "body_markdown": "## C++ source, compilation and program structure\n\nC++ source files are translated by a compiler and linked into an executable. Projects commonly use headers for declarations and source files for definitions. A successful build proves only that the source passed the checks performed by that build; it does not prove algorithmic correctness or memory safety. State the language standard and compiler options so another learner can reproduce the build. A hosted application normally starts at `main`, which returns a status value to the environment.\n\n### Worked example\n\nCompile a minimal program with an explicit C++ standard flag, then record the compiler version and warnings.\n\n### Common failure to avoid\n\nDo not assume every compiler defaults to the same standard or warning set.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. State the lifetime of each object involved, the ownership relationship and any precondition required by the operation. A code sample is not complete evidence unless its assumptions are also clear.\n",
+            "exercise": "Write the compile and run commands needed to reproduce your program.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of c++ source, compilation and program structure.",
+              "Identify one lifetime, invalidation, type or complexity constraint that affects the design."
+            ]
+          },
+          {
+            "title": "Types, initialization and value semantics",
+            "duration_minutes": 25,
+            "body_markdown": "## Types, initialization and value semantics\n\nC++ combines built-in types, class types and references. Initialization syntax matters: brace initialization can reject certain narrowing conversions and makes construction intent clearer. Every object should be initialized before it is read. `auto` asks the compiler to deduce a type from an initializer; it can remove repetition but does not remove the need to know the resulting type. A reference aliases an existing object, while a value object has its own identity and lifetime. Decide whether a function should copy, observe or mutate its argument.\n\n### Worked example\n\nDeclare a score, a `std::string` name and a `std::vector<int>` of marks. Compare narrowing conversion with brace initialization.\n\n### Common failure to avoid\n\nDo not use `auto` to hide an important type distinction, and do not treat a reference as an independent copy.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. State the lifetime of each object involved, the ownership relationship and any precondition required by the operation. A code sample is not complete evidence unless its assumptions are also clear.\n",
+            "exercise": "Review five declarations and explain each type and initialization choice.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of types, initialization and value semantics.",
+              "Identify one lifetime, invalidation, type or complexity constraint that affects the design."
+            ]
+          },
+          {
+            "title": "Expressions, operators and conversions",
+            "duration_minutes": 25,
+            "body_markdown": "## Expressions, operators and conversions\n\nC++ expressions follow precedence and conversion rules that affect results. Integer division truncates fractional parts, and mixing signed and unsigned values can produce surprising comparisons. Prefer explicit conversions where a conversion affects correctness, and avoid narrowing values silently. `std::numeric_limits` helps reason about representable ranges. Every calculation should state its domain, especially when division by zero or overflow is possible. Parentheses can make complex expressions easier to inspect, but they do not repair an incorrect algorithm.\n\n### Worked example\n\nCalculate an average from integer marks using a floating-point result and test zero, negative and maximum supported values.\n\n### Common failure to avoid\n\nDo not assume mixed signed and unsigned arithmetic behaves like ordinary signed subtraction.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. State the lifetime of each object involved, the ownership relationship and any precondition required by the operation. A code sample is not complete evidence unless its assumptions are also clear.\n",
+            "exercise": "Design a fee calculation with named intermediate values and document valid numeric ranges.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of expressions, operators and conversions.",
+              "Identify one lifetime, invalidation, type or complexity constraint that affects the design."
+            ]
+          },
+          {
+            "title": "Functions, headers and namespaces",
+            "duration_minutes": 25,
+            "body_markdown": "## Functions, headers and namespaces\n\nA function packages work behind a name and a parameter/return contract. Declarations in headers let other translation units call functions defined elsewhere. Namespaces group related identifiers and reduce collisions. Passing by value creates a parameter object; passing by reference can avoid copying or allow mutation, so document which behaviour is intended. Use `const` references for large read-only objects when appropriate, but do not add reference complexity to tiny values without a reason. Headers should include the declarations they require and expose a small interface.\n\n### Worked example\n\nDeclare a function in a header that accepts a read-only vector and returns its average, then implement it in a source file.\n\n### Common failure to avoid\n\nDo not put broad `using namespace` directives in public headers because they can pollute callers' namespaces.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. State the lifetime of each object involved, the ownership relationship and any precondition required by the operation. A code sample is not complete evidence unless its assumptions are also clear.\n",
+            "exercise": "Write a function contract that explains parameter ownership, mutation and return behaviour.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of functions, headers and namespaces.",
+              "Identify one lifetime, invalidation, type or complexity constraint that affects the design."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Classes and Resource-Safe Design",
+        "description": "Model behaviour with classes and manage object lifetimes deliberately.",
+        "lessons": [
+          {
+            "title": "Classes, objects and constructors",
+            "duration_minutes": 25,
+            "body_markdown": "## Classes, objects and constructors\n\nA class defines data and operations; an object is an instance of that class. Constructors establish valid initial state and can be overloaded to support different creation paths. Member initializer lists initialize members directly and are required for some members, including references and const fields. Give classes a clear invariant, such as a score always being within a permitted range. Keep implementation details private unless a caller needs access. A good constructor should make invalid states difficult to create.\n\n### Worked example\n\nCreate a `Student` class whose constructor requires a name and a valid initial score.\n\n### Common failure to avoid\n\nDo not create an object in an invalid state and expect every caller to remember to repair it later.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. State the lifetime of each object involved, the ownership relationship and any precondition required by the operation. A code sample is not complete evidence unless its assumptions are also clear.\n",
+            "exercise": "Define two constructors and explain which invariants each must preserve.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of classes, objects and constructors.",
+              "Identify one lifetime, invalidation, type or complexity constraint that affects the design."
+            ]
+          },
+          {
+            "title": "Encapsulation and const correctness",
+            "duration_minutes": 25,
+            "body_markdown": "## Encapsulation and const correctness\n\nEncapsulation protects class invariants through a controlled interface. `private` data prevents arbitrary callers from changing internal state. A `const` member function promises not to modify the observable state of the object, allowing it to be called on const objects. Mark parameters and local variables const when that communicates a real constraint. Avoid getters and setters that expose every field without enforcing rules. Public methods should describe supported actions rather than expose storage details.\n\n### Worked example\n\nAdd a `recordScore` method that rejects out-of-range values and a const method that returns the current average.\n\n### Common failure to avoid\n\nDo not mark a method const if it needs to mutate state, and do not return a mutable internal reference accidentally.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. State the lifetime of each object involved, the ownership relationship and any precondition required by the operation. A code sample is not complete evidence unless its assumptions are also clear.\n",
+            "exercise": "Review a class interface and identify which operations should be const, private or public.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of encapsulation and const correctness.",
+              "Identify one lifetime, invalidation, type or complexity constraint that affects the design."
+            ]
+          },
+          {
+            "title": "RAII and object lifetime",
+            "duration_minutes": 25,
+            "body_markdown": "## RAII and object lifetime\n\nResource Acquisition Is Initialization ties a resource's lifetime to an object's lifetime. A constructor acquires or establishes the resource, and the destructor releases it when the object leaves scope. Standard library types such as `std::string`, `std::vector` and smart pointers already manage many resources. RAII reduces leaks and makes early returns and exceptions safer. Copy and move operations affect ownership, so resource-owning classes must define appropriate semantics or rely on safe standard-library members.\n\n### Worked example\n\nUse a `std::vector<int>` and `std::ifstream` inside a scope, then explain when their managed resources are released.\n\n### Common failure to avoid\n\nDo not manually delete memory owned by a smart pointer or standard container.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. State the lifetime of each object involved, the ownership relationship and any precondition required by the operation. A code sample is not complete evidence unless its assumptions are also clear.\n",
+            "exercise": "Draw the lifetime of a local object and identify when its destructor runs.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of raii and object lifetime.",
+              "Identify one lifetime, invalidation, type or complexity constraint that affects the design."
+            ]
+          },
+          {
+            "title": "Composition, inheritance and polymorphism",
+            "duration_minutes": 25,
+            "body_markdown": "## Composition, inheritance and polymorphism\n\nComposition models a has-a relationship by storing one object inside another. Inheritance models an is-a relationship and supports substitution when a derived type genuinely satisfies the base type's contract. Runtime polymorphism commonly uses virtual functions and a virtual destructor in polymorphic base classes. Avoid deep class hierarchies and use abstract base classes only when dynamic substitution is needed. Prefer value types and composition when they express the model more directly.\n\n### Worked example\n\nModel a course containing assessment components through composition, then create a valid polymorphic assessment interface.\n\n### Common failure to avoid\n\nDeleting a derived object through a base pointer without a virtual destructor can cause undefined behaviour.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. State the lifetime of each object involved, the ownership relationship and any precondition required by the operation. A code sample is not complete evidence unless its assumptions are also clear.\n",
+            "exercise": "Explain when composition is safer and clearer than inheritance in a course-management model.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of composition, inheritance and polymorphism.",
+              "Identify one lifetime, invalidation, type or complexity constraint that affects the design."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Standard Library and Data Structures",
+        "description": "Use containers, iterators, algorithms and templates effectively.",
+        "lessons": [
+          {
+            "title": "Standard containers and data-structure choice",
+            "duration_minutes": 25,
+            "body_markdown": "## Standard containers and data-structure choice\n\nThe C++ standard library provides containers with different guarantees. `std::vector` stores a sequence with efficient random access and amortized append; `std::list` supports insertion when an iterator is positioned but lacks random access; `std::map` stores ordered key-value pairs; `std::unordered_map` uses hashing; and `std::set` stores unique keys. Selection depends on lookup, insertion, ordering and memory needs. Choose the container whose operations match the workload, not the one with the fanciest name.\n\n### Worked example\n\nRepresent student records by ID in an unordered map and ordered attempts in a vector. Explain lookup and iteration needs.\n\n### Common failure to avoid\n\nDo not choose a linked list merely because insertion sounds important; account for where insertion occurs and how elements are accessed.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. State the lifetime of each object involved, the ownership relationship and any precondition required by the operation. A code sample is not complete evidence unless its assumptions are also clear.\n",
+            "exercise": "Compare vector, map, set and unordered_map for four concrete tasks.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of standard containers and data-structure choice.",
+              "Identify one lifetime, invalidation, type or complexity constraint that affects the design."
+            ]
+          },
+          {
+            "title": "Iterators and iterator invalidation",
+            "duration_minutes": 25,
+            "body_markdown": "## Iterators and iterator invalidation\n\nIterators provide a common way to traverse containers. Their validity rules differ: inserting into a vector can invalidate iterators when reallocation occurs, while other containers have different guarantees. An invalidated iterator must not be used. Range-based for loops reduce manual index errors when mutation is not needed, but modifying a container during iteration still requires understanding its rules. Use algorithms with iterator ranges and avoid keeping an iterator longer than the operations that may invalidate it.\n\n### Worked example\n\nTraverse a vector, append an element and explain why a previously saved iterator may no longer be valid.\n\n### Common failure to avoid\n\nDo not assume iterators behave like stable pointers across container mutations.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. State the lifetime of each object involved, the ownership relationship and any precondition required by the operation. A code sample is not complete evidence unless its assumptions are also clear.\n",
+            "exercise": "Identify which operations may invalidate iterators for the containers used in your project.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of iterators and iterator invalidation.",
+              "Identify one lifetime, invalidation, type or complexity constraint that affects the design."
+            ]
+          },
+          {
+            "title": "Algorithms and complexity",
+            "duration_minutes": 25,
+            "body_markdown": "## Algorithms and complexity\n\nThe standard library provides algorithms such as `std::sort`, `std::find`, `std::count_if` and `std::accumulate`. A well-tested algorithm can improve clarity and reduce implementation defects. Complexity describes how work grows with input size; comparison sorting commonly has O(n log n) complexity, while a linear search is O(n). These are scaling models, not promises about exact runtime. Use iterators to define the range precisely and verify preconditions, such as sorted input for binary search.\n\n### Worked example\n\nSort a vector of scores, count passing values with `count_if` and calculate a total with `accumulate`.\n\n### Common failure to avoid\n\nDo not call a binary-search algorithm on a range that does not satisfy its sorted-range precondition.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. State the lifetime of each object involved, the ownership relationship and any precondition required by the operation. A code sample is not complete evidence unless its assumptions are also clear.\n",
+            "exercise": "Explain the difference between a linear scan and a sort-then-search strategy.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of algorithms and complexity.",
+              "Identify one lifetime, invalidation, type or complexity constraint that affects the design."
+            ]
+          },
+          {
+            "title": "Templates and generic programming",
+            "duration_minutes": 25,
+            "body_markdown": "## Templates and generic programming\n\nTemplates allow functions and classes to work with different types while preserving compile-time type checking. A function template can express an operation once for several compatible types. Generic code still has requirements: the type must support the operations the template uses. Concepts in modern C++ can express some requirements more clearly. Avoid templates when one concrete type is the clearer interface. Compiler diagnostics can be verbose because substitution and overload resolution are involved.\n\n### Worked example\n\nWrite a function template that returns the larger of two comparable values and test it with integers and strings.\n\n### Common failure to avoid\n\nDo not assume every type supports every operator or that a generic function has no type requirements.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. State the lifetime of each object involved, the ownership relationship and any precondition required by the operation. A code sample is not complete evidence unless its assumptions are also clear.\n",
+            "exercise": "State the operations required by a template and give one type that satisfies them and one that does not.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of templates and generic programming.",
+              "Identify one lifetime, invalidation, type or complexity constraint that affects the design."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Testing and Applied C++",
+        "description": "Choose safe ownership models and deliver a tested application.",
+        "lessons": [
+          {
+            "title": "Smart pointers and ownership models",
+            "duration_minutes": 25,
+            "body_markdown": "## Smart pointers and ownership models\n\nSmart pointers express ownership. `std::unique_ptr` represents exclusive ownership and is movable but not copyable; `std::shared_ptr` shares ownership through a control block; `std::weak_ptr` observes a shared object without keeping it alive. Prefer `unique_ptr` when one owner is appropriate and avoid shared ownership unless several owners truly exist. Shared-pointer cycles can prevent reference counts from reaching zero, which is one reason weak pointers exist. Standard containers and value semantics are often simpler than manual pointer management.\n\n### Worked example\n\nCreate a `unique_ptr` to a record, transfer it to another owner with move semantics and explain why the original pointer becomes empty.\n\n### Common failure to avoid\n\nDo not use `shared_ptr` as a universal replacement for deciding who owns an object.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. State the lifetime of each object involved, the ownership relationship and any precondition required by the operation. A code sample is not complete evidence unless its assumptions are also clear.\n",
+            "exercise": "Draw an ownership graph for unique, shared and weak pointers.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of smart pointers and ownership models.",
+              "Identify one lifetime, invalidation, type or complexity constraint that affects the design."
+            ]
+          },
+          {
+            "title": "Exceptions and error handling",
+            "duration_minutes": 25,
+            "body_markdown": "## Exceptions and error handling\n\nC++ exceptions report failures that cannot be handled locally through ordinary return values. RAII ensures managed resources are released as stack objects unwind. Catch exceptions at boundaries where a useful recovery or report can be provided; do not catch everything and continue with corrupted state. Validate ordinary user input before invoking expensive operations. If a function can fail in an expected way, consider whether a return value or exception best communicates the contract. Preserve useful context when translating an exception.\n\n### Worked example\n\nWrite a score update operation that rejects an invalid value and show where the caller should handle that failure.\n\n### Common failure to avoid\n\nDo not catch an exception and silently return a success-shaped default that hides the failure.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. State the lifetime of each object involved, the ownership relationship and any precondition required by the operation. A code sample is not complete evidence unless its assumptions are also clear.\n",
+            "exercise": "Define an error-handling contract for file loading and invalid score input.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of exceptions and error handling.",
+              "Identify one lifetime, invalidation, type or complexity constraint that affects the design."
+            ]
+          },
+          {
+            "title": "Unit testing, debugging and sanitizers",
+            "duration_minutes": 25,
+            "body_markdown": "## Unit testing, debugging and sanitizers\n\nUnit tests examine small units of behaviour through repeatable inputs and expected outcomes. Test constructors, class invariants, collection edge cases and error paths. A debugger allows breakpoints, step execution and variable inspection. Sanitizers can detect some memory and undefined-behaviour defects during execution, but they do not prove every defect is absent. Build with warnings and rerun tests after each correction. A regression test should fail before a fix and pass afterward.\n\n### Worked example\n\nCreate tests for valid construction, rejected construction and invalid state changes; run a debug build with available diagnostics.\n\n### Common failure to avoid\n\nA test that never exercises a boundary cannot establish that the boundary is handled correctly.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. State the lifetime of each object involved, the ownership relationship and any precondition required by the operation. A code sample is not complete evidence unless its assumptions are also clear.\n",
+            "exercise": "Prepare a test matrix with normal, boundary, invalid and regression cases.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of unit testing, debugging and sanitizers.",
+              "Identify one lifetime, invalidation, type or complexity constraint that affects the design."
+            ]
+          },
+          {
+            "title": "Build systems and project delivery",
+            "duration_minutes": 25,
+            "body_markdown": "## Build systems and project delivery\n\nA growing C++ project benefits from a repeatable build system such as CMake. Build configuration should list source files, required language standard and dependencies explicitly. A clean build from a fresh directory checks whether hidden local artifacts are masking missing files. The README should state toolchain assumptions, build steps, test commands and limitations so another developer can reproduce the result. Generated build files should not replace tracked source or configuration.\n\n### Worked example\n\nCreate a CMake project with separate model and application files, then build and run tests from a clean build directory.\n\n### Common failure to avoid\n\nDo not commit generated build output as a substitute for source and build configuration.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. State the lifetime of each object involved, the ownership relationship and any precondition required by the operation. A code sample is not complete evidence unless its assumptions are also clear.\n",
+            "exercise": "Submit the project with source, build instructions, test results and a short design review.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of build systems and project delivery.",
+              "Identify one lifetime, invalidation, type or complexity constraint that affects the design."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "C++ Programming and Data Structures Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions and justify data-structure and ownership choices. Code submissions must compile with the stated language standard and include tests.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short_answer",
+          "prompt": "Explain RAII and why it makes resource handling more reliable than manually pairing every acquisition with a release.",
+          "marks": 8,
+          "rubric": [
+            "Defines lifetime-based resource management (3)",
+            "Explains cleanup during scope exit/unwinding (3)",
+            "Provides a suitable example (2)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "data_structure_choice",
+          "prompt": "Choose a standard container for ordered attempts, unique course identifiers and ID-based lookup. Justify each choice.",
+          "marks": 10,
+          "rubric": [
+            "Suitable sequence container (3)",
+            "Suitable uniqueness representation (3)",
+            "Suitable key-value lookup (2)",
+            "Trade-offs explained (2)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "implementation",
+          "prompt": "Write a function using a standard algorithm to calculate how many scores meet a pass threshold.",
+          "marks": 12,
+          "rubric": [
+            "Correct range (3)",
+            "Correct predicate (4)",
+            "Correct result (3)",
+            "Readable implementation (2)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "debugging",
+          "prompt": "A vector is appended to after an iterator is saved, and the saved iterator is later used. Explain the potential invalidation and correction.",
+          "marks": 10,
+          "rubric": [
+            "Identifies possible reallocation/invalidation (4)",
+            "Explains unsafe use (3)",
+            "Proposes safe traversal/reacquisition (3)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "testing",
+          "prompt": "Design six tests for a class invariant and collection-processing function, including invalid and empty inputs.",
+          "marks": 10,
+          "rubric": [
+            "Normal cases (2)",
+            "Boundary cases (3)",
+            "Invalid/empty cases (3)",
+            "Expected outcomes (2)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit the Student Data and Results Manager with build instructions, tests and ownership/design explanation.",
+          "marks": 20,
+          "rubric": [
+            "Functional requirements (5)",
+            "Appropriate standard containers (4)",
+            "Safe resource management (4)",
+            "Testing and build evidence (4)",
+            "Documentation (3)"
+          ]
+        }
+      ],
+      "total_marks": 70
+    },
+    "final_project": {
+      "title": "Student Data and Results Manager",
+      "brief": "Build a C++ application to store, search, sort and summarise student records. Use appropriate standard containers, a class model with clear invariants and RAII-managed resources. Avoid raw owning pointers unless a specific low-level exercise requires them. Separate user interaction from core operations so tests can exercise the model.",
+      "deliverables": [
+        "Requirements and data model",
+        "Class responsibility diagram",
+        "Source files and reproducible build configuration",
+        "Documented collection and ownership choices",
+        "At least 10 tests with expected results",
+        "README with build, run and test instructions",
+        "Design reflection and known limitations"
+      ],
+      "acceptance_criteria": [
+        "Students can be added, searched and listed correctly",
+        "Sorting and summaries are correct for empty and non-empty data",
+        "Invalid records cannot violate class invariants",
+        "Ownership is explicit and resources are released safely",
+        "Tests cover normal, boundary and invalid cases",
+        "A clean build is reproducible from documented commands",
+        "Limitations and trade-offs are explained"
+      ]
+    },
+    "references": [
+      {
+        "title": "C++ Core Guidelines",
+        "url": "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines",
+        "note": "Guidance on modern C++ design, resource safety and interfaces."
+      },
+      {
+        "title": "cppreference: C++",
+        "url": "https://en.cppreference.com/w/cpp",
+        "note": "Language and standard-library reference."
+      },
+      {
+        "title": "CMake Tutorial",
+        "url": "https://cmake.org/cmake/help/latest/guide/tutorial/",
+        "note": "Official tutorial for repeatable C++ project builds."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft. No authorised academic review has been recorded. Do not create reviewer identities or review dates and do not publish until a real review decision exists.",
+      "language": "English",
+      "content_quality": "Four sections and sixteen substantive lessons with examples, exercises, takeaways, six assessment questions and rubrics, an applied project, acceptance criteria and authoritative references are included. Technical and academic review remain required."
+    }
+  }
+}
