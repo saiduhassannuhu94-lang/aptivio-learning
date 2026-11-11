@@ -132,13 +132,6 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
 
     const courseById = new Map(courseRows.map((item) => [item.id, item]));
     const versionById = new Map(versionRows.map((item) => [item.id, item]));
-    const sectionsByVersion = new Map<string, string[]>();
-    for (const section of sectionRows) {
-      const existing = sectionsByVersion.get(section.course_version_id) ?? [];
-      existing.push(section.id);
-      sectionsByVersion.set(section.course_version_id, existing);
-    }
-
     const lessonsByVersion = new Map<string, Set<string>>();
     const versionBySection = new Map(sectionRows.map((item) => [item.id, item.course_version_id]));
     for (const lesson of lessons ?? []) {
