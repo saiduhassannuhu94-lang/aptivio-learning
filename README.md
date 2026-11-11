@@ -10,6 +10,7 @@ APTIVIO is a modern, mobile-first online learning platform designed to make qual
 - [Engineering blueprint](docs/ENGINEERING_BLUEPRINT.md)
 - [Database foundation](docs/DATABASE.md)
 - [Database testing](docs/DATABASE_TESTING.md)
+- [200-course catalogue programme](docs/COURSE_CATALOGUE_200.md)
 - [Authentication foundation](docs/AUTHENTICATION.md)
 - [Assessment foundation](docs/ASSESSMENTS.md)
 - [Paystack payment foundation](docs/PAYMENTS.md)
