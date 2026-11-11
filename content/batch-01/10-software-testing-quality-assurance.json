@@ -1,0 +1,354 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "software-testing-quality-assurance",
+    "title": "Software Testing and Quality Assurance",
+    "subtitle": "Design risk-based tests, automate checks and use evidence to support reliable releases.",
+    "description": "A practical software testing course covering quality fundamentals, verification and validation, test levels, test planning, equivalence partitions, boundary analysis, decision tables, state transitions, unit and integration tests, test doubles, regression automation, metrics, defect reporting, non-functional testing and release readiness.",
+    "level": "beginner_to_intermediate",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 640,
+    "target_audience": [
+      "Computing students learning software engineering and QA",
+      "Junior developers who need structured testing skills",
+      "Learners preparing to work in software delivery teams"
+    ],
+    "prerequisites": [
+      "Basic computer literacy",
+      "Basic understanding of software features or programming concepts"
+    ],
+    "outcomes": [
+      "Explain the purpose and limits of software testing",
+      "Distinguish verification, validation and acceptance",
+      "Select suitable test levels and types",
+      "Design tests using equivalence classes and boundaries",
+      "Use decision tables and state models to cover rule combinations",
+      "Write isolated unit and integration tests",
+      "Use test doubles and regression automation responsibly",
+      "Report defects and assess release readiness with evidence"
+    ],
+    "equipment": [
+      "Laptop or desktop computer",
+      "Any small application or sample feature to test",
+      "Test case template or spreadsheet",
+      "Access to a test runner for the chosen example project"
+    ],
+    "accessibility": "All test templates are available as text and tables. Do not encode pass/fail meaning by colour alone. Include descriptive labels for screenshots and alternative text for diagrams.",
+    "sections": [
+      {
+        "title": "Foundations of Software Quality",
+        "description": "Understand quality, testing objectives, test levels and verification.",
+        "lessons": [
+          {
+            "title": "Why software testing matters",
+            "duration_minutes": 25,
+            "body_markdown": "## Why software testing matters\n\nTesting evaluates software behaviour and provides evidence about quality. It can reveal defects, reduce release risk and check whether stated requirements are met, but it cannot prove that a system has no defects. Testing is more than clicking through an interface: it includes planning, analysis, design, execution, reporting and learning from results. The objective is to find important problems early enough that they can be understood and corrected. A test strategy should connect the product's risks to the evidence the team needs.\n\n### Worked example\n\nTake a simple registration feature and list the failures that would most harm a learner, such as duplicate enrolment or exposing another learner's record.\n\n### Common failure to avoid\n\nDo not describe a product as bug-free because a checklist passed once; tests provide evidence within their scope.\n\n### Check your understanding\n\nExplain what evidence this technique provides and what it cannot prove. Identify the requirement or risk, the test conditions, the expected result and how a failure would be recorded. Testing is useful only when the team can interpret its evidence honestly.\n",
+            "exercise": "Write a short statement of the quality risks for a learner enrolment workflow.",
+            "key_takeaways": [
+              "Explain the purpose and limits of why software testing matters.",
+              "Apply the technique to a real workflow and define an observable expected result."
+            ]
+          },
+          {
+            "title": "Verification, validation and acceptance",
+            "duration_minutes": 25,
+            "body_markdown": "## Verification, validation and acceptance\n\nVerification asks whether the product is being built according to its specification; validation asks whether the resulting product solves the user's real problem. Acceptance criteria translate stakeholder expectations into observable conditions. A requirement such as “the page should be fast” is too vague until it has a measurable threshold, test environment and measurement method. Review requirements for ambiguity before designing tests. The test evidence should trace back to the requirement or risk it is intended to address.\n\n### Worked example\n\nRewrite “the dashboard must be easy” as three observable acceptance conditions.\n\n### Common failure to avoid\n\nDo not test against assumptions that were never agreed as requirements.\n\n### Check your understanding\n\nExplain what evidence this technique provides and what it cannot prove. Identify the requirement or risk, the test conditions, the expected result and how a failure would be recorded. Testing is useful only when the team can interpret its evidence honestly.\n",
+            "exercise": "Create a traceability table linking three requirements to acceptance criteria and tests.",
+            "key_takeaways": [
+              "Explain the purpose and limits of verification, validation and acceptance.",
+              "Apply the technique to a real workflow and define an observable expected result."
+            ]
+          },
+          {
+            "title": "Test levels and test types",
+            "duration_minutes": 25,
+            "body_markdown": "## Test levels and test types\n\nUnit tests examine small components; integration tests examine interactions between components; system tests evaluate an integrated application; acceptance tests assess whether it meets user and business needs. Functional testing checks what the system does, while non-functional testing examines qualities such as performance, security, accessibility and reliability. These categories overlap in real projects but help the team plan coverage. Choose the lowest level that can provide reliable evidence, then add higher-level tests for critical interactions.\n\n### Worked example\n\nClassify tests for a password validator, a database enrolment transaction and a complete student sign-in journey.\n\n### Common failure to avoid\n\nDo not try to test every rule through a slow full-browser test when a focused unit test can give clearer feedback.\n\n### Check your understanding\n\nExplain what evidence this technique provides and what it cannot prove. Identify the requirement or risk, the test conditions, the expected result and how a failure would be recorded. Testing is useful only when the team can interpret its evidence honestly.\n",
+            "exercise": "Design one unit, one integration, one system and one acceptance test for a course registration feature.",
+            "key_takeaways": [
+              "Explain the purpose and limits of test levels and test types.",
+              "Apply the technique to a real workflow and define an observable expected result."
+            ]
+          },
+          {
+            "title": "Test planning and risk prioritisation",
+            "duration_minutes": 25,
+            "body_markdown": "## Test planning and risk prioritisation\n\nA test plan defines scope, objectives, approach, environment, data, responsibilities, entry/exit conditions and reporting. Testing time is limited, so prioritise by likelihood and impact of failure. A payment, access-control or data-integrity workflow may deserve more attention than a decorative icon. Risk-based testing does not mean ignoring low-risk areas; it means being explicit about trade-offs. Revisit priorities when architecture, user behaviour or requirements change.\n\n### Worked example\n\nRank five candidate tests for a learner platform using impact and likelihood, then justify the order.\n\n### Common failure to avoid\n\nDo not allocate testing effort equally to every screen regardless of consequence.\n\n### Check your understanding\n\nExplain what evidence this technique provides and what it cannot prove. Identify the requirement or risk, the test conditions, the expected result and how a failure would be recorded. Testing is useful only when the team can interpret its evidence honestly.\n",
+            "exercise": "Create a one-page test plan for a new enrolment feature.",
+            "key_takeaways": [
+              "Explain the purpose and limits of test planning and risk prioritisation.",
+              "Apply the technique to a real workflow and define an observable expected result."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Test Design and Coverage",
+        "description": "Design useful cases from requirements, risks and system states.",
+        "lessons": [
+          {
+            "title": "Equivalence partitioning",
+            "duration_minutes": 25,
+            "body_markdown": "## Equivalence partitioning\n\nEquivalence partitioning divides input values into groups expected to behave similarly. Instead of testing every possible number, choose representative values from valid and invalid classes. The partitions must reflect the requirement: for a score range of 0 through 100, valid values form one broad class, while values below and above the range are separate invalid classes. Additional partitions may be needed for blanks, malformed text and missing values. Good partitioning reduces redundant cases without losing important distinctions.\n\n### Worked example\n\nDefine input partitions for a score field that accepts whole numbers from 0 to 100.\n\n### Common failure to avoid\n\nDo not group values together when the specification says they have different expected behaviours.\n\n### Check your understanding\n\nExplain what evidence this technique provides and what it cannot prove. Identify the requirement or risk, the test conditions, the expected result and how a failure would be recorded. Testing is useful only when the team can interpret its evidence honestly.\n",
+            "exercise": "Create partitions for a registration form's email, course code and score fields.",
+            "key_takeaways": [
+              "Explain the purpose and limits of equivalence partitioning.",
+              "Apply the technique to a real workflow and define an observable expected result."
+            ]
+          },
+          {
+            "title": "Boundary value analysis",
+            "duration_minutes": 25,
+            "body_markdown": "## Boundary value analysis\n\nDefects often occur at the edges of valid ranges because comparisons, indexes and limits are easy to implement incorrectly. Boundary value analysis selects values at, just below and just above a boundary. For a permitted score from 0 through 100, useful tests include -1, 0, 1, 99, 100 and 101. Boundaries also apply to string length, file size, pagination, date ranges and rate limits. Make expected results explicit instead of recording only the input values.\n\n### Worked example\n\nDesign tests around a 1–50 quantity field and include values immediately below, on and above each boundary.\n\n### Common failure to avoid\n\nTesting only a midpoint does not establish that both ends of the valid range are handled correctly.\n\n### Check your understanding\n\nExplain what evidence this technique provides and what it cannot prove. Identify the requirement or risk, the test conditions, the expected result and how a failure would be recorded. Testing is useful only when the team can interpret its evidence honestly.\n",
+            "exercise": "Build a boundary-value table for a course title length limit.",
+            "key_takeaways": [
+              "Explain the purpose and limits of boundary value analysis.",
+              "Apply the technique to a real workflow and define an observable expected result."
+            ]
+          },
+          {
+            "title": "Decision tables and rule combinations",
+            "duration_minutes": 25,
+            "body_markdown": "## Decision tables and rule combinations\n\nDecision tables describe outcomes for combinations of conditions. They are useful when a business rule depends on several inputs, such as attendance, score and payment status. Each column represents a rule combination and the expected action. Remove impossible combinations only when the system actually prevents them. Decision tables expose missing or contradictory rules before test execution. They also help developers and reviewers agree on exact outcomes rather than arguing about vague prose.\n\n### Worked example\n\nCreate a decision table for enrolment eligibility based on account status, course capacity and prerequisite completion.\n\n### Common failure to avoid\n\nDo not assume two conditions are independent when the business rule makes one depend on the other.\n\n### Check your understanding\n\nExplain what evidence this technique provides and what it cannot prove. Identify the requirement or risk, the test conditions, the expected result and how a failure would be recorded. Testing is useful only when the team can interpret its evidence honestly.\n",
+            "exercise": "Build a decision table with at least six combinations and identify any missing rule.",
+            "key_takeaways": [
+              "Explain the purpose and limits of decision tables and rule combinations.",
+              "Apply the technique to a real workflow and define an observable expected result."
+            ]
+          },
+          {
+            "title": "State transition and exploratory testing",
+            "duration_minutes": 25,
+            "body_markdown": "## State transition and exploratory testing\n\nState transition testing examines how a system moves between states and which events are allowed. A course enrolment may move from requested to confirmed, cancelled or rejected; not every transition should be valid. Exploratory testing uses a structured mission and observations to discover behaviour not covered by scripted cases. It is not random clicking: record the charter, setup, actions, observations and potential defects. State models are especially valuable for workflows that change over time.\n\n### Worked example\n\nDraw states for an enrolment request and test valid, invalid and repeated transitions.\n\n### Common failure to avoid\n\nDo not test only the final state; verify whether an illegal transition can occur along the way.\n\n### Check your understanding\n\nExplain what evidence this technique provides and what it cannot prove. Identify the requirement or risk, the test conditions, the expected result and how a failure would be recorded. Testing is useful only when the team can interpret its evidence honestly.\n",
+            "exercise": "Write an exploratory test charter for recovering an interrupted enrolment flow.",
+            "key_takeaways": [
+              "Explain the purpose and limits of state transition and exploratory testing.",
+              "Apply the technique to a real workflow and define an observable expected result."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Automation and Test Architecture",
+        "description": "Automate repeatable checks and control external dependencies.",
+        "lessons": [
+          {
+            "title": "Unit testing and test isolation",
+            "duration_minutes": 25,
+            "body_markdown": "## Unit testing and test isolation\n\nA unit test checks a small behaviour with controlled inputs and expected outcomes. Tests should be fast, deterministic and independent where possible. A failing test should identify the violated behaviour without requiring a developer to reproduce a long environment setup. Keep business logic separate from user-interface and network concerns so it can be tested directly. Use descriptive test names and arrange, act and assert structure when it improves clarity.\n\n### Worked example\n\nWrite unit tests for a function that calculates a course average, including empty input and boundary scores.\n\n### Common failure to avoid\n\nDo not make unit tests depend on production accounts, external network services or shared test data.\n\n### Check your understanding\n\nExplain what evidence this technique provides and what it cannot prove. Identify the requirement or risk, the test conditions, the expected result and how a failure would be recorded. Testing is useful only when the team can interpret its evidence honestly.\n",
+            "exercise": "Design a set of isolated tests for a grade calculation service.",
+            "key_takeaways": [
+              "Explain the purpose and limits of unit testing and test isolation.",
+              "Apply the technique to a real workflow and define an observable expected result."
+            ]
+          },
+          {
+            "title": "Integration and contract testing",
+            "duration_minutes": 25,
+            "body_markdown": "## Integration and contract testing\n\nIntegration tests verify that components work together across boundaries such as application-to-database, service-to-API or frontend-to-backend. Contract tests check that a component follows an agreed input/output interface, including field names, types, status codes and error shapes. Use an isolated test database or controlled environment so tests do not mutate real learner records. Verify both successful and failed interactions, including transaction rollback and permission denial.\n\n### Worked example\n\nTest an enrolment operation against a disposable database and verify that duplicate requests do not create duplicate records.\n\n### Common failure to avoid\n\nDo not point automated integration tests at the live production database or rely only on a mocked response.\n\n### Check your understanding\n\nExplain what evidence this technique provides and what it cannot prove. Identify the requirement or risk, the test conditions, the expected result and how a failure would be recorded. Testing is useful only when the team can interpret its evidence honestly.\n",
+            "exercise": "Specify and test an API contract for course enrolment.",
+            "key_takeaways": [
+              "Explain the purpose and limits of integration and contract testing.",
+              "Apply the technique to a real workflow and define an observable expected result."
+            ]
+          },
+          {
+            "title": "Test doubles, mocks and dependency injection",
+            "duration_minutes": 25,
+            "body_markdown": "## Test doubles, mocks and dependency injection\n\nA test double replaces a real collaborator with a controlled alternative. Stubs provide canned results, fakes offer lightweight working behaviour, spies record calls and mocks assert expected interactions. Use doubles when they isolate slow, costly or unpredictable boundaries, but do not mock every internal method because that couples tests to implementation details. Dependency injection makes collaborators replaceable without changing the business rule under test. Keep tests focused on observable behaviour.\n\n### Worked example\n\nReplace a notification service with a fake so a course-enrolment test can verify whether a confirmation was requested.\n\n### Common failure to avoid\n\nA test that only verifies a mock was called may miss whether the actual business result is correct.\n\n### Check your understanding\n\nExplain what evidence this technique provides and what it cannot prove. Identify the requirement or risk, the test conditions, the expected result and how a failure would be recorded. Testing is useful only when the team can interpret its evidence honestly.\n",
+            "exercise": "Decide which dependencies in a payment-free enrolment workflow should be real, fake or mocked.",
+            "key_takeaways": [
+              "Explain the purpose and limits of test doubles, mocks and dependency injection.",
+              "Apply the technique to a real workflow and define an observable expected result."
+            ]
+          },
+          {
+            "title": "Regression testing and automation",
+            "duration_minutes": 25,
+            "body_markdown": "## Regression testing and automation\n\nA regression test captures a behaviour that previously failed and ensures the defect does not return. Automating repeatable checks improves speed and consistency, but automated tests still need maintenance and meaningful assertions. Run fast checks frequently and slower end-to-end suites at suitable points in the delivery process. A flaky test produces inconsistent results without a product change; investigate timing, shared state, network dependencies and non-deterministic data instead of repeatedly rerunning until it passes.\n\n### Worked example\n\nCreate a regression test for a duplicate-enrolment defect and include it in the normal test command.\n\n### Common failure to avoid\n\nDo not delete a failing test simply because the defect is inconvenient; establish whether the test or product behaviour is wrong.\n\n### Check your understanding\n\nExplain what evidence this technique provides and what it cannot prove. Identify the requirement or risk, the test conditions, the expected result and how a failure would be recorded. Testing is useful only when the team can interpret its evidence honestly.\n",
+            "exercise": "Design a regression suite for authentication, enrolment and lesson progress.",
+            "key_takeaways": [
+              "Explain the purpose and limits of regression testing and automation.",
+              "Apply the technique to a real workflow and define an observable expected result."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Quality Engineering in Delivery",
+        "description": "Use evidence, reporting and risk-based practices to support releases.",
+        "lessons": [
+          {
+            "title": "Coverage, quality metrics and their limits",
+            "duration_minutes": 25,
+            "body_markdown": "## Coverage, quality metrics and their limits\n\nCoverage measures which code or conditions were exercised by tests, but coverage alone does not measure test quality. A test suite can execute every line without checking meaningful outcomes. Useful metrics may include requirement coverage, defect escape rate, failure trends, test duration and flaky-test rate. Interpret metrics alongside context and risk. Avoid rewarding teams for increasing a percentage while neglecting important security, data-integrity or user journeys.\n\n### Worked example\n\nCompare two test suites with equal line coverage but different assertions and explain which gives stronger evidence.\n\n### Common failure to avoid\n\nDo not treat 100 percent line coverage as proof that a program is correct or secure.\n\n### Check your understanding\n\nExplain what evidence this technique provides and what it cannot prove. Identify the requirement or risk, the test conditions, the expected result and how a failure would be recorded. Testing is useful only when the team can interpret its evidence honestly.\n",
+            "exercise": "Choose four quality metrics for a small software team and state how each could be misused.",
+            "key_takeaways": [
+              "Explain the purpose and limits of coverage, quality metrics and their limits.",
+              "Apply the technique to a real workflow and define an observable expected result."
+            ]
+          },
+          {
+            "title": "Defect reporting and root-cause analysis",
+            "duration_minutes": 25,
+            "body_markdown": "## Defect reporting and root-cause analysis\n\nA defect report should be reproducible and concise. Include environment, build version, preconditions, steps, expected result, actual result, evidence and severity rationale. Severity describes impact; priority describes urgency or order of work, and the two are related but not identical. Root-cause analysis looks beyond the visible symptom to the condition that allowed it. After a fix, verify the correction and test nearby behaviour for regressions.\n\n### Worked example\n\nWrite a defect report for a learner who can access another learner's progress record, including impact and reproducible steps.\n\n### Common failure to avoid\n\nDo not classify every visual annoyance as critical or every security defect as minor; justify impact with evidence.\n\n### Check your understanding\n\nExplain what evidence this technique provides and what it cannot prove. Identify the requirement or risk, the test conditions, the expected result and how a failure would be recorded. Testing is useful only when the team can interpret its evidence honestly.\n",
+            "exercise": "Produce a defect report and a root-cause note for a data-isolation failure.",
+            "key_takeaways": [
+              "Explain the purpose and limits of defect reporting and root-cause analysis.",
+              "Apply the technique to a real workflow and define an observable expected result."
+            ]
+          },
+          {
+            "title": "Performance, security and accessibility testing",
+            "duration_minutes": 25,
+            "body_markdown": "## Performance, security and accessibility testing\n\nNon-functional testing examines how a system behaves beyond its core feature results. Performance tests measure response time, throughput and resource use under defined conditions. Security testing checks threats such as injection, broken access control and unsafe secret handling. Accessibility testing checks whether users can perceive, operate and understand the interface with different input and assistive technologies. Each test needs a defined environment, scope and success criteria. A single informal check cannot establish broad compliance.\n\n### Worked example\n\nWrite test objectives for performance, access control and keyboard accessibility on a learner dashboard.\n\n### Common failure to avoid\n\nDo not claim security or accessibility compliance from one quick manual pass.\n\n### Check your understanding\n\nExplain what evidence this technique provides and what it cannot prove. Identify the requirement or risk, the test conditions, the expected result and how a failure would be recorded. Testing is useful only when the team can interpret its evidence honestly.\n",
+            "exercise": "Create a risk-based non-functional test checklist for a responsive learning platform.",
+            "key_takeaways": [
+              "Explain the purpose and limits of performance, security and accessibility testing.",
+              "Apply the technique to a real workflow and define an observable expected result."
+            ]
+          },
+          {
+            "title": "Release readiness and quality report",
+            "duration_minutes": 25,
+            "body_markdown": "## Release readiness and quality report\n\nA release-readiness report summarises the scope tested, environments, pass/fail results, open defects, residual risks and recommendation. Exit criteria should be agreed before testing is finished, otherwise the team may move the goalposts to justify a release. A test lead should distinguish evidence from opinion and clearly state untested areas. A release decision belongs to the authorised product and engineering owners, not to a dashboard percentage alone. Record any accepted risk and its owner.\n\n### Worked example\n\nPrepare a release report from a fictional test run with two blockers, three minor defects and several untested areas.\n\n### Common failure to avoid\n\nDo not report a release as fully tested when important features were excluded or test evidence is missing.\n\n### Check your understanding\n\nExplain what evidence this technique provides and what it cannot prove. Identify the requirement or risk, the test conditions, the expected result and how a failure would be recorded. Testing is useful only when the team can interpret its evidence honestly.\n",
+            "exercise": "Create a release-readiness template and fill it with a clear go/no-go recommendation.",
+            "key_takeaways": [
+              "Explain the purpose and limits of release readiness and quality report.",
+              "Apply the technique to a real workflow and define an observable expected result."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "Software Testing and Quality Assurance Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions with explicit expected outcomes. Distinguish test evidence from claims that cannot be established by the chosen test scope.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short_answer",
+          "prompt": "Distinguish verification, validation and acceptance testing with one example of each.",
+          "marks": 8,
+          "rubric": [
+            "Verification explanation and example (3)",
+            "Validation explanation and example (3)",
+            "Acceptance explanation (2)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "test_design",
+          "prompt": "For a score input from 0 to 100, provide equivalence partitions and boundary values with expected results.",
+          "marks": 10,
+          "rubric": [
+            "Valid and invalid partitions (4)",
+            "Correct boundary selection (4)",
+            "Expected outcomes (2)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "decision_table",
+          "prompt": "Create a decision table for enrolment based on account status, course capacity and prerequisite completion.",
+          "marks": 12,
+          "rubric": [
+            "Conditions are explicit (3)",
+            "Rule combinations are covered (4)",
+            "Actions are correct (3)",
+            "Impossible combinations are justified (2)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "test_architecture",
+          "prompt": "Explain which checks should be unit tests, integration tests and end-to-end tests for an authenticated enrolment flow.",
+          "marks": 10,
+          "rubric": [
+            "Appropriate unit scope (3)",
+            "Appropriate integration scope (3)",
+            "Appropriate end-to-end scope (2)",
+            "Test data isolation (2)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "defect_analysis",
+          "prompt": "Write a reproducible defect report and regression test for a permission bug that exposes another learner's progress.",
+          "marks": 10,
+          "rubric": [
+            "Reproduction/environment (2)",
+            "Expected versus actual (2)",
+            "Impact/severity (2)",
+            "Root-cause hypothesis (2)",
+            "Regression test (2)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit a QA plan, test cases, automation results and release-readiness report for a small software feature.",
+          "marks": 20,
+          "rubric": [
+            "Risk and scope (4)",
+            "Test design quality (4)",
+            "Execution evidence (4)",
+            "Defect reporting (4)",
+            "Release recommendation and limitations (4)"
+          ]
+        }
+      ],
+      "total_marks": 70
+    },
+    "final_project": {
+      "title": "Quality Assurance Portfolio for a Learning Platform",
+      "brief": "Prepare and execute a quality plan for a learner enrolment and lesson-progress feature. Identify risks, define test scope, derive cases from requirements, execute a mix of focused and end-to-end checks, report defects and produce a release-readiness assessment. Use test data that cannot alter real learner records.",
+      "deliverables": [
+        "Risk-based test plan",
+        "Requirements-to-test traceability table",
+        "At least 20 test cases across relevant levels",
+        "Equivalence and boundary analysis",
+        "Decision table or state-transition model",
+        "Execution results and reproducible defect reports",
+        "Regression test proposal",
+        "Release-readiness report with residual risks"
+      ],
+      "acceptance_criteria": [
+        "Every high-risk requirement has at least one test",
+        "Test cases include explicit expected results",
+        "Test data is isolated from production",
+        "Defects are reproducible and prioritised with rationale",
+        "Regression coverage addresses corrected defects",
+        "Non-functional risks are considered",
+        "Release recommendation distinguishes evidence from untested areas"
+      ]
+    },
+    "references": [
+      {
+        "title": "ISTQB Certified Tester Foundation Level",
+        "url": "https://www.istqb.org/certifications/certified-tester-foundation-level",
+        "note": "Foundation syllabus and glossary for software testing concepts."
+      },
+      {
+        "title": "Google Testing Blog",
+        "url": "https://testing.googleblog.com/",
+        "note": "Practical testing and test-automation engineering discussions."
+      },
+      {
+        "title": "OWASP Web Security Testing Guide",
+        "url": "https://owasp.org/www-project-web-security-testing-guide/",
+        "note": "Guidance for assessing web application security risks and tests."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft. No authorised academic review has been recorded. Do not invent reviewer identities or dates and do not publish until a real review decision exists.",
+      "language": "English",
+      "content_quality": "Four sections and sixteen substantive lessons, worked examples, exercises, takeaways, assessment questions with rubrics, a realistic QA portfolio project, acceptance criteria and recognised references are included. Technical and academic review remain required."
+    }
+  }
+}
