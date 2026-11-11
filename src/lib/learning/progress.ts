@@ -56,6 +56,11 @@ export function summarizeOverallProgress(
   };
 }
 
+const MAX_POSTGRES_INTEGER = 2_147_483_647;
+
 export function clampLessonPosition(positionSeconds: number, durationSeconds: number): number {
-  return Math.min(positionSeconds, durationSeconds > 0 ? durationSeconds : positionSeconds);
+  const maximum = durationSeconds > 0
+    ? Math.min(durationSeconds, MAX_POSTGRES_INTEGER)
+    : MAX_POSTGRES_INTEGER;
+  return Math.min(positionSeconds, maximum);
 }
