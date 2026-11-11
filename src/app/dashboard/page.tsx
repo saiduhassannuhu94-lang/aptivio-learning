@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import DashboardShell from "./dashboard-shell";
 
@@ -22,6 +23,8 @@ const paymentNotices: Record<string, string> = {
 
 export default async function DashboardPage({ searchParams }: DashboardPageProps) {
   const query = await searchParams;
+  const cookieStore = await cookies();
+  const initialTheme = cookieStore.get("aptivio-theme")?.value === "dark" ? "dark" : "light";
   const paymentNotice = query.payment ? paymentNotices[query.payment] : undefined;
   const supabase = await createClient();
   const { data: claimsData, error: claimsError } = await supabase.auth.getClaims();
@@ -52,5 +55,5 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
     (typeof authUserData.user.user_metadata.display_name === "string"
       ? authUserData.user.user_metadata.display_name : "");
 
-  return <DashboardShell displayName={displayName} paymentNotice={paymentNotice} />;
+  return <DashboardShell displayName={displayName} paymentNotice={paymentNotice} initialTheme={initialTheme} />;
 }
