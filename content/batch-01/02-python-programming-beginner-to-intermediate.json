@@ -1,0 +1,350 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "python-programming-beginner-to-intermediate",
+    "title": "Python Programming: Beginner to Intermediate",
+    "subtitle": "Build reliable Python programs with clear syntax, data structures, functions and practical problem solving.",
+    "description": "A hands-on Python course that moves from writing small scripts to building a tested command-line application. Learners practise data modelling, control flow, functions, collections, files, exceptions, modules and debugging. Examples use standard-library Python and explain not only what to type but why a design works.",
+    "level": "beginner_to_intermediate",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 600,
+    "target_audience": [
+      "Computing students learning their first general-purpose language",
+      "Beginners who can use a computer but have not programmed before",
+      "Learners preparing for web, data or automation projects"
+    ],
+    "prerequisites": [
+      "Basic computer literacy",
+      "Ability to perform simple arithmetic"
+    ],
+    "outcomes": [
+      "Run Python programs and explain the edit-run-debug cycle",
+      "Use variables, core types, expressions and input/output safely",
+      "Design conditional and iterative control flow",
+      "Write functions with clear parameters, return values and scope",
+      "Choose lists, tuples, dictionaries and sets for appropriate tasks",
+      "Read and write text files while handling expected errors",
+      "Split a program into modules and test its behaviour",
+      "Build a maintainable command-line application"
+    ],
+    "equipment": [
+      "Laptop or desktop recommended",
+      "Python 3 interpreter",
+      "Text editor or IDE",
+      "Notebook for tracing and test cases"
+    ],
+    "accessibility": "Code is selectable text, not embedded in screenshots. Explain diagrams with text alternatives. Exercises can be completed in a local development environment; avoid colour-only meaning in diagrams.",
+    "sections": [
+      {
+        "title": "Python Setup and Core Building Blocks",
+        "description": "Understand the interpreter, source files, values, expressions and basic input/output.",
+        "lessons": [
+          {
+            "title": "The Python execution model",
+            "duration_minutes": 25,
+            "body_markdown": "## The Python execution model\n\nPython source is read and executed by an interpreter. Distinguish a source file, the interpreter, a running process and the output it produces. In a terminal, `python --version` checks which interpreter a command resolves to; `python app.py` asks that interpreter to execute a file. The exact command can differ by operating system, so use one known interpreter consistently. Python reports syntax and runtime errors with a traceback that identifies where execution failed. Read the exception type and referenced line instead of guessing.\n\n### Worked example\n\nCreate `hello.py` with `print(\"Hello, APTIVIO\")`, run it, deliberately misspell `print`, and compare the two outcomes.\n\n### Common failure to avoid\n\nInstalling Python does not guarantee that every terminal command points to the same version. Check the interpreter actually running the project.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for one new input. A sound explanation identifies the data involved, the operation being performed and the expected result. Copying a code fragment without understanding its preconditions is not enough.\n",
+            "exercise": "Describe the source file, interpreter, process and output for a script that prints a learner's name.",
+            "key_takeaways": [
+              "Explain the central idea behind the python execution model and identify when it is appropriate.",
+              "Apply the concept to a new example and state one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Values, variables and naming",
+            "duration_minutes": 25,
+            "body_markdown": "## Values, variables and naming\n\nA value is data used by a program; a variable name refers to a value. Assignment uses `=`, which binds a name to the result on the right. Names should communicate purpose: `total_score` is more useful than `x` when the value represents a score total. Python is dynamically typed, so a name can later refer to another type, but careless type changes still make programs hard to reason about. Prefer meaningful, consistent lowercase_with_underscores names and keep a variable's purpose stable.\n\n### Worked example\n\nSet `student_name = \"Amina\"`, `score = 78`, and `passed = True`. Print a sentence using an f-string, then change the score and observe the output.\n\n### Common failure to avoid\n\nDo not confuse assignment with equality. `score = 78` stores a value; `score == 78` asks a question.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for one new input. A sound explanation identifies the data involved, the operation being performed and the expected result. Copying a code fragment without understanding its preconditions is not enough.\n",
+            "exercise": "Create five variables for a course registration record and explain why each name is clearer than a single-letter name.",
+            "key_takeaways": [
+              "Explain the central idea behind values, variables and naming and identify when it is appropriate.",
+              "Apply the concept to a new example and state one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Core data types and conversion",
+            "duration_minutes": 25,
+            "body_markdown": "## Core data types and conversion\n\nPython's common built-in types include integers (`int`), decimal floating-point values (`float`), text (`str`) and Boolean values (`bool`). The type determines which operations make sense. `\"12\"` is text, while `12` is an integer; adding them directly is not the same as converting the text to a number. Use `int()` or `float()` only after deciding what input is valid. Conversion can fail, so user-provided text needs validation and an error path. Floating-point values are approximations for many decimal fractions.\n\n### Worked example\n\nEvaluate `int(\"12\") + 3` and compare it with `\"12\" + \"3\"`. Then try `int(\"twelve\")` and inspect the conversion error.\n\n### Common failure to avoid\n\nA numeric-looking string is still a string. Never rely on appearance when choosing an operation.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for one new input. A sound explanation identifies the data involved, the operation being performed and the expected result. Copying a code fragment without understanding its preconditions is not enough.\n",
+            "exercise": "Write a type-checking exercise that accepts an age as text, converts it safely and rejects non-numeric input.",
+            "key_takeaways": [
+              "Explain the central idea behind core data types and conversion and identify when it is appropriate.",
+              "Apply the concept to a new example and state one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Expressions, operators and formatted output",
+            "duration_minutes": 25,
+            "body_markdown": "## Expressions, operators and formatted output\n\nAn expression combines values, names and operators to produce another value. Arithmetic operators include `+`, `-`, `*`, `/`, `//`, `%` and `**`; comparison operators produce Boolean results. Parentheses make intended grouping visible and reduce ambiguity. String formatting with f-strings keeps output readable, for example `f\"Average: {average:.1f}\"` displays one decimal place. For division, check whether the divisor can be zero before performing the operation. Readability matters because a correct expression that nobody can review confidently is fragile.\n\n### Worked example\n\nCalculate the average of three scores, display it to one decimal place and add a separate expression that checks whether the average is at least 50.\n\n### Common failure to avoid\n\nDo not use floor division when the problem requires a decimal average; choose the operator from the requirement.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for one new input. A sound explanation identifies the data involved, the operation being performed and the expected result. Copying a code fragment without understanding its preconditions is not enough.\n",
+            "exercise": "Write expressions for total fee, percentage discount and final amount, then explain the order of operations.",
+            "key_takeaways": [
+              "Explain the central idea behind expressions, operators and formatted output and identify when it is appropriate.",
+              "Apply the concept to a new example and state one boundary or failure case."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Control Flow and Reusable Logic",
+        "description": "Direct program execution with conditions, loops and functions.",
+        "lessons": [
+          {
+            "title": "Boolean logic and comparisons",
+            "duration_minutes": 25,
+            "body_markdown": "## Boolean logic and comparisons\n\nA condition is an expression whose truth value determines whether a branch runs. Comparisons such as `score >= 50` produce `True` or `False`. The operators `and`, `or` and `not` combine or invert conditions. Python evaluates Boolean expressions using short-circuit rules: in `age >= 18 and has_id`, the second test is unnecessary when the first is false. This can avoid unsafe work, but the expression should remain readable. Use parentheses when grouping is not obvious and test both sides of a boundary.\n\n### Worked example\n\nCreate a Boolean expression for a student who qualifies only when attendance is at least 75 and the final score is at least 50. Test attendance values 74, 75 and 76.\n\n### Common failure to avoid\n\nA boundary such as 75 is not interchangeable with 74. Confirm whether the requirement says greater than or greater than or equal to.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for one new input. A sound explanation identifies the data involved, the operation being performed and the expected result. Copying a code fragment without understanding its preconditions is not enough.\n",
+            "exercise": "Write and test a condition for a discount that applies to registered students or purchases above a threshold.",
+            "key_takeaways": [
+              "Explain the central idea behind boolean logic and comparisons and identify when it is appropriate.",
+              "Apply the concept to a new example and state one boundary or failure case."
+            ]
+          },
+          {
+            "title": "if, elif and else",
+            "duration_minutes": 25,
+            "body_markdown": "## if, elif and else\n\nSelection lets a program choose among paths. An `if` block runs when its condition is true; `elif` checks another condition only when earlier conditions failed; `else` handles the remaining cases. Indentation defines each block. Order matters: broad conditions placed before narrow ones can make later branches unreachable. A grading algorithm should define boundaries clearly and use a consistent order, such as checking the highest grade band first. Add a final `else` when the input domain is not guaranteed to be valid.\n\n### Worked example\n\nWrite a grade classifier for scores 0–100 with four bands. Try 0, 49, 50, 59, 60, 69, 70, 79, 80, 100 and -1.\n\n### Common failure to avoid\n\nAvoid overlapping ranges and leaving valid values without a branch. Validate invalid input separately from a legitimate low score.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for one new input. A sound explanation identifies the data involved, the operation being performed and the expected result. Copying a code fragment without understanding its preconditions is not enough.\n",
+            "exercise": "Implement a fare category selector and document the exact boundary for each category.",
+            "key_takeaways": [
+              "Explain the central idea behind if, elif and else and identify when it is appropriate.",
+              "Apply the concept to a new example and state one boundary or failure case."
+            ]
+          },
+          {
+            "title": "for loops and iteration",
+            "duration_minutes": 25,
+            "body_markdown": "## for loops and iteration\n\nIteration repeats a block of work. A `for` loop visits items from an iterable, such as a list or `range(5)`. The range stop value is excluded, so `range(1, 5)` produces 1, 2, 3 and 4. This detail causes common off-by-one defects. Prefer iterating directly over a collection when the index is not needed. If both position and value matter, `enumerate(items)` expresses that intention. Keep loop bodies focused and update accumulators deliberately so each iteration is easy to trace.\n\n### Worked example\n\nUse `for score in scores` to calculate a total and count how many scores meet the pass mark. Print the result after the loop.\n\n### Common failure to avoid\n\nDo not assume `range(start, stop)` includes `stop`; verify the first and final values with a tiny trace.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for one new input. A sound explanation identifies the data involved, the operation being performed and the expected result. Copying a code fragment without understanding its preconditions is not enough.\n",
+            "exercise": "Trace a loop over five registration numbers and show the accumulator after each iteration.",
+            "key_takeaways": [
+              "Explain the central idea behind for loops and iteration and identify when it is appropriate.",
+              "Apply the concept to a new example and state one boundary or failure case."
+            ]
+          },
+          {
+            "title": "while loops and defensive input",
+            "duration_minutes": 25,
+            "body_markdown": "## while loops and defensive input\n\nA `while` loop repeats while a condition remains true. It is useful when the number of repetitions is unknown, such as asking until valid input arrives. Every such loop needs a progress mechanism: the condition must eventually become false, or the program needs a deliberate exit path. Re-reading a value without changing state can create an infinite loop. Keep input validation separate from the main calculation so invalid attempts do not corrupt a valid result.\n\n### Worked example\n\nWrite a loop that asks for a score until the user enters an integer from 0 through 100. Explain what state changes after an invalid attempt.\n\n### Common failure to avoid\n\nA loop that repeats the same check without requesting or changing data will never make progress.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for one new input. A sound explanation identifies the data involved, the operation being performed and the expected result. Copying a code fragment without understanding its preconditions is not enough.\n",
+            "exercise": "Design a menu loop with options 1, 2 and 0 to exit, and demonstrate that every route can terminate.",
+            "key_takeaways": [
+              "Explain the central idea behind while loops and defensive input and identify when it is appropriate.",
+              "Apply the concept to a new example and state one boundary or failure case."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Collections, Files and Errors",
+        "description": "Represent groups of data and handle external input carefully.",
+        "lessons": [
+          {
+            "title": "Strings and text processing",
+            "duration_minutes": 25,
+            "body_markdown": "## Strings and text processing\n\nStrings are immutable sequences of Unicode characters. Indexing selects a character, slicing selects a range, and methods such as `strip`, `lower`, `split` and `replace` produce transformed strings. Because strings are immutable, these methods return new strings rather than changing the original. User input often includes accidental spaces or inconsistent case, so normalisation should be deliberate and documented. For identifiers, decide whether case matters before converting it. Preserve display text when normalising only for comparison.\n\n### Worked example\n\nTake `\"  Biu Campus  \"`, strip outer spaces and create a normalised comparison key without changing the display value.\n\n### Common failure to avoid\n\nDo not treat user-entered text as already clean, but do not blindly rewrite the original value either.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for one new input. A sound explanation identifies the data involved, the operation being performed and the expected result. Copying a code fragment without understanding its preconditions is not enough.\n",
+            "exercise": "Create a function that checks a course code after removing outer spaces.",
+            "key_takeaways": [
+              "Explain the central idea behind strings and text processing and identify when it is appropriate.",
+              "Apply the concept to a new example and state one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Lists, tuples and sequence operations",
+            "duration_minutes": 25,
+            "body_markdown": "## Lists, tuples and sequence operations\n\nA list stores an ordered, mutable collection. It supports indexing, slicing, append, remove and iteration. A tuple is ordered but immutable, which makes it useful for fixed records or values that should not be changed accidentally. Choose a list when the collection is expected to grow or change; choose a tuple when a fixed grouping communicates intent. Both support iteration and indexing. Index positions begin at zero and negative indexes count from the end.\n\n### Worked example\n\nBuild a list of course scores, append one score, replace an incorrect entry and compute the highest value without hard-coding positions.\n\n### Common failure to avoid\n\nA list's index is not a learner's registration number. Keep identity fields separate from positional order.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for one new input. A sound explanation identifies the data involved, the operation being performed and the expected result. Copying a code fragment without understanding its preconditions is not enough.\n",
+            "exercise": "Create a tuple for a coordinate and a list for weekly attendance, then explain why their mutability differs.",
+            "key_takeaways": [
+              "Explain the central idea behind lists, tuples and sequence operations and identify when it is appropriate.",
+              "Apply the concept to a new example and state one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Dictionaries and sets",
+            "duration_minutes": 25,
+            "body_markdown": "## Dictionaries and sets\n\nA dictionary maps unique keys to values and is useful when records are retrieved by a meaningful identifier. A set stores unique values and supports membership tests and set operations. A dictionary is not simply a list with labels: keys retrieve associated values. Use `.get()` when a key may be missing and define what missing data means. Sets discard duplicates and do not represent a meaningful display order. These structures can simplify lookup logic and prevent fragile parallel lists.\n\n### Worked example\n\nRepresent a student using a dictionary keyed by `matric_no`, then use a set to identify unique course codes from registration data.\n\n### Common failure to avoid\n\nDo not use a list index as a permanent identifier, and do not expect a set to preserve duplicate entries.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for one new input. A sound explanation identifies the data involved, the operation being performed and the expected result. Copying a code fragment without understanding its preconditions is not enough.\n",
+            "exercise": "Create a dictionary of three students and a set of the unique courses they registered for.",
+            "key_takeaways": [
+              "Explain the central idea behind dictionaries and sets and identify when it is appropriate.",
+              "Apply the concept to a new example and state one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Files, paths and context managers",
+            "duration_minutes": 25,
+            "body_markdown": "## Files, paths and context managers\n\nA file lets a program preserve information after its process ends. Python's `open()` supports modes such as read (`r`), write (`w`) and append (`a`). Writing with `w` replaces existing contents, so it is dangerous when the goal is to add a record. A `with` statement closes the file even when an exception occurs. Use an explicit encoding such as UTF-8 for text files and handle paths carefully because a relative path is resolved from the process's working directory.\n\n### Worked example\n\nWrite three course records to a UTF-8 text file, read them back with a context manager and verify the number of lines.\n\n### Common failure to avoid\n\nOpening a file in write mode can erase its previous content. Choose the mode intentionally and never store credentials in a plain-text exercise file.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for one new input. A sound explanation identifies the data involved, the operation being performed and the expected result. Copying a code fragment without understanding its preconditions is not enough.\n",
+            "exercise": "Add a safe export step to a small program and explain how it behaves when the output file already exists.",
+            "key_takeaways": [
+              "Explain the central idea behind files, paths and context managers and identify when it is appropriate.",
+              "Apply the concept to a new example and state one boundary or failure case."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Testing, Structure and a Practical Application",
+        "description": "Turn working scripts into software that can be checked, reused and maintained.",
+        "lessons": [
+          {
+            "title": "Modules and project structure",
+            "duration_minutes": 25,
+            "body_markdown": "## Modules and project structure\n\nA module is a Python file that can define functions, classes and constants for reuse. Importing a module makes its public names available, but importing should not unexpectedly run an entire application. Put executable startup logic behind `if __name__ == \"__main__\":` so the file can also be imported by tests. Split a program when responsibilities are distinct, not merely to create many tiny files. Keep names clear and avoid circular imports, where modules depend on each other in a cycle.\n\n### Worked example\n\nMove calculation functions into `results.py` and keep the command-line menu in `main.py`. Confirm importing `results` does not display the menu.\n\n### Common failure to avoid\n\nA module should be safe to import; top-level input prompts make automated testing awkward.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for one new input. A sound explanation identifies the data involved, the operation being performed and the expected result. Copying a code fragment without understanding its preconditions is not enough.\n",
+            "exercise": "Propose a three-file structure for a student result tool and state the responsibility of each file.",
+            "key_takeaways": [
+              "Explain the central idea behind modules and project structure and identify when it is appropriate.",
+              "Apply the concept to a new example and state one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Testing, assertions and debugging",
+            "duration_minutes": 25,
+            "body_markdown": "## Testing, assertions and debugging\n\nA test compares actual behaviour with an expected result. Start with small deterministic functions because they can be tested without a terminal or database. Include normal cases, boundary values, empty inputs and invalid values. `assert` is useful for simple development checks, while `unittest` supports repeatable test suites. A debugger or carefully placed print statement can reveal values, but remove noisy debugging output from the finished program. When a defect is fixed, add a regression test so the same failure is less likely to return.\n\n### Worked example\n\nWrite tests for `calculate_average` covering a normal list, a single score and an empty list according to your chosen contract.\n\n### Common failure to avoid\n\nDo not test only the example that made your program appear to work. A narrow test set can hide boundary defects.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for one new input. A sound explanation identifies the data involved, the operation being performed and the expected result. Copying a code fragment without understanding its preconditions is not enough.\n",
+            "exercise": "Create a small test table with input, expected output, actual output and pass/fail result.",
+            "key_takeaways": [
+              "Explain the central idea behind testing, assertions and debugging and identify when it is appropriate.",
+              "Apply the concept to a new example and state one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Algorithm choices and basic efficiency",
+            "duration_minutes": 25,
+            "body_markdown": "## Algorithm choices and basic efficiency\n\nAn algorithm is a defined sequence of steps for solving a problem. Two correct solutions may have different costs. A loop that visits every item once typically grows linearly with input size; a nested loop that compares every pair can grow quadratically. These descriptions are introductory models, not guarantees about every runtime. Consider input size and choose a data structure that supports the needed operations. A set can make membership checks clearer and often more efficient than repeatedly scanning a long list, but clarity and correctness still come first.\n\n### Worked example\n\nCompare checking membership in a list with checking membership in a set for a growing collection. Explain expected cost without claiming exact execution time.\n\n### Common failure to avoid\n\nDo not optimise a tiny program based on guesses. First identify the repeated operation and measure a realistic workload.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for one new input. A sound explanation identifies the data involved, the operation being performed and the expected result. Copying a code fragment without understanding its preconditions is not enough.\n",
+            "exercise": "Describe the time-growth behaviour of a single loop and a nested loop using a collection of n items.",
+            "key_takeaways": [
+              "Explain the central idea behind algorithm choices and basic efficiency and identify when it is appropriate.",
+              "Apply the concept to a new example and state one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Build, document and present a command-line app",
+            "duration_minutes": 25,
+            "body_markdown": "## Build, document and present a command-line app\n\nA small application should have a clear purpose, a defined input contract, useful output and predictable failure behaviour. Separate input/output from calculations so core logic can be tested independently. Document how to run the program, what data it expects and which limitations remain. The README is part of the product: another learner should be able to set up and use the project without asking its author for missing steps. Finish with a demonstration using successful and rejected inputs.\n\n### Worked example\n\nComplete the Course Registration and Results Tracker project using functions, collections, file persistence, validation and a small test suite.\n\n### Common failure to avoid\n\nDo not claim a program is complete because its happy path runs once. Test recovery, empty data and restart behaviour.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for one new input. A sound explanation identifies the data involved, the operation being performed and the expected result. Copying a code fragment without understanding its preconditions is not enough.\n",
+            "exercise": "Prepare a short demonstration explaining the design, tests, known limitations and next improvement.",
+            "key_takeaways": [
+              "Explain the central idea behind build, document and present a command-line app and identify when it is appropriate.",
+              "Apply the concept to a new example and state one boundary or failure case."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "Python Programming: Beginner to Intermediate Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions. Show reasoning for code-tracing and design questions. Submit readable code with stated assumptions. Test cases must include expected results; a program that works only for sample input is not sufficient.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short_answer",
+          "prompt": "Explain the difference between a list, tuple, dictionary and set. Give one suitable use for each.",
+          "marks": 8,
+          "rubric": [
+            "Defines all four collections accurately (4)",
+            "Gives appropriate examples (4)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "code_trace",
+          "prompt": "Trace a loop that visits [12, 18, 20, 10], adds each value to a total and counts values at least 15. Show the accumulator after each iteration.",
+          "marks": 10,
+          "rubric": [
+            "Correct iteration order (3)",
+            "Correct totals (4)",
+            "Correct count (3)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "implementation",
+          "prompt": "Write a function that accepts a list of scores, validates the 0–100 domain and returns the average. State what happens for an empty list.",
+          "marks": 12,
+          "rubric": [
+            "Clear input contract (3)",
+            "Correct calculation (4)",
+            "Validation and empty handling (3)",
+            "Readable code (2)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "debugging",
+          "prompt": "A program uses `open(path, \"w\")` to add a new line to a record file. Explain the defect and propose a safer approach.",
+          "marks": 8,
+          "rubric": [
+            "Identifies truncation risk (3)",
+            "Chooses append or a safe rewrite strategy (3)",
+            "Mentions failure handling (2)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "testing",
+          "prompt": "Design six tests for a grade function including normal, boundary, invalid and empty input cases. Give expected results.",
+          "marks": 10,
+          "rubric": [
+            "Normal case (2)",
+            "Boundaries (3)",
+            "Invalid or empty cases (3)",
+            "Clear expected results (2)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit the Course Registration and Results Tracker described in the final project.",
+          "marks": 20,
+          "rubric": [
+            "Requirements and data model (4)",
+            "Correct functions and collections (5)",
+            "Validation and file handling (4)",
+            "Automated tests (4)",
+            "Documentation and limitations (3)"
+          ]
+        }
+      ],
+      "total_marks": 68
+    },
+    "final_project": {
+      "title": "Course Registration and Results Tracker",
+      "brief": "Design and implement a small command-line tool for storing student course registrations and summarising results. Keep input handling, calculations and file persistence separate. The tool must state its input rules and behave safely when the data file is missing, empty or malformed.",
+      "deliverables": [
+        "Problem statement and user requirements",
+        "Student and course data model",
+        "Readable source code with meaningful functions",
+        "Validated input and explicit error handling",
+        "File persistence with documented format",
+        "At least 10 test cases with expected results",
+        "README with setup, run and usage instructions",
+        "Short design reflection including limitations"
+      ],
+      "acceptance_criteria": [
+        "The stated requirements are implemented and demonstrable",
+        "Scores are validated before calculations",
+        "Empty and malformed records are handled deliberately",
+        "Totals and averages match independent hand calculations",
+        "The program can be restarted without silently losing previous records",
+        "A second learner can follow the setup and usage instructions"
+      ]
+    },
+    "references": [
+      {
+        "title": "The Python Tutorial",
+        "url": "https://docs.python.org/3/tutorial/",
+        "note": "Official language tutorial for syntax, data structures, modules, files and exceptions."
+      },
+      {
+        "title": "Python Standard Library",
+        "url": "https://docs.python.org/3/library/",
+        "note": "Official reference for standard-library modules used in exercises."
+      },
+      {
+        "title": "Python Packaging User Guide",
+        "url": "https://packaging.python.org/en/latest/",
+        "note": "Follow-on reference for project structure and packaging."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft. No authorised academic review has been recorded. Do not create reviewer identities, review dates or publish this package until an actual review decision is made.",
+      "language": "English",
+      "content_quality": "Four sections, sixteen substantial lesson bodies, worked examples, exercises, takeaways, six assessed questions with rubrics, an applied project, acceptance criteria and authoritative references are included. Technical and academic review remain required."
+    }
+  }
+}
