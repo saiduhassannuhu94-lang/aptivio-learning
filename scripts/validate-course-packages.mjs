@@ -46,8 +46,8 @@ for (const file of files) {
   let lessonCount = 0;
   for (const [sectionIndex, section] of (course?.sections ?? []).entries()) {
     requireText(section?.title, `sections[${sectionIndex}].title`);
-    if (!Array.isArray(section?.lessons) || section.lessons.length === 0) {
-      fileFailures.push(`${file}: section ${sectionIndex + 1} must contain lessons`);
+    if (!Array.isArray(section?.lessons) || section.lessons.length !== 4) {
+      fileFailures.push(`${file}: section ${sectionIndex + 1} must contain exactly four lessons`);
       continue;
     }
     for (const [lessonIndex, lesson] of section.lessons.entries()) {
@@ -86,6 +86,12 @@ for (const file of files) {
       if (!Array.isArray(question?.rubric) || question.rubric.length < 2) {
         fileFailures.push(`${file}: assessment question ${questionIndex + 1} needs a marking rubric`);
       }
+    }
+  }
+  if (Array.isArray(assessment?.questions) && typeof assessment?.total_marks === "number") {
+    const questionMarks = assessment.questions.reduce((sum, question) => sum + (typeof question?.marks === "number" ? question.marks : 0), 0);
+    if (questionMarks !== assessment.total_marks) {
+      fileFailures.push(`${file}: assessment total_marks (${assessment.total_marks}) does not equal question marks (${questionMarks})`);
     }
   }
   if (typeof assessment?.pass_mark_percent !== "number" || assessment.pass_mark_percent < 50 || assessment.pass_mark_percent > 100) {
