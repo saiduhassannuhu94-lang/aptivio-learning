@@ -14,7 +14,7 @@ for (const file of files) {
   try {
     pkg = JSON.parse(await readFile(file, "utf8"));
   } catch (error) {
-    fileFailures.push(`${file}: invalid JSON or unreadable file: ${error.message}`);
+    failures.push(`${file}: invalid JSON or unreadable file: ${error.message}`);
     continue;
   }
 
