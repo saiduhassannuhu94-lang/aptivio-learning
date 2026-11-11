@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 type LessonPageProps = { params: Promise<{ lessonId: string }> };
@@ -12,11 +12,7 @@ export const metadata = {
 export default async function LessonPage({ params }: LessonPageProps) {
   const { lessonId } = await params;
   const supabase = await createClient();
-  const { data: auth, error: authError } = await supabase.auth.getUser();
-
-  if (authError || !auth.user) {
-    redirect("/sign-in");
-  }
+  const { data: auth } = await supabase.auth.getUser();
 
   // Fetch only routing metadata first. Protected lesson body and media are
   // deliberately withheld until the exact-version access check succeeds.
@@ -57,14 +53,16 @@ export default async function LessonPage({ params }: LessonPageProps) {
     course.status === "published" &&
     course.published_version_id === version.id;
 
-  const { data: enrollment } = await supabase
-    .from("enrollments")
-    .select("id")
-    .eq("user_id", auth.user.id)
-    .eq("course_id", course.id)
-    .eq("course_version_id", version.id)
-    .in("status", ["active", "completed"])
-    .maybeSingle();
+  const { data: enrollment } = auth.user
+    ? await supabase
+        .from("enrollments")
+        .select("id")
+        .eq("user_id", auth.user.id)
+        .eq("course_id", course.id)
+        .eq("course_version_id", version.id)
+        .in("status", ["active", "completed"])
+        .maybeSingle()
+    : { data: null };
 
   if (!isCurrentPublishedPreview && !enrollment) notFound();
 
