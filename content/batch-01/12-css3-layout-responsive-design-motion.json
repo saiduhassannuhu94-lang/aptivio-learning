@@ -1,0 +1,358 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "css3-layout-responsive-design-motion",
+    "title": "CSS3: Layout, Responsive Design and Motion",
+    "subtitle": "Build responsive interfaces with the cascade, Flexbox, Grid, design tokens and accessible motion.",
+    "description": "A practical CSS course covering selectors, cascade, box model, sizing, normal flow, positioning, Flexbox, Grid, media and container queries, typography, colour systems, transitions, reduced motion, responsive media and layout debugging. Learners build a mobile-first dashboard and verify it across realistic viewports.",
+    "level": "beginner_to_intermediate",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 640,
+    "target_audience": [
+      "Computing students learning frontend development",
+      "Learners who know basic HTML and want modern CSS layout skills",
+      "Beginners designing responsive websites"
+    ],
+    "prerequisites": [
+      "Basic HTML document structure",
+      "Ability to create and link a stylesheet"
+    ],
+    "outcomes": [
+      "Explain how selectors and the cascade determine computed styles",
+      "Calculate box dimensions using box-sizing and spacing properties",
+      "Build layouts with normal flow, Flexbox and Grid",
+      "Use relative units, media queries and container queries appropriately",
+      "Create readable typography and semantic design tokens",
+      "Provide visible focus, interaction and reduced-motion states",
+      "Prevent common overflow and image-layout defects",
+      "Build and test a responsive multi-section interface"
+    ],
+    "equipment": [
+      "Laptop or desktop computer",
+      "Modern browser with developer tools",
+      "Text editor",
+      "Sample images or locally created assets"
+    ],
+    "accessibility": "All lessons use selectable code and text descriptions for layout diagrams. Motion examples include reduced-motion alternatives; colour is not the only status indicator.",
+    "sections": [
+      {
+        "title": "CSS Foundations and the Cascade",
+        "description": "Understand CSS syntax, selectors, the cascade and the box model.",
+        "lessons": [
+          {
+            "title": "CSS rules, selectors and declarations",
+            "duration_minutes": 25,
+            "body_markdown": "## CSS rules, selectors and declarations\n\nA CSS rule contains a selector and a declaration block. Selectors identify which elements receive styles, while declarations pair properties with values. External stylesheets are usually preferable for site-wide design because they separate content from presentation and can be cached. The browser parses stylesheets and resolves conflicts through the cascade. A selector that matches an element does not guarantee a declaration wins: origin, importance, cascade layer, specificity and source order all matter. Keep selectors focused so that later changes do not depend on fragile document structure.\n\n### Worked example\n\nCreate a stylesheet for a course card using a class selector, a descendant selector and a pseudo-class for hover.\n\n### Common failure to avoid\n\nDo not assume the last rule always wins; cascade origin, importance, layers and specificity are considered before simple source order.\n\n### Check your understanding\n\nInspect the computed layout and explain why the browser produced the result. Identify the containing block, available space, sizing constraint and user preference that may affect the rendered output. A responsive design is judged by content access and interaction, not merely by whether a screenshot looks tidy.\n",
+            "exercise": "Write three selectors for a card, its heading and its interactive link, and explain their matching scope.",
+            "key_takeaways": [
+              "Explain the purpose of css rules, selectors and declarations and the layout problem it solves.",
+              "Identify one responsive, accessibility or cascade condition that should be tested."
+            ]
+          },
+          {
+            "title": "The cascade, inheritance and specificity",
+            "duration_minutes": 25,
+            "body_markdown": "## The cascade, inheritance and specificity\n\nThe cascade determines which declaration is applied when several rules compete. Specificity is one part of that decision, but it is not the entire cascade. Inheritance passes selected properties from parent to child, while many layout and box properties do not inherit. Broad element selectors can establish defaults; component classes can override those defaults at a more targeted level. Avoid escalating specificity through repeated IDs or long descendant chains. Use cascade layers and a documented order when a project has several styling sources.\n\n### Worked example\n\nCreate competing rules for a heading and predict which colour is applied, then inspect the computed styles panel.\n\n### Common failure to avoid\n\nDo not solve every conflict with `!important`; repeated overrides make a stylesheet difficult to reason about.\n\n### Check your understanding\n\nInspect the computed layout and explain why the browser produced the result. Identify the containing block, available space, sizing constraint and user preference that may affect the rendered output. A responsive design is judged by content access and interaction, not merely by whether a screenshot looks tidy.\n",
+            "exercise": "Explain the difference between inheritance, specificity and source order using a small example.",
+            "key_takeaways": [
+              "Explain the purpose of the cascade, inheritance and specificity and the layout problem it solves.",
+              "Identify one responsive, accessibility or cascade condition that should be tested."
+            ]
+          },
+          {
+            "title": "The box model and sizing",
+            "duration_minutes": 25,
+            "body_markdown": "## The box model and sizing\n\nEach CSS element generates boxes whose layout is affected by content, padding, border and margin. With the default `content-box`, declared width applies to the content area; with `border-box`, the declared size includes content, padding and border. Many projects set `box-sizing: border-box` globally to make sizing easier to predict. Margins can collapse in certain block formatting contexts, and percentage sizing depends on the containing block and property rules. Inspect the actual box dimensions rather than guessing from the CSS declaration.\n\n### Worked example\n\nBuild two cards with the same declared width, one using content-box and one border-box, then compare their rendered outer sizes.\n\n### Common failure to avoid\n\nDo not add padding to a fixed content-box width and assume the final outer width stays unchanged.\n\n### Check your understanding\n\nInspect the computed layout and explain why the browser produced the result. Identify the containing block, available space, sizing constraint and user preference that may affect the rendered output. A responsive design is judged by content access and interaction, not merely by whether a screenshot looks tidy.\n",
+            "exercise": "Calculate the outer width of a box from its content width, padding and border.",
+            "key_takeaways": [
+              "Explain the purpose of the box model and sizing and the layout problem it solves.",
+              "Identify one responsive, accessibility or cascade condition that should be tested."
+            ]
+          },
+          {
+            "title": "Units, values and custom properties",
+            "duration_minutes": 25,
+            "body_markdown": "## Units, values and custom properties\n\nCSS supports absolute units such as pixels and relative units such as `rem`, `em`, percentages and viewport units. Relative units can make layouts and text more adaptable when users change browser settings. `rem` is based on the root font size, while `em` depends on the relevant font-size context. Custom properties store reusable values and can be scoped, overridden and composed with functions such as `var()` and `calc()`. Choose units based on the relationship being expressed rather than using pixels everywhere.\n\n### Worked example\n\nCreate a spacing scale with custom properties and use `rem` for text and padding in a responsive card.\n\n### Common failure to avoid\n\nDo not assume `100vw` is always harmless; it can include scrollbar width and create horizontal overflow.\n\n### Check your understanding\n\nInspect the computed layout and explain why the browser produced the result. Identify the containing block, available space, sizing constraint and user preference that may affect the rendered output. A responsive design is judged by content access and interaction, not merely by whether a screenshot looks tidy.\n",
+            "exercise": "Build a small token set for spacing, type size and colour, then reuse it across three components.",
+            "key_takeaways": [
+              "Explain the purpose of units, values and custom properties and the layout problem it solves.",
+              "Identify one responsive, accessibility or cascade condition that should be tested."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Layout Systems and Responsive Design",
+        "description": "Build flexible page layouts with normal flow, Flexbox and Grid.",
+        "lessons": [
+          {
+            "title": "Normal flow and positioning",
+            "duration_minutes": 25,
+            "body_markdown": "## Normal flow and positioning\n\nNormal flow is the browser's default layout process for block and inline content. Positioning schemes such as relative, absolute, fixed and sticky alter how an element participates in layout and which containing block it uses. Absolutely positioned elements are removed from normal flow, so nearby content does not reserve their space. Sticky positioning depends on scroll containers and inset constraints. Use positioning for overlays and deliberate anchoring, not as a replacement for a responsive layout system.\n\n### Worked example\n\nPlace a notification badge over a card image with a positioned wrapper, then verify that the card still sizes correctly.\n\n### Common failure to avoid\n\nDo not absolutely position every page element; the layout will break when content length changes.\n\n### Check your understanding\n\nInspect the computed layout and explain why the browser produced the result. Identify the containing block, available space, sizing constraint and user preference that may affect the rendered output. A responsive design is judged by content access and interaction, not merely by whether a screenshot looks tidy.\n",
+            "exercise": "Explain which elements remain in normal flow in a card with an overlaid badge.",
+            "key_takeaways": [
+              "Explain the purpose of normal flow and positioning and the layout problem it solves.",
+              "Identify one responsive, accessibility or cascade condition that should be tested."
+            ]
+          },
+          {
+            "title": "Flexbox for one-dimensional layout",
+            "duration_minutes": 25,
+            "body_markdown": "## Flexbox for one-dimensional layout\n\nFlexbox is designed for arranging items along one primary axis, either a row or a column. A flex container controls alignment, distribution, wrapping and gaps; its children become flex items. Properties such as `justify-content`, `align-items`, `flex-basis`, `flex-grow` and `flex-shrink` solve different layout questions. Flex items may shrink in ways that cause unexpected text overflow, and a minimum width constraint may need attention. Use Flexbox for navigation bars, toolbars and aligned card content where one-dimensional flow is appropriate.\n\n### Worked example\n\nBuild a navigation bar that wraps on small screens and keeps the logo and menu controls aligned.\n\n### Common failure to avoid\n\nDo not use arbitrary margins on every child when `gap` and alignment properties express the layout more clearly.\n\n### Check your understanding\n\nInspect the computed layout and explain why the browser produced the result. Identify the containing block, available space, sizing constraint and user preference that may affect the rendered output. A responsive design is judged by content access and interaction, not merely by whether a screenshot looks tidy.\n",
+            "exercise": "Create a flex row with a fixed logo, flexible navigation and a right-aligned action area.",
+            "key_takeaways": [
+              "Explain the purpose of flexbox for one-dimensional layout and the layout problem it solves.",
+              "Identify one responsive, accessibility or cascade condition that should be tested."
+            ]
+          },
+          {
+            "title": "CSS Grid for two-dimensional layout",
+            "duration_minutes": 25,
+            "body_markdown": "## CSS Grid for two-dimensional layout\n\nCSS Grid controls rows and columns as a two-dimensional layout system. Explicit tracks can use fixed, flexible and intrinsic sizing; `fr` distributes available space among flexible tracks. `minmax()` and `repeat()` help create layouts that adapt to available width. Auto-placement can position items without manually assigning every grid cell, while named areas can make a complex layout easier to read. Grid and Flexbox complement each other: use Grid for the overall two-dimensional structure and Flexbox inside components when suitable.\n\n### Worked example\n\nCreate a course catalogue grid that changes from one to three columns based on available container width.\n\n### Common failure to avoid\n\nDo not hard-code a large number of fixed-width columns that overflow smaller screens.\n\n### Check your understanding\n\nInspect the computed layout and explain why the browser produced the result. Identify the containing block, available space, sizing constraint and user preference that may affect the rendered output. A responsive design is judged by content access and interaction, not merely by whether a screenshot looks tidy.\n",
+            "exercise": "Build a responsive dashboard with a main content area, sidebar and card grid.",
+            "key_takeaways": [
+              "Explain the purpose of css grid for two-dimensional layout and the layout problem it solves.",
+              "Identify one responsive, accessibility or cascade condition that should be tested."
+            ]
+          },
+          {
+            "title": "Media queries and breakpoints",
+            "duration_minutes": 25,
+            "body_markdown": "## Media queries and breakpoints\n\nMedia queries apply styles when viewport or device conditions match. Breakpoints should be selected when the content no longer fits comfortably, not simply because a popular device has a particular width. A mobile-first stylesheet starts with a usable narrow layout and adds enhancements as space increases. Queries can also respond to orientation, hover capability, pointer accuracy and user preferences. Test around each breakpoint because a layout can fail just before or after the declared width.\n\n### Worked example\n\nCreate a mobile-first course page and add a breakpoint only when the navigation or content layout needs more space.\n\n### Common failure to avoid\n\nDo not design only for named phone models; viewport sizes and browser UI areas vary.\n\n### Check your understanding\n\nInspect the computed layout and explain why the browser produced the result. Identify the containing block, available space, sizing constraint and user preference that may affect the rendered output. A responsive design is judged by content access and interaction, not merely by whether a screenshot looks tidy.\n",
+            "exercise": "Record the smallest and largest widths at which your layout remains usable.",
+            "key_takeaways": [
+              "Explain the purpose of media queries and breakpoints and the layout problem it solves.",
+              "Identify one responsive, accessibility or cascade condition that should be tested."
+            ]
+          },
+          {
+            "title": "Container queries and intrinsic sizing",
+            "duration_minutes": 25,
+            "body_markdown": "## Container queries and intrinsic sizing\n\nMedia queries respond to the viewport, while container queries let a component adapt to the size of its containing context. This is valuable when the same card appears in a sidebar, main column or wide catalogue. A container must establish the appropriate containment context before size queries can use it. Intrinsic sizing keywords such as `min-content`, `max-content` and `fit-content` allow elements to size according to their content. Use container queries progressively and provide a sensible base layout when they are not available or not needed.\n\n### Worked example\n\nCreate a course card that changes its internal layout when its container becomes wider, regardless of the viewport width.\n\n### Common failure to avoid\n\nDo not use viewport breakpoints for every reusable component when the component's own container is the relevant constraint.\n\n### Check your understanding\n\nInspect the computed layout and explain why the browser produced the result. Identify the containing block, available space, sizing constraint and user preference that may affect the rendered output. A responsive design is judged by content access and interaction, not merely by whether a screenshot looks tidy.\n",
+            "exercise": "Place the same card in two different container widths and describe the expected layout changes.",
+            "key_takeaways": [
+              "Explain the purpose of container queries and intrinsic sizing and the layout problem it solves.",
+              "Identify one responsive, accessibility or cascade condition that should be tested."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Visual Design, Motion and Component Styling",
+        "description": "Create maintainable visual systems with typography, variables and motion.",
+        "lessons": [
+          {
+            "title": "Typography and readable hierarchy",
+            "duration_minutes": 25,
+            "body_markdown": "## Typography and readable hierarchy\n\nTypography affects comprehension and perceived hierarchy. CSS properties such as `font-family`, `font-size`, `font-weight`, `line-height`, `letter-spacing` and `max-width` work together to control readability. A fluid type scale can use `clamp()` to adapt smoothly within reasonable minimum and maximum values. Keep line length comfortable and avoid reducing text size solely to fit dense content. Load web fonts responsibly and include system fallbacks so the page remains readable when font downloads fail.\n\n### Worked example\n\nCreate a type scale for a lesson page with body text, section headings and compact metadata.\n\n### Common failure to avoid\n\nDo not make body text tiny to preserve a decorative layout; content readability comes first.\n\n### Check your understanding\n\nInspect the computed layout and explain why the browser produced the result. Identify the containing block, available space, sizing constraint and user preference that may affect the rendered output. A responsive design is judged by content access and interaction, not merely by whether a screenshot looks tidy.\n",
+            "exercise": "Create a typography scale and test it at narrow and wide viewport widths.",
+            "key_takeaways": [
+              "Explain the purpose of typography and readable hierarchy and the layout problem it solves.",
+              "Identify one responsive, accessibility or cascade condition that should be tested."
+            ]
+          },
+          {
+            "title": "Colour, contrast and design tokens",
+            "duration_minutes": 25,
+            "body_markdown": "## Colour, contrast and design tokens\n\nA colour system should establish consistent roles such as surface, text, muted text, border, accent and feedback. Contrast between text and background affects readability, and colour should not be the only signal for status or error. CSS custom properties make theme tokens reusable and allow a light/dark theme to be changed centrally. Check actual contrast combinations rather than choosing colours by appearance alone. Avoid placing essential text over complex imagery without a robust background treatment.\n\n### Worked example\n\nDefine a small palette of semantic CSS variables and use it for a success message, warning and card surface.\n\n### Common failure to avoid\n\nDo not use red and green alone to distinguish outcomes; add text and/or icons.\n\n### Check your understanding\n\nInspect the computed layout and explain why the browser produced the result. Identify the containing block, available space, sizing constraint and user preference that may affect the rendered output. A responsive design is judged by content access and interaction, not merely by whether a screenshot looks tidy.\n",
+            "exercise": "Create token names for foreground, muted, surface, border, accent and error states.",
+            "key_takeaways": [
+              "Explain the purpose of colour, contrast and design tokens and the layout problem it solves.",
+              "Identify one responsive, accessibility or cascade condition that should be tested."
+            ]
+          },
+          {
+            "title": "Transitions and interaction states",
+            "duration_minutes": 25,
+            "body_markdown": "## Transitions and interaction states\n\nTransitions animate changes between property values when a state changes, while keyframe animations describe a sequence of styles. Motion can communicate feedback, but it should remain purposeful and brief. Use focus-visible, hover, active and disabled states to make controls understandable across input methods. Avoid animating expensive properties such as layout dimensions when transforms or opacity can provide the needed effect. Respect the `prefers-reduced-motion` user preference by removing or simplifying non-essential motion.\n\n### Worked example\n\nAdd a short transition to a button hover state and a reduced-motion rule that removes the transition for users who request less motion.\n\n### Common failure to avoid\n\nDo not communicate an essential state only through an animation that may be disabled or not perceived.\n\n### Check your understanding\n\nInspect the computed layout and explain why the browser produced the result. Identify the containing block, available space, sizing constraint and user preference that may affect the rendered output. A responsive design is judged by content access and interaction, not merely by whether a screenshot looks tidy.\n",
+            "exercise": "Create a state table for hover, keyboard focus, active, disabled and reduced-motion behaviour.",
+            "key_takeaways": [
+              "Explain the purpose of transitions and interaction states and the layout problem it solves.",
+              "Identify one responsive, accessibility or cascade condition that should be tested."
+            ]
+          },
+          {
+            "title": "Responsive images and media layout",
+            "duration_minutes": 25,
+            "body_markdown": "## Responsive images and media layout\n\nImages can cause layout shifts when the browser does not know their dimensions before loading. Set appropriate width/height attributes or aspect ratios so space is reserved. Use `object-fit` and `object-position` when an image needs to fill a fixed media area. Responsive image markup can offer multiple source sizes so the browser downloads an appropriate asset. Avoid stretching images or serving oversized files to every viewport. Text alternatives belong to the HTML content, while CSS backgrounds are generally decorative.\n\n### Worked example\n\nCreate a responsive course thumbnail with a stable aspect ratio and suitable object-fit behaviour.\n\n### Common failure to avoid\n\nDo not rely on a background image for information that needs an accessible text alternative.\n\n### Check your understanding\n\nInspect the computed layout and explain why the browser produced the result. Identify the containing block, available space, sizing constraint and user preference that may affect the rendered output. A responsive design is judged by content access and interaction, not merely by whether a screenshot looks tidy.\n",
+            "exercise": "Test three image aspect ratios inside the same card and verify that none distort the layout.",
+            "key_takeaways": [
+              "Explain the purpose of responsive images and media layout and the layout problem it solves.",
+              "Identify one responsive, accessibility or cascade condition that should be tested."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Responsive Testing and Project Delivery",
+        "description": "Validate layouts across screens and user preferences.",
+        "lessons": [
+          {
+            "title": "Responsive navigation and component patterns",
+            "duration_minutes": 25,
+            "body_markdown": "## Responsive navigation and component patterns\n\nA responsive navigation component should preserve access to every destination while adapting its arrangement to available width. CSS can control visual layout, but interactive expansion state needs a real control and appropriate accessible state in HTML or JavaScript. Avoid hiding links without providing an alternative interaction. Reusable component styles should have clear boundaries and avoid accidental leakage to unrelated pages. Test both visual layout and keyboard sequence because a menu can look correct while becoming unreachable.\n\n### Worked example\n\nStyle a navigation bar that switches to a compact layout while retaining a real accessible menu control.\n\n### Common failure to avoid\n\nDo not hide all navigation links at a breakpoint without providing an accessible way to reach them.\n\n### Check your understanding\n\nInspect the computed layout and explain why the browser produced the result. Identify the containing block, available space, sizing constraint and user preference that may affect the rendered output. A responsive design is judged by content access and interaction, not merely by whether a screenshot looks tidy.\n",
+            "exercise": "Create a responsive navigation component and document its keyboard behaviour.",
+            "key_takeaways": [
+              "Explain the purpose of responsive navigation and component patterns and the layout problem it solves.",
+              "Identify one responsive, accessibility or cascade condition that should be tested."
+            ]
+          },
+          {
+            "title": "Debugging layout and overflow",
+            "duration_minutes": 25,
+            "body_markdown": "## Debugging layout and overflow\n\nUnexpected overflow often comes from fixed widths, long unbreakable strings, flex items with restrictive minimum sizes, viewport units or intrinsic content. Browser developer tools can inspect computed styles, layout overlays and box dimensions. Test at intermediate widths, not just popular device presets. Use `min-width: 0`, wrapping rules or sensible overflow strategies when the content model requires them. Avoid globally hiding overflow as a quick fix because it can conceal inaccessible content.\n\n### Worked example\n\nReproduce a horizontal scroll bug with a long course title, inspect the computed layout and correct the responsible constraint.\n\n### Common failure to avoid\n\nDo not set `overflow-x: hidden` on the whole page as a substitute for finding the element causing overflow.\n\n### Check your understanding\n\nInspect the computed layout and explain why the browser produced the result. Identify the containing block, available space, sizing constraint and user preference that may affect the rendered output. A responsive design is judged by content access and interaction, not merely by whether a screenshot looks tidy.\n",
+            "exercise": "Write a layout-debug checklist that starts with the overflowing element and traces its sizing constraints.",
+            "key_takeaways": [
+              "Explain the purpose of debugging layout and overflow and the layout problem it solves.",
+              "Identify one responsive, accessibility or cascade condition that should be tested."
+            ]
+          },
+          {
+            "title": "Build and evaluate a responsive interface",
+            "duration_minutes": 25,
+            "body_markdown": "## Build and evaluate a responsive interface\n\nA responsive interface should retain content hierarchy and usable controls across narrow, medium and wide layouts. Define the content structure before styling, then choose normal flow, Flexbox or Grid based on the layout relationship. Use design tokens to keep spacing and colour consistent, and include focus states and reduced-motion handling. Validate with browser tools, keyboard interaction and realistic content lengths. Record known limitations and test evidence rather than relying on a single screenshot.\n\n### Worked example\n\nBuild a student learning dashboard with responsive navigation, course cards, progress summaries and a mobile-first layout.\n\n### Common failure to avoid\n\nDo not call the interface responsive because it shrinks to a phone width; every control and content region must remain usable.\n\n### Check your understanding\n\nInspect the computed layout and explain why the browser produced the result. Identify the containing block, available space, sizing constraint and user preference that may affect the rendered output. A responsive design is judged by content access and interaction, not merely by whether a screenshot looks tidy.\n",
+            "exercise": "Submit the page, responsive test matrix, screenshots at selected widths and an accessibility checklist.",
+            "key_takeaways": [
+              "Explain the purpose of build and evaluate a responsive interface and the layout problem it solves.",
+              "Identify one responsive, accessibility or cascade condition that should be tested."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "CSS3: Layout, Responsive Design and Motion Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions and explain computed layout behaviour. Project evidence must include multiple viewport widths and keyboard interaction.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "cascade_analysis",
+          "prompt": "Explain how origin, importance, layers, specificity and source order contribute to the CSS cascade.",
+          "marks": 8,
+          "rubric": [
+            "Identifies cascade stages (4)",
+            "Explains specificity correctly (2)",
+            "Uses a valid example (2)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "layout_calculation",
+          "prompt": "Calculate the outer width of a content-box and border-box element with given width, padding and border values.",
+          "marks": 10,
+          "rubric": [
+            "Correct content-box calculation (4)",
+            "Correct border-box calculation (4)",
+            "Explains difference (2)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "layout_design",
+          "prompt": "Choose Flexbox or Grid for a responsive dashboard with a sidebar and card matrix. Explain the layout axes and responsive behaviour.",
+          "marks": 12,
+          "rubric": [
+            "Appropriate layout choice (4)",
+            "Responsive track/axis explanation (4)",
+            "Readable CSS structure (2)",
+            "Content constraints (2)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "accessibility",
+          "prompt": "Explain how visible focus states and `prefers-reduced-motion` should affect an animated navigation control.",
+          "marks": 10,
+          "rubric": [
+            "Keyboard focus behaviour (3)",
+            "Reduced-motion adaptation (4)",
+            "State not communicated by motion alone (3)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "debugging",
+          "prompt": "A page has horizontal overflow on narrow screens. List a systematic way to identify and correct the responsible sizing constraint.",
+          "marks": 10,
+          "rubric": [
+            "Uses browser inspection (3)",
+            "Identifies plausible width/intrinsic constraint (3)",
+            "Applies targeted fix (2)",
+            "Retests intermediate widths (2)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit the responsive student dashboard with source, viewport test evidence and accessibility review.",
+          "marks": 20,
+          "rubric": [
+            "Layout structure and responsiveness (5)",
+            "Visual hierarchy and tokens (4)",
+            "Interaction/focus/reduced motion (4)",
+            "Overflow/media testing (4)",
+            "Documentation (3)"
+          ]
+        }
+      ],
+      "total_marks": 70
+    },
+    "final_project": {
+      "title": "Responsive Student Learning Dashboard",
+      "brief": "Create a mobile-first student dashboard with navigation, course cards, progress summaries and a supporting panel. Use semantic HTML and modern CSS layout systems. Define a small token set, reserve image space, provide focus states and respect reduced-motion preferences. Test content at narrow, intermediate and wide widths.",
+      "deliverables": [
+        "HTML structure and CSS source files",
+        "Responsive navigation and course-card components",
+        "Documented spacing, type and colour tokens",
+        "At least three viewport test records",
+        "Keyboard and reduced-motion test notes",
+        "Screenshots with meaningful viewport labels",
+        "README with local preview instructions",
+        "Known limitations and improvement plan"
+      ],
+      "acceptance_criteria": [
+        "No unintended horizontal overflow at tested widths",
+        "Navigation and controls remain reachable by keyboard",
+        "Text remains readable at narrow widths",
+        "Grid and Flexbox are used where their models fit",
+        "Images preserve aspect ratio and reserve layout space",
+        "Reduced-motion preference is respected",
+        "Colour is not the sole status signal",
+        "Tests and limitations are documented"
+      ]
+    },
+    "references": [
+      {
+        "title": "MDN CSS Guides",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides",
+        "note": "Reference for layout, cascade, values, media and modern CSS features."
+      },
+      {
+        "title": "MDN CSS container queries",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Containment/Container_queries",
+        "note": "Current guidance for adapting components to their container size."
+      },
+      {
+        "title": "MDN prefers-reduced-motion",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion",
+        "note": "Reference for respecting users who request reduced motion."
+      },
+      {
+        "title": "web.dev Learn CSS",
+        "url": "https://web.dev/learn/css/",
+        "note": "Structured CSS learning materials and examples."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft. No authorised academic review has been recorded. Do not invent reviewer identities or dates and do not publish until a real review decision exists.",
+      "language": "English",
+      "content_quality": "Four sections and sixteen substantive lessons, examples, exercises, takeaways, assessment rubrics, applied project and authoritative references are included. Technical and academic review remain required."
+    }
+  }
+}
