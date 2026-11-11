@@ -1,0 +1,352 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "typescript-reliable-frontend-code",
+    "title": "TypeScript for Reliable Frontend Code",
+    "subtitle": "Use strict types, narrowing, generics and runtime validation to build more dependable frontend software.",
+    "description": "A practical TypeScript course covering static checking, inference, function and object types, tuples, unions, discriminated states, generics, utility types, classes, modules, strict compiler options, DOM and API typing, async result modelling, runtime validation and testing. Learners build a typed course catalogue while learning why types do not replace runtime checks.",
+    "level": "beginner_to_intermediate",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 640,
+    "target_audience": [
+      "Frontend learners who know JavaScript fundamentals",
+      "Computing students building typed web applications",
+      "Developers who want safer data models and API contracts"
+    ],
+    "prerequisites": [
+      "Working knowledge of JavaScript functions, arrays and objects",
+      "Basic HTML and browser concepts"
+    ],
+    "outcomes": [
+      "Explain TypeScript's compile-time role and JavaScript output",
+      "Use inference and explicit types appropriately",
+      "Model object shapes, optional values, tuples and readonly data",
+      "Narrow unions and represent UI states exhaustively",
+      "Write useful generic functions and type transformations",
+      "Configure strict TypeScript projects and module boundaries",
+      "Validate untrusted browser and API data at runtime",
+      "Combine typecheck, tests and runtime validation in a project"
+    ],
+    "equipment": [
+      "Laptop or desktop computer",
+      "Node.js-compatible development environment",
+      "TypeScript compiler or project tooling",
+      "Text editor with TypeScript support"
+    ],
+    "accessibility": "Code examples are selectable text. Diagrams and type-flow illustrations must include text explanations. Exercises do not require paid editor extensions.",
+    "sections": [
+      {
+        "title": "TypeScript Foundations and Configuration",
+        "description": "Understand static checking, inference and project compiler settings.",
+        "lessons": [
+          {
+            "title": "What TypeScript adds to JavaScript",
+            "duration_minutes": 25,
+            "body_markdown": "## What TypeScript adds to JavaScript\n\nTypeScript adds a static type system and tooling on top of JavaScript. Its compiler checks relationships between declared types and program operations, then emits JavaScript for a runtime to execute. The browser or Node.js does not execute TypeScript type annotations as runtime checks. Types are erased during compilation, so untrusted API, form and storage data still needs runtime validation. TypeScript can help prevent classes of mistakes before execution, but it cannot prove business requirements or external data are correct. Understand the difference between compile-time evidence and runtime behaviour.\n\n### Worked example\n\nWrite a function with a typed parameter and compile it. Inspect the emitted JavaScript and identify which type annotations disappeared.\n\n### Common failure to avoid\n\nDo not assume `value as Student` validates that a network payload is a real Student object.\n\n### Check your understanding\n\nIdentify what TypeScript can establish at compile time and what must still be checked at runtime. State the shape of the input, the trusted output after validation and the behaviour when the data does not satisfy the contract.\n",
+            "exercise": "Explain one defect static checking can catch and one invalid payload it cannot reject by itself.",
+            "key_takeaways": [
+              "Explain the type-system concept behind what typescript adds to javascript.",
+              "Identify one runtime validation, strictness or maintainability concern that must be tested."
+            ]
+          },
+          {
+            "title": "Type inference and everyday types",
+            "duration_minutes": 25,
+            "body_markdown": "## Type inference and everyday types\n\nTypeScript can infer types from variable initializers, return expressions and control flow. Primitive types include `string`, `number`, `boolean`, `bigint`, `symbol`, `null` and `undefined`, while arrays and object types describe structured data. Prefer inference for obvious local variables and explicit annotations at public API boundaries where they clarify contracts. Avoid `any` because it disables useful checking and spreads uncertainty through the program. Use `unknown` when a value is not yet trusted and narrow it before use.\n\n### Worked example\n\nCreate a typed course record and compare an inferred local variable with an explicitly typed function parameter.\n\n### Common failure to avoid\n\nDo not use `any` to silence a type error without understanding why the values differ.\n\n### Check your understanding\n\nIdentify what TypeScript can establish at compile time and what must still be checked at runtime. State the shape of the input, the trusted output after validation and the behaviour when the data does not satisfy the contract.\n",
+            "exercise": "Refactor a small JavaScript function to TypeScript and state where annotations improve clarity.",
+            "key_takeaways": [
+              "Explain the type-system concept behind type inference and everyday types.",
+              "Identify one runtime validation, strictness or maintainability concern that must be tested."
+            ]
+          },
+          {
+            "title": "Functions, optional parameters and return types",
+            "duration_minutes": 25,
+            "body_markdown": "## Functions, optional parameters and return types\n\nFunction types describe parameters and return values. Optional parameters communicate that an argument may be omitted, while union types describe more than one allowed value. A function should make its return contract explicit when the result is part of a reusable interface. Overloads can represent several call signatures, but they should be used only when the relationship between inputs and outputs is clear. A function type does not validate values that arrive from untyped JavaScript or external JSON at runtime.\n\n### Worked example\n\nDefine a function that formats a course title and accepts an optional level label, then test calls with and without the optional argument.\n\n### Common failure to avoid\n\nDo not make every field optional simply to avoid fixing incomplete data models.\n\n### Check your understanding\n\nIdentify what TypeScript can establish at compile time and what must still be checked at runtime. State the shape of the input, the trusted output after validation and the behaviour when the data does not satisfy the contract.\n",
+            "exercise": "Design a function signature for a course search operation with explicit input and output types.",
+            "key_takeaways": [
+              "Explain the type-system concept behind functions, optional parameters and return types.",
+              "Identify one runtime validation, strictness or maintainability concern that must be tested."
+            ]
+          },
+          {
+            "title": "Arrays, tuples and readonly data",
+            "duration_minutes": 25,
+            "body_markdown": "## Arrays, tuples and readonly data\n\nArray types describe repeated values, and tuple types describe fixed-position collections with known element types. `readonly` can prevent certain mutations through a reference, but it does not freeze the underlying JavaScript object at runtime. A readonly type is a compile-time constraint and can be bypassed through unsafe casts or untyped code. Prefer readonly inputs for functions that should not mutate caller-owned data. Choose tuples when position and length have meaning, not as a substitute for a general array.\n\n### Worked example\n\nDefine a tuple for a coordinate, a readonly list of outcomes and a mutable list of draft lessons.\n\n### Common failure to avoid\n\nDo not claim `readonly` provides runtime immutability or deep-freezes nested properties.\n\n### Check your understanding\n\nIdentify what TypeScript can establish at compile time and what must still be checked at runtime. State the shape of the input, the trusted output after validation and the behaviour when the data does not satisfy the contract.\n",
+            "exercise": "Choose array or tuple types for five data examples and explain the invariant.",
+            "key_takeaways": [
+              "Explain the type-system concept behind arrays, tuples and readonly data.",
+              "Identify one runtime validation, strictness or maintainability concern that must be tested."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Types, Functions and Data Modelling",
+        "description": "Model values accurately with unions, objects and reusable types.",
+        "lessons": [
+          {
+            "title": "Object types and structural typing",
+            "duration_minutes": 25,
+            "body_markdown": "## Object types and structural typing\n\nTypeScript generally uses structural typing: a value is compatible with an object type when it has the required shape. Interfaces and type aliases can both describe object structures; interfaces can be extended and declaration-merged, while type aliases can express unions, intersections and other type compositions. Use optional properties only when absence is genuinely valid. Excess-property checks catch some mistakes in fresh object literals, but structural compatibility is not a security mechanism. Domain models should distinguish required, optional and nullable values carefully.\n\n### Worked example\n\nDefine a learner profile type with required ID and email, optional display name and explicit nullable avatar URL.\n\n### Common failure to avoid\n\nDo not confuse an omitted property with a property whose value is `null`; model the intended data contract.\n\n### Check your understanding\n\nIdentify what TypeScript can establish at compile time and what must still be checked at runtime. State the shape of the input, the trusted output after validation and the behaviour when the data does not satisfy the contract.\n",
+            "exercise": "Create types for a course, an enrolled learner and a progress record.",
+            "key_takeaways": [
+              "Explain the type-system concept behind object types and structural typing.",
+              "Identify one runtime validation, strictness or maintainability concern that must be tested."
+            ]
+          },
+          {
+            "title": "Union types and narrowing",
+            "duration_minutes": 25,
+            "body_markdown": "## Union types and narrowing\n\nA union type means a value may be one of several types. TypeScript uses control-flow analysis to narrow a union after checks such as `typeof`, `in`, equality comparisons and discriminant properties. Discriminated unions model state explicitly, for example loading, success and error states with a shared `status` field. This can make impossible combinations harder to represent and enables exhaustive switch checks. Avoid non-null assertions when a real check can establish the condition safely.\n\n### Worked example\n\nModel a request state as loading, success or error and render each case with an exhaustive switch.\n\n### Common failure to avoid\n\nDo not use a non-null assertion to silence a missing-state problem that should be represented in the type.\n\n### Check your understanding\n\nIdentify what TypeScript can establish at compile time and what must still be checked at runtime. State the shape of the input, the trusted output after validation and the behaviour when the data does not satisfy the contract.\n",
+            "exercise": "Create a discriminated union for enrolment results and list every valid state transition.",
+            "key_takeaways": [
+              "Explain the type-system concept behind union types and narrowing.",
+              "Identify one runtime validation, strictness or maintainability concern that must be tested."
+            ]
+          },
+          {
+            "title": "Generics and reusable constraints",
+            "duration_minutes": 25,
+            "body_markdown": "## Generics and reusable constraints\n\nGenerics allow functions, interfaces and classes to preserve relationships between types while remaining reusable. A type parameter represents a value type that is determined when the generic is used. Constraints such as `T extends { id: string }` limit which types are valid. Generics should express a real relationship, not turn a simple function into an unreadable abstraction. A generic API response wrapper can preserve the type of its `data` field while keeping shared metadata consistent.\n\n### Worked example\n\nWrite a generic helper that finds a record by ID in an array of objects with an `id` property.\n\n### Common failure to avoid\n\nDo not use an unconstrained generic when the implementation needs properties the type parameter does not promise.\n\n### Check your understanding\n\nIdentify what TypeScript can establish at compile time and what must still be checked at runtime. State the shape of the input, the trusted output after validation and the behaviour when the data does not satisfy the contract.\n",
+            "exercise": "Design a typed API result wrapper that preserves the payload type.",
+            "key_takeaways": [
+              "Explain the type-system concept behind generics and reusable constraints.",
+              "Identify one runtime validation, strictness or maintainability concern that must be tested."
+            ]
+          },
+          {
+            "title": "Type aliases, utility types and composition",
+            "duration_minutes": 25,
+            "body_markdown": "## Type aliases, utility types and composition\n\nType aliases can combine object types, unions, intersections and mapped type expressions. Built-in utility types such as `Partial`, `Pick`, `Omit`, `Record` and `Readonly` transform existing types for common use cases. Derived types can reduce duplication, but excessive type-level cleverness makes maintenance difficult. Keep domain types as the source of truth and derive narrow views for forms or API responses when appropriate. Utility types change compile-time descriptions, not the runtime object.\n\n### Worked example\n\nCreate an update type for a course that allows only selected fields to change and keeps its identifier immutable.\n\n### Common failure to avoid\n\nDo not use `Partial<Course>` for every update endpoint if some fields must always remain required or forbidden.\n\n### Check your understanding\n\nIdentify what TypeScript can establish at compile time and what must still be checked at runtime. State the shape of the input, the trusted output after validation and the behaviour when the data does not satisfy the contract.\n",
+            "exercise": "Model separate create, update and read types for a course.",
+            "key_takeaways": [
+              "Explain the type-system concept behind type aliases, utility types and composition.",
+              "Identify one runtime validation, strictness or maintainability concern that must be tested."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Advanced Type Design and Application Boundaries",
+        "description": "Use generics, narrowing and typed external interfaces.",
+        "lessons": [
+          {
+            "title": "Classes, access modifiers and parameter properties",
+            "duration_minutes": 25,
+            "body_markdown": "## Classes, access modifiers and parameter properties\n\nTypeScript classes can declare fields, constructors, methods and access modifiers. The `private` and `protected` modifiers affect TypeScript checking, while JavaScript runtime private fields use `#` syntax. Constructor parameter properties are a concise way to declare and initialise fields. Prefer classes when identity, lifecycle or methods are central; plain object types are often simpler for data transfer. TypeScript's access modifiers are not automatically a security boundary against untyped JavaScript or runtime reflection.\n\n### Worked example\n\nCreate a small class that protects a progress value and rejects invalid updates.\n\n### Common failure to avoid\n\nDo not assume TypeScript's compile-time `private` modifier provides runtime confidentiality.\n\n### Check your understanding\n\nIdentify what TypeScript can establish at compile time and what must still be checked at runtime. State the shape of the input, the trusted output after validation and the behaviour when the data does not satisfy the contract.\n",
+            "exercise": "Compare a plain data interface with a class that enforces an invariant.",
+            "key_takeaways": [
+              "Explain the type-system concept behind classes, access modifiers and parameter properties.",
+              "Identify one runtime validation, strictness or maintainability concern that must be tested."
+            ]
+          },
+          {
+            "title": "Modules, imports and declaration files",
+            "duration_minutes": 25,
+            "body_markdown": "## Modules, imports and declaration files\n\nTypeScript uses JavaScript module syntax with type-aware imports and exports. `import type` makes it clear that an import is needed only for type checking and not as a runtime value. Declaration files describe types for JavaScript packages or runtime APIs. Module resolution depends on the project's package and compiler configuration, so keep module settings aligned with the actual runtime or bundler. Avoid duplicating third-party type declarations when a maintained package already provides them.\n\n### Worked example\n\nSplit a domain type and service function into separate modules and use `import type` for the type-only dependency.\n\n### Common failure to avoid\n\nDo not mix module systems or resolution modes by copying compiler settings from an unrelated project.\n\n### Check your understanding\n\nIdentify what TypeScript can establish at compile time and what must still be checked at runtime. State the shape of the input, the trusted output after validation and the behaviour when the data does not satisfy the contract.\n",
+            "exercise": "Explain which imports exist at runtime and which exist only for type checking.",
+            "key_takeaways": [
+              "Explain the type-system concept behind modules, imports and declaration files.",
+              "Identify one runtime validation, strictness or maintainability concern that must be tested."
+            ]
+          },
+          {
+            "title": "Strict compiler settings and project configuration",
+            "duration_minutes": 25,
+            "body_markdown": "## Strict compiler settings and project configuration\n\nThe TypeScript configuration file defines compiler options, source inclusion and output behaviour. Strict mode enables important checks, including strict null checking and stricter function type checks. A project may also configure module target, module resolution, JSX, declaration output and path aliases. Compiler settings should match the actual environment; a setting copied from an old guide may no longer fit the build tool. Keep `noEmit` when another tool handles transpilation, and use a separate typecheck command in CI where appropriate.\n\n### Worked example\n\nCreate a strict TypeScript project configuration and correct several errors surfaced by enabling strict null checks.\n\n### Common failure to avoid\n\nDo not disable strict checks project-wide merely because one file has a typing problem.\n\n### Check your understanding\n\nIdentify what TypeScript can establish at compile time and what must still be checked at runtime. State the shape of the input, the trusted output after validation and the behaviour when the data does not satisfy the contract.\n",
+            "exercise": "Review a tsconfig and explain the purpose of strict, module and target settings.",
+            "key_takeaways": [
+              "Explain the type-system concept behind strict compiler settings and project configuration.",
+              "Identify one runtime validation, strictness or maintainability concern that must be tested."
+            ]
+          },
+          {
+            "title": "Typing browser and API boundaries",
+            "duration_minutes": 25,
+            "body_markdown": "## Typing browser and API boundaries\n\nDOM APIs often return nullable values, event targets have broad types and JSON parsing produces values that need checking. TypeScript can type an element after a verified `instanceof` check, but a non-null assertion does not make a missing element exist. `Response.json()` should be treated as untrusted data unless a runtime schema has checked it. Use a schema validator or hand-written type guard at the boundary, then pass trusted domain types inward. This keeps uncertainty near the point where data enters the application.\n\n### Worked example\n\nSelect a button safely, validate a JSON course response with a runtime schema and handle an invalid payload.\n\n### Common failure to avoid\n\nDo not cast external JSON directly to a domain interface and assume the fields are correct.\n\n### Check your understanding\n\nIdentify what TypeScript can establish at compile time and what must still be checked at runtime. State the shape of the input, the trusted output after validation and the behaviour when the data does not satisfy the contract.\n",
+            "exercise": "Write a type guard for a course record and test missing, wrong-type and valid fields.",
+            "key_takeaways": [
+              "Explain the type-system concept behind typing browser and api boundaries.",
+              "Identify one runtime validation, strictness or maintainability concern that must be tested."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Testing and TypeScript Project Delivery",
+        "description": "Combine static checks, runtime validation and maintainable tooling.",
+        "lessons": [
+          {
+            "title": "Promises, async functions and error types",
+            "duration_minutes": 25,
+            "body_markdown": "## Promises, async functions and error types\n\nAn async function returns a Promise, and TypeScript infers the resolved value when its return path is consistent. `Promise<T>` represents eventual completion with a value of type T, but rejected reasons are not strongly typed by the language in the same way. Catch variables should be treated as unknown under safer compiler settings and narrowed before reading properties. Model expected failures as a discriminated result when the caller needs to branch predictably. Do not confuse a successful type annotation with a guaranteed network success.\n\n### Worked example\n\nWrite an async course loader that returns a typed success/error result and safely narrows an unknown caught error.\n\n### Common failure to avoid\n\nDo not read `.message` from an unknown caught value without checking that it is an Error or a compatible object.\n\n### Check your understanding\n\nIdentify what TypeScript can establish at compile time and what must still be checked at runtime. State the shape of the input, the trusted output after validation and the behaviour when the data does not satisfy the contract.\n",
+            "exercise": "Design a typed result for a fetch operation with loading, success and failure states.",
+            "key_takeaways": [
+              "Explain the type-system concept behind promises, async functions and error types.",
+              "Identify one runtime validation, strictness or maintainability concern that must be tested."
+            ]
+          },
+          {
+            "title": "Runtime schemas and type-safe validation",
+            "duration_minutes": 25,
+            "body_markdown": "## Runtime schemas and type-safe validation\n\nTypeScript types are erased at runtime, so external values require runtime validation. A schema library or explicit type guard can check field presence, primitive types, ranges and nested shapes. Validation should also enforce domain rules such as allowed status values and valid identifiers. Keep the validated output as the trusted representation used by business logic. A schema that checks only field types may still need separate semantic constraints. Use validation at network, storage and form boundaries rather than sprinkling assertions across the code.\n\n### Worked example\n\nDefine a runtime schema for a course record and test a valid record, missing title, negative duration and unknown status.\n\n### Common failure to avoid\n\nDo not mistake a compile-time interface for a runtime input validator.\n\n### Check your understanding\n\nIdentify what TypeScript can establish at compile time and what must still be checked at runtime. State the shape of the input, the trusted output after validation and the behaviour when the data does not satisfy the contract.\n",
+            "exercise": "Write a validation test matrix for a learner profile received from an API.",
+            "key_takeaways": [
+              "Explain the type-system concept behind runtime schemas and type-safe validation.",
+              "Identify one runtime validation, strictness or maintainability concern that must be tested."
+            ]
+          },
+          {
+            "title": "Testing TypeScript applications",
+            "duration_minutes": 25,
+            "body_markdown": "## Testing TypeScript applications\n\nTypeScript testing includes runtime tests and compile-time checks. Unit tests verify behaviour; typechecking catches incompatible declarations and usage at build time. Both are necessary because a program can typecheck and still compute the wrong result, while a runtime test may not compile every code path. Test data boundaries and validation failures. Keep fixtures typed where helpful, but avoid making fixtures so strongly typed that invalid input scenarios cannot be represented.\n\n### Worked example\n\nAdd unit tests for a course parser and run the project's no-emit typecheck command.\n\n### Common failure to avoid\n\nDo not rely only on a successful build or only on unit tests; they check different classes of defects.\n\n### Check your understanding\n\nIdentify what TypeScript can establish at compile time and what must still be checked at runtime. State the shape of the input, the trusted output after validation and the behaviour when the data does not satisfy the contract.\n",
+            "exercise": "Create a CI checklist with lint, typecheck, unit tests and build steps.",
+            "key_takeaways": [
+              "Explain the type-system concept behind testing typescript applications.",
+              "Identify one runtime validation, strictness or maintainability concern that must be tested."
+            ]
+          },
+          {
+            "title": "Build a typed application and maintain its contracts",
+            "duration_minutes": 25,
+            "body_markdown": "## Build a typed application and maintain its contracts\n\nA maintainable TypeScript application defines domain types, validates external data at boundaries and keeps UI or transport details out of core calculations. Prefer simple, readable types over highly abstract type machinery. Document what data may be absent, null or invalid. Keep compiler settings strict and run typecheck in CI. Review type changes as contract changes because they can affect callers and persisted data. The final application must work at runtime as well as satisfy the compiler.\n\n### Worked example\n\nBuild a course catalogue utility with typed filters, validated API records, a documented result state and automated tests.\n\n### Common failure to avoid\n\nDo not use `as any` to force a build green when the data contract is still unknown.\n\n### Check your understanding\n\nIdentify what TypeScript can establish at compile time and what must still be checked at runtime. State the shape of the input, the trusted output after validation and the behaviour when the data does not satisfy the contract.\n",
+            "exercise": "Submit source, domain types, runtime validators, tests and a short contract design explanation.",
+            "key_takeaways": [
+              "Explain the type-system concept behind build a typed application and maintain its contracts.",
+              "Identify one runtime validation, strictness or maintainability concern that must be tested."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "TypeScript for Reliable Frontend Code Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions. Distinguish compile-time checking from runtime behaviour and include examples where a type assertion is insufficient.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short_answer",
+          "prompt": "Explain why a TypeScript interface does not validate an API response at runtime.",
+          "marks": 8,
+          "rubric": [
+            "Explains type erasure (3)",
+            "Identifies external data boundary (3)",
+            "Proposes runtime validator (2)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "type_design",
+          "prompt": "Model a request state using a discriminated union for idle, loading, success and error states. Show how exhaustive checking works.",
+          "marks": 10,
+          "rubric": [
+            "State shapes (4)",
+            "Discriminant and narrowing (3)",
+            "Exhaustiveness (3)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "generics",
+          "prompt": "Write a generic helper that finds an item by ID where the item type guarantees an `id` field. Explain the generic constraint.",
+          "marks": 12,
+          "rubric": [
+            "Generic signature (3)",
+            "Valid constraint (3)",
+            "Correct lookup (4)",
+            "Explanation (2)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "debugging",
+          "prompt": "A developer uses `as Course` on `response.json()` and later reads an undefined title. Explain the root cause and correct validation boundary.",
+          "marks": 10,
+          "rubric": [
+            "Identifies unsafe assertion (3)",
+            "Explains erased types/untrusted JSON (3)",
+            "Adds runtime shape/domain validation (4)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "testing",
+          "prompt": "Design tests for a runtime course schema covering valid, missing, wrong-type, negative-duration and unknown-status records.",
+          "marks": 10,
+          "rubric": [
+            "Valid case (2)",
+            "Missing/wrong type (3)",
+            "Domain boundaries (3)",
+            "Clear expected outcomes (2)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit the typed course catalogue utility with strict compiler settings, runtime validators, tests and README.",
+          "marks": 20,
+          "rubric": [
+            "Useful domain types (4)",
+            "Runtime validation (4)",
+            "Correct application logic (4)",
+            "Typecheck and tests (4)",
+            "Documentation and limitations (4)"
+          ]
+        }
+      ],
+      "total_marks": 70
+    },
+    "final_project": {
+      "title": "Typed Course Catalogue Utility",
+      "brief": "Build a frontend utility that loads course records from an API or controlled fixture, validates unknown data at runtime, filters by level and topic, and represents loading, empty, success and failure states with discriminated unions. Use strict compiler options and keep domain rules separate from DOM presentation.",
+      "deliverables": [
+        "Project and compiler configuration",
+        "Domain types and documented data contract",
+        "Runtime schema or type guards",
+        "Typed filtering and summary functions",
+        "At least 10 runtime tests",
+        "Typecheck output and lint/build evidence",
+        "README with setup and validation instructions",
+        "Known limitations and design reflection"
+      ],
+      "acceptance_criteria": [
+        "Project uses strict TypeScript checking",
+        "Unknown API data is validated before domain use",
+        "UI states are represented without contradictory combinations",
+        "Filtering returns correct results",
+        "Invalid and absent values are handled intentionally",
+        "Unit tests and typecheck both run successfully",
+        "A clean checkout can build using documented instructions"
+      ]
+    },
+    "references": [
+      {
+        "title": "TypeScript Handbook",
+        "url": "https://www.typescriptlang.org/docs/handbook/",
+        "note": "Official language guide for types, narrowing, functions, objects and modules."
+      },
+      {
+        "title": "TypeScript Narrowing",
+        "url": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+        "note": "Official explanation of control-flow based type narrowing."
+      },
+      {
+        "title": "TypeScript Everyday Types",
+        "url": "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html",
+        "note": "Reference for primitive, object, array and function types."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft. No authorised academic review has been recorded. Do not invent reviewer identities or dates and do not publish until a real review decision exists.",
+      "language": "English",
+      "content_quality": "Four sections and sixteen substantive lessons with examples, exercises, takeaways, six assessment rubrics, practical project, acceptance criteria and current official TypeScript references are included. Technical and academic review remain required."
+    }
+  }
+}
