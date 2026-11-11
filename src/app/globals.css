@@ -498,3 +498,25 @@ h1, h2, h3, p { margin-top: 0; }
   font-size: 11px;
   line-height: 1.7;
 }
+
+
+/* Protected learner lesson reader */
+.lesson-page { min-height: 100svh; background: var(--paper); }
+.lesson-content { width: min(100% - 40px, 820px); margin: 0 auto; padding-block: 48px 90px; }
+.lesson-breadcrumb { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 42px; color: var(--muted); font-size: 10px; }
+.lesson-breadcrumb a:hover { color: var(--green); }
+.lesson-content h1 { max-width: 760px; margin: 18px 0 10px; font-family: Georgia, serif; font-size: clamp(40px, 7vw, 66px); line-height: 1.02; font-weight: 500; letter-spacing: -.05em; }
+.lesson-meta { margin: 0 0 34px; color: var(--muted); font-size: 11px; }
+.lesson-body { padding: clamp(22px, 5vw, 42px); border: 1px solid var(--line); border-radius: 7px; background: white; color: var(--ink-soft); font-size: 14px; line-height: 1.95; white-space: pre-wrap; overflow-wrap: anywhere; }
+.lesson-media-placeholder { padding: 35px; border: 1px solid var(--line); border-radius: 7px; background: white; }
+.lesson-media-placeholder h2 { margin-top: 0; font-family: Georgia, serif; font-size: 25px; font-weight: 500; }
+.lesson-media-placeholder p { color: var(--muted); font-size: 12px; line-height: 1.8; }
+.lesson-progress-form { margin-top: 24px; }
+.lesson-navigation { display: flex; justify-content: space-between; gap: 18px; margin-top: 42px; padding-top: 22px; border-top: 1px solid var(--line); }
+.lesson-navigation a { max-width: 48%; color: var(--green); font-size: 11px; font-weight: 700; line-height: 1.6; }
+@media (max-width: 480px) {
+  .lesson-content { width: min(100% - 32px, 820px); padding-top: 34px; }
+  .lesson-breadcrumb { margin-bottom: 32px; }
+  .lesson-body { padding: 20px; font-size: 13px; }
+  .lesson-navigation { gap: 10px; }
+}
