@@ -16,11 +16,11 @@
 | 8 | PHP Programming for Web Backends | `08-php-programming-web-backends.json` | Draft authored; not academically reviewed; not published |
 | 9 | Go Programming for Networked Services | `09-go-programming-networked-services.json` | Draft authored; not academically reviewed; not published |
 | 10 | Software Testing and Quality Assurance | `10-software-testing-quality-assurance.json` | Draft authored; not academically reviewed; not published |
-| 11 | HTML5: Semantic Structure and Accessibility | — | Not started |
-| 12 | CSS3: Layout, Responsive Design and Motion | — | Not started |
-| 13 | Modern JavaScript for Browser Applications | — | Not started |
-| 14 | TypeScript for Reliable Frontend Code | — | Not started |
-| 15 | React: Components, State and Effects | — | Not started |
+| 11 | HTML5: Semantic Structure and Accessibility | — | Draft authored; structurally audited; not academically reviewed; not published |
+| 12 | CSS3: Layout, Responsive Design and Motion | — | Draft authored; structurally audited; not academically reviewed; not published |
+| 13 | Modern JavaScript for Browser Applications | — | Draft authored; structurally audited; not academically reviewed; not published |
+| 14 | TypeScript for Reliable Frontend Code | — | Draft authored; structurally audited; not academically reviewed; not published |
+| 15 | React: Components, State and Effects | — | Draft authored; structurally audited; not academically reviewed; not published |
 | 16 | Next.js App Router and Full-Stack Patterns | — | Not started |
 | 17 | Node.js and Express API Development | — | Not started |
 | 18 | REST API Design and Documentation | — | Not started |
