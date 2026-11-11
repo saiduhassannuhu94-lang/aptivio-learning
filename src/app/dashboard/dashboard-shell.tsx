@@ -65,7 +65,12 @@ export default function DashboardShell({ displayName, paymentNotice, initialThem
           <Link href="/courses" className="dashboard-nav-link" onClick={() => setMenuOpen(false)}><Icon name="compass" />Learning paths</Link>
         </nav>
         <div className="sidebar-bottom">
-          <div className="sidebar-help"><span className="help-orb">?</span><div><strong>Need a hand?</strong><small>We&apos;re here to help you learn.</small></div></div>
+          <section className="sidebar-support" aria-label="APTIVIO support">
+            <div className="sidebar-support-heading"><span className="help-orb">?</span><div><strong>We&apos;re here for you</strong><small>Talk to the APTIVIO team</small></div></div>
+            <a className="support-action support-whatsapp" href="https://wa.me/2347077992618" target="_blank" rel="noreferrer"><span>WhatsApp support</span><small>07077992618</small><b>↗</b></a>
+            <a className="support-action" href="https://wa.me/2347038658964" target="_blank" rel="noreferrer"><span>WhatsApp support</span><small>07038658964</small><b>↗</b></a>
+            <a className="support-email" href="mailto:saiduhassannuhu94@gmail.com">Email the support team <b>↗</b></a>
+          </section>
           <form action={signOutAction}><button className="sidebar-signout" type="submit">Sign out <span>↗</span></button></form>
         </div>
       </aside>
