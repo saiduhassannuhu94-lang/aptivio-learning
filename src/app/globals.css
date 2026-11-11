@@ -1182,3 +1182,66 @@ button[aria-busy="true"]::after,
     animation: none !important;
   }
 }
+
+
+/* More expressive "alive" button treatment */
+.button-primary,
+.auth-submit,
+.engineering-header-cta {
+  background-size: 220% 220%;
+  animation: aptivio-gradient-drift 6s ease infinite;
+}
+.button-primary:hover,
+.auth-submit:hover,
+.engineering-header-cta:hover {
+  animation-duration: 2.2s;
+  box-shadow: 0 14px 34px rgba(53,104,245,.25), 0 5px 16px rgba(11,155,131,.2);
+}
+.button-dark:hover,
+.button-light:hover,
+.auth-google-button:hover,
+.dashboard-signout:hover {
+  box-shadow: 0 12px 28px rgba(53,104,245,.16), 0 3px 10px rgba(16,36,58,.08);
+}
+.button,
+.auth-submit,
+.auth-google-button,
+.dashboard-signout,
+button:not([data-static-control]) {
+  will-change: transform;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.button:not([aria-disabled="true"]):hover,
+button:not(:disabled):not([aria-disabled="true"]):hover {
+  filter: brightness(1.045) saturate(1.08);
+}
+.button:not([aria-disabled="true"]):active,
+button:not(:disabled):not([aria-disabled="true"]):active {
+  box-shadow: 0 2px 7px rgba(16,36,58,.16);
+}
+.button-primary::after,
+.auth-submit::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at center,rgba(255,255,255,.25),transparent 68%);
+  transition: opacity .2s ease;
+}
+.button-primary:hover::after,
+.auth-submit:hover::after { opacity: .7; }
+@keyframes aptivio-gradient-drift {
+  0%,100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .button-primary,.auth-submit,.engineering-header-cta {
+    animation: none !important;
+    background-position: 50% 50%;
+  }
+  .button,.auth-submit,.auth-google-button,.dashboard-signout,
+  button:not([data-static-control]) { will-change: auto; }
+}
