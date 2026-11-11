@@ -1,0 +1,364 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "programming-logic-and-problem-solving",
+    "title": "Programming Logic and Problem Solving",
+    "subtitle": "Learn to analyse problems, design algorithms and express solutions clearly before writing code.",
+    "description": "A practical beginner course in computational problem solving. Learners move from precise problem statements to decomposition, pseudocode, flowcharts, tracing, testing and a small algorithmic project. The course is language-independent; examples use readable pseudocode so the reasoning transfers to Python, JavaScript, Java and other languages.",
+    "level": "beginner",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 480,
+    "target_audience": [
+      "Computing students beginning programming",
+      "Self-taught learners who struggle to turn ideas into steps",
+      "Learners preparing to study Python, JavaScript or another first language"
+    ],
+    "prerequisites": [
+      "Basic computer literacy",
+      "Ability to read simple arithmetic expressions"
+    ],
+    "outcomes": [
+      "Translate a vague task into a precise problem statement with inputs, outputs and constraints",
+      "Decompose a problem into smaller tasks and identify reusable patterns",
+      "Design algorithms using sequence, selection and iteration",
+      "Write readable pseudocode and draw flowcharts using standard symbols",
+      "Trace algorithms with test data and identify logic errors",
+      "Choose normal, boundary and invalid test cases",
+      "Explain time-growth trade-offs at an introductory level",
+      "Present a tested algorithm and justify its design"
+    ],
+    "equipment": [
+      "Notebook or text editor",
+      "Calculator (optional)",
+      "Any device capable of viewing course materials"
+    ],
+    "accessibility": "All diagrams must have text descriptions. Pseudocode is presented as selectable text, not as images. Exercises can be completed on paper or in a text editor.",
+    "sections": [
+      {
+        "title": "Thinking Like a Problem Solver",
+        "description": "Define problems precisely, identify information and break large tasks into manageable parts.",
+        "lessons": [
+          {
+            "title": "What Is a Computational Problem?",
+            "duration_minutes": 20,
+            "body_markdown": "## What is a computational problem?\n\nA computational problem is a task whose solution can be described as a finite set of precise steps. A computer does not understand intention, hints or context the way a person often does. It follows instructions exactly, including mistakes.\n\nA useful first model is:\n\n- **Input:** information supplied to the solution.\n- **Processing:** rules or operations applied to the input.\n- **Output:** the result the solution must produce.\n- **Constraints:** limits that a valid solution must respect.\n\n### Worked example: calculating a student's average\n\nSuppose a lecturer needs the average of three test scores. Inputs are the three scores. Processing is their sum divided by three. Output is the average. A constraint might be that each score is between 0 and 100.\n\nA vague request such as “calculate the result” is not yet a complete specification. Does it mean total, average, grade, or pass status? What happens when a score is missing?\n\n### Practice\n\nFor a transport fare calculator, list at least three inputs, the required output and two constraints. Do not write code yet.\n\n**Check your reasoning:** if you cannot state what goes in and what must come out, you are not ready to choose programming syntax.",
+            "exercise": "Specify inputs, processing, outputs and constraints for a fare calculator that accepts distance and passenger category.",
+            "key_takeaways": [
+              "Computers execute precise instructions, not intentions.",
+              "Inputs, processing, outputs and constraints define the problem.",
+              "Clarify ambiguity before designing a solution."
+            ]
+          },
+          {
+            "title": "Writing a Precise Problem Statement",
+            "duration_minutes": 25,
+            "body_markdown": "## From a vague request to a testable statement\n\nA problem statement describes the task without prescribing a particular programming language or interface. It should make clear who needs the result, what information is available, what result is required and what rules apply.\n\nA practical template is:\n\n> Given **[inputs]**, produce **[outputs]** while obeying **[constraints]**.\n\n### Worked example\n\nVague: “Find the best student.”\n\nPrecise: “Given a list of students, each with a unique matriculation number and a score from 0 to 100, return the student with the highest score. If multiple students share the highest score, return all tied students.”\n\nThe precise version exposes important details: the data structure, valid score range and tie behaviour. Those details become design and test requirements.\n\n### Scope and assumptions\n\nWrite down assumptions instead of hiding them. If an assumption is not confirmed, mark it as an open question. A hidden assumption often becomes a bug later.\n\n### Practice\n\nRewrite “calculate a worker's salary” as a precise problem statement. Decide which earnings and deductions are included, and clearly label any assumptions.",
+            "exercise": "Produce a one-paragraph specification for a student grade checker. Include valid score range, grade output and invalid-input behaviour.",
+            "key_takeaways": [
+              "A specification should be testable.",
+              "Explicitly record assumptions and unresolved questions.",
+              "Tie cases and invalid data are part of the problem, not afterthoughts."
+            ]
+          },
+          {
+            "title": "Decomposition and Stepwise Refinement",
+            "duration_minutes": 25,
+            "body_markdown": "## Break a large task into smaller tasks\n\nDecomposition means dividing a complex problem into smaller parts that can be understood, designed and tested independently. It reduces mental load and makes responsibilities clearer.\n\n### Worked example: a simple course registration process\n\nThe overall task can be decomposed into:\n\n1. Identify the learner.\n2. Retrieve the available courses.\n3. Check registration dates.\n4. Check prerequisites.\n5. Check capacity and conflicts.\n6. Save the registration.\n7. Show a confirmation or a useful reason for rejection.\n\nEach part can be refined further. “Check prerequisites” might compare completed courses with the prerequisite list and report missing requirements.\n\n### Avoid over-decomposition\n\nA useful component has a clear responsibility and meaningful boundary. Splitting every tiny arithmetic operation into a separate function can make a simple solution harder to follow.\n\n### Practice\n\nDecompose an ATM cash withdrawal into at least six steps. Include authentication, balance checking, cash availability and transaction recording. Identify which steps must happen before money is dispensed.",
+            "exercise": "Draw a hierarchy showing one large task, its subtasks and at least one further refinement.",
+            "key_takeaways": [
+              "Decomposition creates manageable responsibilities.",
+              "Stepwise refinement adds detail gradually.",
+              "Order matters when a later action depends on an earlier check."
+            ]
+          },
+          {
+            "title": "Recognising Inputs, Outputs and Constraints",
+            "duration_minutes": 20,
+            "body_markdown": "## Build an input-output contract\n\nAn algorithm becomes easier to design when its data contract is explicit. For each input, record its meaning, type, allowed range and whether it is optional. For each output, record its format and meaning.\n\n### Worked example: a Biu-to-Gombe trip estimate\n\nPossible inputs include route distance, fare rate per kilometre and passenger count. The output might be the estimated total fare. Constraints include non-negative distance, non-negative rate and a positive passenger count. If the fare is fixed per passenger, the formula is rate multiplied by passenger count; if it depends on distance, the formula must include distance too. The business rule must be confirmed before selecting a formula.\n\n### Validation versus calculation\n\nValidation checks whether the supplied data is acceptable. Calculation uses accepted data to produce a result. Keep these ideas separate: an invalid passenger count should not quietly enter the fare formula.\n\n### Practice\n\nSpecify the contract for a function that converts Celsius to Fahrenheit. Include valid numeric input, output unit and behaviour for non-numeric input.",
+            "exercise": "Create an input/output/constraint table for a loan repayment estimator. Do not invent an interest formula; state which financial rules must be supplied.",
+            "key_takeaways": [
+              "Data contracts define what an algorithm may assume.",
+              "Validation and calculation are different responsibilities.",
+              "Do not invent domain rules when the specification is incomplete."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Designing Algorithms",
+        "description": "Use sequence, decisions and repetition to express a correct solution.",
+        "lessons": [
+          {
+            "title": "Algorithms, Finiteness and Correctness",
+            "duration_minutes": 25,
+            "body_markdown": "## What makes a set of steps an algorithm?\n\nAn algorithm is a finite, ordered and unambiguous procedure for solving a class of problems. A useful algorithm must terminate for valid inputs and produce the result promised by its specification.\n\n### Five practical properties\n\n- **Input:** accepts zero or more defined values.\n- **Output:** produces at least one meaningful result when required by the task.\n- **Definiteness:** every step is clear enough to execute.\n- **Finiteness:** execution eventually stops.\n- **Effectiveness:** each step is simple enough to carry out.\n\n### Worked example: find the larger of two numbers\n\n1. Read A and B.\n2. If A is greater than B, output A.\n3. Otherwise, if B is greater than A, output B.\n4. Otherwise, output “equal”.\n\nThe equality case matters. Without it, the algorithm may still produce a result, but it does not communicate the relationship accurately.\n\n### Practice\n\nWrite a finite procedure for checking whether a number is even. State what should happen if the input is not an integer.",
+            "exercise": "Give an example of instructions that are ambiguous or do not terminate, then rewrite them as a finite algorithm.",
+            "key_takeaways": [
+              "Algorithms must be precise and finite.",
+              "Correctness is measured against the specification.",
+              "Edge cases are part of correctness."
+            ]
+          },
+          {
+            "title": "Sequence and Assignment",
+            "duration_minutes": 20,
+            "body_markdown": "## Sequence: instructions in order\n\nSequence is the simplest control structure. Instructions run one after another. Changing their order can change the result.\n\nAssignment stores a value in a named variable. In pseudocode, `total ← price × quantity` means calculate the product and store it in `total`.\n\n### Worked example: simple receipt\n\n```text\nREAD price\nREAD quantity\nsubtotal ← price * quantity\nOUTPUT subtotal\n```\n\nIf price is 2500 and quantity is 3, subtotal becomes 7500. If the output step occurs before the calculation, the algorithm may display an old or undefined value.\n\n### Trace the values\n\nA trace table records how variables change after each instruction. It is a simple way to catch incorrect order and unexpected values without running a program.\n\n### Practice\n\nWrite pseudocode that reads a length and width, calculates the area of a rectangle and displays the result. Trace it using length 8 and width 5.",
+            "exercise": "Create a trace table for a three-step calculation and explain why changing the order of two steps changes the output.",
+            "key_takeaways": [
+              "Sequence runs statements in order.",
+              "Assignment updates a named value.",
+              "Trace tables expose order-related errors."
+            ]
+          },
+          {
+            "title": "Selection: Making Decisions",
+            "duration_minutes": 25,
+            "body_markdown": "## Selection chooses a path\n\nSelection allows an algorithm to choose between actions based on a condition. Common forms are `IF`, `IF/ELSE` and multi-branch selection.\n\n### Worked example: pass or fail\n\n```text\nREAD score\nIF score < 0 OR score > 100 THEN\n    OUTPUT \"Invalid score\"\nELSE IF score >= 50 THEN\n    OUTPUT \"Pass\"\nELSE\n    OUTPUT \"Fail\"\nEND IF\n```\n\nThe invalid range is checked first. If the algorithm checked only whether the score was at least 50, a score of 140 would incorrectly pass.\n\n### Conditions and Boolean logic\n\nA condition evaluates to true or false. `AND` requires both sides to be true; `OR` requires at least one; `NOT` reverses a truth value. Parentheses help make complex conditions readable.\n\n### Practice\n\nDesign a decision rule for a library loan. A learner may borrow a book only if their account is active and they have no overdue book. Write the rule and test all four combinations of the two conditions.",
+            "exercise": "Create a decision table for two Boolean conditions and list the output for every possible combination.",
+            "key_takeaways": [
+              "Selection is controlled by Boolean conditions.",
+              "Validate ranges before using values.",
+              "Decision tables help reveal missing branches."
+            ]
+          },
+          {
+            "title": "Iteration: Repeating Work Safely",
+            "duration_minutes": 25,
+            "body_markdown": "## Repetition without copying instructions\n\nIteration repeats a group of steps. A `FOR` loop is useful when the number of repetitions is known. A `WHILE` loop repeats while a condition remains true. A repeat-until pattern executes its body at least once before checking its stopping condition.\n\n### Worked example: sum five scores\n\n```text\nsum ← 0\nFOR count ← 1 TO 5\n    READ score\n    sum ← sum + score\nEND FOR\naverage ← sum / 5\nOUTPUT average\n```\n\nThe variable `sum` starts at zero. Each score is added once. A common error is to initialise `sum` inside the loop, which would erase earlier totals on every repetition.\n\n### Loop safety\n\nEvery condition-controlled loop needs a clear path toward termination. If the condition never becomes false, the loop can run forever. Update the controlling variable and test the stopping boundary.\n\n### Practice\n\nWrite a loop that counts from 1 to 10 and displays only even values. Explain when it stops.",
+            "exercise": "Trace a loop for values 1 through 5. Record the counter and running total on each iteration.",
+            "key_takeaways": [
+              "Use loops instead of duplicated instructions.",
+              "Initialise accumulators before the loop.",
+              "Every loop needs a termination argument."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Representing and Testing Solutions",
+        "description": "Communicate algorithms with pseudocode and flowcharts, then trace and test them systematically.",
+        "lessons": [
+          {
+            "title": "Writing Readable Pseudocode",
+            "duration_minutes": 25,
+            "body_markdown": "## Pseudocode communicates logic\n\nPseudocode describes an algorithm in structured, language-independent text. It is not executable code and has no single universal syntax. Its purpose is to make the reasoning easy to inspect.\n\nUse consistent conventions: `READ` for input, `OUTPUT` for results, `IF` for decisions, and `FOR` or `WHILE` for repetition. Indent nested blocks and choose meaningful variable names.\n\n### Worked example: count positive values\n\n```text\npositiveCount ← 0\nFOR each value in values\n    IF value > 0 THEN\n        positiveCount ← positiveCount + 1\n    END IF\nEND FOR\nOUTPUT positiveCount\n```\n\nThis solution separates the counting task from any particular language syntax. A Python or JavaScript implementation can be written after the logic is understood.\n\n### Common weaknesses\n\nAvoid vague steps such as “process the data” or “do the calculation”. State the operation. Avoid unexplained abbreviations and inconsistent variable names.\n\n### Practice\n\nWrite pseudocode that finds the smallest value in a non-empty list. State how the algorithm handles an empty list.",
+            "exercise": "Review your pseudocode against a checklist: defined inputs, initialised variables, clear branches, terminating loops and defined outputs.",
+            "key_takeaways": [
+              "Pseudocode focuses on logic, not language syntax.",
+              "Indentation shows structure.",
+              "Every vague instruction should be made executable by a human reader."
+            ]
+          },
+          {
+            "title": "Flowcharts and Standard Symbols",
+            "duration_minutes": 25,
+            "body_markdown": "## Flowcharts show control flow visually\n\nA flowchart represents an algorithm with standard shapes connected by arrows. Common conventions include:\n\n- Oval: start or end.\n- Rectangle: processing step.\n- Parallelogram: input or output.\n- Diamond: decision with labelled branches.\n- Arrow: direction of control flow.\n\n### Worked example: even or odd\n\nStart → read integer → calculate remainder after division by 2 → decision: is remainder 0? → output “Even” on Yes, otherwise output “Odd” → End.\n\nA flowchart should have a clear entry and exit. Every decision branch should be labelled, and arrows should not leave the reader guessing where execution continues.\n\n### When to use a flowchart\n\nFlowcharts are useful when a process has multiple decisions, loops or hand-offs. For a tiny calculation, pseudocode may be quicker and easier to maintain.\n\n### Practice\n\nDraw a flowchart for a login attempt that allows at most three incorrect attempts. Include the success path, failure path and stopping condition. Add a text description for accessibility.",
+            "exercise": "Submit a flowchart or a text-based equivalent with every decision branch labelled Yes/No.",
+            "key_takeaways": [
+              "Use consistent flowchart symbols.",
+              "Label decision branches.",
+              "A loop must visibly return to a condition and have an exit."
+            ]
+          },
+          {
+            "title": "Dry Runs and Trace Tables",
+            "duration_minutes": 25,
+            "body_markdown": true,
+            "exercise": "Provide a trace table for a loop of your choice and explain how you know the loop terminates.",
+            "key_takeaways": [
+              "Trace tables show exact variable changes.",
+              "Boundary operators such as < and <= matter.",
+              "A dry run can reveal errors before coding."
+            ]
+          },
+          {
+            "title": "Testing: Normal, Boundary and Invalid Cases",
+            "duration_minutes": 25,
+            "body_markdown": "## Test the specification, not just the happy path\n\nA test case is an input plus an expected result. Good tests are chosen to reveal likely faults, not merely to demonstrate that one ordinary example works.\n\nThree useful groups are:\n\n- **Normal cases:** ordinary valid inputs.\n- **Boundary cases:** values at or immediately around a limit.\n- **Invalid cases:** inputs that violate the specification.\n\n### Worked example: score validator\n\nIf valid scores are integers from 0 to 100 inclusive, useful tests include -1 (invalid), 0 (valid boundary), 1 (valid), 50 (ordinary), 99 (valid), 100 (valid boundary), 101 (invalid), and 50.5 (invalid if integers are required).\n\n### Expected results matter\n\nDo not decide what the program “should probably do” after seeing its output. Write expected results from the specification first. If the specification is silent, clarify it rather than inventing a rule.\n\n### Practice\n\nDesign at least eight tests for a function that accepts a positive integer quantity up to 50 and returns the total price at a fixed unit price.",
+            "exercise": "Build a test table with input, category, expected output and reason for each test.",
+            "key_takeaways": [
+              "Test normal, boundary and invalid inputs.",
+              "Expected results come from the specification.",
+              "Boundary values often expose off-by-one errors."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Applied Problem Solving and Project",
+        "description": "Compare approaches, estimate algorithm growth and build a documented solution.",
+        "lessons": [
+          {
+            "title": "Finding and Fixing Logic Errors",
+            "duration_minutes": 25,
+            "body_markdown": "## Debug the reasoning\n\nA logic error occurs when an algorithm runs but produces an incorrect result. It is different from a syntax error, which violates the rules of a programming language, and a runtime error, which occurs during execution.\n\n### A disciplined debugging process\n\n1. Reproduce the wrong result with a specific input.\n2. Compare actual output with expected output.\n3. Reduce the case to the smallest input that still fails.\n4. Trace variable values and branch decisions.\n5. Identify the first step where the state becomes incorrect.\n6. Correct the cause, then rerun the original and regression tests.\n\n### Example: incorrect average\n\nIf a program adds five scores but divides by four, the loop may be correct while the final calculation is wrong. A trace table can show the sum is accurate; comparing the final formula with the specification reveals the divisor error.\n\n### Practice\n\nCreate a deliberately incorrect algorithm for finding the largest of three numbers. Give an input that exposes the error and explain the first incorrect decision.",
+            "exercise": "Document one logic bug using: failing input, expected result, actual result, first incorrect step, fix and regression test.",
+            "key_takeaways": [
+              "Reproduce before changing code.",
+              "Find the first incorrect state, not merely the final wrong output.",
+              "Retest old cases after a fix."
+            ]
+          },
+          {
+            "title": "Choosing a Clear and Efficient Approach",
+            "duration_minutes": 25,
+            "body_markdown": "## Correctness comes before cleverness\n\nTwo algorithms can solve the same problem but differ in clarity, memory use and the amount of work they perform. For beginners, a straightforward correct solution is usually preferable to a clever solution that is difficult to verify.\n\n### Worked comparison: finding a value\n\nA linear search checks items one by one until it finds the target or reaches the end. In the worst case, it checks every item. A binary search repeatedly halves the remaining search range, but it requires the data to be sorted and careful boundary handling.\n\nFor a small unsorted list, linear search may be the better choice because it has fewer assumptions. For a large sorted list with many searches, binary search may be more appropriate.\n\n### Introductory growth reasoning\n\nIf the number of items doubles, a linear scan may require about twice as many checks. A halving strategy needs only one additional comparison step. This is an intuition for growth, not a promise about real elapsed time.\n\n### Practice\n\nChoose between linear and binary search for three scenarios. State the assumptions that make your choice valid.",
+            "exercise": "Compare two approaches to a real task and state their correctness assumptions, trade-offs and preferred use case.",
+            "key_takeaways": [
+              "A faster method may require stronger assumptions.",
+              "Correctness and clarity come before optimisation.",
+              "Input size affects how an algorithm scales."
+            ]
+          },
+          {
+            "title": "Mini Project: Student Result Analyser",
+            "duration_minutes": 40,
+            "body_markdown": "## Project brief\n\nDesign an algorithm that processes a class list. Each record contains a student identifier and a score. Valid scores are whole numbers from 0 to 100. The system must reject invalid records, calculate the class average for valid records, identify the highest score and report how many students passed. A pass is 50 or above.\n\n### Required design artefacts\n\n1. A precise problem statement and assumptions.\n2. Input/output/constraint table.\n3. Decomposition into validation, calculation and reporting.\n4. Pseudocode using sequence, selection and iteration.\n5. A flowchart or text-based control-flow description.\n6. A test table with normal, boundary, invalid and empty-class cases.\n7. A short explanation of the algorithm's limitations.\n\n### Important design decisions\n\nDecide whether invalid records are excluded or cause the entire operation to stop. The brief says “reject invalid records”, so document whether rejection is per-record or whole-file. For an empty set of valid scores, do not divide by zero; return a clear “no valid scores” result. Preserve student identifiers as identifiers, not as numbers used in arithmetic.\n\n### Submission\n\nSubmit your design artefacts and a one-page explanation. Code is optional for this language-independent course, but if you implement it, include the language, version and how to run the tests.",
+            "exercise": "Complete the project artefacts and test the algorithm against at least ten carefully chosen records, including invalid and boundary values.",
+            "key_takeaways": [
+              "Separate validation, calculation and reporting.",
+              "Define empty-input behaviour explicitly.",
+              "A project submission should include evidence of testing."
+            ]
+          },
+          {
+            "title": "Project Review and Next Steps",
+            "duration_minutes": 25,
+            "body_markdown": "## Review your solution against evidence\n\nA good solution is not simply one that works for one example. It should satisfy the specification, handle boundaries, communicate its assumptions and be understandable to another learner.\n\n### Self-review checklist\n\n- Are all inputs and outputs defined?\n- Are constraints checked before calculations?\n- Are all variables initialised before use?\n- Does each decision cover every required case?\n- Does every loop have a clear termination condition?\n- Does the algorithm handle empty and invalid data as specified?\n- Do test cases cover normal, boundary and invalid inputs?\n- Can another person follow the pseudocode without guessing?\n\n### Reflection\n\nIdentify one design decision you changed after testing. Explain the evidence that caused the change. Identify one limitation that remains and what information or feature would be needed to address it.\n\n### Transfer to a programming language\n\nThe next step is to implement the same logic in a language such as Python or JavaScript. Keep the problem statement and test cases unchanged. This separates algorithm design from language-specific syntax and makes it easier to determine whether a failure comes from the logic or the implementation.",
+            "exercise": "Write a project reflection with one tested improvement, one remaining limitation and one next implementation step.",
+            "key_takeaways": [
+              "Review against the specification and test evidence.",
+              "Explain changes using evidence.",
+              "Keep tests stable when translating pseudocode into code."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "Programming Logic and Problem Solving: Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions. Show reasoning for algorithm-design questions. For pseudocode, use consistent indentation and define all variables. An answer that works only for the sample input is not sufficient.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short_answer",
+          "prompt": "A request says: “calculate a student's result”. List four questions you must clarify before designing the algorithm.",
+          "marks": 8,
+          "rubric": [
+            "Identifies required inputs and valid ranges (2)",
+            "Clarifies whether output is total, average, grade or pass status (2)",
+            "Clarifies grading rules and boundary behaviour (2)",
+            "Clarifies missing/invalid data behaviour (2)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "algorithm_design",
+          "prompt": "Write pseudocode that reads three integers and outputs the largest. It must also report when all three are equal.",
+          "marks": 12,
+          "rubric": [
+            "Reads all three inputs (2)",
+            "Correctly handles largest value in every ordering (5)",
+            "Handles all-equal case (3)",
+            "Readable structure and output (2)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "trace",
+          "prompt": "Trace: total ← 0; FOR i ← 1 TO 4; total ← total + (i * 2); END FOR. Give total after each iteration and the final result.",
+          "marks": 8,
+          "rubric": [
+            "Iteration totals 2, 6, 12, 20 (6)",
+            "Final result 20 (2)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "testing",
+          "prompt": "A quantity field accepts integers from 1 through 50. Give six useful test values and classify each as normal, boundary or invalid.",
+          "marks": 8,
+          "rubric": [
+            "Includes valid lower and upper boundaries (2)",
+            "Includes values just outside boundaries (2)",
+            "Includes ordinary valid values (2)",
+            "Classifications correct (2)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "debugging",
+          "prompt": "An average algorithm reads five scores and divides their sum by four. Explain the defect, give a failing test and describe a regression test.",
+          "marks": 8,
+          "rubric": [
+            "Identifies incorrect divisor (2)",
+            "Gives a concrete test where expected and actual differ (2)",
+            "Explains correction (2)",
+            "Adds regression coverage (2)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit the Student Result Analyser design described in the final project lesson.",
+          "marks": 16,
+          "rubric": [
+            "Clear specification and constraints (3)",
+            "Correct decomposition and pseudocode (4)",
+            "Complete boundary/invalid test plan (4)",
+            "Handles empty valid dataset (2)",
+            "Clear explanation and limitations (3)"
+          ]
+        }
+      ],
+      "total_marks": 60
+    },
+    "final_project": {
+      "title": "Student Result Analyser",
+      "deliverables": [
+        "Problem specification",
+        "Input/output/constraint table",
+        "Decomposition diagram or outline",
+        "Pseudocode",
+        "Flowchart or text-based control-flow description",
+        "At least 10 test cases with expected results",
+        "One-page design reflection"
+      ],
+      "acceptance_criteria": [
+        "All requirements in the brief are addressed",
+        "No divide-by-zero on empty valid input",
+        "Invalid records are handled according to a documented rule",
+        "Average and pass count are correct for tested cases",
+        "The algorithm terminates and is readable"
+      ]
+    },
+    "references": [
+      {
+        "title": "Python Tutorial: More Control Flow Tools",
+        "url": "https://docs.python.org/3/tutorial/controlflow.html",
+        "note": "Used as a language-specific follow-on reference for selection, iteration and function concepts; the course itself remains language-independent."
+      },
+      {
+        "title": "Khan Academy: Algorithms",
+        "url": "https://www.khanacademy.org/computing/computer-science/algorithms",
+        "note": "Supplementary visual explanations of algorithmic problem solving."
+      },
+      {
+        "title": "OpenDSA",
+        "url": "https://opendsa-server.cs.vt.edu/",
+        "note": "Open educational materials for data structures and algorithm analysis; use relevant introductory algorithm modules as follow-on reading."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "This package is original instructional draft content. It has not been reviewed or approved by an authorised academic reviewer. Do not set reviewed_by, reviewed_at or publish it until a real review decision is recorded.",
+      "language": "English",
+      "content_quality": "Four sections, sixteen substantive lessons, six assessment questions, rubric, applied project, test design and references are included. A subject specialist should verify depth, local curriculum alignment and reference suitability before publication."
+    }
+  }
+}
