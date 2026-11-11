@@ -680,3 +680,38 @@ h1, h2, h3, p { margin-top: 0; }
 @media (prefers-reduced-motion: reduce) {
   .aptivio-dashboard *, .aptivio-dashboard *::before, .aptivio-dashboard *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+
+/* APTIVIO support panel */
+.sidebar-support {
+  display: grid;
+  gap: 8px;
+  padding: 13px 11px 11px;
+  border: 1px solid var(--dash-line);
+  border-radius: 9px;
+  background: linear-gradient(145deg, var(--dash-panel-soft), var(--dash-panel));
+}
+.sidebar-support-heading { display: flex; align-items: center; gap: 9px; padding: 0 1px 5px; }
+.sidebar-support-heading > div { display: grid; gap: 4px; }
+.sidebar-support-heading strong { color: var(--dash-ink); font-size: 9px; }
+.sidebar-support-heading small { color: var(--dash-muted); font-size: 8px; }
+.support-action {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  padding: 9px 28px 9px 10px;
+  border: 1px solid var(--dash-line);
+  border-radius: 6px;
+  background: var(--dash-panel);
+  transition: border-color .2s ease, transform .2s ease, background .2s ease;
+}
+.support-action:hover, .support-email:hover { transform: translateY(-1px); border-color: var(--dash-green); }
+.support-action span { color: var(--dash-ink); font-size: 8px; font-weight: 800; }
+.support-action small { color: var(--dash-muted); font-size: 8px; letter-spacing: .04em; }
+.support-action b, .support-email b { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--dash-green); font-size: 12px; }
+.support-whatsapp { border-color: rgba(8,127,104,.25); background: var(--dash-green-soft); }
+.support-email { position: relative; display: block; padding: 9px 27px 9px 10px; border: 1px solid transparent; border-radius: 6px; color: var(--dash-green); font-size: 8px; font-weight: 800; transition: border-color .2s ease, transform .2s ease; }
+.support-email b { font-size: 11px; }
+@media (prefers-reduced-motion: reduce) {
+  .support-action, .support-email { transition: none; }
+}
