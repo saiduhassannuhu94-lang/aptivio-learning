@@ -7,15 +7,15 @@
 | # | Course | Content package | Current state |
 |---:|---|---|---|
 | 1 | Programming Logic and Problem Solving | `01-programming-logic-and-problem-solving.json` | Draft authored; not academically reviewed; not published |
-| 2 | Python Programming: Beginner to Intermediate | — | Not started |
-| 3 | JavaScript Programming: Core Concepts | — | Not started |
-| 4 | Java Programming and Object-Oriented Design | — | Not started |
-| 5 | C Programming and Memory Fundamentals | — | Not started |
-| 6 | C++ Programming and Data Structures | — | Not started |
-| 7 | C# and .NET Application Development | — | Not started |
-| 8 | PHP Programming for Web Backends | — | Not started |
-| 9 | Go Programming for Networked Services | — | Not started |
-| 10 | Software Testing and Quality Assurance | — | Not started |
+| 2 | Python Programming: Beginner to Intermediate | `02-python-programming-beginner-to-intermediate.json` | Draft authored; not academically reviewed; not published |
+| 3 | JavaScript Programming: Core Concepts | `03-javascript-programming-core-concepts.json` | Draft authored; not academically reviewed; not published |
+| 4 | Java Programming and Object-Oriented Design | `04-java-programming-object-oriented-design.json` | Draft authored; not academically reviewed; not published |
+| 5 | C Programming and Memory Fundamentals | `05-c-programming-memory-fundamentals.json` | Draft authored; not academically reviewed; not published |
+| 6 | C++ Programming and Data Structures | `06-cpp-programming-data-structures.json` | Draft authored; not academically reviewed; not published |
+| 7 | C# and .NET Application Development | `07-csharp-dotnet-application-development.json` | Draft authored; not academically reviewed; not published |
+| 8 | PHP Programming for Web Backends | `08-php-programming-web-backends.json` | Draft authored; not academically reviewed; not published |
+| 9 | Go Programming for Networked Services | `09-go-programming-networked-services.json` | Draft authored; not academically reviewed; not published |
+| 10 | Software Testing and Quality Assurance | `10-software-testing-quality-assurance.json` | Draft authored; not academically reviewed; not published |
 | 11 | HTML5: Semantic Structure and Accessibility | — | Not started |
 | 12 | CSS3: Layout, Responsive Design and Motion | — | Not started |
 | 13 | Modern JavaScript for Browser Applications | — | Not started |
