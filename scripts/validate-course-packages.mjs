@@ -38,6 +38,10 @@ for (const file of files) {
     failures.push(`${file}: at least four sections are required`);
   }
 
+  if (course?.sections?.length !== 4) {
+    failures.push(`${file}: exactly four sections are required`);
+  }
+
   let lessonCount = 0;
   for (const [sectionIndex, section] of (course?.sections ?? []).entries()) {
     requireText(section?.title, `sections[${sectionIndex}].title`);
@@ -63,13 +67,25 @@ for (const file of files) {
       }
     }
   }
-  if (lessonCount < 16) {
-    failures.push(`${file}: at least 16 lessons are required; found ${lessonCount}`);
+  if (lessonCount !== 16) {
+    failures.push(`${file}: exactly 16 lessons are required; found ${lessonCount}`);
   }
 
   const assessment = course?.assessment;
   if (!Array.isArray(assessment?.questions) || assessment.questions.length < 5) {
     failures.push(`${file}: at least five assessment questions are required`);
+  } else {
+    for (const [questionIndex, question] of assessment.questions.entries()) {
+      if (typeof question?.prompt !== "string" || question.prompt.trim().length < 20) {
+        failures.push(`${file}: assessment question ${questionIndex + 1} needs a meaningful prompt`);
+      }
+      if (typeof question?.marks !== "number" || question.marks < 1) {
+        failures.push(`${file}: assessment question ${questionIndex + 1} needs positive marks`);
+      }
+      if (!Array.isArray(question?.rubric) || question.rubric.length < 2) {
+        failures.push(`${file}: assessment question ${questionIndex + 1} needs a marking rubric`);
+      }
+    }
   }
   if (typeof assessment?.pass_mark_percent !== "number" || assessment.pass_mark_percent < 50 || assessment.pass_mark_percent > 100) {
     failures.push(`${file}: assessment pass mark must be between 50 and 100`);
@@ -79,6 +95,12 @@ for (const file of files) {
   }
   if (!Array.isArray(course?.references) || course.references.length < 2) {
     failures.push(`${file}: at least two references are required`);
+  } else {
+    for (const [referenceIndex, reference] of course.references.entries()) {
+      if (typeof reference?.title !== "string" || typeof reference?.url !== "string" || !/^https:\/\//.test(reference.url)) {
+        failures.push(`${file}: reference ${referenceIndex + 1} needs a title and HTTPS URL`);
+      }
+    }
   }
 
   const status = course?.authoring_notes;
