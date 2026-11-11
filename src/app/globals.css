@@ -1025,3 +1025,10 @@ h1, h2, h3, p { margin-top: 0; }
   .engineering-dashboard,.engineering-path-card,.engineering-secondary-link span,.engineering-path-link span { animation:none;transition:none; }
   .engineering-dashboard { transform:none; }
 }
+
+/* Google OAuth action */
+.auth-google-button { width:100%;min-height:55px;display:flex;align-items:center;justify-content:center;gap:12px;padding:0 16px;border:1px solid #dce6e1;border-radius:8px;background:#fff;color:#203640;font-size:11px;font-weight:850;letter-spacing:.015em;cursor:pointer;transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease; }
+.auth-google-button:hover { border-color:#9db9ad;box-shadow:0 7px 22px rgba(16,36,58,.07);transform:translateY(-1px); }
+.auth-google-button span:last-child { margin-left:auto;color:#78918a;font-size:16px; }
+.auth-or-divider { display:flex;align-items:center;gap:13px;margin:18px 0 0;color:#9aa8a2;font-size:8px;font-weight:900;letter-spacing:.14em; }
+.auth-or-divider::before,.auth-or-divider::after { content:"";height:1px;flex:1;background:#e8eeeb; }
