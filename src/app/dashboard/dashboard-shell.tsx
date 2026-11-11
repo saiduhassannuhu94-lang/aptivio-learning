@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { signOutAction } from "@/app/(auth)/actions";
 
 type DashboardShellProps = {
@@ -42,16 +42,8 @@ export default function DashboardShell({ displayName, paymentNotice }: Dashboard
   const [menuOpen, setMenuOpen] = useState(false);
   const [dark, setDark] = useState(false);
 
-  useEffect(() => {
-    setDark(window.localStorage.getItem("aptivio-theme") === "dark");
-  }, []);
-
   function toggleTheme() {
-    setDark((current) => {
-      const next = !current;
-      window.localStorage.setItem("aptivio-theme", next ? "dark" : "light");
-      return next;
-    });
+    setDark((current) => !current);
   }
 
   return (
@@ -68,7 +60,7 @@ export default function DashboardShell({ displayName, paymentNotice }: Dashboard
           <Link href="/courses" className="dashboard-nav-link" onClick={() => setMenuOpen(false)}><Icon name="compass" />Learning paths</Link>
         </nav>
         <div className="sidebar-bottom">
-          <div className="sidebar-help"><span className="help-orb">?</span><div><strong>Need a hand?</strong><small>We're here to help you learn.</small></div></div>
+          <div className="sidebar-help"><span className="help-orb">?</span><div><strong>Need a hand?</strong><small>We&apos;re here to help you learn.</small></div></div>
           <form action={signOutAction}><button className="sidebar-signout" type="submit">Sign out <span>↗</span></button></form>
         </div>
       </aside>
