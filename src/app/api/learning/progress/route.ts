@@ -83,8 +83,24 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "An active enrolment for this course version is required." }, { status: 403 });
   }
 
+  const { data: existingProgress, error: existingProgressError } = await supabase
+    .from("lesson_progress")
+    .select("is_completed, completed_at")
+    .eq("enrollment_id", enrollment.id)
+    .eq("lesson_id", lesson.id)
+    .eq("user_id", auth.user.id)
+    .maybeSingle();
+
+  if (existingProgressError) {
+    return NextResponse.json({ error: "Existing lesson progress could not be loaded." }, { status: 500 });
+  }
+
   const positionSeconds = clampLessonPosition(parsed.data.positionSeconds, lesson.duration_seconds);
-  const completedAt = parsed.data.completed ? new Date().toISOString() : null;
+  // Completion is monotonic: a routine playback-position save must not undo
+  // a lesson the learner has already marked complete.
+  const isCompleted = parsed.data.completed || existingProgress?.is_completed === true;
+  const completedAt = existingProgress?.completed_at ??
+    (isCompleted ? new Date().toISOString() : null);
 
   const { error: upsertError } = await supabase
     .from("lesson_progress")
@@ -94,7 +110,7 @@ export async function POST(request: Request) {
         lesson_id: lesson.id,
         user_id: auth.user.id,
         last_position_seconds: positionSeconds,
-        is_completed: parsed.data.completed,
+        is_completed: isCompleted,
         completed_at: completedAt,
       },
       { onConflict: "enrollment_id,lesson_id" },
