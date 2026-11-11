@@ -1,0 +1,367 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "rest-api-design-documentation",
+    "title": "REST API Design and Documentation",
+    "subtitle": "Design predictable, secure HTTP APIs with clear contracts, OpenAPI and practical tests.",
+    "description": "An intermediate course on resource modelling, HTTP semantics, request and response schemas, pagination, filtering, authentication, authorization, OpenAPI, versioning, caching, webhooks, contract testing and API security. Learners produce a documented API for a learning platform.",
+    "level": "intermediate",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 720,
+    "target_audience": [
+      "Computing students learning backend integration",
+      "Frontend and backend developers who design HTTP APIs",
+      "Junior software engineers preparing API documentation"
+    ],
+    "prerequisites": [
+      "Basic HTTP methods, headers and status codes",
+      "JSON, JavaScript or another programming language",
+      "Basic database and authentication concepts"
+    ],
+    "outcomes": [
+      "Model API resources and choose stable URI patterns",
+      "Select HTTP methods and status codes according to their semantics",
+      "Define schemas, validation rules and consistent error responses",
+      "Design bounded pagination, filtering and sorting",
+      "Document APIs with OpenAPI and valid examples",
+      "Specify authentication, authorization and object-level access",
+      "Plan versioning, caching, rate limits and webhook delivery",
+      "Verify API contracts with automated tests and threat modelling"
+    ],
+    "equipment": [
+      "Computer with code editor and API client",
+      "Internet access for documentation",
+      "OpenAPI editor or compatible tooling"
+    ],
+    "accessibility": "Provide text-based request and response examples, semantic headings and keyboard-accessible API tools. Use synthetic identifiers and data in examples. Learners may submit a text OpenAPI specification if graphical tools are unavailable.",
+    "sections": [
+      {
+        "title": "REST Resource and HTTP Design",
+        "description": "Model resources, methods, status codes and predictable request behaviour.",
+        "lessons": [
+          {
+            "title": "What an API Contract Defines",
+            "duration_minutes": 25,
+            "body_markdown": "## What an API Contract Defines\n\nAn API contract describes how a client and service communicate: available resources, methods, request fields, response fields, status codes, authentication requirements and error behaviour. A stable contract lets frontend and backend teams work independently and gives tests something precise to verify.\n\n### Worked application example\n\nA course API can define `GET /courses` for public summaries, `GET /courses/{courseId}` for details and `POST /enrolments` for a learner's enrolment intent. Each operation needs documented success and failure responses.\n\n### Design risk to avoid\n\nAn endpoint is not well designed merely because it returns JSON. Ambiguous field meanings, undocumented null values and inconsistent errors force clients to guess. Write the contract before implementing the handler.\n\n### Practice task\n\nWrite a small contract for listing courses and enrolling in one. Include request, response, authentication and at least three failure cases.\n\n### Contract check\n\nWrite the expected request and response for your example. Include one successful case and one failure case. Verify that the status code, body fields and authorization requirements agree with the contract. If a client must guess what a field means or what happens on retry, the contract needs more work.",
+            "exercise": "Write a small contract for listing courses and enrolling in one. Include request, response, authentication and at least three failure cases.",
+            "key_takeaways": [
+              "Define resource behaviour and response shapes explicitly.",
+              "Treat authentication, authorization and idempotency as contract requirements.",
+              "Keep documentation, implementation and contract tests in sync."
+            ]
+          },
+          {
+            "title": "Resources, URIs and Naming",
+            "duration_minutes": 25,
+            "body_markdown": "## Resources, URIs and Naming\n\nREST-style APIs model resources and expose them through URIs. Prefer stable nouns such as `/courses`, `/lessons` and `/enrolments` over action-heavy paths. Use nested paths only when the relationship is meaningful and avoid embedding mutable display names in identifiers.\n\n### Worked application example\n\n`/courses/{courseId}/lessons` can represent lessons belonging to a course. A query such as `?level=beginner&limit=20` filters a collection without changing the resource identity.\n\n### Design risk to avoid\n\nDo not make a route depend on a title that can change. Avoid deeply nested paths that repeat relationships and make clients fragile. Choose a consistent pluralisation and casing convention.\n\n### Practice task\n\nDesign resource paths for courses, versions, lessons, enrolments and progress. Identify stable IDs and useful filters.\n\n### Contract check\n\nWrite the expected request and response for your example. Include one successful case and one failure case. Verify that the status code, body fields and authorization requirements agree with the contract. If a client must guess what a field means or what happens on retry, the contract needs more work.",
+            "exercise": "Design resource paths for courses, versions, lessons, enrolments and progress. Identify stable IDs and useful filters.",
+            "key_takeaways": [
+              "Define resource behaviour and response shapes explicitly.",
+              "Treat authentication, authorization and idempotency as contract requirements.",
+              "Keep documentation, implementation and contract tests in sync."
+            ]
+          },
+          {
+            "title": "HTTP Methods and Idempotency",
+            "duration_minutes": 25,
+            "body_markdown": "## HTTP Methods and Idempotency\n\nHTTP methods communicate intent and have semantics. GET retrieves without changing server state; POST commonly creates or initiates; PUT replaces a representation; PATCH partially updates; DELETE removes a resource when allowed. Idempotency means repeating the same request has the same intended effect.\n\n### Worked application example\n\nA client may retry a progress update after a timeout. A PUT to a learner's progress resource can be designed idempotently, while a POST enrolment operation should use a unique constraint or idempotency key to prevent duplicate enrolments.\n\n### Design risk to avoid\n\nDo not use GET to mutate data or rely on the user clicking only once. Retries happen in mobile networks and automated clients. Document which operations are safe to repeat.\n\n### Practice task\n\nClassify five API operations by method and idempotency. Explain how duplicate enrolment requests should behave.\n\n### Contract check\n\nWrite the expected request and response for your example. Include one successful case and one failure case. Verify that the status code, body fields and authorization requirements agree with the contract. If a client must guess what a field means or what happens on retry, the contract needs more work.",
+            "exercise": "Classify five API operations by method and idempotency. Explain how duplicate enrolment requests should behave.",
+            "key_takeaways": [
+              "Define resource behaviour and response shapes explicitly.",
+              "Treat authentication, authorization and idempotency as contract requirements.",
+              "Keep documentation, implementation and contract tests in sync."
+            ]
+          },
+          {
+            "title": "Status Codes and Error Semantics",
+            "duration_minutes": 40,
+            "body_markdown": "## Status Codes and Error Semantics\n\nStatus codes tell clients whether a request succeeded and what kind of failure occurred. Use 2xx for success, 4xx for client-side request or permission problems and 5xx for server failures. A consistent error body should provide a stable code, safe message and optional field details.\n\n### Worked application example\n\nA missing session can return 401; an authenticated learner without access can receive 403; a nonexistent course can return 404; a duplicate enrolment can return 409; malformed input can return 400 or 422 according to the contract.\n\n### Design risk to avoid\n\nDo not return 200 for a failed operation. Do not expose SQL text, stack traces or internal hostnames in an error message. Distinguish a validation failure from an unexpected server outage.\n\n### Practice task\n\nCreate an error mapping table for malformed JSON, missing session, denied access, duplicate record, missing resource and database outage.\n\n### Contract check\n\nWrite the expected request and response for your example. Include one successful case and one failure case. Verify that the status code, body fields and authorization requirements agree with the contract. If a client must guess what a field means or what happens on retry, the contract needs more work.",
+            "exercise": "Create an error mapping table for malformed JSON, missing session, denied access, duplicate record, missing resource and database outage.",
+            "key_takeaways": [
+              "Define resource behaviour and response shapes explicitly.",
+              "Treat authentication, authorization and idempotency as contract requirements.",
+              "Keep documentation, implementation and contract tests in sync."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Schemas, Query Design and Documentation",
+        "description": "Define request and response contracts, pagination, filtering and OpenAPI.",
+        "lessons": [
+          {
+            "title": "Pagination and Filtering",
+            "duration_minutes": 25,
+            "body_markdown": "## Pagination and Filtering\n\nLarge collections should be paginated so clients do not need to download every record. Offset pagination is easy to understand but can become slow or unstable when records are inserted during browsing. Cursor pagination uses a stable ordering key and is often better for large or changing datasets.\n\n### Worked application example\n\nA course catalogue can accept `limit` and `cursor`, return a page of course summaries and include a `next_cursor` when more records exist. Sorting should be deterministic, for example by creation timestamp and unique ID.\n\n### Design risk to avoid\n\nNever accept an unbounded limit from a client. Validate filter values and ensure cursor values cannot be used to access another user's private records.\n\n### Practice task\n\nDesign pagination for a catalogue of thousands of courses. Define ordering, maximum page size, cursor fields and behaviour when a cursor is invalid.\n\n### Contract check\n\nWrite the expected request and response for your example. Include one successful case and one failure case. Verify that the status code, body fields and authorization requirements agree with the contract. If a client must guess what a field means or what happens on retry, the contract needs more work.",
+            "exercise": "Design pagination for a catalogue of thousands of courses. Define ordering, maximum page size, cursor fields and behaviour when a cursor is invalid.",
+            "key_takeaways": [
+              "Define resource behaviour and response shapes explicitly.",
+              "Treat authentication, authorization and idempotency as contract requirements.",
+              "Keep documentation, implementation and contract tests in sync."
+            ]
+          },
+          {
+            "title": "Filtering, Sorting and Search",
+            "duration_minutes": 25,
+            "body_markdown": "## Filtering, Sorting and Search\n\nQuery parameters allow clients to request a subset or ordering of a collection. Whitelist supported fields and directions rather than passing arbitrary column names into a query. Search should define whether matching is exact, prefix-based or full-text and how results are ranked.\n\n### Worked application example\n\nA catalogue may support `level=beginner`, `topic=web` and `sort=title`. The server translates these known values into safe query conditions and returns only public fields.\n\n### Design risk to avoid\n\nDo not concatenate arbitrary client-supplied sort fields into SQL. Document case sensitivity, empty search behaviour and whether filters combine with AND or OR.\n\n### Practice task\n\nSpecify filter and sort parameters for a course catalogue. Include validation and a safe query strategy.\n\n### Contract check\n\nWrite the expected request and response for your example. Include one successful case and one failure case. Verify that the status code, body fields and authorization requirements agree with the contract. If a client must guess what a field means or what happens on retry, the contract needs more work.",
+            "exercise": "Specify filter and sort parameters for a course catalogue. Include validation and a safe query strategy.",
+            "key_takeaways": [
+              "Define resource behaviour and response shapes explicitly.",
+              "Treat authentication, authorization and idempotency as contract requirements.",
+              "Keep documentation, implementation and contract tests in sync."
+            ]
+          },
+          {
+            "title": "Authentication and Authorization in Contracts",
+            "duration_minutes": 25,
+            "body_markdown": "## Authentication and Authorization in Contracts\n\nAPI documentation must state how callers authenticate and which roles or resource relationships are required. Authentication schemes identify the caller; authorization rules determine whether that caller can act on a specific resource. Document scopes and ownership requirements clearly.\n\n### Worked application example\n\nA learner may call `GET /me/progress` with a valid session. An instructor may edit only courses assigned to them. A public visitor can read published course metadata but not protected lesson bodies.\n\n### Design risk to avoid\n\nDo not document a role as if it grants unrestricted access. A learner's session does not grant access to another learner's progress. Enforce rules on the server and database even when documentation describes them.\n\n### Practice task\n\nWrite access requirements for catalogue, lesson, progress and review endpoints. Include one resource ownership rule.\n\n### Contract check\n\nWrite the expected request and response for your example. Include one successful case and one failure case. Verify that the status code, body fields and authorization requirements agree with the contract. If a client must guess what a field means or what happens on retry, the contract needs more work.",
+            "exercise": "Write access requirements for catalogue, lesson, progress and review endpoints. Include one resource ownership rule.",
+            "key_takeaways": [
+              "Define resource behaviour and response shapes explicitly.",
+              "Treat authentication, authorization and idempotency as contract requirements.",
+              "Keep documentation, implementation and contract tests in sync."
+            ]
+          },
+          {
+            "title": "Request and Response Schema Design",
+            "duration_minutes": 40,
+            "body_markdown": "## Request and Response Schema Design\n\nSchemas define field types, required values, limits, formats and relationships. Use consistent naming and distinguish identifiers from numeric values. Define whether optional fields are omitted or returned as null, and keep date-time formats consistent.\n\n### Worked application example\n\nA course response may include `id`, `slug`, `title`, `level` and `published_at`. It should not include private reviewer notes or internal payment metadata when the caller only needs catalogue information.\n\n### Design risk to avoid\n\nReturning entire database rows couples clients to storage design and can expose fields unintentionally. Avoid changing a field's type without a versioning or compatibility plan.\n\n### Practice task\n\nDesign request and response schemas for creating a course and retrieving a public course summary.\n\n### Contract check\n\nWrite the expected request and response for your example. Include one successful case and one failure case. Verify that the status code, body fields and authorization requirements agree with the contract. If a client must guess what a field means or what happens on retry, the contract needs more work.",
+            "exercise": "Design request and response schemas for creating a course and retrieving a public course summary.",
+            "key_takeaways": [
+              "Define resource behaviour and response shapes explicitly.",
+              "Treat authentication, authorization and idempotency as contract requirements.",
+              "Keep documentation, implementation and contract tests in sync."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Security, Reliability and Compatibility",
+        "description": "Specify authorization, caching, rate limits, webhooks and versioning.",
+        "lessons": [
+          {
+            "title": "OpenAPI and Machine-Readable Documentation",
+            "duration_minutes": 25,
+            "body_markdown": "## OpenAPI and Machine-Readable Documentation\n\nOpenAPI describes HTTP endpoints, schemas, authentication and responses in a machine-readable format. It can generate documentation, client libraries and contract checks. Keep the specification close to the implementation and review it when behaviour changes.\n\n### Worked application example\n\nAn OpenAPI document can define a `Course` schema, a reusable `Error` schema, a bearer or cookie security scheme and a `GET /courses` operation with query parameters and response examples.\n\n### Design risk to avoid\n\nA generated document can still be wrong if it is not updated. Do not copy a sample response that contains fields the live API never returns. Avoid documenting secrets or real personal data in examples.\n\n### Practice task\n\nCreate an OpenAPI outline for two course endpoints and one protected lesson endpoint. Include reusable schemas and security requirements.\n\n### Contract check\n\nWrite the expected request and response for your example. Include one successful case and one failure case. Verify that the status code, body fields and authorization requirements agree with the contract. If a client must guess what a field means or what happens on retry, the contract needs more work.",
+            "exercise": "Create an OpenAPI outline for two course endpoints and one protected lesson endpoint. Include reusable schemas and security requirements.",
+            "key_takeaways": [
+              "Define resource behaviour and response shapes explicitly.",
+              "Treat authentication, authorization and idempotency as contract requirements.",
+              "Keep documentation, implementation and contract tests in sync."
+            ]
+          },
+          {
+            "title": "Versioning and Backward Compatibility",
+            "duration_minutes": 25,
+            "body_markdown": "## Versioning and Backward Compatibility\n\nAPI versioning manages changes that could break existing clients. Additive optional fields are often compatible, while renaming fields, changing types or removing endpoints can break consumers. Plan deprecation with notice and a migration window.\n\n### Worked application example\n\nA mobile client may continue using `/v1/courses` while a new client adopts `/v2/courses` with a revised response shape. The server should document support dates and avoid changing the old contract silently.\n\n### Design risk to avoid\n\nDo not create a new version for every small change, but do not silently make breaking changes either. Track consumers and test old clients before removing a version.\n\n### Practice task\n\nClassify ten proposed API changes as backward-compatible or breaking. Propose a migration plan for two breaking changes.\n\n### Contract check\n\nWrite the expected request and response for your example. Include one successful case and one failure case. Verify that the status code, body fields and authorization requirements agree with the contract. If a client must guess what a field means or what happens on retry, the contract needs more work.",
+            "exercise": "Classify ten proposed API changes as backward-compatible or breaking. Propose a migration plan for two breaking changes.",
+            "key_takeaways": [
+              "Define resource behaviour and response shapes explicitly.",
+              "Treat authentication, authorization and idempotency as contract requirements.",
+              "Keep documentation, implementation and contract tests in sync."
+            ]
+          },
+          {
+            "title": "Rate Limits, Caching and Conditional Requests",
+            "duration_minutes": 25,
+            "body_markdown": "## Rate Limits, Caching and Conditional Requests\n\nAPIs should protect service capacity and reduce unnecessary transfer. Rate limits can be applied by user, IP or operation. Cache headers and conditional requests such as ETag can reduce repeated downloads for public data, but private responses need careful cache controls.\n\n### Worked application example\n\nA public catalogue response can use an ETag based on its version and return 304 when unchanged. A sign-in endpoint may use stricter rate limits than a public course listing endpoint.\n\n### Design risk to avoid\n\nDo not cache user-specific data in shared intermediaries. A rate limit that is too broad can punish users behind shared campus networks. Document retry guidance and `Retry-After` behaviour.\n\n### Practice task\n\nDesign cache and rate-limit rules for catalogue search, sign-in, progress updates and protected lesson content.\n\n### Contract check\n\nWrite the expected request and response for your example. Include one successful case and one failure case. Verify that the status code, body fields and authorization requirements agree with the contract. If a client must guess what a field means or what happens on retry, the contract needs more work.",
+            "exercise": "Design cache and rate-limit rules for catalogue search, sign-in, progress updates and protected lesson content.",
+            "key_takeaways": [
+              "Define resource behaviour and response shapes explicitly.",
+              "Treat authentication, authorization and idempotency as contract requirements.",
+              "Keep documentation, implementation and contract tests in sync."
+            ]
+          },
+          {
+            "title": "Webhooks and Event Delivery",
+            "duration_minutes": 40,
+            "body_markdown": "## Webhooks and Event Delivery\n\nWebhooks let a service notify another system when an event occurs. A reliable webhook design signs the payload, includes an event ID, retries transient failures and lets receivers deduplicate repeated deliveries. Delivery is usually at least once, not exactly once.\n\n### Worked application example\n\nWhen a course is published, the platform might notify a search index or analytics service. The receiver verifies the signature, stores the event ID and processes the event idempotently.\n\n### Design risk to avoid\n\nNever trust an unsigned webhook body. Do not assume events arrive once or in order. Keep secrets out of URLs and provide a replay or reconciliation strategy.\n\n### Practice task\n\nDesign a signed `course.published` webhook with event ID, timestamp, signature verification and duplicate handling.\n\n### Contract check\n\nWrite the expected request and response for your example. Include one successful case and one failure case. Verify that the status code, body fields and authorization requirements agree with the contract. If a client must guess what a field means or what happens on retry, the contract needs more work.",
+            "exercise": "Design a signed `course.published` webhook with event ID, timestamp, signature verification and duplicate handling.",
+            "key_takeaways": [
+              "Define resource behaviour and response shapes explicitly.",
+              "Treat authentication, authorization and idempotency as contract requirements.",
+              "Keep documentation, implementation and contract tests in sync."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Verification and API Project",
+        "description": "Test the contract and deliver a documented learning-platform API.",
+        "lessons": [
+          {
+            "title": "Contract Testing and API Integration",
+            "duration_minutes": 25,
+            "body_markdown": "## Contract Testing and API Integration\n\nContract tests verify that provider behaviour matches the documented interface and that consumers use it correctly. They complement unit and end-to-end tests. Validate required fields, status codes, error shapes and authentication requirements against a running test service.\n\n### Worked application example\n\nA frontend contract test can assert that a course response contains a string title and valid level. A provider test can verify that an unauthenticated lesson request returns 401 and no lesson body.\n\n### Design risk to avoid\n\nMock-only tests can drift away from the real API. Keep a provider verification step and ensure example payloads are valid against the schema.\n\n### Practice task\n\nCreate contract tests for course listing and protected lesson access, including one malformed response and one denied request.\n\n### Contract check\n\nWrite the expected request and response for your example. Include one successful case and one failure case. Verify that the status code, body fields and authorization requirements agree with the contract. If a client must guess what a field means or what happens on retry, the contract needs more work.",
+            "exercise": "Create contract tests for course listing and protected lesson access, including one malformed response and one denied request.",
+            "key_takeaways": [
+              "Define resource behaviour and response shapes explicitly.",
+              "Treat authentication, authorization and idempotency as contract requirements.",
+              "Keep documentation, implementation and contract tests in sync."
+            ]
+          },
+          {
+            "title": "API Security and Abuse Cases",
+            "duration_minutes": 25,
+            "body_markdown": "## API Security and Abuse Cases\n\nAPI security includes input validation, authorization, rate limits, safe error handling, transport security and protection against excessive data exposure. Test object-level authorization: a caller must not change an ID in the URL to access another person's record.\n\n### Worked application example\n\nA learner requesting `/users/other-user/progress` should be denied unless a documented administrative capability permits it. A course editor should not publish a version without the required review decision.\n\n### Design risk to avoid\n\nAuthentication alone does not prevent broken object-level authorization. Never rely on unpredictable IDs as the only access control and do not expose more fields than the caller needs.\n\n### Practice task\n\nThreat-model a learner progress API. Identify object-level access, mass assignment, enumeration and excessive-data risks.\n\n### Contract check\n\nWrite the expected request and response for your example. Include one successful case and one failure case. Verify that the status code, body fields and authorization requirements agree with the contract. If a client must guess what a field means or what happens on retry, the contract needs more work.",
+            "exercise": "Threat-model a learner progress API. Identify object-level access, mass assignment, enumeration and excessive-data risks.",
+            "key_takeaways": [
+              "Define resource behaviour and response shapes explicitly.",
+              "Treat authentication, authorization and idempotency as contract requirements.",
+              "Keep documentation, implementation and contract tests in sync."
+            ]
+          },
+          {
+            "title": "Documentation, Examples and Developer Experience",
+            "duration_minutes": 25,
+            "body_markdown": "## Documentation, Examples and Developer Experience\n\nGood API documentation helps a developer make a correct request without reading server source. Include purpose, authentication, parameters, request examples, success responses, errors, pagination and rate-limit guidance. Examples should be minimal, valid and free of real personal data.\n\n### Worked application example\n\nA course listing guide can show a curl request, a response with two course summaries, a pagination cursor and an example validation error. A protected lesson guide should explain the enrolment requirement.\n\n### Design risk to avoid\n\nOutdated examples waste developer time and can teach insecure practices. Never include a real access token in documentation. Make clear which values are placeholders.\n\n### Practice task\n\nWrite a quick-start guide for a course API with one public request and one authenticated request.\n\n### Contract check\n\nWrite the expected request and response for your example. Include one successful case and one failure case. Verify that the status code, body fields and authorization requirements agree with the contract. If a client must guess what a field means or what happens on retry, the contract needs more work.",
+            "exercise": "Write a quick-start guide for a course API with one public request and one authenticated request.",
+            "key_takeaways": [
+              "Define resource behaviour and response shapes explicitly.",
+              "Treat authentication, authorization and idempotency as contract requirements.",
+              "Keep documentation, implementation and contract tests in sync."
+            ]
+          },
+          {
+            "title": "Capstone: Design and Document a REST API",
+            "duration_minutes": 40,
+            "body_markdown": "## Capstone: Design and Document a REST API\n\nDesign a coherent API for a learning platform. Model courses, versions, lessons, enrolments and progress as resources. Define methods, schemas, status codes, pagination, authentication, authorization, idempotency and error behaviour. Produce an OpenAPI document and tests that verify the contract.\n\n### Worked application example\n\nA learner can browse published courses, enrol in a free course and read lessons only when enrolled in the exact version. A progress update is bounded and retry-safe. Administrators have separate review and publishing permissions.\n\n### Design risk to avoid\n\nA polished OpenAPI file does not make an API secure or functional. Compare the contract to actual route behaviour and test denied requests. Avoid publishing private database fields in response examples.\n\n### Practice task\n\nSubmit resource model, OpenAPI specification, endpoint examples, authorization matrix, contract tests, threat model and a versioning policy.\n\n### Contract check\n\nWrite the expected request and response for your example. Include one successful case and one failure case. Verify that the status code, body fields and authorization requirements agree with the contract. If a client must guess what a field means or what happens on retry, the contract needs more work.",
+            "exercise": "Submit resource model, OpenAPI specification, endpoint examples, authorization matrix, contract tests, threat model and a versioning policy.",
+            "key_takeaways": [
+              "Define resource behaviour and response shapes explicitly.",
+              "Treat authentication, authorization and idempotency as contract requirements.",
+              "Keep documentation, implementation and contract tests in sync."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "REST API Design and Documentation: Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions using precise HTTP terminology. Include example paths, schemas, status codes and security requirements where requested.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short_answer",
+          "prompt": "Explain the difference between POST, PUT and PATCH. Give one API example for each and discuss idempotency.",
+          "marks": 10,
+          "rubric": [
+            "Correct method semantics (6)",
+            "Accurate idempotency explanation (4)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "design",
+          "prompt": "Model resources and URI paths for courses, versions, lessons, enrolments and progress. Identify stable resource IDs.",
+          "marks": 10,
+          "rubric": [
+            "Coherent resource model (5)",
+            "Stable identifiers and sensible nesting (3)",
+            "Useful collection queries (2)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "http",
+          "prompt": "Choose status codes for malformed input, missing authentication, denied access, missing course, duplicate enrolment and server outage.",
+          "marks": 10,
+          "rubric": [
+            "Correct status selection (8)",
+            "Distinguishes client and server failures (2)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "openapi",
+          "prompt": "Describe the OpenAPI elements needed to document a protected lesson endpoint, including schema and security.",
+          "marks": 10,
+          "rubric": [
+            "Operation and parameters (3)",
+            "Response and error schemas (3)",
+            "Security requirements (4)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "security",
+          "prompt": "Explain how to prevent a learner from accessing another learner's progress by changing an ID in the URL.",
+          "marks": 10,
+          "rubric": [
+            "Object-level authorization (4)",
+            "Server-side ownership check (3)",
+            "Negative test evidence (3)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit the REST API design capstone with OpenAPI, examples, authorization matrix and contract tests.",
+          "marks": 20,
+          "rubric": [
+            "Coherent resource and HTTP design (4)",
+            "Complete machine-readable documentation (5)",
+            "Security and compatibility policy (4)",
+            "Contract tests and examples (4)",
+            "Clear developer guide (3)"
+          ]
+        }
+      ],
+      "total_marks": 70
+    },
+    "final_project": {
+      "title": "Learning Platform REST API Contract",
+      "deliverables": [
+        "Resource model and URI map",
+        "Request and response schemas",
+        "HTTP method and status-code table",
+        "OpenAPI specification",
+        "Authentication and authorization matrix",
+        "Pagination, rate-limit and caching policy",
+        "Threat model and contract tests",
+        "Developer quick-start guide and versioning policy"
+      ],
+      "acceptance_criteria": [
+        "All documented routes have consistent resource semantics",
+        "Every request field has type, limits and validation behaviour",
+        "Success and error responses are documented with correct status codes",
+        "Protected resources specify authentication and object-level authorization",
+        "Pagination and retry behaviour are bounded and deterministic",
+        "OpenAPI examples validate and contract tests match implementation"
+      ]
+    },
+    "references": [
+      {
+        "title": "OpenAPI Specification",
+        "url": "https://spec.openapis.org/oas/latest.html",
+        "note": "Primary specification for machine-readable HTTP API contracts."
+      },
+      {
+        "title": "MDN HTTP Request Methods",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods",
+        "note": "Reference for HTTP method semantics."
+      },
+      {
+        "title": "MDN HTTP Response Status Codes",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status",
+        "note": "Reference for response status semantics."
+      },
+      {
+        "title": "OWASP API Security Top 10",
+        "url": "https://owasp.org/API-Security/",
+        "note": "Threat model and defensive guidance for API implementations."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft. Review the OpenAPI version and examples, validate schemas with tooling and align with curriculum before publication. No academic approval is claimed.",
+      "language": "English",
+      "content_quality": "Four sections, sixteen lessons, six assessment questions, an OpenAPI capstone and authoritative references. Technical and academic review remains required."
+    }
+  }
+}
