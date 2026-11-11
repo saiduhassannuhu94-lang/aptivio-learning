@@ -73,21 +73,69 @@ export async function signUpAction(
     return { error: "Enter your name, a valid email, and a password with at least 8 characters.", message: null };
   }
 
-  const supabase = await createClient();
-  const { data, error } = await supabase.auth.signUp({
-    email: parsed.data.email,
-    password: parsed.data.password,
-    options: {
-      data: { display_name: parsed.data.displayName },
-      emailRedirectTo: `${getSiteUrl()}/auth/callback?next=/dashboard`,
-    },
-  });
+  let hasSession = false;
+  let authFailure: { name: string; code: string | null; status: number | null } | null = null;
 
-  if (error) {
-    return { error: "We could not complete registration. Check your details or try again later.", message: null };
+  try {
+    const siteUrl = getSiteUrl();
+    const callbackUrl = new URL("/auth/callback", `${siteUrl}/`);
+    callbackUrl.searchParams.set("next", "/dashboard");
+
+    const supabase = await createClient();
+    const { data, error } = await supabase.auth.signUp({
+      email: parsed.data.email,
+      password: parsed.data.password,
+      options: {
+        data: { display_name: parsed.data.displayName },
+        emailRedirectTo: callbackUrl.toString(),
+      },
+    });
+
+    if (error) {
+      authFailure = {
+        name: error.name,
+        code: error.code ?? null,
+        status: error.status ?? null,
+      };
+    } else {
+      hasSession = Boolean(data.session);
+    }
+  } catch (cause) {
+    console.error("[auth.signUp] Registration failed before Supabase returned a response", {
+      name: cause instanceof Error ? cause.name : "UnknownError",
+      message: cause instanceof Error ? cause.message : "Unknown registration failure",
+    });
+
+    return {
+      error: "We could not reach the registration service. Please try again. If this continues, contact APTIVIO support.",
+      message: null,
+    };
   }
 
-  if (data.session) {
+  if (authFailure) {
+    console.error("[auth.signUp] Supabase Auth rejected the registration request", authFailure);
+
+    if (authFailure.status === 429) {
+      return {
+        error: "Too many registration attempts. Please wait a little and try again.",
+        message: null,
+      };
+    }
+
+    if (authFailure.code === "weak_password") {
+      return {
+        error: "Choose a stronger password and try again.",
+        message: null,
+      };
+    }
+
+    return {
+      error: "We could not complete registration. Check your details and try again.",
+      message: null,
+    };
+  }
+
+  if (hasSession) {
     redirect("/dashboard");
   }
 
@@ -158,4 +206,3 @@ export async function signOutAction() {
   await supabase.auth.signOut();
   redirect("/");
 }
-
