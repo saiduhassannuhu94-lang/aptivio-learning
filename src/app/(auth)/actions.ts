@@ -19,6 +19,23 @@ const signUpSchema = credentialsSchema.extend({
   displayName: z.string().trim().min(2).max(100),
 });
 
+export async function signInWithGoogleAction(): Promise<void> {
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: `${getSiteUrl()}/auth/callback?next=/dashboard`,
+      queryParams: { access_type: "offline", prompt: "select_account" },
+    },
+  });
+
+  if (error || !data.url) {
+    redirect("/sign-in?error=google_oauth");
+  }
+
+  redirect(data.url);
+}
+
 export async function signInAction(
   _previousState: AuthActionState,
   formData: FormData,
