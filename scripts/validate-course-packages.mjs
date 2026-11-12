@@ -28,6 +28,10 @@ for (const file of files) {
   requireText(course?.slug, "course.slug");
   requireText(course?.title, "course.title");
   requireText(course?.description, "course.description");
+  const allowedLevels = new Set(["beginner", "intermediate", "advanced", "all_levels"]);
+  if (!allowedLevels.has(course?.level)) {
+    fileFailures.push(`${file}: course.level must be one of: ${[...allowedLevels].join(", ")}`);
+  }
 
   if (course?.price_minor !== 0 || course?.currency !== "NGN") {
     fileFailures.push(`${file}: pilot courses must be free and denominated in NGN`);
