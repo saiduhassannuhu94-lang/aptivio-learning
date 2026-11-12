@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { createChallengeAdmin } from "@/lib/challenges/admin";
 import { challengeSubmissionSchema } from "@/lib/challenges/validation";
