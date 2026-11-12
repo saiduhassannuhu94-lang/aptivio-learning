@@ -12,7 +12,7 @@ create table if not exists public.course_assessments (
   total_marks integer not null check (total_marks > 0),
   questions jsonb not null check (jsonb_typeof(questions) = 'array' and jsonb_array_length(questions) >= 5),
   final_project jsonb not null check (jsonb_typeof(final_project) = 'object'),
-  references jsonb not null default '[]'::jsonb check (jsonb_typeof(references) = 'array'),
+  source_references jsonb not null default '[]'::jsonb check (jsonb_typeof(references) = 'array'),
   equipment jsonb not null default '[]'::jsonb check (jsonb_typeof(equipment) = 'array'),
   accessibility text not null default '',
   content_fingerprint text not null check (content_fingerprint ~ '^[a-f0-9]{64}$'),
@@ -54,6 +54,7 @@ using (
 revoke all on public.course_assessments from anon, authenticated;
 grant select on public.course_assessments to authenticated;
 revoke all on public.course_package_imports from anon, authenticated;
+grant all on public.course_assessments, public.course_package_imports to service_role;
 
 create or replace function public.import_course_package(p_package jsonb)
 returns jsonb
@@ -225,7 +226,7 @@ begin
 
   insert into public.course_assessments (
     course_version_id, title, instructions, pass_mark_percent, total_marks,
-    questions, final_project, references, equipment, accessibility, content_fingerprint
+    questions, final_project, source_references, equipment, accessibility, content_fingerprint
   ) values (
     v_version_id,
     v_course #>> '{assessment,title}',
