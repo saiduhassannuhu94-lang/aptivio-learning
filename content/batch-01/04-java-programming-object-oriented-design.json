@@ -5,7 +5,7 @@
     "title": "Java Programming and Object-Oriented Design",
     "subtitle": "Learn Java from core syntax to classes, interfaces, collections and tested object-oriented programs.",
     "description": "A structured introduction to Java and object-oriented design. Learners work with the JVM model, types, control flow, methods, classes, encapsulation, inheritance, interfaces, exceptions, collections and testing. The course emphasises explicit contracts, readable class design and practical program behaviour.",
-    "level": "beginner_to_intermediate",
+    "level": "beginner",
     "language_code": "en",
     "currency": "NGN",
     "price_minor": 0,
