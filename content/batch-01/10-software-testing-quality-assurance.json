@@ -5,7 +5,7 @@
     "title": "Software Testing and Quality Assurance",
     "subtitle": "Design risk-based tests, automate checks and use evidence to support reliable releases.",
     "description": "A practical software testing course covering quality fundamentals, verification and validation, test levels, test planning, equivalence partitions, boundary analysis, decision tables, state transitions, unit and integration tests, test doubles, regression automation, metrics, defect reporting, non-functional testing and release readiness.",
-    "level": "beginner_to_intermediate",
+    "level": "beginner",
     "language_code": "en",
     "currency": "NGN",
     "price_minor": 0,
