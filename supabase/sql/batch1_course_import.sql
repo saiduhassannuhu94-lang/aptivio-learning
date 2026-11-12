@@ -100,7 +100,7 @@ begin
        select 1
        from jsonb_array_elements(v_course -> 'sections') as sections(section)
        where jsonb_typeof(section -> 'lessons') <> 'array'
-          or jsonb_array_length(section -> 'lessons') <> 4
+          or jsonb_array_length(section -> 'lessons') = 0
           or nullif(section ->> 'title', '') is null
           or exists (
             select 1
