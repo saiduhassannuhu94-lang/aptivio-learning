@@ -363,3 +363,66 @@ drop trigger if exists require_academic_approval_before_publish on public.course
 create trigger require_academic_approval_before_publish
 before update of status, published_version_id on public.courses
 for each row execute function private.guard_course_publication();
+
+
+-- Publication is a separate reviewer action after the matching version has
+-- an approved review. The courses trigger independently enforces the same
+-- fingerprint check, so direct table updates cannot bypass the gate.
+create or replace function public.publish_reviewed_course_version(
+  p_course_version_id uuid
+)
+returns uuid
+language plpgsql
+security definer
+set search_path = ''
+as $function$
+declare
+  v_reviewer_id uuid := auth.uid();
+  v_course_id uuid;
+  v_course_status public.course_status;
+  v_fingerprint text;
+begin
+  if v_reviewer_id is null or not private.has_academic_reviewer_role() then
+    raise exception 'academic_reviewer_role_required' using errcode = '42501';
+  end if;
+
+  select cv.course_id, c.status
+  into v_course_id, v_course_status
+  from public.course_versions cv
+  join public.courses c on c.id = cv.course_id
+  where cv.id = p_course_version_id
+  for update of cv, c;
+
+  if not found then
+    raise exception 'course_version_not_found' using errcode = 'P0002';
+  end if;
+
+  if v_course_status <> 'in_review' then
+    raise exception 'course_must_be_in_review_before_publication' using errcode = 'P0001';
+  end if;
+
+  v_fingerprint := public.course_version_fingerprint(p_course_version_id);
+
+  if not exists (
+    select 1
+    from public.course_reviews r
+    where r.course_version_id = p_course_version_id
+      and r.decision = 'approved'
+      and r.content_fingerprint = v_fingerprint
+  ) then
+    raise exception 'current_content_requires_academic_approval' using errcode = '42501';
+  end if;
+
+  update public.courses
+  set status = 'published',
+      published_version_id = p_course_version_id,
+      published_at = pg_catalog.now(),
+      updated_at = pg_catalog.now()
+  where id = v_course_id;
+
+  return v_course_id;
+end;
+$function$;
+
+revoke all on function public.publish_reviewed_course_version(uuid) from public, anon;
+grant execute on function public.publish_reviewed_course_version(uuid) to authenticated;
