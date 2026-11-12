@@ -46,10 +46,27 @@ for (const filename of filenames) {
     Array.isArray(course.sections) &&
     course.sections.length === 4 &&
     course.sections.every((section) => Array.isArray(section.lessons) && section.lessons.length === 4) &&
+    typeof course.assessment?.title === "string" &&
+    typeof course.assessment?.instructions === "string" &&
     Array.isArray(course.assessment?.questions) &&
     course.assessment.questions.length >= 5 &&
+    course.assessment.questions.every((question) =>
+      typeof question.id === "string" &&
+      typeof question.prompt === "string" &&
+      typeof question.marks === "number" &&
+      question.marks > 0 &&
+      Array.isArray(question.rubric) &&
+      question.rubric.length >= 2
+    ) &&
+    course.assessment.total_marks === course.assessment.questions.reduce((sum, question) => sum + question.marks, 0) &&
     Array.isArray(course.final_project?.deliverables) &&
+    course.final_project.deliverables.length > 0 &&
     Array.isArray(course.final_project?.acceptance_criteria) &&
+    course.final_project.acceptance_criteria.length > 0 &&
+    Array.isArray(course.references) &&
+    course.references.length >= 2 &&
+    course.references.every((reference) => typeof reference.url === "string" && reference.url.startsWith("https://")) &&
+    course.authoring_notes?.content_status === "draft_for_technical_and_academic_review" &&
     course.authoring_notes?.academic_review_status === "not_reviewed" &&
     course.authoring_notes?.publication_status === "not_published";
 
