@@ -43,7 +43,19 @@ export function ChallengeRunner({ slug }: { slug: string }) {
   const [challenge, setChallenge] = useState<Challenge | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [attempt, setAttempt] = useState<Attempt | null>(null);
-  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [answers, setAnswers] = useState<Record<string, string>>(() => {
+    if (typeof window === "undefined") return {};
+    try {
+      const saved = window.localStorage.getItem(`aptivio:challenge:${slug}`);
+      if (!saved) return {};
+      const parsed: unknown = JSON.parse(saved);
+      return parsed && typeof parsed === "object" && !Array.isArray(parsed)
+        ? parsed as Record<string, string>
+        : {};
+    } catch {
+      return {};
+    }
+  });
   const [index, setIndex] = useState(0);
   const [remaining, setRemaining] = useState(0);
   const [result, setResult] = useState<Result | null>(null);
