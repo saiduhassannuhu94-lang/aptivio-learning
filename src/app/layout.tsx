@@ -4,17 +4,17 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "APTIVIO | Knowledge That Moves You Forward",
+    default: "APTIVIO | Learn, Think, Improve",
     template: "%s | APTIVIO",
   },
   description:
-    "Build practical skills through structured, accessible online learning with APTIVIO.",
+    "Explore useful knowledge, practise reasoning and track your progress with APTIVIO.",
   applicationName: "APTIVIO",
   openGraph: {
     type: "website",
     siteName: "APTIVIO",
     title: "APTIVIO | Knowledge That Moves You Forward",
-    description: "Practical learning. Clear progress. A stronger future.",
+    description: "Learn more. Think better. Go further.",
   },
 };
 
