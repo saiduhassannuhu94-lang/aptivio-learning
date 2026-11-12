@@ -5,7 +5,7 @@
     "title": "CSS3: Layout, Responsive Design and Motion",
     "subtitle": "Build responsive interfaces with the cascade, Flexbox, Grid, design tokens and accessible motion.",
     "description": "A practical CSS course covering selectors, cascade, box model, sizing, normal flow, positioning, Flexbox, Grid, media and container queries, typography, colour systems, transitions, reduced motion, responsive media and layout debugging. Learners build a mobile-first dashboard and verify it across realistic viewports.",
-    "level": "beginner_to_intermediate",
+    "level": "beginner",
     "language_code": "en",
     "currency": "NGN",
     "price_minor": 0,
