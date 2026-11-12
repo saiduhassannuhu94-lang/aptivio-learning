@@ -97,7 +97,12 @@ begin
   if jsonb_typeof(v_course -> 'sections') <> 'array'
      or jsonb_array_length(v_course -> 'sections') <> 4
      or (
-       select coalesce(sum(jsonb_array_length(section -> 'lessons')), 0)
+       select coalesce(sum(
+         case when jsonb_typeof(section -> 'lessons') = 'array'
+           then jsonb_array_length(section -> 'lessons')
+           else 0
+         end
+       ), 0)
        from jsonb_array_elements(v_course -> 'sections') as sections(section)
      ) <> 16
      or exists (
