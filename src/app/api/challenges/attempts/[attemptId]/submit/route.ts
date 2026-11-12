@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { createChallengeAdmin } from "@/lib/challenges/admin";
+import { challengeSubmissionSchema } from "@/lib/challenges/validation";
 
 export const runtime = "nodejs";
 type Context = { params: Promise<{ attemptId: string }> };
@@ -23,10 +24,21 @@ export async function POST(request: Request, context: Context) {
   if (authError || !auth.user) return NextResponse.json({ error: "Sign in to submit this challenge." }, { status: 401 });
 
   const payload: unknown = await request.json().catch(() => null);
-  const parsed = schema.safeParse(payload);
+  const parsed = challengeSubmissionSchema.safeParse(payload);
   if (!parsed.success) return NextResponse.json({ error: "Your answers could not be read." }, { status: 400 });
 
   const admin = createChallengeAdmin();
+  const { data: ownedAttempt, error: ownedAttemptError } = await admin
+    .from("brain_challenge_attempts")
+    .select("challenge_id")
+    .eq("id", parsedId.data)
+    .eq("user_id", auth.user.id)
+    .maybeSingle();
+
+  if (ownedAttemptError || !ownedAttempt) {
+    return NextResponse.json({ error: "We could not find this attempt." }, { status: 404 });
+  }
+
   const { data, error } = await admin.rpc("submit_brain_challenge_attempt", {
     p_attempt_id: parsedId.data,
     p_user_id: auth.user.id,
@@ -48,5 +60,22 @@ export async function POST(request: Request, context: Context) {
     return NextResponse.json({ error: "Time is up. This attempt has expired." }, { status: 410 });
   }
 
-  return NextResponse.json({ result: data });
+  const { data: explanations, error: explanationError } = await admin
+    .from("brain_challenge_questions")
+    .select("id, explanation")
+    .eq("challenge_id", ownedAttempt.challenge_id);
+
+  if (explanationError) {
+    return NextResponse.json({ error: "Your score was saved, but answer explanations are temporarily unavailable." }, { status: 503 });
+  }
+
+  return NextResponse.json({
+    result: {
+      ...data,
+      explanations: (explanations ?? []).map((item) => ({
+        questionId: item.id,
+        explanation: item.explanation,
+      })),
+    },
+  });
 }
