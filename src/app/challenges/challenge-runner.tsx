@@ -46,6 +46,7 @@ export function ChallengeRunner({ slug }: { slug: string }) {
   const [index, setIndex] = useState(0);
   const [remaining, setRemaining] = useState(0);
   const [result, setResult] = useState<Result | null>(null);
+  const [expired, setExpired] = useState(false);
   const [loading, setLoading] = useState(true);
   const [starting, setStarting] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -73,7 +74,7 @@ export function ChallengeRunner({ slug }: { slug: string }) {
   }, [slug]);
 
   const submit = useCallback(async () => {
-    if (!attempt || submittedRef.current || submitting) return;
+    if (!attempt || submittedRef.current || submitting || expired) return;
     submittedRef.current = true;
     setSubmitting(true);
     setError("");
@@ -89,7 +90,10 @@ export function ChallengeRunner({ slug }: { slug: string }) {
         }),
       });
       const payload = await response.json();
-      if (!response.ok) throw new Error(payload.error ?? "Your result could not be saved.");
+      if (!response.ok) {
+        if (response.status === 410) setExpired(true);
+        throw new Error(payload.error ?? "Your result could not be saved.");
+      }
       setResult(payload.result);
     } catch (submitError) {
       submittedRef.current = false;
@@ -97,10 +101,10 @@ export function ChallengeRunner({ slug }: { slug: string }) {
     } finally {
       setSubmitting(false);
     }
-  }, [attempt, answers, questions, submitting]);
+  }, [attempt, answers, questions, submitting, expired]);
 
   useEffect(() => {
-    if (!attempt || !challenge || result) return;
+    if (!attempt || !challenge || result || expired) return;
     const update = () => {
       const elapsed = Math.floor((Date.now() - new Date(attempt.started_at).getTime()) / 1000);
       const left = Math.max(0, challenge.duration_seconds - elapsed);
@@ -110,7 +114,7 @@ export function ChallengeRunner({ slug }: { slug: string }) {
     update();
     const timer = window.setInterval(update, 1000);
     return () => window.clearInterval(timer);
-  }, [attempt, challenge, result, submit]);
+  }, [attempt, challenge, result, expired, submit]);
 
   async function start() {
     if (!challenge || starting) return;
@@ -141,6 +145,19 @@ export function ChallengeRunner({ slug }: { slug: string }) {
   if (loading) return <section className="challenge-runner-shell"><p>Loading challenge…</p></section>;
   if (error && !challenge) return <section className="challenge-runner-shell"><p role="alert">{error}</p><Link href="/challenges">Back to challenges</Link></section>;
   if (!challenge) return null;
+
+  if (expired) {
+    return (
+      <section className="challenge-runner-shell">
+        <div className="result-panel">
+          <span className="eyebrow">TIME LIMIT REACHED</span>
+          <h1>This attempt has expired.</h1>
+          <p className="result-summary">Your time ran out before the challenge was submitted. No score has been recorded for this attempt.</p>
+          <Link className="button button-primary" href="/challenges">Choose another challenge</Link>
+        </div>
+      </section>
+    );
+  }
 
   if (result) {
     const correct = result.breakdown.filter((item) => item.correct).length;
@@ -188,6 +205,7 @@ export function ChallengeRunner({ slug }: { slug: string }) {
           <div className="challenge-notice">You need to sign in to save your attempt and result. Your score measures this challenge only, not your overall IQ.</div>
           <button className="button button-primary" type="button" onClick={start} disabled={starting}>{starting ? "Starting…" : "Start challenge ↗"}</button>
           {error && <p className="challenge-error" role="alert">{error}</p>}
+          {error.toLowerCase().includes("sign in") && <Link className="text-link" href={`/sign-in?next=/challenges/${encodeURIComponent(slug)}`}>Sign in to save your attempt ↗</Link>}
           <Link className="text-link runner-back" href="/challenges">← All challenges</Link>
         </div>
       </section>
