@@ -12,7 +12,7 @@ create table if not exists public.course_assessments (
   total_marks integer not null check (total_marks > 0),
   questions jsonb not null check (jsonb_typeof(questions) = 'array' and jsonb_array_length(questions) >= 5),
   final_project jsonb not null check (jsonb_typeof(final_project) = 'object'),
-  source_references jsonb not null default '[]'::jsonb check (jsonb_typeof(references) = 'array'),
+  source_references jsonb not null default '[]'::jsonb check (jsonb_typeof(source_references) = 'array'),
   equipment jsonb not null default '[]'::jsonb check (jsonb_typeof(equipment) = 'array'),
   accessibility text not null default '',
   content_fingerprint text not null check (content_fingerprint ~ '^[a-f0-9]{64}$'),
