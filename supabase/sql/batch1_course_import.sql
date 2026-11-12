@@ -323,8 +323,11 @@ begin
 
   select e.id into v_enrollment_id
   from public.enrollments e
+  join public.courses c on c.id = e.course_id
   where e.user_id = v_user_id
     and e.course_version_id = v_course_version_id
+    and c.published_version_id = v_course_version_id
+    and c.status = 'published'
     and e.status in ('active', 'completed')
   limit 1;
 
