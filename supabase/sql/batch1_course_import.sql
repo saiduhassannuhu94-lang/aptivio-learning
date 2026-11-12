@@ -43,12 +43,6 @@ using (
       and e.course_version_id = course_assessments.course_version_id
       and e.status in ('active', 'completed')
   )
-  or exists (
-    select 1
-    from public.courses c
-    where c.published_version_id = course_assessments.course_version_id
-      and c.status = 'published'
-  )
 );
 
 revoke all on public.course_assessments from anon, authenticated;
@@ -262,3 +256,137 @@ $function$;
 
 revoke all on function public.import_course_package(jsonb) from public, anon, authenticated;
 grant execute on function public.import_course_package(jsonb) to service_role;
+
+
+create table if not exists public.course_assessment_submissions (
+  id uuid primary key default gen_random_uuid(),
+  assessment_id uuid not null references public.course_assessments(id) on delete cascade,
+  course_version_id uuid not null references public.course_versions(id) on delete cascade,
+  enrollment_id uuid not null references public.enrollments(id) on delete cascade,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  answers jsonb not null check (jsonb_typeof(answers) = 'array'),
+  status text not null default 'submitted' check (status in ('submitted', 'graded')),
+  submitted_at timestamptz not null default now(),
+  grade_percent numeric(5,2) check (grade_percent between 0 and 100),
+  feedback text,
+  graded_by uuid references auth.users(id) on delete set null,
+  graded_at timestamptz,
+  unique (assessment_id, enrollment_id),
+  check (
+    (status = 'submitted' and grade_percent is null and graded_by is null and graded_at is null)
+    or
+    (status = 'graded' and grade_percent is not null and graded_by is not null and graded_at is not null)
+  )
+);
+
+alter table public.course_assessment_submissions enable row level security;
+drop policy if exists "learners read own assessment submissions" on public.course_assessment_submissions;
+create policy "learners read own assessment submissions"
+on public.course_assessment_submissions
+for select
+to authenticated
+using (user_id = (select auth.uid()));
+
+revoke all on public.course_assessment_submissions from anon, authenticated;
+grant select on public.course_assessment_submissions to authenticated;
+grant all on public.course_assessment_submissions to service_role;
+
+create or replace function public.submit_course_assessment(
+  p_assessment_id uuid,
+  p_answers jsonb
+)
+returns uuid
+language plpgsql
+security definer
+set search_path = ''
+as $function$
+declare
+  v_user_id uuid := auth.uid();
+  v_course_version_id uuid;
+  v_questions jsonb;
+  v_enrollment_id uuid;
+  v_submission_id uuid;
+  v_existing_status text;
+begin
+  if v_user_id is null then
+    raise exception 'authentication_required' using errcode = '42501';
+  end if;
+
+  select a.course_version_id, a.questions
+  into v_course_version_id, v_questions
+  from public.course_assessments a
+  where a.id = p_assessment_id;
+
+  if not found then
+    raise exception 'assessment_not_found' using errcode = 'P0002';
+  end if;
+
+  select e.id into v_enrollment_id
+  from public.enrollments e
+  where e.user_id = v_user_id
+    and e.course_version_id = v_course_version_id
+    and e.status in ('active', 'completed')
+  limit 1;
+
+  if v_enrollment_id is null then
+    raise exception 'active_enrollment_required' using errcode = '42501';
+  end if;
+
+  if jsonb_typeof(p_answers) <> 'array'
+     or jsonb_array_length(p_answers) <> jsonb_array_length(v_questions) then
+    raise exception 'incomplete_assessment_answers' using errcode = '22023';
+  end if;
+
+  if exists (
+    select 1
+    from jsonb_array_elements(p_answers) as submitted(item)
+    where jsonb_typeof(item) <> 'object'
+       or nullif(item ->> 'question_id', '') is null
+       or nullif(item ->> 'response', '') is null
+       or length(item ->> 'response') > 12000
+       or not exists (
+         select 1
+         from jsonb_array_elements(v_questions) as questions(question)
+         where question ->> 'id' = item ->> 'question_id'
+       )
+  ) then
+    raise exception 'invalid_assessment_answer' using errcode = '22023';
+  end if;
+
+  if (
+    select count(distinct item ->> 'question_id')
+    from jsonb_array_elements(p_answers) as submitted(item)
+  ) <> jsonb_array_length(v_questions) then
+    raise exception 'duplicate_or_missing_assessment_question' using errcode = '22023';
+  end if;
+
+  insert into public.course_assessment_submissions (
+    assessment_id, course_version_id, enrollment_id, user_id, answers
+  ) values (
+    p_assessment_id, v_course_version_id, v_enrollment_id, v_user_id, p_answers
+  )
+  on conflict (assessment_id, enrollment_id)
+  do update set
+    answers = excluded.answers,
+    submitted_at = pg_catalog.now()
+  where public.course_assessment_submissions.status = 'submitted'
+  returning id into v_submission_id;
+
+  if v_submission_id is null then
+    select s.id, s.status
+    into v_submission_id, v_existing_status
+    from public.course_assessment_submissions s
+    where s.assessment_id = p_assessment_id
+      and s.enrollment_id = v_enrollment_id;
+
+    if v_existing_status = 'graded' then
+      raise exception 'assessment_already_graded' using errcode = 'P0001';
+    end if;
+  end if;
+
+  return v_submission_id;
+end;
+$function$;
+
+revoke all on function public.submit_course_assessment(uuid, jsonb) from public, anon;
+grant execute on function public.submit_course_assessment(uuid, jsonb) to authenticated;
