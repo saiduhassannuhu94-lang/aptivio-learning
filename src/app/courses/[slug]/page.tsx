@@ -147,6 +147,11 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
               currency={course.currency}
             />
           )}
+          {enrollment && (
+            <Link className="text-link" href={`/courses/${course.slug}/assessment`}>
+              Open final assessment <span aria-hidden="true">↗</span>
+            </Link>
+          )}
           <small>Secure access · Version-specific course content</small>
         </aside>
       </section>
