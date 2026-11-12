@@ -1,18 +1,10 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { createChallengeAdmin } from "@/lib/challenges/admin";
 import { challengeSubmissionSchema } from "@/lib/challenges/validation";
 
 export const runtime = "nodejs";
 type Context = { params: Promise<{ attemptId: string }> };
-
-const schema = z.object({
-  answers: z.array(z.object({
-    questionId: z.string().uuid(),
-    optionIds: z.array(z.string().min(1).max(80)).max(8),
-  })).max(200),
-});
 
 export async function POST(request: Request, context: Context) {
   const { attemptId } = await context.params;
