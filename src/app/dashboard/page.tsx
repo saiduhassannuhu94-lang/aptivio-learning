@@ -80,16 +80,18 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
         <h1>Welcome to your next chapter.</h1>
         {paymentNotice && <p className="payment-notice" role="status">{paymentNotice}</p>}
         <p className="dashboard-intro">
-          Your account is ready. Your learning dashboard will grow here as you enrol in courses and make progress.
+          Your account is ready. Explore the learning library, take reasoning challenges and review your progress whenever you return.
         </p>
 
         <div className="dashboard-empty">
           <span className="dashboard-empty-mark">A</span>
-          <h2>Your learning journey starts here.</h2>
-          <p>Explore the catalogue to find a course that matches the skills you want to build.</p>
-          <Link className="button button-primary" href="/courses">
-            Explore courses <span aria-hidden="true">↗</span>
-          </Link>
+          <h2>What would you like to do today?</h2>
+          <p>Learn something useful, test your reasoning or see how your skills are developing.</p>
+          <div className="dashboard-actions">
+            <Link className="button button-primary" href="/courses">Explore learning <span aria-hidden="true">↗</span></Link>
+            <Link className="button button-dark" href="/challenges">Take a challenge <span aria-hidden="true">↗</span></Link>
+            <Link className="text-link" href="/progress">View my progress →</Link>
+          </div>
         </div>
       </section>
     </main>
