@@ -96,6 +96,18 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
         .maybeSingle()
     : { data: null };
 
+  const { data: courseAssessment, error: courseAssessmentError } = enrollment
+    ? await supabase
+        .from("course_assessments")
+        .select("id")
+        .eq("course_version_id", version.id)
+        .maybeSingle()
+    : { data: null, error: null };
+
+  if (courseAssessmentError) {
+    throw new Error("Course assessment details could not be loaded.");
+  }
+
   const lessonsBySection = new Map<string, typeof lessons>();
   for (const lesson of lessons ?? []) {
     const existing = lessonsBySection.get(lesson.section_id) ?? [];
@@ -147,7 +159,7 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
               currency={course.currency}
             />
           )}
-          {enrollment && (
+          {enrollment && courseAssessment && (
             <Link className="text-link" href={`/courses/${course.slug}/assessment`}>
               Open final assessment <span aria-hidden="true">↗</span>
             </Link>
