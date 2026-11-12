@@ -53,6 +53,7 @@ export function ChallengeRunner({ slug }: { slug: string }) {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const submittedRef = useRef(false);
+  const autoSubmitTriggeredRef = useRef(false);
 
   useEffect(() => {
     let active = true;
@@ -77,6 +78,7 @@ export function ChallengeRunner({ slug }: { slug: string }) {
   const submit = useCallback(async () => {
     if (!attempt || submittedRef.current || submitting || expired) return;
     submittedRef.current = true;
+    autoSubmitTriggeredRef.current = true;
     setSubmitting(true);
     setError("");
     try {
@@ -105,12 +107,45 @@ export function ChallengeRunner({ slug }: { slug: string }) {
   }, [attempt, answers, questions, submitting, expired]);
 
   useEffect(() => {
+    if (!attempt) return;
+    const storageKey = `aptivio:challenge:${attempt.id}`;
+    try {
+      const saved = window.localStorage.getItem(storageKey);
+      if (saved) {
+        const parsed: unknown = JSON.parse(saved);
+        if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+          setAnswers(parsed as Record<string, string>);
+        }
+      }
+    } catch {
+      // A storage failure must never prevent a learner from taking the challenge.
+    }
+  }, [attempt?.id]);
+
+  useEffect(() => {
+    if (!attempt) return;
+    const storageKey = `aptivio:challenge:${attempt.id}`;
+    try {
+      if (result || expired) {
+        window.localStorage.removeItem(storageKey);
+      } else {
+        window.localStorage.setItem(storageKey, JSON.stringify(answers));
+      }
+    } catch {
+      // The challenge remains usable if browser storage is unavailable.
+    }
+  }, [attempt?.id, answers, result, expired]);
+
+  useEffect(() => {
     if (!attempt || !challenge || result || expired) return;
     const update = () => {
       const elapsed = Math.floor((Date.now() - new Date(attempt.started_at).getTime()) / 1000);
       const left = Math.max(0, challenge.duration_seconds - elapsed);
       setRemaining(left);
-      if (left === 0) void submit();
+      if (left === 0 && !autoSubmitTriggeredRef.current) {
+        autoSubmitTriggeredRef.current = true;
+        void submit();
+      }
     };
     update();
     const timer = window.setInterval(update, 1000);
