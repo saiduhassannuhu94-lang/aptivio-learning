@@ -14,7 +14,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "check": "npm run lint && npm run typecheck && npm run test && npm run build",
-    "validate:courses": "node scripts/validate-course-packages.mjs content/batch-01/*.json"
+    "validate:courses": "node scripts/validate-course-packages.mjs content/batch-01/*.json",
+    "import:courses": "node scripts/import-course-packages.mjs"
   },
   "dependencies": {
     "next": "16.4.6",
