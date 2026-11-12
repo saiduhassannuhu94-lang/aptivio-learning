@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { formatMoney } from "@/lib/format/currency";
 
 export const metadata: Metadata = {
-  title: "Explore courses",
-  description: "Explore practical courses and structured learning paths on APTIVIO.",
+  title: "Learn",
+  description: "Explore useful knowledge, clear lessons and practical learning material on APTIVIO.",
 };
 
 export default async function CoursesPage() {
@@ -17,16 +16,13 @@ export default async function CoursesPage() {
     return (
       <main className="catalogue-page">
         <header className="dashboard-header">
-          <Link className="brand" href="/">
-            <span className="brand-mark">A</span>
-            <span>APTIVIO</span>
-          </Link>
+          <Link className="brand" href="/"><span className="brand-mark">A</span><span>APTIVIO</span></Link>
           <Link className="dashboard-signout" href="/sign-in">Sign in</Link>
         </header>
         <section className="catalogue-content">
-          <span className="eyebrow">THE APTIVIO CATALOGUE</span>
-          <h1>Learning with direction.</h1>
-          <p>Our course catalogue is being prepared. Check back as the first reviewed courses are published.</p>
+          <span className="eyebrow">THE LEARNING LIBRARY</span>
+          <h1>Explore. Understand. Apply.</h1>
+          <p>Learning material is being prepared. This is a library for curious students, not a formal school catalogue.</p>
         </section>
       </main>
     );
@@ -35,13 +31,13 @@ export default async function CoursesPage() {
   const supabase = await createClient();
   const { data: courses, error: coursesError } = await supabase
     .from("courses")
-    .select("id, slug, price_minor, currency, published_version_id")
+    .select("id, slug, published_version_id")
     .eq("status", "published")
     .not("published_version_id", "is", null)
     .order("published_at", { ascending: false });
 
   if (coursesError) {
-    throw new Error("We could not load the course catalogue. Please try again.");
+    throw new Error("We could not load the learning library. Please try again.");
   }
 
   const versionIds = courses
@@ -56,7 +52,7 @@ export default async function CoursesPage() {
     : { data: [], error: null };
 
   if (versionsError) {
-    throw new Error("We could not load course details. Please try again.");
+    throw new Error("We could not load learning details. Please try again.");
   }
 
   const versionsById = new Map(versions.map((version) => [version.id, version]));
@@ -64,23 +60,20 @@ export default async function CoursesPage() {
   return (
     <main className="catalogue-page">
       <header className="dashboard-header">
-        <Link className="brand" href="/">
-          <span className="brand-mark">A</span>
-          <span>APTIVIO</span>
-        </Link>
+        <Link className="brand" href="/"><span className="brand-mark">A</span><span>APTIVIO</span></Link>
         <Link className="dashboard-signout" href="/sign-in">Sign in</Link>
       </header>
 
       <section className="catalogue-content">
-        <span className="eyebrow">THE APTIVIO CATALOGUE</span>
-        <h1>Learning with direction.</h1>
-        <p>Structured courses designed to turn useful knowledge into practical ability.</p>
+        <span className="eyebrow">THE LEARNING LIBRARY</span>
+        <h1>Explore. Understand. Apply.</h1>
+        <p>Discover useful topics and build knowledge at your own pace. Learn first, practise what you understand, and keep exploring.</p>
 
         {courses.length === 0 ? (
           <div className="catalogue-empty">
             <span className="dashboard-empty-mark">A</span>
-            <h2>The first courses are being prepared.</h2>
-            <p>We publish courses only after their lessons, learning outcomes, and quality review are complete. No empty catalogue theatre.</p>
+            <h2>Learning material is being prepared.</h2>
+            <p>We are building clear lessons and practical exercises. The library will grow as useful material is ready.</p>
             <Link className="text-link" href="/">Return to APTIVIO <span aria-hidden="true">↗</span></Link>
           </div>
         ) : (
@@ -94,13 +87,13 @@ export default async function CoursesPage() {
 
               return (
                 <article className="catalogue-card" key={course.id}>
-                  <span className="catalogue-kicker">APTIVIO COURSE</span>
+                  <span className="catalogue-kicker">LEARNING RESOURCE</span>
                   <h2>{version.title}</h2>
                   {version.subtitle && <p className="catalogue-subtitle">{version.subtitle}</p>}
                   <p>{version.description}</p>
                   <div className="catalogue-card-foot">
-                    <strong>{course.price_minor === 0 ? "Free" : formatMoney(course.price_minor, course.currency)}</strong>
-                    <Link className="text-link" href={`/courses/${course.slug}`}>View course <span aria-hidden="true">↗</span></Link>
+                    <strong>Free to explore</strong>
+                    <Link className="text-link" href={`/courses/${course.slug}`}>Open material <span aria-hidden="true">↗</span></Link>
                   </div>
                 </article>
               );
