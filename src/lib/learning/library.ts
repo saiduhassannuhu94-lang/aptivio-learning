@@ -50,12 +50,40 @@ export type LearningPackage = {
   sections: LearningSection[];
 };
 
-export const learningPackages: LearningPackage[] = [
+type LearningPackageSource = Omit<LearningPackage, "sections"> & {
+  sections?: LearningSection[];
+  course: LearningPackage["course"] & { sections?: LearningSection[] };
+};
+
+const packageSources = [
   package01, package02, package03, package04, package05,
   package06, package07, package08, package09, package10,
   package11, package12, package13, package14, package15,
   package16, package17, package18, package19, package20,
-] as unknown as LearningPackage[];
+] as unknown as LearningPackageSource[];
+
+// The package format stores its teaching sections inside course. Normalize
+// that source shape once so every learner-facing page uses one stable model.
+export const learningPackages: LearningPackage[] = packageSources.map((item) => {
+  const { sections, course } = item;
+  const normalizedSections = sections ?? course.sections ?? [];
+  return {
+    course: {
+      slug: course.slug,
+      title: course.title,
+      subtitle: course.subtitle,
+      description: course.description,
+      level: course.level,
+      language_code: course.language_code,
+      duration_minutes: course.duration_minutes,
+      target_audience: course.target_audience,
+      prerequisites: course.prerequisites,
+      outcomes: course.outcomes,
+      accessibility: course.accessibility,
+    },
+    sections: normalizedSections,
+  };
+});
 
 export function getLearningPackage(slug: string) {
   return learningPackages.find((item) => item.course.slug === slug);
