@@ -5,7 +5,7 @@
     "title": "PHP Programming for Web Backends",
     "subtitle": "Build server-side applications with PHP, safe HTTP handling and prepared database queries.",
     "description": "A practical PHP backend course covering runtime execution, language types, arrays, functions, classes, Composer, HTTP requests, validation, output escaping, sessions, authentication boundaries, PDO, prepared statements, JSON APIs, testing and secure project structure. Learners build a small enrolment API with clear failure behaviour.",
-    "level": "beginner_to_intermediate",
+    "level": "beginner",
     "language_code": "en",
     "currency": "NGN",
     "price_minor": 0,
