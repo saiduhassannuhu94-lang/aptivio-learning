@@ -5,7 +5,7 @@
     "title": "C++ Programming and Data Structures",
     "subtitle": "Build C++ programs with object-oriented design, standard containers and safe resource management.",
     "description": "A practical introduction to modern C++ covering compilation, types, functions, classes, encapsulation, RAII, inheritance, standard containers, iterators, algorithms, templates, smart pointers, testing and build systems. Learners focus on clear ownership and reliable data-structure choices rather than unsafe pointer habits.",
-    "level": "beginner_to_intermediate",
+    "level": "beginner",
     "language_code": "en",
     "currency": "NGN",
     "price_minor": 0,
