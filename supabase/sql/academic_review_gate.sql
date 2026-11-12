@@ -426,3 +426,71 @@ $function$;
 
 revoke all on function public.publish_reviewed_course_version(uuid) from public, anon;
 grant execute on function public.publish_reviewed_course_version(uuid) to authenticated;
+
+
+create or replace function public.submit_course_version_for_review(
+  p_course_version_id uuid
+)
+returns uuid
+language plpgsql
+security definer
+set search_path = ''
+as $function$
+declare
+  v_course_id uuid;
+  v_status public.course_status;
+  v_section_count integer;
+  v_lesson_count integer;
+  v_assessment_count integer;
+begin
+  if auth.uid() is null
+     or not (
+       private.has_role('admin'::public.app_role)
+       or private.has_role('content_manager'::public.app_role)
+     ) then
+    raise exception 'content_manager_role_required' using errcode = '42501';
+  end if;
+
+  select cv.course_id, c.status
+  into v_course_id, v_status
+  from public.course_versions cv
+  join public.courses c on c.id = cv.course_id
+  where cv.id = p_course_version_id
+  for update of cv, c;
+
+  if not found then
+    raise exception 'course_version_not_found' using errcode = 'P0002';
+  end if;
+
+  if v_status <> 'draft' then
+    raise exception 'only_draft_courses_can_enter_review' using errcode = 'P0001';
+  end if;
+
+  select count(*) into v_section_count
+  from public.course_sections s
+  where s.course_version_id = p_course_version_id;
+
+  select count(*) into v_lesson_count
+  from public.course_sections s
+  join public.lessons l on l.section_id = s.id
+  where s.course_version_id = p_course_version_id;
+
+  select count(*) into v_assessment_count
+  from public.course_assessments a
+  where a.course_version_id = p_course_version_id;
+
+  if v_section_count < 4 or v_lesson_count < 16 or v_assessment_count <> 1 then
+    raise exception 'course_requires_four_sections_sixteen_lessons_and_one_assessment'
+      using errcode = '23514';
+  end if;
+
+  update public.courses
+  set status = 'in_review', updated_at = pg_catalog.now()
+  where id = v_course_id;
+
+  return v_course_id;
+end;
+$function$;
+
+revoke all on function public.submit_course_version_for_review(uuid) from public, anon;
+grant execute on function public.submit_course_version_for_review(uuid) to authenticated;
