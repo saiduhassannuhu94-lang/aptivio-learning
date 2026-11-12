@@ -77,6 +77,99 @@ export type Database = {
         }
         Relationships: []
       }
+      course_assessments: {
+        Row: {
+          accessibility: string
+          content_fingerprint: string
+          course_version_id: string
+          created_at: string
+          equipment: Json
+          final_project: Json
+          id: string
+          instructions: string
+          pass_mark_percent: number
+          questions: Json
+          source_references: Json
+          title: string
+          total_marks: number
+        }
+        Insert: {
+          accessibility?: string
+          content_fingerprint: string
+          course_version_id: string
+          created_at?: string
+          equipment?: Json
+          final_project: Json
+          id?: string
+          instructions?: string
+          pass_mark_percent: number
+          questions: Json
+          source_references?: Json
+          title: string
+          total_marks: number
+        }
+        Update: {
+          accessibility?: string
+          content_fingerprint?: string
+          course_version_id?: string
+          created_at?: string
+          equipment?: Json
+          final_project?: Json
+          id?: string
+          instructions?: string
+          pass_mark_percent?: number
+          questions?: Json
+          source_references?: Json
+          title?: string
+          total_marks?: number
+        }
+        Relationships: []
+      }
+      course_assessment_submissions: {
+        Row: {
+          answers: Json
+          assessment_id: string
+          course_version_id: string
+          enrollment_id: string
+          feedback: string | null
+          grade_percent: number | null
+          graded_at: string | null
+          graded_by: string | null
+          id: string
+          status: string
+          submitted_at: string
+          user_id: string
+        }
+        Insert: {
+          answers: Json
+          assessment_id: string
+          course_version_id: string
+          enrollment_id: string
+          feedback?: string | null
+          grade_percent?: number | null
+          graded_at?: string | null
+          graded_by?: string | null
+          id?: string
+          status?: string
+          submitted_at?: string
+          user_id: string
+        }
+        Update: {
+          answers?: Json
+          assessment_id?: string
+          course_version_id?: string
+          enrollment_id?: string
+          feedback?: string | null
+          grade_percent?: number | null
+          graded_at?: string | null
+          graded_by?: string | null
+          id?: string
+          status?: string
+          submitted_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       course_sections: {
         Row: {
           course_version_id: string
@@ -867,6 +960,10 @@ export type Database = {
           p_score: number
           p_user_id: string
         }
+        Returns: string
+      }
+      submit_course_assessment: {
+        Args: { p_answers: Json; p_assessment_id: string }
         Returns: string
       }
     }
