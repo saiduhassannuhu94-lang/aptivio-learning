@@ -45,7 +45,8 @@ for (const filename of filenames) {
     course.currency === "NGN" &&
     Array.isArray(course.sections) &&
     course.sections.length === 4 &&
-    course.sections.every((section) => Array.isArray(section.lessons) && section.lessons.length === 4) &&
+    course.sections.every((section) => Array.isArray(section.lessons) && section.lessons.length > 0) &&
+    course.sections.reduce((total, section) => total + section.lessons.length, 0) === 16 &&
     typeof course.assessment?.title === "string" &&
     typeof course.assessment?.instructions === "string" &&
     Array.isArray(course.assessment?.questions) &&
