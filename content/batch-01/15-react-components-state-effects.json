@@ -5,7 +5,7 @@
     "title": "React: Components, State and Effects",
     "subtitle": "Build reusable, accessible React interfaces with predictable state and disciplined side effects.",
     "description": "A practical React course covering component composition, JSX, props, list keys, state snapshots, events, controlled forms, conditional and derived UI, Effects as external synchronization, dependencies and cleanup, context, custom Hooks, asynchronous data, accessibility, component testing and server/client rendering boundaries. Learners build a tested course catalogue.",
-    "level": "beginner_to_intermediate",
+    "level": "beginner",
     "language_code": "en",
     "currency": "NGN",
     "price_minor": 0,
