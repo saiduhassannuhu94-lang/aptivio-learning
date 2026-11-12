@@ -201,7 +201,10 @@ begin
     update public.brain_challenge_attempts
     set status = 'expired', submitted_at = pg_catalog.now(), elapsed_seconds = v_elapsed
     where id = v_attempt.id;
-    raise exception 'challenge_time_expired' using errcode = 'P0001';
+    return pg_catalog.jsonb_build_object(
+      'expired', true,
+      'elapsedSeconds', v_elapsed
+    );
   end if;
 
   for v_question in
@@ -300,7 +303,7 @@ with question_data(slug, sort_order, prompt, options, correct_id, explanation) a
   ('number-sense', 2, 'A price rises from ₦800 to ₦1,000. What is the percentage increase?', '[{"id":"a","text":"20%"},{"id":"b","text":"25%"},{"id":"c","text":"30%"},{"id":"d","text":"40%"}]'::jsonb, 'b', 'The increase is 200; 200 divided by 800 is 25%.'),
   ('number-sense', 3, 'What is the average of 6, 8, 10 and 12?', '[{"id":"a","text":"8"},{"id":"b","text":"9"},{"id":"c","text":"10"},{"id":"d","text":"11"}]'::jsonb, 'b', 'The total is 36; divide by 4 to get 9.'),
   ('number-sense', 4, 'A bus travels 150 km in 3 hours at a constant speed. What is its speed?', '[{"id":"a","text":"30 km/h"},{"id":"b","text":"40 km/h"},{"id":"c","text":"50 km/h"},{"id":"d","text":"60 km/h"}]'::jsonb, 'c', 'Speed equals distance divided by time: 150 ÷ 3 = 50.'),
-  ('number-sense', 5, 'What number is missing: 5, 9, 17, 33, ...?', '[{"id":"a","text":"49"},{"id":"b","text":" cosa"},{"id":"c","text":"65"},{"id":"d","text":"66"}]'::jsonb, 'c', 'The differences double: +4, +8, +16, then +32.'),
+  ('number-sense', 5, 'What number is missing: 5, 9, 17, 33, ...?', '[{"id":"a","text":"49"},{"id":"b","text":"57"},{"id":"c","text":"65"},{"id":"d","text":"66"}]'::jsonb, 'c', 'The differences double: +4, +8, +16, then +32.'),
   ('word-reasoning', 1, 'Book is to reading as fork is to ...', '[{"id":"a","text":"Drawing"},{"id":"b","text":"Eating"},{"id":"c","text":"Writing"},{"id":"d","text":"Sleeping"}]'::jsonb, 'b', 'A book is used for reading; a fork is used for eating.'),
   ('word-reasoning', 2, 'Which word is closest in meaning to “brief”?', '[{"id":"a","text":"Short"},{"id":"b","text":"Loud"},{"id":"c","text":"Heavy"},{"id":"d","text":"Late"}]'::jsonb, 'a', 'Brief means short in duration or length.'),
   ('word-reasoning', 3, 'Choose the word that does not belong: oak, mango, rose, pine.', '[{"id":"a","text":"Oak"},{"id":"b","text":"Mango"},{"id":"c","text":"Rose"},{"id":"d","text":"Pine"}]'::jsonb, 'c', 'Rose is generally a flowering shrub; the others are trees.'),
