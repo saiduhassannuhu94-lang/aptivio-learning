@@ -96,9 +96,38 @@ begin
 
   if jsonb_typeof(v_course -> 'sections') <> 'array'
      or jsonb_array_length(v_course -> 'sections') <> 4
+     or exists (
+       select 1
+       from jsonb_array_elements(v_course -> 'sections') as sections(section)
+       where jsonb_typeof(section -> 'lessons') <> 'array'
+          or jsonb_array_length(section -> 'lessons') <> 4
+          or nullif(section ->> 'title', '') is null
+          or exists (
+            select 1
+            from jsonb_array_elements(section -> 'lessons') as lessons(lesson)
+            where nullif(lesson ->> 'title', '') is null
+               or length(coalesce(lesson ->> 'body_markdown', '')) < 500
+               or nullif(lesson ->> 'exercise', '') is null
+          )
+     )
+     or nullif(v_course #>> '{assessment,title}', '') is null
      or jsonb_typeof(v_course #> '{assessment,questions}') <> 'array'
      or jsonb_array_length(v_course #> '{assessment,questions}') < 5
-     or jsonb_typeof(v_course -> 'final_project') <> 'object' then
+     or exists (
+       select 1
+       from jsonb_array_elements(v_course #> '{assessment,questions}') as questions(question)
+       where nullif(question ->> 'id', '') is null
+          or nullif(question ->> 'prompt', '') is null
+          or coalesce((question ->> 'marks')::integer, 0) <= 0
+          or jsonb_typeof(question -> 'rubric') <> 'array'
+          or jsonb_array_length(question -> 'rubric') < 2
+     )
+     or (v_course #>> '{assessment,total_marks}')::integer <>
+       (select sum((question ->> 'marks')::integer)
+        from jsonb_array_elements(v_course #> '{assessment,questions}') as questions(question))
+     or jsonb_typeof(v_course -> 'final_project') <> 'object'
+     or jsonb_array_length(coalesce(v_course #> '{final_project,deliverables}', '[]'::jsonb)) = 0
+     or jsonb_array_length(coalesce(v_course #> '{final_project,acceptance_criteria}', '[]'::jsonb)) = 0 then
     raise exception 'course_package_is_incomplete' using errcode = '22023';
   end if;
 
