@@ -27,7 +27,7 @@ export async function GET(_request: Request, context: Context) {
 
   const { data: questions, error: questionError } = await admin
     .from("brain_challenge_questions")
-    .select("id, prompt, options, points, sort_order, explanation")
+    .select("id, prompt, options, points, sort_order")
     .eq("challenge_id", challenge.id)
     .order("sort_order", { ascending: true });
 
