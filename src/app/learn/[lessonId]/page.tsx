@@ -19,7 +19,6 @@ export default async function LearningPathPage({ params }: Props) {
   const item = getLearningPackage(lessonId);
   if (!item) notFound();
 
-  let lessonNumber = 0;
   return (
     <main className="lesson-page">
       <header className="dashboard-header">
@@ -43,9 +42,11 @@ export default async function LearningPathPage({ params }: Props) {
             <section className="lesson-section-card" key={section.title}>
               <div className="lesson-section-heading"><span>SECTION {String(sectionIndex + 1).padStart(2, "0")}</span><h2>{section.title}</h2><p>{section.description}</p></div>
               <div className="lesson-list">
-                {section.lessons.map((lesson) => {
-                  lessonNumber += 1;
-                  const currentNumber = lessonNumber;
+                {section.lessons.map((lesson, lessonIndex) => {
+                  const currentNumber = item.sections
+                    .slice(0, sectionIndex)
+                    .reduce((count, previousSection) => count + previousSection.lessons.length, 0)
+                    + lessonIndex + 1;
                   return (
                     <Link className="lesson-list-item" href={`/learn/${item.course.slug}/${currentNumber}`} key={lesson.title}>
                       <span className="lesson-list-number">{String(currentNumber).padStart(2, "0")}</span>
