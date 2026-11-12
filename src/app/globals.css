@@ -1124,3 +1124,50 @@ button:not(:disabled):not([aria-disabled="true"]):active {
   .challenge-hero, .challenge-library, .progress-content { width: calc(100% - 34px); }
   .runner-actions { flex-wrap: wrap; }.runner-actions .button { flex: 1; padding-inline: 12px; }
 }
+
+/* Open learning library and lesson reader */
+.library-preview-notice { display: grid; gap: 6px; margin: 28px 0 25px; padding: 17px 19px; border-left: 3px solid var(--gold); background: #fbf8f0; color: #6c654f; }
+.library-preview-notice strong { font-size: 12px; }
+.library-preview-notice span { font-size: 11px; line-height: 1.65; }
+.library-countline { display: flex; justify-content: space-between; gap: 15px; margin: 32px 0 17px; color: #637064; font-size: 11px; }
+.library-countline strong { color: var(--ink); }
+.lesson-page { min-height: 100vh; background: #f7f8f6; }
+.lesson-path-content { width: min(900px, calc(100% - 42px)); margin: 0 auto; padding: 45px 0 90px; }
+.lesson-back-link { display: inline-block; margin-bottom: 30px; color: var(--green); font-size: 12px; font-weight: 750; }
+.lesson-path-content > h1 { max-width: 760px; margin: 18px 0 12px; font: 500 clamp(38px, 5.5vw, 58px)/1.04 Georgia, serif; letter-spacing: -.045em; }
+.lesson-path-subtitle { color: var(--ink-soft); font-size: 17px; line-height: 1.6; }
+.lesson-path-description { max-width: 760px; color: var(--muted); font-size: 14px; line-height: 1.8; }
+.lesson-path-meta { display: flex; flex-wrap: wrap; gap: 9px; margin: 24px 0; }
+.lesson-path-meta span { padding: 8px 12px; border: 1px solid var(--line); border-radius: 30px; background: white; color: #5c6b60; font-size: 10px; font-weight: 700; }
+.lesson-path-notice { margin: 22px 0 35px; padding: 14px 16px; border-left: 3px solid var(--gold); background: #fbf8f0; color: #71684f; font-size: 11px; line-height: 1.65; }
+.lesson-outcomes, .lesson-section-card, .lesson-exercise, .lesson-takeaways { margin-top: 18px; padding: 24px; border: 1px solid var(--line); border-radius: 7px; background: white; }
+.lesson-outcomes h2, .lesson-section-heading h2, .lesson-exercise h2, .lesson-takeaways h2 { margin: 0 0 13px; font: 500 24px Georgia, serif; }
+.lesson-outcomes ul, .lesson-takeaways ul { display: grid; gap: 9px; padding-left: 20px; color: #526071; font-size: 12px; line-height: 1.65; }
+.lesson-section-heading > span { color: var(--green); font-size: 9px; font-weight: 800; letter-spacing: .14em; }
+.lesson-section-heading h2 { margin-top: 9px; }
+.lesson-section-heading p { color: var(--muted); font-size: 12px; line-height: 1.6; }
+.lesson-list { border-top: 1px solid var(--line); }
+.lesson-list-item { display: flex; align-items: center; gap: 14px; padding: 15px 0; border-bottom: 1px solid var(--line); }
+.lesson-list-number { color: #9aa59b; font: 500 18px Georgia, serif; }
+.lesson-list-title { flex: 1; color: var(--ink-soft); font-size: 12px; font-weight: 700; }
+.lesson-list-title small { display: block; margin-top: 4px; color: #8b968e; font-size: 9px; font-weight: 500; }
+.lesson-list-arrow { color: var(--green); }
+.lesson-reader { width: min(790px, calc(100% - 38px)); margin: 0 auto; padding: 38px 0 90px; }
+.lesson-reader-meta { display: flex; justify-content: space-between; color: #7a887e; font-size: 10px; font-weight: 800; letter-spacing: .1em; }
+.lesson-reader > h1 { margin: 20px 0 32px; font: 500 clamp(34px, 5vw, 48px)/1.08 Georgia, serif; letter-spacing: -.04em; }
+.lesson-body { color: #344355; font-size: 14px; line-height: 1.85; }
+.lesson-body h2 { margin: 34px 0 12px; color: var(--ink); font: 500 26px Georgia, serif; }
+.lesson-body h3 { margin: 26px 0 9px; color: var(--ink); font: 600 17px Arial, sans-serif; }
+.lesson-body p { margin: 0 0 17px; }
+.lesson-body ul, .lesson-body ol { display: grid; gap: 8px; margin: 10px 0 20px; padding-left: 23px; }
+.lesson-body blockquote { margin: 20px 0; padding: 14px 18px; border-left: 3px solid var(--green); background: #edf5ef; color: #42584a; }
+.lesson-body code { padding: 2px 5px; border-radius: 3px; background: #f0f2ef; font-family: ui-monospace, monospace; font-size: .92em; }
+.lesson-exercise h2, .lesson-takeaways h2 { margin-top: 10px; }
+.lesson-exercise p { margin: 0; color: #526071; font-size: 13px; line-height: 1.75; }
+.lesson-navigation { margin-top: 30px; }
+@media (max-width: 600px) {
+  .library-countline { align-items: flex-start; flex-direction: column; }
+  .lesson-path-content { width: calc(100% - 32px); padding-top: 30px; }
+  .lesson-reader { width: calc(100% - 32px); padding-top: 25px; }
+  .lesson-outcomes, .lesson-section-card, .lesson-exercise, .lesson-takeaways { padding: 18px; }
+}
