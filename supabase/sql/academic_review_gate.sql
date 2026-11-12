@@ -41,7 +41,8 @@ as $function$
   );
 $function$;
 
-revoke all on function private.has_academic_reviewer_role() from public, anon, authenticated;
+revoke all on function private.has_academic_reviewer_role() from public, anon;
+grant execute on function private.has_academic_reviewer_role() to authenticated;
 
 drop policy if exists "academic staff read course review history" on public.course_reviews;
 create policy "academic staff read course review history"
@@ -237,6 +238,9 @@ begin
     end if;
   elsif tg_table_name = 'course_sections' then
     v_version_id := coalesce(new.course_version_id, old.course_version_id);
+    if tg_op = 'UPDATE' then
+      v_other_version_id := old.course_version_id;
+    end if;
   elsif tg_table_name = 'lessons' then
     select s.course_version_id into v_version_id
     from public.course_sections s
@@ -248,6 +252,9 @@ begin
     end if;
   elsif tg_table_name = 'course_assessments' then
     v_version_id := coalesce(new.course_version_id, old.course_version_id);
+    if tg_op = 'UPDATE' then
+      v_other_version_id := old.course_version_id;
+    end if;
   end if;
 
   if exists (
