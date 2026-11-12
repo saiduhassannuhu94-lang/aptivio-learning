@@ -5,7 +5,7 @@
     "title": "C Programming and Memory Fundamentals",
     "subtitle": "Learn structured C programming while understanding arrays, pointers, memory and safe resource handling.",
     "description": "An introductory C course that builds a precise mental model of compilation, types, control flow, functions, arrays, strings, pointers, structures, dynamic allocation and files. Learners practise tracing memory-related behaviour and use warnings and sanitising tools where available. Examples are designed to avoid undefined behaviour and teach safe habits.",
-    "level": "beginner_to_intermediate",
+    "level": "beginner",
     "language_code": "en",
     "currency": "NGN",
     "price_minor": 0,
