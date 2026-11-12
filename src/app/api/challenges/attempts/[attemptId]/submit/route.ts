@@ -65,14 +65,10 @@ export async function POST(request: Request, context: Context) {
     .select("id, explanation")
     .eq("challenge_id", ownedAttempt.challenge_id);
 
-  if (explanationError) {
-    return NextResponse.json({ error: "Your score was saved, but answer explanations are temporarily unavailable." }, { status: 503 });
-  }
-
   return NextResponse.json({
     result: {
       ...data,
-      explanations: (explanations ?? []).map((item) => ({
+      explanations: (explanationError ? [] : explanations ?? []).map((item) => ({
         questionId: item.id,
         explanation: item.explanation,
       })),
