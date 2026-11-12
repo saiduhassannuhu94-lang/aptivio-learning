@@ -43,19 +43,7 @@ export function ChallengeRunner({ slug }: { slug: string }) {
   const [challenge, setChallenge] = useState<Challenge | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [attempt, setAttempt] = useState<Attempt | null>(null);
-  const [answers, setAnswers] = useState<Record<string, string>>(() => {
-    if (typeof window === "undefined") return {};
-    try {
-      const saved = window.localStorage.getItem(`aptivio:challenge:${slug}`);
-      if (!saved) return {};
-      const parsed: unknown = JSON.parse(saved);
-      return parsed && typeof parsed === "object" && !Array.isArray(parsed)
-        ? parsed as Record<string, string>
-        : {};
-    } catch {
-      return {};
-    }
-  });
+  const [answers, setAnswers] = useState<Record<string, string>>({});
   const [index, setIndex] = useState(0);
   const [remaining, setRemaining] = useState(0);
   const [result, setResult] = useState<Result | null>(null);
@@ -122,22 +110,6 @@ export function ChallengeRunner({ slug }: { slug: string }) {
     if (!attempt) return;
     const storageKey = `aptivio:challenge:${attempt.id}`;
     try {
-      const saved = window.localStorage.getItem(storageKey);
-      if (saved) {
-        const parsed: unknown = JSON.parse(saved);
-        if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
-          setAnswers(parsed as Record<string, string>);
-        }
-      }
-    } catch {
-      // A storage failure must never prevent a learner from taking the challenge.
-    }
-  }, [attempt?.id]);
-
-  useEffect(() => {
-    if (!attempt) return;
-    const storageKey = `aptivio:challenge:${attempt.id}`;
-    try {
       if (result || expired) {
         window.localStorage.removeItem(storageKey);
       } else {
@@ -146,7 +118,7 @@ export function ChallengeRunner({ slug }: { slug: string }) {
     } catch {
       // The challenge remains usable if browser storage is unavailable.
     }
-  }, [attempt?.id, answers, result, expired]);
+  }, [attempt, answers, result, expired]);
 
   useEffect(() => {
     if (!attempt || !challenge || result || expired) return;
@@ -164,6 +136,22 @@ export function ChallengeRunner({ slug }: { slug: string }) {
     return () => window.clearInterval(timer);
   }, [attempt, challenge, result, expired, submit]);
 
+  function restoreAttemptAnswers(attemptId: string) {
+    try {
+      const saved = window.localStorage.getItem(`aptivio:challenge:${attemptId}`);
+      if (!saved) {
+        setAnswers({});
+        return;
+      }
+      const parsed: unknown = JSON.parse(saved);
+      setAnswers(parsed && typeof parsed === "object" && !Array.isArray(parsed)
+        ? parsed as Record<string, string>
+        : {});
+    } catch {
+      setAnswers({});
+    }
+  }
+
   async function start() {
     if (!challenge || starting) return;
     setStarting(true);
@@ -176,12 +164,14 @@ export function ChallengeRunner({ slug }: { slug: string }) {
           const current = await fetch(`/api/challenges/${challenge.id}/attempts`);
           const currentPayload = await current.json();
           if (current.ok && currentPayload.attempt) {
+            restoreAttemptAnswers(currentPayload.attempt.id);
             setAttempt(currentPayload.attempt);
             return;
           }
         }
         throw new Error(payload.error ?? "Could not start the challenge.");
       }
+      restoreAttemptAnswers(payload.attempt.id);
       setAttempt(payload.attempt);
     } catch (startError) {
       setError(startError instanceof Error ? startError.message : "Could not start the challenge.");
