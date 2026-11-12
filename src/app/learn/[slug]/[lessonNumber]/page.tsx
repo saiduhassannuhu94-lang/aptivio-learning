@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { getLearningPackage, learningPackages } from "@/lib/learning/library";
 
@@ -38,7 +39,7 @@ function LessonBody({ markdown }: { markdown: string }) {
     if (block.type === "quote") return <blockquote key={index}>{block.lines.map((line) => <p key={line}>{renderText(line.replace(/^>\s?/, ""))}</p>)}</blockquote>;
     if (block.type === "list") return <ul key={index}>{block.lines.map((line) => <li key={line}>{renderText(line.replace(/^-\s/, ""))}</li>)}</ul>;
     if (block.type === "ordered") return <ol key={index}>{block.lines.map((line) => <li key={line}>{renderText(line.replace(/^\d+\.\s/, ""))}</li>)}</ol>;
-    return <p key={index}>{block.lines.map((line) => renderText(line)).reduce<React.ReactNode[]>((acc, value, lineIndex) => lineIndex ? [...acc, " ", value] : [value], [])}</p>;
+    return <p key={index}>{block.lines.map((line) => renderText(line)).reduce<ReactNode[]>((acc, value, lineIndex) => lineIndex ? [...acc, " ", value] : [value], [])}</p>;
   })}</div>;
 }
 
