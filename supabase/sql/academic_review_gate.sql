@@ -226,9 +226,14 @@ as $function$
 declare
   v_version_id uuid;
   v_other_version_id uuid;
+  v_section_id uuid;
 begin
   if tg_table_name = 'course_versions' then
-    v_version_id := coalesce(new.id, old.id);
+    if tg_op = 'DELETE' then
+      v_version_id := old.id;
+    else
+      v_version_id := new.id;
+    end if;
     if tg_op = 'UPDATE' then
       if (to_jsonb(new) - 'reviewed_by' - 'reviewed_at' - 'review_date')
          is not distinct from
@@ -237,21 +242,34 @@ begin
       end if;
     end if;
   elsif tg_table_name = 'course_sections' then
-    v_version_id := coalesce(new.course_version_id, old.course_version_id);
+    if tg_op = 'DELETE' then
+      v_version_id := old.course_version_id;
+    else
+      v_version_id := new.course_version_id;
+    end if;
     if tg_op = 'UPDATE' then
       v_other_version_id := old.course_version_id;
     end if;
   elsif tg_table_name = 'lessons' then
+    if tg_op = 'DELETE' then
+      v_section_id := old.section_id;
+    else
+      v_section_id := new.section_id;
+    end if;
     select s.course_version_id into v_version_id
     from public.course_sections s
-    where s.id = coalesce(new.section_id, old.section_id);
+    where s.id = v_section_id;
     if tg_op = 'UPDATE' then
       select s.course_version_id into v_other_version_id
       from public.course_sections s
       where s.id = old.section_id;
     end if;
   elsif tg_table_name = 'course_assessments' then
-    v_version_id := coalesce(new.course_version_id, old.course_version_id);
+    if tg_op = 'DELETE' then
+      v_version_id := old.course_version_id;
+    else
+      v_version_id := new.course_version_id;
+    end if;
     if tg_op = 'UPDATE' then
       v_other_version_id := old.course_version_id;
     end if;
