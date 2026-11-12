@@ -31,6 +31,7 @@ type Result = {
   percentage: number;
   elapsedSeconds: number;
   breakdown: { questionId: string; correct: boolean; awardedPoints: number; maxPoints: number }[];
+  explanations: { questionId: string; explanation: string }[];
 };
 
 function formatTime(seconds: number) {
@@ -181,7 +182,7 @@ export function ChallengeRunner({ slug }: { slug: string }) {
                 <article className="answer-review-item" key={question.id}>
                   <span className={item?.correct ? "review-status is-correct" : "review-status is-wrong"}>{item?.correct ? "Correct" : "Review"}</span>
                   <h3>{questionIndex + 1}. {question.prompt}</h3>
-                  <p>{question.explanation}</p>
+                  <p>{result.explanations.find((entry) => entry.questionId === question.id)?.explanation ?? "Review this question and try a similar one."}</p>
                 </article>
               );
             })}
