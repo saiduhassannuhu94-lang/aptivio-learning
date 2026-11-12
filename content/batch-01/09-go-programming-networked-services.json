@@ -5,7 +5,7 @@
     "title": "Go Programming for Networked Services",
     "subtitle": "Build Go programs and HTTP services with clear types, explicit errors and safe concurrency.",
     "description": "A practical Go course covering the toolchain, packages, types, functions, slices, maps, structs, interfaces, error handling, goroutines, channels, contexts, HTTP handlers, testing, service security and delivery. Learners build a small network service and practise cancellation, diagnostics and predictable API contracts.",
-    "level": "beginner_to_intermediate",
+    "level": "beginner",
     "language_code": "en",
     "currency": "NGN",
     "price_minor": 0,
