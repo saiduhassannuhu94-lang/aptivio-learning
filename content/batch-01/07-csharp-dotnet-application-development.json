@@ -5,7 +5,7 @@
     "title": "C# and .NET Application Development",
     "subtitle": "Build maintainable C# applications with object-oriented design, collections, LINQ and asynchronous code.",
     "description": "A practical introduction to C# and .NET covering project execution, types, nullability, control flow, methods, classes, interfaces, collections, LINQ, exceptions, asynchronous programming, testing and build delivery. The course emphasises testable business logic and responsible handling of external data.",
-    "level": "beginner_to_intermediate",
+    "level": "beginner",
     "language_code": "en",
     "currency": "NGN",
     "price_minor": 0,
