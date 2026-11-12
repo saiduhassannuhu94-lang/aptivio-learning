@@ -335,13 +335,13 @@ begin
     select * into v_review
     from public.course_reviews r
     where r.course_version_id = new.published_version_id
-      and r.decision = 'approved'
-      and r.content_fingerprint = v_fingerprint
-    order by r.created_at desc
+    order by r.created_at desc, r.id desc
     limit 1;
 
-    if not found then
-      raise exception 'matching_academic_approval_required_before_publication'
+    if not found
+       or v_review.decision <> 'approved'
+       or v_review.content_fingerprint <> v_fingerprint then
+      raise exception 'latest_review_must_approve_current_content_before_publication'
         using errcode = '42501';
     end if;
 
@@ -405,12 +405,17 @@ begin
 
   if not exists (
     select 1
-    from public.course_reviews r
-    where r.course_version_id = p_course_version_id
-      and r.decision = 'approved'
-      and r.content_fingerprint = v_fingerprint
+    from (
+      select r.decision, r.content_fingerprint
+      from public.course_reviews r
+      where r.course_version_id = p_course_version_id
+      order by r.created_at desc, r.id desc
+      limit 1
+    ) latest_review
+    where latest_review.decision = 'approved'
+      and latest_review.content_fingerprint = v_fingerprint
   ) then
-    raise exception 'current_content_requires_academic_approval' using errcode = '42501';
+    raise exception 'latest_review_must_approve_current_content' using errcode = '42501';
   end if;
 
   update public.courses
