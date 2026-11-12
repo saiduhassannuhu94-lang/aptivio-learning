@@ -5,7 +5,7 @@
     "title": "JavaScript Programming: Core Concepts",
     "subtitle": "Understand JavaScript values, functions, objects, asynchronous behaviour and modern language structure.",
     "description": "A practical language-foundation course for JavaScript. Learners work with runtime environments, values, equality, control flow, functions, arrays, objects, scope, modules, errors and asynchronous code. The emphasis is on reasoning about behaviour and writing small maintainable programs rather than memorising syntax.",
-    "level": "beginner_to_intermediate",
+    "level": "beginner",
     "language_code": "en",
     "currency": "NGN",
     "price_minor": 0,
