@@ -5,7 +5,7 @@
     "title": "Python Programming: Beginner to Intermediate",
     "subtitle": "Build reliable Python programs with clear syntax, data structures, functions and practical problem solving.",
     "description": "A hands-on Python course that moves from writing small scripts to building a tested command-line application. Learners practise data modelling, control flow, functions, collections, files, exceptions, modules and debugging. Examples use standard-library Python and explain not only what to type but why a design works.",
-    "level": "beginner_to_intermediate",
+    "level": "beginner",
     "language_code": "en",
     "currency": "NGN",
     "price_minor": 0,
