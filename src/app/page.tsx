@@ -1,161 +1,63 @@
 import Link from "next/link";
 
-const pillars = [
-  {
-    number: "01",
-    title: "Learn something useful",
-    description: "Explore clear, practical learning material across technology, science, business, communication and everyday knowledge.",
-    tag: "Knowledge library",
-    href: "/courses",
-    action: "Explore learning",
-  },
-  {
-    number: "02",
-    title: "Challenge your thinking",
-    description: "Train your reasoning with logic puzzles, number patterns, memory exercises, verbal reasoning and timed brain challenges.",
-    tag: "IQ-style challenges",
-    href: "/challenges",
-    action: "Try a challenge",
-  },
-  {
-    number: "03",
-    title: "Track your growth",
-    description: "Review your results, understand where you are strong, and see which skills deserve more practice.",
-    tag: "Personal progress",
-    href: "/sign-up",
-    action: "Create your account",
-  },
-];
-
-const experiences = [
-  ["Learn", "Short lessons and explainers that make difficult ideas easier to understand."],
-  ["Practise", "Knowledge checks, puzzles and practical exercises that make you think."],
-  ["Challenge", "Timed reasoning tests that measure your performance across different skill areas."],
-  ["Improve", "Clear feedback and progress history so each attempt teaches you something."],
+const areas = [
+  { icon: "⌘", title: "Technology", desc: "Understand how the digital world works, from code to cybersecurity.", color: "mint", href: "/courses" },
+  { icon: "◉", title: "Science & everyday life", desc: "Connect big ideas to things you see, use and experience daily.", color: "blue", href: "/courses" },
+  { icon: "∑", title: "Numbers & logic", desc: "Build confidence with patterns, problem-solving and clear reasoning.", color: "gold", href: "/challenges" },
+  { icon: "✳", title: "Communication", desc: "Think clearly, explain ideas and understand information better.", color: "violet", href: "/courses" },
 ];
 
 export default function HomePage() {
   return (
-    <main>
-      <header className="site-header">
-        <Link className="brand" href="/" aria-label="APTIVIO home">
-          <span className="brand-mark">A</span>
-          <span>APTIVIO</span>
-        </Link>
-        <nav className="desktop-nav" aria-label="Main navigation">
-          <Link href="/courses">Learn</Link>
-          <Link href="/challenges">Challenges</Link>
-          <Link href="/progress">My progress</Link>
-          <Link href="#experience">What you can do</Link>
-          <Link href="#about">Our idea</Link>
+    <main className="aptivio-home">
+      <header className="app-header">
+        <Link className="app-brand" href="/"><span className="app-brand-symbol">a.</span><span>aptivio</span></Link>
+        <nav className="app-nav" aria-label="Main navigation">
+          <Link href="/courses">Explore</Link><Link href="/challenges">Brain challenges</Link><Link href="/progress">My progress</Link>
         </nav>
-        <div className="header-actions">
-          <Link className="sign-in" href="/sign-in">Sign in</Link>
-          <Link className="button button-small button-dark" href="/sign-up">Get started <span aria-hidden="true">↗</span></Link>
-        </div>
+        <div className="app-header-actions"><Link className="app-login" href="/sign-in">Sign in</Link><Link className="app-button app-button-dark" href="/sign-up">Create free account <span>↗</span></Link></div>
+        <details className="mobile-menu"><summary aria-label="Open navigation menu"><span></span><span></span><span></span></summary><div className="mobile-menu-panel"><Link href="/courses">Explore learning</Link><Link href="/challenges">Brain challenges</Link><Link href="/progress">My progress</Link><Link href="/sign-in">Sign in</Link><Link href="/sign-up">Create free account</Link></div></details>
       </header>
 
-      <section className="hero section-shell">
-        <div className="hero-copy">
-          <div className="eyebrow"><span className="eyebrow-dot" /> LEARN. THINK. IMPROVE.</div>
-          <h1>Feed your curiosity. <em>Test your thinking.</em></h1>
-          <p className="hero-description">
-            APTIVIO is a place to discover knowledge, sharpen your reasoning,
-            take on brain challenges and understand how your skills improve.
-            Learn at your own pace. Challenge yourself whenever you are ready.
-          </p>
-          <div className="hero-actions">
-            <Link className="button button-primary" href="/courses">Explore learning <span aria-hidden="true">↗</span></Link>
-            <Link className="text-link" href="#experience">Discover APTIVIO <span aria-hidden="true">↓</span></Link>
-          </div>
-          <div className="hero-note">
-            <span className="note-line" />
-            <span>Not a school. A space to learn, think and grow.</span>
-          </div>
+      <section className="app-hero">
+        <div className="app-hero-copy">
+          <div className="app-kicker"><span className="kicker-pulse"></span> YOUR SPACE TO LEARN AND THINK</div>
+          <h1>Understand more.<br/><span>Think for yourself.</span></h1>
+          <p className="app-hero-text">Learning should feel like someone is beside you, breaking a difficult idea into simple steps. Explore practical lessons, see how things work, try it yourself, then challenge your thinking.</p>
+          <div className="app-hero-actions"><Link className="app-button app-button-primary" href="/courses">Start learning <span>→</span></Link><Link className="app-button app-button-outline" href="/challenges">Try a brain challenge</Link></div>
+          <div className="app-proof"><span className="proof-avatars">✦ ◉ ◎</span><span>Learn at your pace · Free to explore · Built for curious minds</span></div>
         </div>
-
-        <div className="hero-art" aria-label="APTIVIO learning and reasoning concept">
-          <div className="art-orbit orbit-one" />
-          <div className="art-orbit orbit-two" />
-          <div className="art-card card-back">
-            <span className="mini-label">THINK DIFFERENTLY</span>
-            <span className="back-lines"><i /><i /><i /></span>
-          </div>
-          <div className="art-card card-main">
-            <div className="card-topline"><span>YOUR MIND, IN MOTION</span><span className="live-dot">●</span></div>
-            <div className="progress-ring"><span>IQ+</span></div>
-            <h2>Curiosity is<br />a starting point.</h2>
-            <p>Learn a little. Think deeper. Improve.</p>
-            <div className="card-progress"><span /></div>
-            <div className="card-foot"><span>APTIVIO</span><span>LEARN / THINK</span></div>
-          </div>
-          <div className="floating-chip chip-top"><span>✳</span> Knowledge matters</div>
-          <div className="floating-chip chip-bottom"><span>↗</span> Challenge your limits</div>
-          <div className="art-index">APTIVIO / 001</div>
+        <div className="app-hero-visual">
+          <div className="visual-photo" role="img" aria-label="A student studying at a desk with books and a laptop"></div>
+          <div className="visual-note note-one"><span className="note-icon">✳</span><div><b>Learn by understanding</b><small>Not just memorising words</small></div></div>
+          <div className="visual-note note-two"><span className="note-icon note-icon-dark">↗</span><div><b>Put ideas into practice</b><small>Examples from real life</small></div></div>
+          <div className="visual-stamp">LEARN<br/>THINK<br/>GROW<span>✳</span></div>
         </div>
       </section>
 
-      <section className="trust-strip" aria-label="APTIVIO principles">
-        <div className="section-shell trust-inner">
-          <span>THE APTIVIO IDEA</span>
-          <p>Discover <b>·</b> Understand <b>·</b> Challenge <b>·</b> Improve</p>
+      <section className="app-stats"><div><b>20</b><span>learning paths</span></div><i></i><div><b>320</b><span>guided lessons</span></div><i></i><div><b>5</b><span>reasoning areas</span></div><i></i><div><b>₦0</b><span>to get started</span></div></section>
+
+      <section className="app-section learning-map">
+        <div className="app-section-heading"><div><span className="app-overline">PICK A DIRECTION</span><h2>What are you curious<br/>about today?</h2></div><p>Start with a subject that interests you. Each learning path is broken into smaller lessons so you can build understanding without feeling overwhelmed.</p></div>
+        <div className="topic-grid">{areas.map((area) => <Link className="topic-card" href={area.href} key={area.title}><span className={`topic-icon ${area.color}`}>{area.icon}</span><span className="topic-arrow">↗</span><h3>{area.title}</h3><p>{area.desc}</p><span className="topic-link">Explore topic <b>→</b></span></Link>)}</div>
+      </section>
+
+      <section className="teaching-section">
+        <div className="teaching-image"><div className="image-caption"><span>REAL LIFE CONNECTION</span><b>Learning makes more sense when you can see it.</b></div></div>
+        <div className="teaching-copy"><span className="app-overline">HOW APTIVIO TEACHES</span><h2>We don't just give you a page to read.</h2><p>Every good lesson should help you understand an idea, see it in action and use it yourself. That's the experience we're building across APTIVIO.</p>
+          <div className="teaching-steps"><div><span>01</span><section><b>Plain-language explanation</b><p>We unpack unfamiliar words and explain the idea one step at a time.</p></section></div><div><span>02</span><section><b>Visuals and worked examples</b><p>Diagrams, illustrations and everyday situations make abstract ideas easier to picture.</p></section></div><div><span>03</span><section><b>Try it yourself</b><p>Short exercises and feedback help you check whether you really understand.</p></section></div></div>
         </div>
       </section>
 
-      <section className="learning-section section-shell" id="experience">
-        <div className="section-heading">
-          <div>
-            <div className="eyebrow">ONE PLACE. MORE WAYS TO GROW.</div>
-            <h2>Knowledge for life.<br /><em>Challenges for your mind.</em></h2>
-          </div>
-          <p>APTIVIO brings learning and self-challenge together. You are not signing up for a formal school programme. You are here to explore, practise and test what you can do.</p>
-        </div>
-        <div className="path-grid">
-          {pillars.map((pillar) => (
-            <article className="path-card" key={pillar.number}>
-              <div className="path-card-top"><span>{pillar.number} / EXPERIENCE</span><span aria-hidden="true">↗</span></div>
-              <div>
-                <span className="path-tag">{pillar.tag}</span>
-                <h3>{pillar.title}</h3>
-                <p>{pillar.description}</p>
-              </div>
-              <Link href={pillar.href} className="path-link">{pillar.action} <span aria-hidden="true">→</span></Link>
-            </article>
-          ))}
+      <section className="app-section example-section"><div className="app-section-heading"><div><span className="app-overline">A TASTE OF THE EXPERIENCE</span><h2>From an idea to<br/>something you can use.</h2></div><p>For example, learning about algorithms should not stop at a definition. You should recognise one in your everyday routine.</p></div>
+        <div className="example-card"><div className="example-copy"><span className="example-label">EVERYDAY EXAMPLE · ALGORITHMS</span><h3>Making tea is an algorithm.</h3><p>An algorithm is simply a set of steps used to complete a task. You already follow algorithms without calling them that.</p><ol><li><b>01</b> Boil the water.</li><li><b>02</b> Put the tea in a cup.</li><li><b>03</b> Pour in hot water.</li><li><b>04</b> Wait, then add milk or sugar.</li></ol><p className="example-takeaway"><b>The idea:</b> change the order or skip a step and the result may change. Programs work with instructions in the same way.</p></div>
+          <div className="algorithm-visual" aria-label="Diagram showing four steps in an algorithm"><div className="algo-node">START</div><span className="algo-arrow">↓</span><div className="algo-node">Boil water</div><span className="algo-arrow">↓</span><div className="algo-node">Add tea</div><span className="algo-arrow">↓</span><div className="algo-node">Pour and wait</div><span className="algo-arrow">↓</span><div className="algo-node algo-end">READY TO DRINK</div></div>
         </div>
       </section>
 
-      <section className="approach-section" id="about">
-        <div className="section-shell approach-inner">
-          <div className="approach-intro">
-            <div className="eyebrow eyebrow-light">A DIFFERENT KIND OF LEARNING SPACE</div>
-            <h2>Knowledge is useful.<br /><em>Thinking is powerful.</em></h2>
-            <p>We want students to understand ideas, ask better questions, solve unfamiliar problems and recognise their own progress.</p>
-            <Link className="button button-light" href="/courses">Start exploring <span aria-hidden="true">↗</span></Link>
-          </div>
-          <div className="principle-list">
-            {experiences.map(([title, description], index) => (
-              <article className="principle" key={title}>
-                <span className="principle-number">0{index + 1}</span>
-                <div><h3>{title}</h3><p>{description}</p></div>
-                <span className="principle-arrow" aria-hidden="true">↗</span>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <section className="challenge-band"><div><span className="app-overline app-overline-light">YOUR MIND DESERVES A WORKOUT</span><h2>Curious how you think<br/>through a problem?</h2><p>Try logic, numerical, verbal, spatial and memory challenges. Get a score, review explanations and learn from every attempt.</p><Link className="app-button app-button-white" href="/challenges">Explore brain challenges <span>↗</span></Link></div><div className="challenge-art"><div className="orbit orbit-a"></div><div className="orbit orbit-b"></div><div className="brain-card"><span>APTIVIO / THINK LAB</span><b>What comes next?</b><div className="pattern-row"><i>2</i><i>4</i><i>8</i><i>16</i><i>?</i></div><small>Find the pattern. Trust your reasoning.</small></div><div className="brain-spark">✳</div></div></section>
 
-      <footer className="site-footer">
-        <div className="section-shell footer-main">
-          <Link className="brand brand-footer" href="/"><span className="brand-mark">A</span><span>APTIVIO</span></Link>
-          <p>Learn More. Think Better. Go Further.</p>
-          <span className="footer-location">Built for curious minds. Starting from Nigeria.</span>
-        </div>
-        <div className="section-shell footer-bottom">
-          <span>© {new Date().getFullYear()} APTIVIO. All rights reserved.</span>
-          <span>Learn. Think. Improve.</span>
-        </div>
-      </footer>
+      <footer className="app-footer"><Link className="app-brand" href="/"><span className="app-brand-symbol">a.</span><span>aptivio</span></Link><p>Knowledge that moves you forward.</p><div><Link href="/courses">Explore</Link><Link href="/challenges">Challenges</Link><Link href="/sign-in">Sign in</Link></div><small>© {new Date().getFullYear()} APTIVIO · Built for curious minds.</small></footer>
     </main>
   );
 }
