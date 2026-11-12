@@ -14,8 +14,8 @@ const pillars = [
     title: "Challenge your thinking",
     description: "Train your reasoning with logic puzzles, number patterns, memory exercises, verbal reasoning and timed brain challenges.",
     tag: "IQ-style challenges",
-    href: "/courses",
-    action: "Explore the platform",
+    href: "/challenges",
+    action: "Try a challenge",
   },
   {
     number: "03",
@@ -43,6 +43,9 @@ export default function HomePage() {
           <span>APTIVIO</span>
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
+          <Link href="/courses">Learn</Link>
+          <Link href="/challenges">Challenges</Link>
+          <Link href="/progress">My progress</Link>
           <Link href="#experience">What you can do</Link>
           <Link href="#about">Our idea</Link>
         </nav>
