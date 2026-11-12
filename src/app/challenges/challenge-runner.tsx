@@ -205,7 +205,7 @@ export function ChallengeRunner({ slug }: { slug: string }) {
           <div className="challenge-notice">You need to sign in to save your attempt and result. Your score measures this challenge only, not your overall IQ.</div>
           <button className="button button-primary" type="button" onClick={start} disabled={starting}>{starting ? "Starting…" : "Start challenge ↗"}</button>
           {error && <p className="challenge-error" role="alert">{error}</p>}
-          {error.toLowerCase().includes("sign in") && <Link className="text-link" href={`/sign-in?next=/challenges/${encodeURIComponent(slug)}`}>Sign in to save your attempt ↗</Link>}
+          {error.toLowerCase().includes("sign in") && <Link className="text-link" href="/sign-in">Sign in to save your attempt ↗</Link>}
           <Link className="text-link runner-back" href="/challenges">← All challenges</Link>
         </div>
       </section>
