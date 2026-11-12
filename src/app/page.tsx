@@ -44,7 +44,7 @@ export default function HomePage() {
 
       <section className="teaching-section">
         <div className="teaching-image"><div className="image-caption"><span>REAL LIFE CONNECTION</span><b>Learning makes more sense when you can see it.</b></div></div>
-        <div className="teaching-copy"><span className="app-overline">HOW APTIVIO TEACHES</span><h2>We don't just give you a page to read.</h2><p>Every good lesson should help you understand an idea, see it in action and use it yourself. That's the experience we're building across APTIVIO.</p>
+        <div className="teaching-copy"><span className="app-overline">HOW APTIVIO TEACHES</span><h2>We don&apos;t just give you a page to read.</h2><p>Every good lesson should help you understand an idea, see it in action and use it yourself. That&apos;s the experience we&apos;re building across APTIVIO.</p>
           <div className="teaching-steps"><div><span>01</span><section><b>Plain-language explanation</b><p>We unpack unfamiliar words and explain the idea one step at a time.</p></section></div><div><span>02</span><section><b>Visuals and worked examples</b><p>Diagrams, illustrations and everyday situations make abstract ideas easier to picture.</p></section></div><div><span>03</span><section><b>Try it yourself</b><p>Short exercises and feedback help you check whether you really understand.</p></section></div></div>
         </div>
       </section>
