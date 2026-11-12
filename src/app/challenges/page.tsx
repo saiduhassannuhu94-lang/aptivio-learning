@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { createChallengeAdmin } from "@/lib/challenges/admin";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Brain challenges",
   description: "Practise logical, numerical, verbal, spatial and memory reasoning with APTIVIO.",
