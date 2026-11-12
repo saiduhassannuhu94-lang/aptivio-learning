@@ -44,5 +44,9 @@ export async function POST(request: Request, context: Context) {
     return NextResponse.json({ error: message }, { status: 409 });
   }
 
+  if (data.expired === true) {
+    return NextResponse.json({ error: "Time is up. This attempt has expired." }, { status: 410 });
+  }
+
   return NextResponse.json({ result: data });
 }
