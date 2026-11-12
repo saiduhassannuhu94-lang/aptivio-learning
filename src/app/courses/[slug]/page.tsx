@@ -91,6 +91,7 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
         .select("id")
         .eq("user_id", authData.user.id)
         .eq("course_id", course.id)
+        .eq("course_version_id", version.id)
         .in("status", ["active", "completed"])
         .maybeSingle()
     : { data: null };
@@ -192,7 +193,11 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
                         <ul>
                           {sectionLessons.map((lesson) => (
                             <li key={lesson.id}>
-                              <span>{lesson.title}</span>
+                              {lesson.is_preview || enrollment ? (
+                                <Link href={`/learn/${lesson.id}`}>{lesson.title}</Link>
+                              ) : (
+                                <span>{lesson.title}</span>
+                              )}
                               <small>
                                 {lesson.is_preview ? "Preview" : "Enrolled learners"}
                                 {lesson.duration_seconds > 0
