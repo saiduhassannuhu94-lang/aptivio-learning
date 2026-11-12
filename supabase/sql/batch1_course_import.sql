@@ -332,7 +332,8 @@ begin
     raise exception 'active_enrollment_required' using errcode = '42501';
   end if;
 
-  if jsonb_typeof(p_answers) <> 'array'
+  if p_answers is null
+     or jsonb_typeof(p_answers) <> 'array'
      or jsonb_array_length(p_answers) <> jsonb_array_length(v_questions) then
     raise exception 'incomplete_assessment_answers' using errcode = '22023';
   end if;
