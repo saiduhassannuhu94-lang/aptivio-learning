@@ -5,7 +5,7 @@
     "title": "Modern JavaScript for Browser Applications",
     "subtitle": "Build interactive browser interfaces with the DOM, events, fetch, storage and secure user interactions.",
     "description": "A hands-on browser JavaScript course covering the browser runtime, DOM selection and safe updates, modules, event propagation, forms, keyboard access, fetch, HTTP response handling, async cancellation, browser storage, URL/history, XSS prevention, developer tools, privacy and resilient UI states. Learners build a course explorer that works under realistic network conditions.",
-    "level": "beginner_to_intermediate",
+    "level": "beginner",
     "language_code": "en",
     "currency": "NGN",
     "price_minor": 0,
