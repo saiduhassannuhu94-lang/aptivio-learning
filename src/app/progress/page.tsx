@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { createChallengeAdmin } from "@/lib/challenges/admin";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = { title: "My progress", robots: { index: false, follow: false } };
 
 export default async function ProgressPage() {
