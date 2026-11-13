@@ -18,14 +18,17 @@ APTIVIO is a free learning library and reasoning-practice platform. It is not an
    - `supabase/migrations/20261112192010_add_independent_brain_challenges.sql`
    - `supabase/migrations/20261112192029_add_challenge_answer_question_index.sql`
    - `supabase/migrations/20261113064828_seed_brain_challenge_answer_keys.sql`
-3. Confirm the five seeded challenges exist in `brain_challenges` and each has five questions and five answer keys. The currently connected project has already been migrated and verified.
+   - `supabase/migrations/20261113065537_add_learning_library_progress.sql`
+3. Confirm the five seeded challenges exist in `brain_challenges` and each has five questions and five answer keys. Confirm `learning_library_progress` has RLS enabled with four owner-only policies. The currently connected project has already been migrated and verified.
 4. Confirm the Vercel project has these environment variables in the deployment environment:
    - `NEXT_PUBLIC_SITE_URL`
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
    - `SUPABASE_SECRET_KEY` (server-only; never expose it with a `NEXT_PUBLIC_` prefix)
 5. Confirm Supabase Auth email confirmation and redirect URLs include the deployed APTIVIO domain.
-6. Run the colleague-preview checks below before sharing the link.
+6. Enable the Google provider in Supabase Auth and configure its Google OAuth client credentials. Add the production callback `https://aptivio-learning.vercel.app/auth/callback` to the allowed redirect URLs. Google sign-in cannot work until this provider setup is complete.
+7. Enable leaked-password protection in Supabase Auth as a production security hardening step.
+8. Run the colleague-preview checks below before sharing the link.
 
 Do not run the older Batch 1 course importer for this product direction. Learning paths are bundled as an open library and do not need course enrolment or course-version imports.
 
@@ -34,11 +37,15 @@ Do not run the older Batch 1 course importer for this product direction. Learnin
 - Open `/courses`: all 20 learning paths should appear.
 - Open one path and complete navigation through its lessons.
 - Open `/challenges`: all five seeded challenge categories should appear.
-- Sign in, start a challenge, answer questions, submit and confirm score plus explanations.
+- Create an account with email, sign in, request a password reset and confirm the callback flow.
+- Test Google sign-in and sign-up after enabling the provider.
+- Complete a lesson, refresh it, and confirm its completion is retained in the account.
+- Open `/progress` and confirm lesson completion by learning path plus challenge attempts are displayed.
+- Sign in, start a challenge, answer questions, submit and confirm score, selected answer, correct answer and explanation.
 - Refresh an in-progress challenge and confirm the active attempt can be resumed.
 - Let a challenge timer expire and confirm the attempt is marked expired.
-- Open `/progress` and confirm only the signed-in user's attempts are displayed.
-- Sign out and confirm challenge attempts cannot be started or submitted.
+- Confirm only the signed-in user's lesson progress and challenge attempts are displayed.
+- Sign out and confirm lesson progress is not readable or writable and challenge attempts cannot be started or submitted.
 - Test the complete flow on a narrow Android screen.
 
 ## Honest product language
