@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { getLearningPackage } from "@/lib/learning/library";
 import { createClient } from "@/lib/supabase/server";
 import { formatMoney } from "@/lib/format/currency";
 import { CourseAccessButton } from "./course-access-button";
@@ -11,6 +12,8 @@ type CoursePageProps = {
 
 export async function generateMetadata({ params }: CoursePageProps): Promise<Metadata> {
   const { slug } = await params;
+  const libraryItem = getLearningPackage(slug);
+  if (libraryItem) return { title: libraryItem.course.title, description: libraryItem.course.description };
   const supabase = await createClient();
 
   const { data: course } = await supabase
@@ -38,6 +41,7 @@ export async function generateMetadata({ params }: CoursePageProps): Promise<Met
 
 export default async function CourseDetailPage({ params }: CoursePageProps) {
   const { slug } = await params;
+  if (getLearningPackage(slug)) redirect("/learn/" + slug);
   const supabase = await createClient();
 
   const { data: course, error: courseError } = await supabase

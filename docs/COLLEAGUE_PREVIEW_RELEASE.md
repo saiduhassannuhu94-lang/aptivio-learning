@@ -14,8 +14,11 @@ APTIVIO is a free learning library and reasoning-practice platform. It is not an
 ## Required setup before public sharing
 
 1. Confirm the correct Supabase project is selected and take a database backup.
-2. Apply `supabase/migrations/20261112192010_add_independent_brain_challenges.sql` in the Supabase SQL Editor.
-3. Confirm the five seeded challenges exist in `brain_challenges` and each has five questions and five answer keys.
+2. For a fresh Supabase project, apply these migrations in order:
+   - `supabase/migrations/20261112192010_add_independent_brain_challenges.sql`
+   - `supabase/migrations/20261112192029_add_challenge_answer_question_index.sql`
+   - `supabase/migrations/20261113064828_seed_brain_challenge_answer_keys.sql`
+3. Confirm the five seeded challenges exist in `brain_challenges` and each has five questions and five answer keys. The currently connected project has already been migrated and verified.
 4. Confirm the Vercel project has these environment variables in the deployment environment:
    - `NEXT_PUBLIC_SITE_URL`
    - `NEXT_PUBLIC_SUPABASE_URL`

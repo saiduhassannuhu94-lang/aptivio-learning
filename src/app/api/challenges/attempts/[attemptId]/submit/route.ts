@@ -57,6 +57,16 @@ export async function POST(request: Request, context: Context) {
     .from("brain_challenge_questions")
     .select("id, explanation")
     .eq("challenge_id", ownedAttempt.challenge_id);
+  const questionIds = (explanations ?? []).map((item) => item.id);
+  const { data: answerKeys, error: answerKeyError } = questionIds.length
+    ? await admin
+        .from("brain_challenge_answer_keys")
+        .select("question_id, correct_option_ids")
+        .in("question_id", questionIds)
+    : { data: [], error: null };
+  const correctOptionsByQuestion = new Map(
+    (answerKeyError ? [] : answerKeys ?? []).map((item) => [item.question_id, item.correct_option_ids]),
+  );
 
   return NextResponse.json({
     result: {
@@ -64,6 +74,7 @@ export async function POST(request: Request, context: Context) {
       explanations: (explanationError ? [] : explanations ?? []).map((item) => ({
         questionId: item.id,
         explanation: item.explanation,
+        correctOptionIds: correctOptionsByQuestion.get(item.id) ?? [],
       })),
     },
   });

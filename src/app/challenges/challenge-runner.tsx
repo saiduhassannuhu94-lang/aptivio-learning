@@ -31,7 +31,7 @@ type Result = {
   percentage: number;
   elapsedSeconds: number;
   breakdown: { questionId: string; correct: boolean; awardedPoints: number; maxPoints: number }[];
-  explanations: { questionId: string; explanation: string }[];
+  explanations: { questionId: string; explanation: string; correctOptionIds: string[] }[];
 };
 
 function formatTime(seconds: number) {
@@ -215,11 +215,18 @@ export function ChallengeRunner({ slug }: { slug: string }) {
           <div className="answer-review">
             {questions.map((question, questionIndex) => {
               const item = result.breakdown.find((entry) => entry.questionId === question.id);
+              const review = result.explanations.find((entry) => entry.questionId === question.id);
+              const selected = question.options.find((option) => option.id === answers[question.id]);
+              const correctOptions = question.options.filter((option) => review?.correctOptionIds.includes(option.id));
               return (
                 <article className="answer-review-item" key={question.id}>
                   <span className={item?.correct ? "review-status is-correct" : "review-status is-wrong"}>{item?.correct ? "Correct" : "Review"}</span>
                   <h3>{questionIndex + 1}. {question.prompt}</h3>
-                  <p>{result.explanations.find((entry) => entry.questionId === question.id)?.explanation ?? "Review this question and try a similar one."}</p>
+                  <div className="answer-review-response">
+                    <p><strong>Your answer:</strong> {selected?.text ?? "Not answered"}</p>
+                    <p><strong>Correct answer:</strong> {correctOptions.length ? correctOptions.map((option) => option.text).join(", ") : "Not available"}</p>
+                  </div>
+                  <p>{review?.explanation ?? "Review this question and try a similar one."}</p>
                 </article>
               );
             })}
