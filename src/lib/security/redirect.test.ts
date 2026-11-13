@@ -22,13 +22,18 @@ describe("safeInternalPath", () => {
     expect(safeInternalPath("https://attacker.example")).toBe("/dashboard");
   });
 
+  it("rejects a literal backslash redirect target", () => {
+    const path = "/" + String.fromCharCode(92) + "attacker.example";
+    expect(safeInternalPath(path)).toBe("/dashboard");
+  });
+
   it.each([
     "/\\\\attacker.example",
     "/%5Cattacker.example",
     "/%5cattacker.example",
     "/%255Cattacker.example",
     "/%25255cattacker.example",
-  ])("rejects literal or encoded backslash redirect tricks: %s", (path) => {
+  ])("rejects encoded backslash redirect tricks: %s", (path) => {
     expect(safeInternalPath(path)).toBe("/dashboard");
   });
 
