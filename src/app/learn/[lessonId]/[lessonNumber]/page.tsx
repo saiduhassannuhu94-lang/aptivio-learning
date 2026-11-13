@@ -72,7 +72,7 @@ function LessonBody({ markdown }: { markdown: string }) {
   let index = 0;
   while (index < blocks.length) {
     const block = blocks[index];
-    if (block.type === "h3" && /worked example|real-life example|example:/i.test(block.lines[0])) {
+    if (block.type === "h3" && /worked (?:application )?example|real-life example|example:/i.test(block.lines[0])) {
       const example: Block[] = [];
       const heading = block;
       index += 1;
