@@ -108,6 +108,42 @@ function LearningMap() {
   );
 }
 
+
+function ConceptDiagram({ courseSlug }: { courseSlug: string }) {
+  const diagrams: Record<string, { title: string; steps: [string, string, string, string] }> = {
+    "programming-logic-and-problem-solving": { title: "From a problem to a tested solution", steps: ["Define the problem", "Identify inputs", "Design the steps", "Test the result"] },
+    "python-programming-beginner-to-intermediate": { title: "How a Python program runs", steps: ["Write Python code", "Run the interpreter", "Execute instructions", "Inspect the output"] },
+    "javascript-programming-core-concepts": { title: "How JavaScript makes a page respond", steps: ["User action", "Event handler", "JavaScript logic", "Updated interface"] },
+    "java-programming-object-oriented-design": { title: "The object-oriented flow", steps: ["Define a class", "Create an object", "Call its methods", "Observe its state"] },
+    "c-programming-memory-fundamentals": { title: "From C source to machine execution", steps: ["Write source code", "Compile the code", "Load the program", "Use memory safely"] },
+    "cpp-programming-data-structures": { title: "Working with data in C++", steps: ["Choose a structure", "Store the data", "Apply an operation", "Check the result"] },
+    "csharp-dotnet-application-development": { title: "How a .NET application runs", steps: ["Write C# code", "Compile to IL", "Run on the CLR", "Deliver the result"] },
+    "php-programming-web-backends": { title: "A PHP web request", steps: ["Browser request", "PHP server logic", "Data operation", "HTML response"] },
+    "go-programming-networked-services": { title: "A Go service request", steps: ["Receive request", "Handle the work", "Coordinate goroutines", "Return response"] },
+    "software-testing-quality-assurance": { title: "The test feedback loop", steps: ["Arrange the setup", "Act on the system", "Assert the result", "Improve the code"] },
+    "html5-semantic-structure-accessibility": { title: "Building an accessible page", steps: ["Identify content", "Choose semantic HTML", "Add accessible names", "Test navigation"] },
+    "css3-layout-responsive-design-motion": { title: "From layout rules to responsive UI", steps: ["Understand the box", "Choose a layout", "Adapt to screens", "Test interactions"] },
+    "modern-javascript-browser-applications": { title: "A browser interaction cycle", steps: ["Browser event", "Application logic", "Update the state", "Render the change"] },
+    "typescript-reliable-frontend-code": { title: "The TypeScript safety loop", steps: ["Describe data types", "Check the code", "Build JavaScript", "Run and verify"] },
+    "react-components-state-effects": { title: "How React updates a screen", steps: ["Props and state", "Render component", "User interaction", "State update"] },
+    "nextjs-app-router-full-stack-patterns": { title: "A request through Next.js", steps: ["Receive the route", "Load server data", "Render the page", "Send the response"] },
+    "nodejs-express-api-development": { title: "An Express API request", steps: ["Client request", "Route and middleware", "Application logic", "JSON response"] },
+    "rest-api-design-documentation": { title: "The REST request-response cycle", steps: ["Choose a resource", "Send HTTP request", "Process the request", "Return a response"] },
+    "web-performance-core-web-vitals": { title: "The performance improvement loop", steps: ["Measure the page", "Find the bottleneck", "Optimise the cause", "Measure again"] },
+    "progressive-web-apps-offline-first-design": { title: "How an offline-ready web app works", steps: ["Load the web app", "Register service worker", "Cache key resources", "Serve while offline"] },
+  };
+  const diagram = diagrams[courseSlug] ?? { title: "A practical learning cycle", steps: ["Understand the idea", "Study an example", "Apply the concept", "Check the result"] as [string, string, string, string] };
+  return (
+    <section className="lesson-concept-diagram" aria-label={diagram.title}>
+      <div className="concept-diagram-heading"><span className="eyebrow">VISUAL EXPLANATION</span><h2>{diagram.title}</h2></div>
+      <div className="concept-diagram-flow">
+        {diagram.steps.map((step, index) => <div className="concept-diagram-item" key={step}><span>{String(index + 1).padStart(2, "0")}</span><b>{step}</b></div>)}
+      </div>
+      <p>This is the big-picture flow for this learning path. The lesson below explains each part in detail.</p>
+    </section>
+  );
+}
+
 export function generateStaticParams() {
   return learningPackages.flatMap((item) => {
     let number = 0;
@@ -146,7 +182,7 @@ export default async function LearningLessonPage({ params }: Props) {
           <Link className="lesson-back-link" href={"/learn/" + item.course.slug}>← Back to learning path</Link>
           <span className="eyebrow">YOUR LEARNING PATH</span>
           <h2>{item.course.title}</h2>
-          <div className="lesson-outline-progress"><div><span>YOUR PROGRESS</span><b>{index} / {lessons.length}</b></div><span className="lesson-outline-track"><i style={{ width: String(Math.round((index / lessons.length) * 100)) + "%" }} /></span></div>
+          <div className="lesson-outline-progress"><div><span>PATH POSITION</span><b>{index} / {lessons.length}</b></div><span className="lesson-outline-track"><i style={{ width: String(Math.round((index / lessons.length) * 100)) + "%" }} /></span></div>
           {item.sections.map((group, groupIndex) => {
             const start = item.sections.slice(0, groupIndex).reduce((sum, value) => sum + value.lessons.length, 0);
             return <div className="lesson-outline-group" key={group.title}><span>SECTION {String(groupIndex + 1).padStart(2, "0")}</span><b>{group.title}</b>{group.lessons.map((entry, lessonIndex) => {
@@ -162,6 +198,7 @@ export default async function LearningLessonPage({ params }: Props) {
           <h1>{lesson.title}</h1>
           <p className="lesson-intro-line">Take your time with this idea. Read the explanation, follow the example, then try the exercise in your own words.</p>
           <LearningMap />
+          <ConceptDiagram courseSlug={item.course.slug} />
           <LessonBody markdown={lesson.body_markdown} />
           <LessonPracticePanel courseSlug={item.course.slug} lessonNumber={index} lessonTitle={lesson.title} exercise={lesson.exercise} takeaways={lesson.key_takeaways} />
           <div className="runner-actions lesson-navigation">
