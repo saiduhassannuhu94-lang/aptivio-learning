@@ -25,4 +25,17 @@ describe("learning library package normalization", () => {
       }
     }
   });
+  it("includes a worked example in every lesson", () => {
+    for (const item of learningPackages) {
+      for (const section of item.sections) {
+        for (const lesson of section.lessons) {
+          expect(
+            /worked (?:application )?example|worked comparison|real-life example|example:/i.test(lesson.body_markdown),
+            item.course.slug + ": " + lesson.title,
+          ).toBe(true);
+        }
+      }
+    }
+  });
+
 });
