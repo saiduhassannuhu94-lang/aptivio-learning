@@ -4,19 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { signOutAction } from "@/app/(auth)/actions";
 
 export const metadata = { title: "Your learning dashboard", robots: { index: false, follow: false } };
-type DashboardPageProps = { searchParams: Promise<{ payment?: string }> };
-
-export default async function DashboardPage({ searchParams }: DashboardPageProps) {
-  const query = await searchParams;
-  const paymentNotices: Record<string, string> = {
-    success: "Payment verified. Your course access is ready.",
-    pending: "Your payment is still being confirmed. Do not pay again while verification is pending.",
-    failed: "The payment provider did not confirm a successful charge. You can return to the course and try again.",
-    "verification-needed": "We could not confirm the payment yet. Your access has not been granted. Contact support with your payment reference.",
-    invalid: "The payment return link was invalid. Check your payment history before trying again.",
-    "not-found": "We could not find a payment linked to this account.",
-  };
-  const paymentNotice = query.payment ? paymentNotices[query.payment] : undefined;
+export default async function DashboardPage() {
   const supabase = await createClient();
   const { data: claimsData, error: claimsError } = await supabase.auth.getClaims();
   const subject = claimsData?.claims?.sub;
@@ -32,6 +20,11 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
     });
     if (createProfileError && createProfileError.code !== "23505") throw new Error("We could not create your learner profile. Please try again.");
   }
+  const { count: lessonsCompleted, error: learningProgressError } = await supabase
+    .from("learning_library_progress")
+    .select("lesson_number", { count: "exact", head: true })
+    .eq("user_id", subject);
+  if (learningProgressError) throw new Error("We could not load your learning progress. Please refresh the page.");
   const displayName = profile?.display_name?.trim() || authUserData.user.user_metadata.display_name || "Learner";
   const firstName = String(displayName).split(" ")[0];
 
@@ -52,8 +45,12 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
       <section className="learner-main">
         <header className="learner-topbar"><div><span className="topbar-label">LEARNING SPACE</span><b>My workspace</b></div><div className="learner-top-actions"><Link href="/courses">Explore library</Link><span className="learner-avatar">{firstName.slice(0,1).toUpperCase()}</span></div></header>
         <div className="learner-content">
-          {paymentNotice && <p className="payment-notice" role="status">{paymentNotice}</p>}
           <div className="learner-welcome"><div><span className="app-overline">YOUR SPACE TO LEARN AND THINK</span><h1>Good to see you, {firstName}.</h1><p>Your next idea is waiting. Pick up a lesson, try a challenge or explore something completely new.</p><div className="welcome-actions"><Link className="app-button app-button-primary" href="/courses">Explore learning <span>→</span></Link><Link className="welcome-text-link" href="/challenges">Test your thinking ↗</Link></div></div><div className="welcome-illustration"><div className="welcome-sun">✳</div><div className="welcome-book"><span>YOUR NEXT CHAPTER</span><b>Curiosity<br/>looks good<br/>on you.</b><i>APTIVIO / LEARN</i></div></div></div>
+          <div className="learner-progress-strip">
+            <div><strong>{lessonsCompleted ?? 0}</strong><span>Lessons completed</span></div>
+            <div><strong>20</strong><span>Learning paths to explore</span></div>
+            <Link href="/progress">See your progress →</Link>
+          </div>
           <div className="workspace-section-title"><div><span className="app-overline">CHOOSE YOUR NEXT STEP</span><h2>Make today count.</h2></div><span>There is no fixed timetable. Learn at your pace.</span></div>
           <div className="workspace-grid">
             <Link className="workspace-card workspace-learning" href="/courses"><div className="workspace-card-icon">⌘</div><span className="workspace-card-label">01 / LEARN</span><h3>Explore the<br/>learning library</h3><p>Clear explanations, guided lessons, practical examples and exercises across useful subjects.</p><b>Browse learning paths <span>↗</span></b><div className="workspace-decoration">A</div></Link>

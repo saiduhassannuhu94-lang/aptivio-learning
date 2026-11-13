@@ -128,3 +128,30 @@
 .auth-google-button{width:100%;display:flex;align-items:center;justify-content:center;gap:11px;min-height:48px;background:#fff;color:#24483a;border-color:#dce6dd;font-size:12px;font-weight:750}
 .google-mark{width:21px;height:21px;display:grid;place-items:center;border-radius:50%;border:1px solid #dfe7e0;background:#fff;color:#4285f4;font-family:Arial,sans-serif;font-size:14px;font-weight:850}
 .auth-google-button:hover{background:#f7faf7;border-color:#b9d4bf}
+
+
+.lesson-completion-panel{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:24px;padding:17px 18px;border:1px solid #dce8de;border-radius:10px;background:#fff}
+.lesson-completion-panel>div{display:flex;flex-direction:column;gap:5px}
+.lesson-completion-panel>div strong{font-size:13px;color:#234a3d}
+.lesson-completion-panel>div small{font-size:9px;line-height:1.5;color:#87948b}
+.lesson-completion-panel .button{font-size:10px;min-height:38px;white-space:nowrap}
+.lesson-progress-error{font-size:10px;color:#a04d35;margin:10px 0 0;line-height:1.6}
+.lesson-progress-error a{color:#087f68;font-weight:800;text-decoration:underline}
+.learning-progress-history{margin:35px 0 32px}
+.learning-progress-history>h2{font-size:21px;letter-spacing:-.03em;margin:0 0 16px;color:#183b33}
+.learning-path-progress-list{display:grid;gap:12px}
+.learning-path-progress-row{padding:17px 18px;border:1px solid #e4ebe5;border-radius:11px;background:#fff}
+.learning-path-progress-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.learning-path-progress-heading>div{display:grid;gap:4px}
+.learning-path-progress-heading strong{font-size:12px;color:#244b3c}
+.learning-path-progress-heading span{font-size:9px;color:#849188}
+.learning-path-progress-heading>b{font-size:12px;color:#087f68}
+.learning-path-progress-track{height:6px;background:#edf2ee;border-radius:8px;overflow:hidden;margin:12px 0 9px}
+.learning-path-progress-track span{height:100%;display:block;background:#0b896f;border-radius:8px}
+.learning-path-progress-row>a{font-size:9px;color:#087f68;font-weight:800}
+.learner-progress-strip{display:flex;align-items:center;gap:28px;padding:17px 20px;margin:22px 0 32px;border:1px solid #e4ebe5;border-radius:12px;background:#fff}
+.learner-progress-strip>div{display:grid;gap:3px}
+.learner-progress-strip strong{font-size:22px;line-height:1;color:#183b33}
+.learner-progress-strip span{font-size:9px;color:#819087}
+.learner-progress-strip>a{margin-left:auto;font-size:10px;color:#087f68;font-weight:800}
+@media(max-width:620px){.lesson-completion-panel{align-items:stretch;flex-direction:column}.lesson-completion-panel .button{width:100%}.learner-progress-strip{gap:13px;padding:14px;flex-wrap:wrap}.learner-progress-strip>div{flex:1}.learner-progress-strip strong{font-size:19px}.learner-progress-strip>a{margin-left:0;width:100%;padding-top:10px;border-top:1px solid #edf1ed}}
