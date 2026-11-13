@@ -1,4 +1,6 @@
 import Link from "next/link";
+
+export const dynamic = "force-dynamic";
 import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AssessmentForm, type AssessmentQuestion } from "../assessment-form";
