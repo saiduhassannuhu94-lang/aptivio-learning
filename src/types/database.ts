@@ -44,213 +44,6 @@ export type Database = {
         }
         Relationships: []
       }
-      brain_challenge_answer_keys: {
-        Row: {
-          correct_option_ids: string[]
-          question_id: string
-        }
-        Insert: {
-          correct_option_ids: string[]
-          question_id: string
-        }
-        Update: {
-          correct_option_ids?: string[]
-          question_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "brain_challenge_answer_keys_question_id_fkey"
-            columns: ["question_id"]
-            isOneToOne: true
-            referencedRelation: "brain_challenge_questions"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      brain_challenge_attempt_answers: {
-        Row: {
-          attempt_id: string
-          awarded_points: number
-          created_at: string
-          id: string
-          is_correct: boolean
-          question_id: string
-          selected_option_ids: string[]
-        }
-        Insert: {
-          attempt_id: string
-          awarded_points?: number
-          created_at?: string
-          id?: string
-          is_correct: boolean
-          question_id: string
-          selected_option_ids?: string[]
-        }
-        Update: {
-          attempt_id?: string
-          awarded_points?: number
-          created_at?: string
-          id?: string
-          is_correct?: boolean
-          question_id?: string
-          selected_option_ids?: string[]
-        }
-        Relationships: [
-          {
-            foreignKeyName: "brain_challenge_attempt_answers_attempt_id_fkey"
-            columns: ["attempt_id"]
-            isOneToOne: false
-            referencedRelation: "brain_challenge_attempts"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "brain_challenge_attempt_answers_question_id_fkey"
-            columns: ["question_id"]
-            isOneToOne: false
-            referencedRelation: "brain_challenge_questions"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      brain_challenge_attempts: {
-        Row: {
-          attempt_number: number
-          challenge_id: string
-          created_at: string
-          elapsed_seconds: number | null
-          id: string
-          max_score: number | null
-          percentage: number | null
-          score: number | null
-          started_at: string
-          status: string
-          submitted_at: string | null
-          user_id: string
-        }
-        Insert: {
-          attempt_number: number
-          challenge_id: string
-          created_at?: string
-          elapsed_seconds?: number | null
-          id?: string
-          max_score?: number | null
-          percentage?: number | null
-          score?: number | null
-          started_at?: string
-          status?: string
-          submitted_at?: string | null
-          user_id: string
-        }
-        Update: {
-          attempt_number?: number
-          challenge_id?: string
-          created_at?: string
-          elapsed_seconds?: number | null
-          id?: string
-          max_score?: number | null
-          percentage?: number | null
-          score?: number | null
-          started_at?: string
-          status?: string
-          submitted_at?: string | null
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "brain_challenge_attempts_challenge_id_fkey"
-            columns: ["challenge_id"]
-            isOneToOne: false
-            referencedRelation: "brain_challenges"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      brain_challenge_questions: {
-        Row: {
-          challenge_id: string
-          created_at: string
-          explanation: string
-          id: string
-          options: Json
-          points: number
-          prompt: string
-          sort_order: number
-        }
-        Insert: {
-          challenge_id: string
-          created_at?: string
-          explanation?: string
-          id?: string
-          options: Json
-          points?: number
-          prompt: string
-          sort_order: number
-        }
-        Update: {
-          challenge_id?: string
-          created_at?: string
-          explanation?: string
-          id?: string
-          options?: Json
-          points?: number
-          prompt?: string
-          sort_order?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "brain_challenge_questions_challenge_id_fkey"
-            columns: ["challenge_id"]
-            isOneToOne: false
-            referencedRelation: "brain_challenges"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      brain_challenges: {
-        Row: {
-          category: string
-          created_at: string
-          difficulty: string
-          duration_seconds: number
-          id: string
-          instructions: string
-          is_published: boolean
-          max_attempts: number | null
-          slug: string
-          summary: string
-          title: string
-          updated_at: string
-        }
-        Insert: {
-          category: string
-          created_at?: string
-          difficulty?: string
-          duration_seconds: number
-          id?: string
-          instructions?: string
-          is_published?: boolean
-          max_attempts?: number | null
-          slug: string
-          summary: string
-          title: string
-          updated_at?: string
-        }
-        Update: {
-          category?: string
-          created_at?: string
-          difficulty?: string
-          duration_seconds?: number
-          id?: string
-          instructions?: string
-          is_published?: boolean
-          max_attempts?: number | null
-          slug?: string
-          summary?: string
-          title?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
       categories: {
         Row: {
           created_at: string
@@ -281,6 +74,99 @@ export type Database = {
           slug?: string
           sort_order?: number
           updated_at?: string
+        }
+        Relationships: []
+      }
+      course_assessments: {
+        Row: {
+          accessibility: string
+          content_fingerprint: string
+          course_version_id: string
+          created_at: string
+          equipment: Json
+          final_project: Json
+          id: string
+          instructions: string
+          pass_mark_percent: number
+          questions: Json
+          source_references: Json
+          title: string
+          total_marks: number
+        }
+        Insert: {
+          accessibility?: string
+          content_fingerprint: string
+          course_version_id: string
+          created_at?: string
+          equipment?: Json
+          final_project: Json
+          id?: string
+          instructions?: string
+          pass_mark_percent: number
+          questions: Json
+          source_references?: Json
+          title: string
+          total_marks: number
+        }
+        Update: {
+          accessibility?: string
+          content_fingerprint?: string
+          course_version_id?: string
+          created_at?: string
+          equipment?: Json
+          final_project?: Json
+          id?: string
+          instructions?: string
+          pass_mark_percent?: number
+          questions?: Json
+          source_references?: Json
+          title?: string
+          total_marks?: number
+        }
+        Relationships: []
+      }
+      course_assessment_submissions: {
+        Row: {
+          answers: Json
+          assessment_id: string
+          course_version_id: string
+          enrollment_id: string
+          feedback: string | null
+          grade_percent: number | null
+          graded_at: string | null
+          graded_by: string | null
+          id: string
+          status: string
+          submitted_at: string
+          user_id: string
+        }
+        Insert: {
+          answers: Json
+          assessment_id: string
+          course_version_id: string
+          enrollment_id: string
+          feedback?: string | null
+          grade_percent?: number | null
+          graded_at?: string | null
+          graded_by?: string | null
+          id?: string
+          status?: string
+          submitted_at?: string
+          user_id: string
+        }
+        Update: {
+          answers?: Json
+          assessment_id?: string
+          course_version_id?: string
+          enrollment_id?: string
+          feedback?: string | null
+          grade_percent?: number | null
+          graded_at?: string | null
+          graded_by?: string | null
+          id?: string
+          status?: string
+          submitted_at?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -510,33 +396,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
-      }
-      learning_library_progress: {
-        Row: {
-          completed_at: string
-          created_at: string
-          learning_path_slug: string
-          lesson_number: number
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          completed_at?: string
-          created_at?: string
-          learning_path_slug: string
-          lesson_number: number
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          completed_at?: string
-          created_at?: string
-          learning_path_slug?: string
-          lesson_number?: number
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
       }
       lesson_progress: {
         Row: {
@@ -1074,6 +933,241 @@ export type Database = {
         Relationships: []
       }
     }
+      brain_challenge_answer_keys: {
+        Row: {
+          correct_option_ids: string[]
+          question_id: string
+        }
+        Insert: {
+          correct_option_ids: string[]
+          question_id: string
+        }
+        Update: {
+          correct_option_ids?: string[]
+          question_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "brain_challenge_answer_keys_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: true
+            referencedRelation: "brain_challenge_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      brain_challenge_attempt_answers: {
+        Row: {
+          attempt_id: string
+          awarded_points: number
+          created_at: string
+          id: string
+          is_correct: boolean
+          question_id: string
+          selected_option_ids: string[]
+        }
+        Insert: {
+          attempt_id: string
+          awarded_points?: number
+          created_at?: string
+          id?: string
+          is_correct: boolean
+          question_id: string
+          selected_option_ids?: string[]
+        }
+        Update: {
+          attempt_id?: string
+          awarded_points?: number
+          created_at?: string
+          id?: string
+          is_correct?: boolean
+          question_id?: string
+          selected_option_ids?: string[]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "brain_challenge_attempt_answers_attempt_id_fkey"
+            columns: ["attempt_id"]
+            isOneToOne: false
+            referencedRelation: "brain_challenge_attempts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "brain_challenge_attempt_answers_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "brain_challenge_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      brain_challenge_attempts: {
+        Row: {
+          attempt_number: number
+          challenge_id: string
+          created_at: string
+          elapsed_seconds: number | null
+          id: string
+          max_score: number | null
+          percentage: number | null
+          score: number | null
+          started_at: string
+          status: string
+          submitted_at: string | null
+          user_id: string
+        }
+        Insert: {
+          attempt_number: number
+          challenge_id: string
+          created_at?: string
+          elapsed_seconds?: number | null
+          id?: string
+          max_score?: number | null
+          percentage?: number | null
+          score?: number | null
+          started_at?: string
+          status?: string
+          submitted_at?: string | null
+          user_id: string
+        }
+        Update: {
+          attempt_number?: number
+          challenge_id?: string
+          created_at?: string
+          elapsed_seconds?: number | null
+          id?: string
+          max_score?: number | null
+          percentage?: number | null
+          score?: number | null
+          started_at?: string
+          status?: string
+          submitted_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "brain_challenge_attempts_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "brain_challenges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      brain_challenge_questions: {
+        Row: {
+          challenge_id: string
+          created_at: string
+          explanation: string
+          id: string
+          options: Json
+          points: number
+          prompt: string
+          sort_order: number
+        }
+        Insert: {
+          challenge_id: string
+          created_at?: string
+          explanation?: string
+          id?: string
+          options: Json
+          points?: number
+          prompt: string
+          sort_order: number
+        }
+        Update: {
+          challenge_id?: string
+          created_at?: string
+          explanation?: string
+          id?: string
+          options?: Json
+          points?: number
+          prompt?: string
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "brain_challenge_questions_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "brain_challenges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      brain_challenges: {
+        Row: {
+          category: string
+          created_at: string
+          difficulty: string
+          duration_seconds: number
+          id: string
+          instructions: string
+          is_published: boolean
+          max_attempts: number | null
+          slug: string
+          summary: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          difficulty?: string
+          duration_seconds: number
+          id?: string
+          instructions?: string
+          is_published?: boolean
+          max_attempts?: number | null
+          slug: string
+          summary: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          difficulty?: string
+          duration_seconds?: number
+          id?: string
+          instructions?: string
+          is_published?: boolean
+          max_attempts?: number | null
+          slug?: string
+          summary?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      learning_library_progress: {
+        Row: {
+          completed_at: string
+          created_at: string
+          learning_path_slug: string
+          lesson_number: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string
+          created_at?: string
+          learning_path_slug: string
+          lesson_number: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string
+          created_at?: string
+          learning_path_slug?: string
+          lesson_number?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+
     Views: {
       [_ in never]: never
     }
@@ -1089,17 +1183,9 @@ export type Database = {
         }
         Returns: string
       }
-      start_brain_challenge_attempt: {
-        Args: { p_challenge_id: string; p_user_id: string }
-        Returns: string
-      }
       start_quiz_attempt: {
         Args: { p_enrollment_id: string; p_quiz_id: string; p_user_id: string }
         Returns: string
-      }
-      submit_brain_challenge_attempt: {
-        Args: { p_answers: Json; p_attempt_id: string; p_user_id: string }
-        Returns: Json
       }
       submit_quiz_attempt: {
         Args: {
@@ -1111,7 +1197,20 @@ export type Database = {
         }
         Returns: string
       }
+      submit_course_assessment: {
+        Args: { p_answers: Json; p_assessment_id: string }
+        Returns: string
+      }
     }
+      start_brain_challenge_attempt: {
+        Args: { p_challenge_id: string; p_user_id: string }
+        Returns: string
+      }
+      submit_brain_challenge_attempt: {
+        Args: { p_answers: Json; p_attempt_id: string; p_user_id: string }
+        Returns: Json
+      }
+
     Enums: {
       app_role: "admin" | "content_manager" | "support"
       course_level: "beginner" | "intermediate" | "advanced" | "all_levels"
