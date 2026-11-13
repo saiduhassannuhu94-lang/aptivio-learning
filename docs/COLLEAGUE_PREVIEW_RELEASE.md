@@ -14,7 +14,7 @@ APTIVIO is a free learning library and reasoning-practice platform. It is not an
 ## Required setup before public sharing
 
 1. Confirm the correct Supabase project is selected and take a database backup.
-2. Apply `supabase/migrations/20261112090000_add_independent_brain_challenges.sql` in the Supabase SQL Editor.
+2. Apply `supabase/migrations/20261112192010_add_independent_brain_challenges.sql` in the Supabase SQL Editor.
 3. Confirm the five seeded challenges exist in `brain_challenges` and each has five questions and five answer keys.
 4. Confirm the Vercel project has these environment variables in the deployment environment:
    - `NEXT_PUBLIC_SITE_URL`
@@ -47,4 +47,4 @@ Do not run the older Batch 1 course importer for this product direction. Learnin
 
 ## Release status
 
-A successful GitHub CI run validates code and the content package structure. It does not apply the Supabase migration, configure production secrets, verify email delivery, perform real-user acceptance testing or deploy the production site. Those steps must be completed and checked before colleagues are sent the production URL.
+The challenge schema and starter content are present in the connected Supabase project. A follow-up repair migration seeds the answer keys required for scoring. A successful GitHub CI run validates code and the content package structure; it does not verify email delivery, complete real-user acceptance testing or deploy the production site. Those checks must be completed before colleagues are sent the production URL.
