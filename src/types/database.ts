@@ -932,7 +932,6 @@ export type Database = {
         }
         Relationships: []
       }
-    }
       brain_challenge_answer_keys: {
         Row: {
           correct_option_ids: string[]
@@ -1167,7 +1166,7 @@ export type Database = {
         }
         Relationships: []
       }
-
+    }
     Views: {
       [_ in never]: never
     }
@@ -1201,7 +1200,6 @@ export type Database = {
         Args: { p_answers: Json; p_assessment_id: string }
         Returns: string
       }
-    }
       start_brain_challenge_attempt: {
         Args: { p_challenge_id: string; p_user_id: string }
         Returns: string
@@ -1210,7 +1208,7 @@ export type Database = {
         Args: { p_answers: Json; p_attempt_id: string; p_user_id: string }
         Returns: Json
       }
-
+    }
     Enums: {
       app_role: "admin" | "content_manager" | "support"
       course_level: "beginner" | "intermediate" | "advanced" | "all_levels"
