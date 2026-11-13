@@ -164,11 +164,9 @@ export default async function LearningLessonPage({ params }: Props) {
   if (!lesson) notFound();
   const previous = index > 1 ? index - 1 : null;
   const next = index < lessons.length ? index + 1 : null;
-  let running = 0;
-  const sectionIndex = item.sections.findIndex((group) => {
-    running += group.lessons.length;
-    return index <= running;
-  });
+  const sectionIndex = item.sections.findIndex((group, groupIndex) =>
+    index <= item.sections.slice(0, groupIndex + 1).reduce((sum, entry) => sum + entry.lessons.length, 0),
+  );
   const section = item.sections[sectionIndex];
 
   return (

@@ -17,16 +17,23 @@ export function LessonPracticePanel({ courseSlug, lessonNumber, lessonTitle, exe
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    try {
-      const stored = window.localStorage.getItem(key);
-      if (stored) {
-        const parsed = JSON.parse(stored) as { answer?: string; checked?: boolean[] };
-        setAnswer(typeof parsed.answer === "string" ? parsed.answer : "");
-        setChecked(takeaways.map((_, index) => parsed.checked?.[index] === true));
+    let active = true;
+    const timer = window.setTimeout(() => {
+      try {
+        const stored = window.localStorage.getItem(key);
+        if (stored && active) {
+          const parsed = JSON.parse(stored) as { answer?: string; checked?: boolean[] };
+          setAnswer(typeof parsed.answer === "string" ? parsed.answer : "");
+          setChecked(takeaways.map((_, index) => parsed.checked?.[index] === true));
+        }
+      } catch {
+        if (active) setAnswer("");
       }
-    } catch {
-      setAnswer("");
-    }
+    }, 0);
+    return () => {
+      active = false;
+      window.clearTimeout(timer);
+    };
   }, [key, takeaways]);
 
   function saveReflection() {
