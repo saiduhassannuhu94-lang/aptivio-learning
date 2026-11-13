@@ -7,13 +7,20 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function SignInPage() {
+type SignInPageProps = { searchParams: Promise<{ error?: string }> };
+
+export default async function SignInPage({ searchParams }: SignInPageProps) {
+  const query = await searchParams;
+  const googleError = query.error === "google"
+    ? "Google sign-in could not start. The Google provider may need to be enabled in Supabase Auth."
+    : null;
   return (
     <main className="auth-page">
       <AuthForm
         mode="sign-in"
         action={signInAction}
         initialState={{ error: null, message: null }}
+        googleError={googleError}
       />
     </main>
   );

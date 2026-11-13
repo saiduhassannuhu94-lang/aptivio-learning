@@ -142,3 +142,19 @@ export async function signOutAction() {
   redirect("/");
 }
 
+
+export async function signInWithGoogleAction() {
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: `${getSiteUrl()}/auth/callback?next=/dashboard`,
+    },
+  });
+
+  if (error || !data.url) {
+    redirect("/sign-in?error=google");
+  }
+
+  redirect(data.url);
+}

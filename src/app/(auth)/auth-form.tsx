@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useActionState } from "react";
-import type { AuthActionState } from "./actions";
+import { signInWithGoogleAction, type AuthActionState } from "./actions";
 
 type AuthMode = "sign-in" | "sign-up" | "forgot-password" | "update-password";
 type AuthAction = (
@@ -14,6 +14,7 @@ interface AuthFormProps {
   mode: AuthMode;
   action: AuthAction;
   initialState: AuthActionState;
+  googleError?: string | null;
 }
 
 const copy: Record<AuthMode, { title: string; description: string; submit: string }> = {
@@ -39,7 +40,7 @@ const copy: Record<AuthMode, { title: string; description: string; submit: strin
   },
 };
 
-export function AuthForm({ mode, action, initialState }: AuthFormProps) {
+export function AuthForm({ mode, action, initialState, googleError }: AuthFormProps) {
   const [state, formAction, pending] = useActionState(action, initialState);
   const content = copy[mode];
 
@@ -130,6 +131,19 @@ export function AuthForm({ mode, action, initialState }: AuthFormProps) {
           <span aria-hidden="true">↗</span>
         </button>
       </form>
+
+      {(mode === "sign-in" || mode === "sign-up") && (
+        <>
+          <div className="auth-divider"><span>OR</span></div>
+          {googleError && <p className="auth-feedback auth-error" role="alert">{googleError}</p>}
+          <form action={signInWithGoogleAction} className="auth-google-form">
+            <button className="button button-outline auth-google-button" type="submit">
+              <span className="google-mark" aria-hidden="true">G</span>
+              Continue with Google
+            </button>
+          </form>
+        </>
+      )}
 
       {mode === "sign-in" && (
         <p className="auth-switch">New to APTIVIO? <Link href="/sign-up">Create an account</Link></p>

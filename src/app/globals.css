@@ -120,3 +120,11 @@
 .concept-diagram-item>b{font-size:10px;line-height:1.45;color:#284b3d}
 .lesson-concept-diagram>p{font-size:9px;color:#819087;line-height:1.6;margin:12px 0 0}
 @media(max-width:620px){.lesson-concept-diagram{padding:16px 12px}.concept-diagram-flow{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.concept-diagram-item{min-height:65px}.concept-diagram-item:after{display:none!important}.concept-diagram-item>b{font-size:9px}}
+
+
+.auth-divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:#98a69d;font-size:9px;font-weight:800;letter-spacing:.14em}
+.auth-divider:before,.auth-divider:after{content:"";height:1px;background:#e6ece7;flex:1}
+.auth-google-form{margin:0}
+.auth-google-button{width:100%;display:flex;align-items:center;justify-content:center;gap:11px;min-height:48px;background:#fff;color:#24483a;border-color:#dce6dd;font-size:12px;font-weight:750}
+.google-mark{width:21px;height:21px;display:grid;place-items:center;border-radius:50%;border:1px solid #dfe7e0;background:#fff;color:#4285f4;font-family:Arial,sans-serif;font-size:14px;font-weight:850}
+.auth-google-button:hover{background:#f7faf7;border-color:#b9d4bf}
