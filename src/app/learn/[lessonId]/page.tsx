@@ -47,7 +47,7 @@ export default async function LearningPathPage({ params }: Props) {
             </div>
             <div className="lesson-path-actions">
               <Link className="aptivio-action lesson-path-primary" href={firstLessonHref}>Start first lesson <span aria-hidden="true">→</span></Link>
-              <Link className="aptivio-action lesson-path-secondary" href={"/learn/" + item.course.slug + "/quiz"}>Take the course quiz <span aria-hidden="true">✦</span></Link>
+              <Link className="aptivio-action lesson-path-secondary" href={"/learn/" + item.course.slug + "/assessment"}>Take final assessment <span aria-hidden="true">✦</span></Link>
             </div>
           </div>
           <CourseArtwork slug={item.course.slug} title={item.course.title} number={courseIndex + 1} />

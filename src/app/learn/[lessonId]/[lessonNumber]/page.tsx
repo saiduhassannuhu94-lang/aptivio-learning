@@ -228,7 +228,7 @@ export default async function LearningLessonPage({ params }: Props) {
           <LessonPracticePanel courseSlug={item.course.slug} lessonNumber={index} lessonTitle={lesson.title} exercise={lesson.exercise} takeaways={lesson.key_takeaways} />
           <div className="runner-actions lesson-navigation">
             {previous ? <Link className="button button-outline" href={"/learn/" + item.course.slug + "/" + previous}>← Previous lesson</Link> : <span />}
-            {next ? <Link className="button button-primary" href={"/learn/" + item.course.slug + "/" + next}>Next lesson →</Link> : <Link className="button button-primary" href="/challenges">Test your thinking ↗</Link>}
+            {next ? <Link className="button button-primary" href={"/learn/" + item.course.slug + "/" + next}>Next lesson →</Link> : <Link className="button button-primary" href={"/learn/" + item.course.slug + "/assessment"}>Final course assessment ↗</Link>}
           </div>
           <p className="lesson-reader-footer">APTIVIO / Learn with understanding, not just speed.</p>
         </section>
