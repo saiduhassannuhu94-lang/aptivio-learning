@@ -3176,3 +3176,22 @@ html[data-theme="dark"] .visual-note {
 }
 html[data-theme="dark"] .visual-note b { color:#edf5ef; }
 html[data-theme="dark"] .visual-note small { color:#b5c7bd; }
+
+
+/* Honest OAuth availability notice. */
+.auth-google-note {
+  margin: 22px 0 0;
+  padding: 12px 14px;
+  border: 1px solid #e6ece7;
+  border-radius: 11px;
+  background: #f8fbf8;
+  color: #718078;
+  font-size: 10px;
+  line-height: 1.65;
+  text-align: center;
+}
+html[data-theme="dark"] .auth-google-note {
+  border-color: #365247;
+  background: #101a16;
+  color: #b5c7bd;
+}
