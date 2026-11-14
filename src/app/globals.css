@@ -161,3 +161,195 @@
 .concept-diagram-visual{display:block;width:100%;height:auto;max-height:116px;margin:0 0 10px;overflow:visible}
 .concept-diagram-visual text{font-family:inherit}
 @media(max-width:620px){.concept-diagram-visual{max-height:92px;margin-bottom:8px}}
+
+
+/* APTIVIO interaction system: tactile controls, expressive motion, and mobile-first sizing. */
+:root {
+  --aptivio-ease: cubic-bezier(.2,.75,.25,1);
+  --aptivio-fast: 160ms;
+  --aptivio-medium: 260ms;
+}
+button,
+.button,
+.app-button,
+.auth-google-button,
+.mobile-menu summary,
+.sidebar-nav a,
+.mobile-menu-panel a,
+.topic-card,
+.workspace-card {
+  -webkit-tap-highlight-color: transparent;
+}
+button,
+.button,
+.app-button,
+.auth-google-button {
+  min-height: 48px;
+  touch-action: manipulation;
+  transition:
+    transform var(--aptivio-medium) var(--aptivio-ease),
+    box-shadow var(--aptivio-medium) var(--aptivio-ease),
+    background-color var(--aptivio-fast) ease,
+    border-color var(--aptivio-fast) ease,
+    color var(--aptivio-fast) ease,
+    filter var(--aptivio-fast) ease;
+}
+button:focus-visible,
+a:focus-visible,
+.button:focus-visible,
+.app-button:focus-visible,
+.auth-google-button:focus-visible,
+.mobile-menu summary:focus-visible {
+  outline: 3px solid #e7b95c;
+  outline-offset: 4px;
+}
+button:active:not(:disabled),
+.button:active,
+.app-button:active,
+.auth-google-button:active {
+  transform: translateY(1px) scale(.985);
+}
+button:disabled,
+.button[aria-disabled="true"],
+.app-button[aria-disabled="true"] {
+  cursor: not-allowed;
+  filter: saturate(.55);
+  opacity: .62;
+}
+.app-button,
+.button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 13px;
+  font-weight: 780;
+  letter-spacing: -.01em;
+}
+.app-button-primary,
+.button-primary {
+  box-shadow: 0 10px 24px #087f6828, inset 0 1px 0 #ffffff38;
+}
+.app-button-primary::after,
+.button-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(112deg, transparent 22%, #ffffff35 48%, transparent 72%);
+  transform: translateX(-130%);
+  transition: transform 720ms var(--aptivio-ease);
+}
+.app-button-primary:hover::after,
+.button-primary:hover::after {
+  transform: translateX(130%);
+}
+.app-button-primary:hover,
+.button-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px #087f6838, inset 0 1px 0 #ffffff45;
+  filter: saturate(1.08);
+}
+.app-button-outline:hover,
+.button-outline:hover {
+  transform: translateY(-2px);
+  border-color: #91bda0;
+  box-shadow: 0 9px 22px #183b3310;
+}
+.topic-card,
+.workspace-card {
+  will-change: transform;
+  transition:
+    transform 320ms var(--aptivio-ease),
+    box-shadow 320ms var(--aptivio-ease),
+    border-color 220ms ease;
+}
+.topic-card:hover,
+.workspace-card:hover {
+  transform: translateY(-6px);
+}
+.app-hero > :first-child {
+  animation: aptivio-enter 650ms var(--aptivio-ease) both;
+}
+.app-hero-visual {
+  animation: aptivio-enter 780ms 90ms var(--aptivio-ease) both;
+}
+.visual-photo {
+  animation: aptivio-float 8s ease-in-out infinite;
+}
+.visual-note {
+  animation: aptivio-float 6s ease-in-out infinite;
+}
+.visual-note.note-two {
+  animation-delay: -2.4s;
+}
+.lesson-concept-diagram,
+.lesson-worked-example,
+.lesson-practice-studio {
+  animation: aptivio-enter 520ms var(--aptivio-ease) both;
+}
+.lesson-concept-diagram {
+  animation-delay: 70ms;
+}
+.lesson-practice-studio {
+  animation-delay: 110ms;
+}
+@keyframes aptivio-enter {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes aptivio-float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -7px, 0); }
+}
+@media (min-width: 621px) {
+  .app-button,
+  .button {
+    min-height: 52px;
+    padding-inline: 23px;
+    font-size: 13px;
+  }
+}
+@media (max-width: 620px) {
+  .app-button,
+  .button,
+  .auth-google-button {
+    min-height: 54px;
+    border-radius: 14px;
+    font-size: 13px;
+  }
+  .app-hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 11px;
+  }
+  .app-hero-actions > .app-button {
+    width: 100%;
+    min-height: 56px;
+  }
+  .app-header-actions .app-button {
+    min-height: 42px;
+  }
+  .lesson-navigation {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .lesson-navigation > * {
+    width: 100%;
+    min-height: 52px;
+  }
+  .lesson-reader-upgraded .button {
+    width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
