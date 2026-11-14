@@ -23,7 +23,7 @@ afterEach(() => {
 
 describe("getSiteUrl", () => {
   it("uses the current Vercel deployment host for preview callbacks", () => {
-    process.env.NODE_ENV = "production";
+    Reflect.set(process.env, "NODE_ENV", "production");
     process.env.VERCEL_ENV = "preview";
     process.env.VERCEL_URL = "aptivio-preview.example";
     delete process.env.NEXT_PUBLIC_SITE_URL;
@@ -32,7 +32,7 @@ describe("getSiteUrl", () => {
   });
 
   it("uses the canonical APTIVIO domain for production when no URL is configured", () => {
-    process.env.NODE_ENV = "production";
+    Reflect.set(process.env, "NODE_ENV", "production");
     process.env.VERCEL_ENV = "production";
     delete process.env.NEXT_PUBLIC_SITE_URL;
     delete process.env.VERCEL_PROJECT_PRODUCTION_URL;
