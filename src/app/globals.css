@@ -3111,3 +3111,68 @@ html[data-theme="dark"] .auth-resend summary { color: #c5e5c8; }
   .auth-topline { margin-bottom: 30px; }
   .auth-topline .site-theme-toggle { min-height: 35px; padding: 0 8px; font-size: 9px; }
 }
+
+
+/* Make the home experience follow the selected theme instead of staying hard-coded light. */
+html[data-theme="dark"] .aptivio-home {
+  background: #0c1412 !important;
+  color: #e5eee8 !important;
+}
+html[data-theme="dark"] .app-hero h1,
+html[data-theme="dark"] .app-section-heading h2,
+html[data-theme="dark"] .teaching-copy h2,
+html[data-theme="dark"] .example-copy h3,
+html[data-theme="dark"] .topic-card h3 {
+  color: #edf5ef !important;
+}
+html[data-theme="dark"] .app-hero-text,
+html[data-theme="dark"] .app-section-heading > p,
+html[data-theme="dark"] .topic-card p,
+html[data-theme="dark"] .teaching-copy > p,
+html[data-theme="dark"] .teaching-steps p,
+html[data-theme="dark"] .example-copy > p,
+html[data-theme="dark"] .example-copy li,
+html[data-theme="dark"] .app-stats span {
+  color: #b5c7bd !important;
+}
+html[data-theme="dark"] .app-stats,
+html[data-theme="dark"] .topic-card,
+html[data-theme="dark"] .example-card,
+html[data-theme="dark"] .algorithm-visual {
+  background: #14211d !important;
+  border-color: #2b4037 !important;
+  color: #e5eee8 !important;
+}
+html[data-theme="dark"] .teaching-section {
+  background: #111d18 !important;
+}
+html[data-theme="dark"] .topic-card:hover {
+  border-color: #527c64 !important;
+  box-shadow: 0 18px 40px #0004 !important;
+}
+html[data-theme="dark"] .topic-card .topic-link {
+  border-color: #2b4037;
+  color: #c5e5c8;
+}
+html[data-theme="dark"] .topic-icon.mint { background:#1c3b2d; color:#a7dfb5; }
+html[data-theme="dark"] .topic-icon.blue { background:#1c3043; color:#a8c8ef; }
+html[data-theme="dark"] .topic-icon.gold { background:#3e321e; color:#f0cf82; }
+html[data-theme="dark"] .topic-icon.violet { background:#302444; color:#d4b8f2; }
+html[data-theme="dark"] .algo-node {
+  background: #1b2b25;
+  color: #e5eee8;
+  border-color: #365247;
+}
+html[data-theme="dark"] .algo-node:first-child,
+html[data-theme="dark"] .algo-end {
+  background: #087f68;
+  color: #fff;
+  border-color: #087f68;
+}
+html[data-theme="dark"] .visual-note {
+  background: #14211d;
+  color: #edf5ef;
+  border: 1px solid #2b4037;
+}
+html[data-theme="dark"] .visual-note b { color:#edf5ef; }
+html[data-theme="dark"] .visual-note small { color:#b5c7bd; }
