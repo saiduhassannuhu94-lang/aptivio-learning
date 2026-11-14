@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SiteHeader } from "@/app/site-header";
 
 const areas = [
   { icon: "⌘", title: "Technology", desc: "Understand how the digital world works, from code to cybersecurity.", color: "mint", href: "/courses" },
@@ -10,14 +11,7 @@ const areas = [
 export default function HomePage() {
   return (
     <main className="aptivio-home">
-      <header className="app-header">
-        <Link className="app-brand" href="/"><span className="app-brand-symbol">a.</span><span>aptivio</span></Link>
-        <nav className="app-nav" aria-label="Main navigation">
-          <Link href="/courses">Explore</Link><Link href="/challenges">Brain challenges</Link><Link href="/progress">My progress</Link>
-        </nav>
-        <div className="app-header-actions"><Link className="app-login" href="/sign-in">Sign in</Link><Link className="app-button app-button-dark" href="/sign-up">Create free account <span>↗</span></Link></div>
-        <details className="mobile-menu"><summary aria-label="Open navigation menu"><span></span><span></span><span></span></summary><div className="mobile-menu-panel"><Link href="/courses">Explore learning</Link><Link href="/challenges">Brain challenges</Link><Link href="/progress">My progress</Link><Link href="/sign-in">Sign in</Link><Link href="/sign-up">Create free account</Link></div></details>
-      </header>
+      <SiteHeader current="home" />
 
       <section className="app-hero">
         <div className="app-hero-copy">

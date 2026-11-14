@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AptivioLogo } from "@/app/site-header";
 
 export const dynamic = "force-dynamic";
 import { redirect } from "next/navigation";
@@ -33,19 +34,26 @@ export default async function DashboardPage() {
   return (
     <main className="learner-app">
       <aside className="learner-sidebar">
-        <Link className="app-brand learner-brand" href="/"><span className="app-brand-symbol">a.</span><span>aptivio</span></Link>
+        <AptivioLogo compact />
         <span className="sidebar-caption">YOUR WORKSPACE</span>
         <nav className="sidebar-nav" aria-label="Learner navigation">
           <Link className="active" href="/dashboard"><span>▦</span> Overview</Link>
           <Link href="/courses"><span>⌘</span> Learning library</Link>
           <Link href="/challenges"><span>✳</span> Brain challenges</Link>
           <Link href="/progress"><span>↗</span> My progress</Link>
+          <Link href="/portfolio"><span>▤</span> Portfolio</Link>
         </nav>
+        <details className="learner-mobile-menu">
+          <summary aria-label="Open dashboard menu"><span></span><span></span><span></span><b>Menu</b></summary>
+          <nav aria-label="Mobile dashboard navigation">
+            <Link href="/dashboard">Overview</Link><Link href="/courses">Learning library</Link><Link href="/challenges">Brain challenges</Link><Link href="/progress">My progress</Link><Link href="/portfolio">Portfolio</Link>
+          </nav>
+        </details>
         <div className="sidebar-help"><span>✦</span><b>Keep your curiosity alive.</b><p>Small steps, repeated often, build real understanding.</p><Link href="/courses">Find your next lesson →</Link></div>
         <form action={signOutAction}><button className="sidebar-signout" type="submit">↪ <span>Sign out</span></button></form>
       </aside>
       <section className="learner-main">
-        <header className="learner-topbar"><div><span className="topbar-label">LEARNING SPACE</span><b>My workspace</b></div><div className="learner-top-actions"><Link href="/courses">Explore library</Link><span className="learner-avatar">{firstName.slice(0,1).toUpperCase()}</span></div></header>
+        <header className="learner-topbar"><div><span className="topbar-label">LEARNING SPACE</span><b>My workspace</b></div><div className="learner-top-actions"><Link href="/courses">Explore library</Link><Link href="/portfolio">Portfolio</Link><span className="learner-avatar">{firstName.slice(0,1).toUpperCase()}</span></div></header>
         <div className="learner-content">
           <div className="learner-welcome"><div><span className="app-overline">YOUR SPACE TO LEARN AND THINK</span><h1>Good to see you, {firstName}.</h1><p>Your next idea is waiting. Pick up a lesson, try a challenge or explore something completely new.</p><div className="welcome-actions"><Link className="app-button app-button-primary" href="/courses">Explore learning <span>→</span></Link><Link className="welcome-text-link" href="/challenges">Test your thinking ↗</Link></div></div><div className="welcome-illustration"><div className="welcome-sun">✳</div><div className="welcome-book"><span>YOUR NEXT CHAPTER</span><b>Curiosity<br/>looks good<br/>on you.</b><i>APTIVIO / LEARN</i></div></div></div>
           <div className="learner-progress-strip">

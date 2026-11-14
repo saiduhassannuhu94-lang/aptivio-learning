@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { getLearningPackage, learningPackages } from "@/lib/learning/library";
 import { LessonPracticePanel } from "./lesson-practice-panel";
+import { SiteHeader } from "@/app/site-header";
 
 type Props = { params: Promise<{ lessonId: string; lessonNumber: string }> };
 type Block = { type: "paragraph" | "h2" | "h3" | "quote" | "list" | "ordered" | "code"; lines: string[]; language?: string };
@@ -198,10 +199,7 @@ export default async function LearningLessonPage({ params }: Props) {
 
   return (
     <main className="lesson-page lesson-experience">
-      <header className="dashboard-header">
-        <Link className="brand" href="/"><span className="brand-mark">A</span><span>APTIVIO</span></Link>
-        <nav className="challenge-nav"><Link href="/courses">Learning library</Link><Link href="/challenges">Brain challenges</Link><Link href="/progress">My progress</Link></nav>
-      </header>
+      <SiteHeader current="learn" />
       <div className="lesson-experience-grid">
         <aside className="lesson-outline">
           <Link className="lesson-back-link" href={"/learn/" + item.course.slug}>← Back to learning path</Link>
