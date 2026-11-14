@@ -33,6 +33,28 @@ export type LearningSection = {
   lessons: LearningLesson[];
 };
 
+export type LearningAssessmentQuestion = {
+  id: string;
+  type: string;
+  prompt: string;
+  marks: number;
+  rubric: string[];
+};
+
+export type LearningAssessment = {
+  title: string;
+  pass_mark_percent: number;
+  instructions: string;
+  questions: LearningAssessmentQuestion[];
+  total_marks: number;
+};
+
+export type LearningFinalProject = {
+  title: string;
+  deliverables: string[];
+  acceptance_criteria: string[];
+};
+
 export type LearningPackage = {
   course: {
     slug: string;
@@ -46,6 +68,8 @@ export type LearningPackage = {
     prerequisites: string[];
     outcomes: string[];
     accessibility: string;
+    assessment?: LearningAssessment;
+    finalProject?: LearningFinalProject;
   };
   sections: LearningSection[];
 };
@@ -80,6 +104,8 @@ export const learningPackages: LearningPackage[] = packageSources.map((item) => 
       prerequisites: course.prerequisites,
       outcomes: course.outcomes,
       accessibility: course.accessibility,
+      assessment: course.assessment,
+      finalProject: course.finalProject,
     },
     sections: normalizedSections,
   };
