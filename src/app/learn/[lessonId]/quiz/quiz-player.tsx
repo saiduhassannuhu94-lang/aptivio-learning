@@ -26,32 +26,21 @@ export function QuizPlayer({ courseSlug, courseTitle, questions, nextCourse }: P
   const [secondsLeft, setSecondsLeft] = useState(300);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
-  const [savedLocally, setSavedLocally] = useState<boolean | null>(null);
-
-  const score = useMemo(
-    () => questions.reduce((total, question, index) => total + (answers[index] === question.correctIndex ? 1 : 0), 0),
-    [answers, questions],
-  );
-  const percentage = Math.round((score / questions.length) * 100);
-  const passed = percentage >= 70;
-  const currentQuestion = questions[currentIndex];
-  const selectedOption = answers[currentIndex];
-  const hasAnsweredCurrent = selectedOption !== undefined;
-
   useEffect(() => {
     if (!started || finished) return;
-    const timer = window.setInterval(() => {
+    const ticker = window.setInterval(() => {
       setSecondsLeft((remaining) => Math.max(remaining - 1, 0));
     }, 1000);
-    return () => window.clearInterval(timer);
-  }, [started, finished]);
-
-  useEffect(() => {
-    if (started && secondsLeft === 0 && !finished) {
+    const expiry = window.setTimeout(() => {
+      setSecondsLeft(0);
       setExpired(true);
       setFinished(true);
-    }
-  }, [finished, secondsLeft, started]);
+    }, 300_000);
+    return () => {
+      window.clearInterval(ticker);
+      window.clearTimeout(expiry);
+    };
+  }, [finished, started]);
 
   useEffect(() => {
     if (!finished) return;
@@ -69,9 +58,8 @@ export function QuizPlayer({ courseSlug, courseTitle, questions, nextCourse }: P
         completedAt: new Date().toISOString(),
       });
       window.localStorage.setItem(key, JSON.stringify(entries));
-      setSavedLocally(true);
     } catch {
-      setSavedLocally(false);
+      // The quiz still completes if browser storage is unavailable.
     }
   }, [courseSlug, expired, finished, passed, percentage, questions.length, score]);
 
@@ -96,7 +84,6 @@ export function QuizPlayer({ courseSlug, courseTitle, questions, nextCourse }: P
     setSecondsLeft(300);
     setCurrentIndex(0);
     setAnswers({});
-    setSavedLocally(null);
   }
 
   if (!started) {
@@ -131,7 +118,7 @@ export function QuizPlayer({ courseSlug, courseTitle, questions, nextCourse }: P
             : "You completed the assessment, but your score is below the 70% pass mark. Review the explanations and try again."}</p>
           <div className="quiz-score-display"><strong>{percentage}%</strong><span>{score} correct out of {questions.length}</span></div>
           {expired && <p className="quiz-expired-note">The countdown reached zero. Unanswered questions were marked incorrect.</p>}
-          <p className="quiz-save-status">{savedLocally === true ? "Attempt saved on this device." : savedLocally === false ? "This browser could not save the attempt." : "Saving your attempt…"}</p>
+          <p className="quiz-save-status">Attempt history is kept in this browser when storage is available.</p>
           {passed ? (
             <Link className="aptivio-action quiz-primary-action" href={nextCourse ? "/learn/" + nextCourse.slug : "/courses"}>
               {nextCourse ? "Move to next level" : "Explore more learning paths"} <span aria-hidden="true">→</span>
