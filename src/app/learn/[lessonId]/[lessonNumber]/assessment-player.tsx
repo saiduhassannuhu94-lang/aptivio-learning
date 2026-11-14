@@ -144,7 +144,7 @@ export function AssessmentPlayer({ courseSlug, courseTitle, assessment, finalPro
         <span className="assessment-eyebrow">APTIVIO · COURSE ASSESSMENT</span>
         <div className="assessment-start-symbol" aria-hidden="true">✦</div>
         <h1>{assessment.title}</h1>
-        <p className="assessment-start-description">{courseTitle}. This assessment uses the course's own written problems, practical tasks and marking rubric.</p>
+        <p className="assessment-start-description">{courseTitle}. This assessment uses the course&apos;s own written problems, practical tasks and marking rubric.</p>
         <div className="assessment-stats">
           <div><strong>{assessment.questions.length}</strong><span>Written tasks</span></div>
           <div><strong>{totalMarks}</strong><span>Total marks</span></div>
@@ -156,7 +156,7 @@ export function AssessmentPlayer({ courseSlug, courseTitle, assessment, finalPro
         </div>
         <div className="assessment-honesty-note">
           <strong>How marking works</strong>
-          <p>Write your answer first. Then reveal the marking rubric and honestly mark each criterion as “Met” or “Not yet”. APTIVIO calculates the score from your self-review. It is not an AI grade or an independent teacher's mark.</p>
+          <p>Write your answer first. Then reveal the marking rubric and honestly mark each criterion as “Met” or “Not yet”. APTIVIO calculates the score from your self-review. It is not an AI grade or an independent teacher&apos;s mark.</p>
         </div>
         <button className="aptivio-action assessment-primary-action" type="button" onClick={() => commit({ ...emptyState, started: true })}>
           Start written assessment <span aria-hidden="true">→</span>
