@@ -136,6 +136,33 @@ function ConceptDiagram({ courseSlug }: { courseSlug: string }) {
   return (
     <section className="lesson-concept-diagram" aria-label={diagram.title}>
       <div className="concept-diagram-heading"><span className="eyebrow">VISUAL EXPLANATION</span><h2>{diagram.title}</h2></div>
+      <svg
+        className="concept-diagram-visual"
+        viewBox="0 0 720 116"
+        role="img"
+        aria-label={`${diagram.title}: four connected stages`}
+      >
+        <defs>
+          <linearGradient id="concept-flow-line" x1="0" x2="1">
+            <stop offset="0%" stopColor="#9bcab0" />
+            <stop offset="100%" stopColor="#087f68" />
+          </linearGradient>
+        </defs>
+        <path d="M90 48 H630" stroke="url(#concept-flow-line)" strokeWidth="5" strokeLinecap="round" />
+        {diagram.steps.map((step, index) => {
+          const x = 90 + index * 180;
+          return (
+            <g key={step}>
+              <circle cx={x} cy="48" r="29" fill="#e4f2e7" />
+              <circle cx={x} cy="48" r="21" fill="#087f68" />
+              <text x={x} y="53" textAnchor="middle" fill="#ffffff" fontSize="12" fontWeight="800">
+                {String(index + 1).padStart(2, "0")}
+              </text>
+              <circle cx={x + 37} cy="48" r="3" fill="#d6e9da" />
+            </g>
+          );
+        })}
+      </svg>
       <div className="concept-diagram-flow">
         {diagram.steps.map((step, index) => <div className="concept-diagram-item" key={step}><span>{String(index + 1).padStart(2, "0")}</span><b>{step}</b></div>)}
       </div>

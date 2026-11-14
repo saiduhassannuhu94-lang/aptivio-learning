@@ -155,3 +155,9 @@
 .learner-progress-strip span{font-size:9px;color:#819087}
 .learner-progress-strip>a{margin-left:auto;font-size:10px;color:#087f68;font-weight:800}
 @media(max-width:620px){.lesson-completion-panel{align-items:stretch;flex-direction:column}.lesson-completion-panel .button{width:100%}.learner-progress-strip{gap:13px;padding:14px;flex-wrap:wrap}.learner-progress-strip>div{flex:1}.learner-progress-strip strong{font-size:19px}.learner-progress-strip>a{margin-left:0;width:100%;padding-top:10px;border-top:1px solid #edf1ed}}
+
+
+/* A compact, accessible vector visual for each lesson's concept flow. */
+.concept-diagram-visual{display:block;width:100%;height:auto;max-height:116px;margin:0 0 10px;overflow:visible}
+.concept-diagram-visual text{font-family:inherit}
+@media(max-width:620px){.concept-diagram-visual{max-height:92px;margin-bottom:8px}}
