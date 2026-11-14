@@ -16,8 +16,8 @@ const original = Object.fromEntries(
 afterEach(() => {
   for (const key of keys) {
     const value = original[key];
-    if (value === undefined) delete process.env[key];
-    else process.env[key] = value;
+    if (value === undefined) Reflect.deleteProperty(process.env, key);
+    else Reflect.set(process.env, key, value);
   }
 });
 
