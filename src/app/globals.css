@@ -2636,3 +2636,166 @@ a.app-button:focus-visible {
     box-shadow: 0 4px 12px #183b330c;
   }
 }
+
+
+/* APTIVIO photo-led course and portfolio imagery. */
+.course-photo-artwork {
+  min-height: 245px;
+  aspect-ratio: 2.05 / 1;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: end;
+  isolation: isolate;
+}
+.course-photo-artwork:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(5,20,17,.78), transparent 68%);
+  z-index: -1;
+  transition: transform 650ms ease;
+}
+.course-photo-overlay {
+  display: grid;
+  gap: 9px;
+  padding: clamp(19px,3vw,30px);
+  color: white;
+  max-width: 90%;
+}
+.course-photo-overlay span, .course-photo-overlay small {
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: .15em;
+  color: #d5eadb;
+}
+.course-photo-overlay strong {
+  font-size: clamp(20px,2.8vw,31px);
+  line-height: 1.08;
+  letter-spacing: -.04em;
+  max-width: 560px;
+}
+.course-photo-artwork:hover:before { transform: scale(1.035); }
+.course-artwork-shine { position:absolute; inset:0; pointer-events:none; background:linear-gradient(112deg,transparent 25%,#ffffff1a 48%,transparent 70%); transform:translateX(-120%); transition:transform 850ms ease; }
+.course-photo-artwork:hover .course-artwork-shine { transform:translateX(120%); }
+.lesson-real-world-visual { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(180px,.75fr); gap:18px; align-items:center; margin:28px 0; padding:15px; border:1px solid #e2eae4; border-radius:17px; background:#fff; }
+.lesson-real-world-visual .course-artwork { min-height:180px; border-radius:11px; }
+.lesson-real-world-visual p { color:#607169; font-size:13px; line-height:1.8; padding:8px; }
+.lesson-real-world-visual p strong { display:block; color:#173b32; font-size:16px; margin-bottom:8px; }
+
+/* Shared theme switch, visible on mobile and desktop. */
+.site-header-actions { display:flex; align-items:center; gap:13px; }
+.site-theme-toggle { display:inline-flex; align-items:center; gap:8px; min-height:40px; padding:0 11px; border:1px solid #dce6df; border-radius:999px; background:#fff; color:#25473c; font:700 10px/1 Inter,system-ui,sans-serif; cursor:pointer; transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease; }
+.site-theme-toggle:hover { transform:translateY(-2px); border-color:#8ebaa0; box-shadow:0 0 0 3px #087f6815,0 7px 18px #087f681c; }
+.site-theme-icon { font-size:17px; line-height:1; }
+.site-theme-track { width:27px; height:15px; border-radius:99px; background:#dbe8df; padding:2px; display:inline-flex; align-items:center; }
+.site-theme-track i { width:11px; height:11px; border-radius:50%; background:#087f68; transition:transform .25s ease; }
+.site-theme-toggle[aria-pressed="true"] .site-theme-track { background:#41665a; }
+.site-theme-toggle[aria-pressed="true"] .site-theme-track i { transform:translateX(12px); background:#f1ce79; }
+.site-mobile-menu nav .site-theme-toggle { margin:7px 5px; justify-content:space-between; }
+.site-header-actions .site-dashboard-link { white-space:nowrap; }
+.site-header-actions .site-dashboard-link:after,
+.site-mobile-menu nav a:after,
+.aptivio-action:after,
+.button:after,
+.challenge-card-link:after {
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:linear-gradient(110deg,transparent 15%,#ffffff55 48%,transparent 78%);
+  transform:translateX(-130%);
+  transition:transform .7s ease;
+}
+.site-header-actions .site-dashboard-link,
+.site-mobile-menu nav a,
+.aptivio-action,
+.button,
+.challenge-card-link { position:relative; overflow:hidden; }
+.site-header-actions .site-dashboard-link:hover:after,
+.site-mobile-menu nav a:hover:after,
+.aptivio-action:hover:after,
+.button:hover:after,
+.challenge-card-link:hover:after { transform:translateX(130%); }
+.aptivio-action, .button, .challenge-card-link, .site-dashboard-link { animation: aptivio-soft-glow 3.2s ease-in-out infinite; }
+@keyframes aptivio-soft-glow { 0%,100% { box-shadow:0 5px 15px #087f6814; } 50% { box-shadow:0 7px 23px #087f6833,0 0 0 3px #087f680a; } }
+.aptivio-action:active, .button:active, .challenge-card-link:active { transform:scale(.975) translateY(1px); }
+
+/* Contact support in the main navigation and authenticated workspace. */
+.learner-top-actions > a, .learner-top-actions > a:visited { color:#087f68; }
+.learner-top-actions > a:hover { text-decoration:underline; text-underline-offset:4px; }
+
+/* Persisted site-wide dark theme. */
+html[data-theme="dark"] body { background:#0c1412; color:#e5eee8; }
+html[data-theme="dark"] .site-header,
+html[data-theme="dark"] .site-mobile-menu nav,
+html[data-theme="dark"] .site-theme-toggle,
+html[data-theme="dark"] .catalogue-card,
+html[data-theme="dark"] .lesson-section-card,
+html[data-theme="dark"] .lesson-real-world-visual,
+html[data-theme="dark"] .portfolio-card,
+html[data-theme="dark"] .example-card,
+html[data-theme="dark"] .lesson-outline,
+html[data-theme="dark"] .lesson-reader,
+html[data-theme="dark"] .challenge-card,
+html[data-theme="dark"] .challenge-empty {
+  background:#14211d !important;
+  color:#e5eee8 !important;
+  border-color:#2b4037 !important;
+}
+html[data-theme="dark"] .catalogue-page,
+html[data-theme="dark"] .lesson-path-page,
+html[data-theme="dark"] .lesson-page,
+html[data-theme="dark"] .portfolio-page,
+html[data-theme="dark"] .challenge-page {
+  background:#0c1412 !important;
+  color:#e5eee8 !important;
+}
+html[data-theme="dark"] .site-nav a,
+html[data-theme="dark"] .site-mobile-menu nav a,
+html[data-theme="dark"] .site-theme-toggle,
+html[data-theme="dark"] .catalogue-card h2,
+html[data-theme="dark"] .lesson-reader h1,
+html[data-theme="dark"] .lesson-reader h2,
+html[data-theme="dark"] .lesson-reader h3,
+html[data-theme="dark"] .lesson-outline h2,
+html[data-theme="dark"] .portfolio-card h3,
+html[data-theme="dark"] .lesson-section-copy h3,
+html[data-theme="dark"] .lesson-list-title,
+html[data-theme="dark"] .challenge-card h3 {
+  color:#edf5ef !important;
+}
+html[data-theme="dark"] .catalogue-card p,
+html[data-theme="dark"] .portfolio-card p,
+html[data-theme="dark"] .lesson-reader p,
+html[data-theme="dark"] .lesson-outline a,
+html[data-theme="dark"] .lesson-section-copy p,
+html[data-theme="dark"] .challenge-card p,
+html[data-theme="dark"] .lesson-real-world-visual p {
+  color:#b5c7bd !important;
+}
+html[data-theme="dark"] .lesson-real-world-visual p strong { color:#edf5ef !important; }
+html[data-theme="dark"] .site-theme-track { background:#365449; }
+html[data-theme="dark"] .site-mobile-menu summary span { background:#e5eee8; }
+html[data-theme="dark"] .lesson-path-hero,
+html[data-theme="dark"] .portfolio-hero { background:#14211d !important; }
+html[data-theme="dark"] .lesson-list-item,
+html[data-theme="dark"] .lesson-section-heading,
+html[data-theme="dark"] .portfolio-card-copy { border-color:#2b4037 !important; }
+html[data-theme="dark"] .lesson-body code,
+html[data-theme="dark"] .lesson-code-panel,
+html[data-theme="dark"] .lesson-concept-diagram { background:#1b2b25 !important; color:#e5eee8 !important; }
+
+@media (max-width: 700px) {
+  .site-header-actions { display:none; }
+  .site-mobile-menu nav .site-theme-toggle { display:flex; width:calc(100% - 10px); }
+  .lesson-real-world-visual { grid-template-columns:1fr; }
+  .lesson-real-world-visual .course-artwork { min-height:190px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aptivio-action, .button, .challenge-card-link, .site-dashboard-link { animation:none !important; }
+  .course-artwork-shine { display:none; }
+}

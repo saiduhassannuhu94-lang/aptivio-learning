@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getLearningPackage, learningPackages } from "@/lib/learning/library";
 import { LessonPracticePanel } from "./lesson-practice-panel";
 import { SiteHeader } from "@/app/site-header";
+import { CourseArtwork } from "@/app/course-artwork";
 
 type Props = { params: Promise<{ lessonId: string; lessonNumber: string }> };
 type Block = { type: "paragraph" | "h2" | "h3" | "quote" | "list" | "ordered" | "code"; lines: string[]; language?: string };
@@ -222,6 +223,7 @@ export default async function LearningLessonPage({ params }: Props) {
           <p className="lesson-intro-line">Take your time with this idea. Read the explanation, follow the example, then try the exercise in your own words.</p>
           <LearningMap />
           <ConceptDiagram courseSlug={item.course.slug} />
+          <div className="lesson-real-world-visual"><CourseArtwork slug={item.course.slug} title={item.course.title} number={1} /><p><strong>Connect the idea to real work.</strong> Keep this visual in mind as you work through the example and practical task below.</p></div>
           <LessonBody markdown={lesson.body_markdown} />
           <LessonPracticePanel courseSlug={item.course.slug} lessonNumber={index} lessonTitle={lesson.title} exercise={lesson.exercise} takeaways={lesson.key_takeaways} />
           <div className="runner-actions lesson-navigation">

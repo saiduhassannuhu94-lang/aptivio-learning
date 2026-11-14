@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { createChallengeAdmin } from "@/lib/challenges/admin";
+import { SiteHeader } from "@/app/site-header";
 
 export const dynamic = "force-dynamic";
 
@@ -17,28 +18,27 @@ const categoryNames: Record<string, string> = {
 };
 
 export default async function ChallengesPage() {
-  const admin = createChallengeAdmin();
-  const { data, error } = await admin
-    .from("brain_challenges")
-    .select("id, slug, title, category, difficulty, summary, duration_seconds, max_attempts")
-    .eq("is_published", true)
-    .order("category", { ascending: true })
-    .order("title", { ascending: true });
-
-  if (error) throw new Error("The challenge library is temporarily unavailable.");
+  let data: Array<{id:string;slug:string;title:string;category:string;difficulty:string;summary:string;duration_seconds:number;max_attempts:number|null}> | null = null;
+  let unavailable = false;
+  try {
+    const admin = createChallengeAdmin();
+    const response = await admin
+      .from("brain_challenges")
+      .select("id, slug, title, category, difficulty, summary, duration_seconds, max_attempts")
+      .eq("is_published", true)
+      .order("category", { ascending: true })
+      .order("title", { ascending: true });
+    if (response.error) unavailable = true;
+    else data = response.data;
+  } catch {
+    unavailable = true;
+  }
 
   const challenges = data ?? [];
 
   return (
     <main className="challenge-page">
-      <header className="dashboard-header">
-        <Link className="brand" href="/"><span className="brand-mark">A</span><span>APTIVIO</span></Link>
-        <nav className="challenge-nav">
-          <Link href="/courses">Learn</Link>
-          <Link href="/progress">My progress</Link>
-          <Link href="/dashboard">Account</Link>
-        </nav>
-      </header>
+      <SiteHeader current="think" />
       <section className="challenge-hero">
         <span className="eyebrow">THINKING IS A SKILL</span>
         <h1>Give your mind<br /><em>a real workout.</em></h1>
@@ -50,7 +50,9 @@ export default async function ChallengesPage() {
           <div><span className="eyebrow">THE CHALLENGE LIBRARY</span><h2>Choose your challenge</h2></div>
           <p>Start with a skill you want to strengthen. You can review your score and explanations when you finish.</p>
         </div>
-        {challenges.length === 0 ? (
+        {unavailable ? (
+          <div className="challenge-empty" role="status"><h2>Brain challenges are temporarily unavailable.</h2><p>Your learning library is still available. Please try the Think Lab again shortly.</p><Link className="aptivio-action" href="/courses">Continue learning <span>→</span></Link></div>
+        ) : challenges.length === 0 ? (
           <div className="challenge-empty"><h2>Challenges are being prepared.</h2><p>Come back soon to test your reasoning skills.</p></div>
         ) : (
           <div className="challenge-grid">
