@@ -8,6 +8,7 @@ Learners explore practical topics, study guided explanations and concept diagram
 
 - 20 self-paced learning paths, 80 sections and 320 guided lessons.
 - Teaching-first lesson pages with concept diagrams, worked examples, code samples, practice tasks and self-checks.
+- Course-specific written assessments and capstone briefs with learner-led rubric review; self-reported scores are not independently graded.
 - Five independent reasoning areas: logical, numerical, verbal, spatial and memory.
 - Timed challenge attempts with server-side scoring, explanations and personal attempt history.
 - Account-backed lesson progress and a learner dashboard.

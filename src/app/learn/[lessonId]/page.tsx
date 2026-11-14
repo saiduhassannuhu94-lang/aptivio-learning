@@ -118,7 +118,7 @@ export default async function LearningPathPage({ params }: Props) {
           <Link className="aptivio-action lesson-path-quiz-button" href={"/learn/" + item.course.slug + "/quiz"}>Start course quiz <span aria-hidden="true">→</span></Link>
         </section>
 
-        <p className="lesson-path-disclaimer">Self-paced learning resource. No payment is required. Completion of this learning path is not an accredited qualification or professional certification.</p>
+        <p className="lesson-path-disclaimer">Early-access learning content. These original lessons and assessments are still awaiting independent subject-specialist review. Use the linked references to verify important details. This is not an accredited qualification or professional certification.</p>
         <footer className="lesson-path-footer"><span>APTIVIO</span><span>Learn · Think · Build</span><Link href="/courses">Explore more learning paths ↗</Link></footer>
       </div>
     </main>

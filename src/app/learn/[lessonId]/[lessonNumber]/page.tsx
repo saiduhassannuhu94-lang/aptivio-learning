@@ -230,7 +230,7 @@ export default async function LearningLessonPage({ params }: Props) {
             {previous ? <Link className="button button-outline" href={"/learn/" + item.course.slug + "/" + previous}>← Previous lesson</Link> : <span />}
             {next ? <Link className="button button-primary" href={"/learn/" + item.course.slug + "/" + next}>Next lesson →</Link> : <Link className="button button-primary" href={"/learn/" + item.course.slug + "/assessment"}>Final course assessment ↗</Link>}
           </div>
-          <p className="lesson-reader-footer">APTIVIO / Learn with understanding, not just speed.</p>
+          <p className="lesson-reader-footer">APTIVIO / Early-access learning content pending independent subject-specialist review.</p>
         </section>
       </div>
     </main>
