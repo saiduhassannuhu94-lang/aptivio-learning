@@ -37,7 +37,7 @@ function form(values: Record<string, string>) {
 
 function makeClient(overrides?: {
   signInError?: { message: string } | null;
-  signUpError?: { message: string } | null;
+  signUpError?: { message: string; name?: string; code?: string; status?: number } | null;
   signUpSession?: unknown;
   resetError?: { message: string } | null;
   claims?: { claims?: { sub?: string } } | null;
@@ -120,6 +120,40 @@ describe("authentication server actions", () => {
         emailRedirectTo: "https://aptivio-preview.example/auth/callback?next=/dashboard",
       },
     });
+  });
+
+
+  it("returns a useful rate-limit message without exposing provider details", async () => {
+    const supabase = makeClient({
+      signUpError: { message: "provider detail", name: "AuthApiError", status: 429 },
+    });
+    createClientMock.mockResolvedValue(supabase.client);
+
+    const log = vi.spyOn(console, "error").mockImplementation(() => undefined);
+    const result = await signUpAction(previousState, form({
+      displayName: "Learner One",
+      email: "learner@example.com",
+      password: "correct-horse-battery",
+    }));
+
+    expect(result.error).toContain("wait");
+    expect(result.error).not.toContain("provider detail");
+    log.mockRestore();
+  });
+
+  it("handles a signup transport failure without exposing the thrown message", async () => {
+    createClientMock.mockRejectedValue(new Error("internal network detail"));
+    const log = vi.spyOn(console, "error").mockImplementation(() => undefined);
+
+    const result = await signUpAction(previousState, form({
+      displayName: "Learner One",
+      email: "learner@example.com",
+      password: "correct-horse-battery",
+    }));
+
+    expect(result.error).toContain("registration service");
+    expect(result.error).not.toContain("internal network detail");
+    log.mockRestore();
   });
 
   it("redirects immediately when Supabase returns a sign-up session", async () => {
