@@ -1,112 +1,44 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
-import { formatMoney } from "@/lib/format/currency";
+import { SiteHeader } from "@/app/site-header";
+import { CourseArtwork } from "@/app/course-artwork";
+import { getLessonCount, learningPackages } from "@/lib/learning/library";
 
-export const metadata: Metadata = {
-  title: "Explore courses",
-  description: "Explore practical courses and structured learning paths on APTIVIO.",
+export const metadata = {
+  title: "Explore learning",
+  description: "Free guided learning paths, practice and reasoning across computing and software development.",
 };
 
-export default async function CoursesPage() {
-  const isConfigured =
-    Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
-    Boolean(process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY);
-
-  if (!isConfigured) {
-    return (
-      <main className="catalogue-page">
-        <header className="dashboard-header">
-          <Link className="brand" href="/">
-            <span className="brand-mark">A</span>
-            <span>APTIVIO</span>
-          </Link>
-          <Link className="dashboard-signout" href="/sign-in">Sign in</Link>
-        </header>
-        <section className="catalogue-content">
-          <span className="eyebrow">THE APTIVIO CATALOGUE</span>
-          <h1>Learning with direction.</h1>
-          <p>Our course catalogue is being prepared. Check back as the first reviewed courses are published.</p>
-        </section>
-      </main>
-    );
-  }
-
-  const supabase = await createClient();
-  const { data: courses, error: coursesError } = await supabase
-    .from("courses")
-    .select("id, slug, price_minor, currency, published_version_id")
-    .eq("status", "published")
-    .not("published_version_id", "is", null)
-    .order("published_at", { ascending: false });
-
-  if (coursesError) {
-    throw new Error("We could not load the course catalogue. Please try again.");
-  }
-
-  const versionIds = courses
-    .map((course) => course.published_version_id)
-    .filter((id): id is string => id !== null);
-
-  const { data: versions, error: versionsError } = versionIds.length
-    ? await supabase
-        .from("course_versions")
-        .select("id, title, subtitle, description")
-        .in("id", versionIds)
-    : { data: [], error: null };
-
-  if (versionsError) {
-    throw new Error("We could not load course details. Please try again.");
-  }
-
-  const versionsById = new Map(versions.map((version) => [version.id, version]));
-
+export default function LearningLibraryPage() {
   return (
     <main className="catalogue-page">
-      <header className="dashboard-header">
-        <Link className="brand" href="/">
-          <span className="brand-mark">A</span>
-          <span>APTIVIO</span>
-        </Link>
-        <Link className="dashboard-signout" href="/sign-in">Sign in</Link>
-      </header>
-
+      <SiteHeader current="learn" />
       <section className="catalogue-content">
-        <span className="eyebrow">THE APTIVIO CATALOGUE</span>
-        <h1>Learning with direction.</h1>
-        <p>Structured courses designed to turn useful knowledge into practical ability.</p>
-
-        {courses.length === 0 ? (
-          <div className="catalogue-empty">
-            <span className="dashboard-empty-mark">A</span>
-            <h2>The first courses are being prepared.</h2>
-            <p>We publish courses only after their lessons, learning outcomes, and quality review are complete. No empty catalogue theatre.</p>
-            <Link className="text-link" href="/">Return to APTIVIO <span aria-hidden="true">↗</span></Link>
-          </div>
-        ) : (
-          <div className="catalogue-grid">
-            {courses.map((course) => {
-              const version = course.published_version_id
-                ? versionsById.get(course.published_version_id)
-                : undefined;
-
-              if (!version) return null;
-
-              return (
-                <article className="catalogue-card" key={course.id}>
-                  <span className="catalogue-kicker">APTIVIO COURSE</span>
-                  <h2>{version.title}</h2>
-                  {version.subtitle && <p className="catalogue-subtitle">{version.subtitle}</p>}
-                  <p>{version.description}</p>
-                  <div className="catalogue-card-foot">
-                    <strong>{course.price_minor === 0 ? "Free" : formatMoney(course.price_minor, course.currency)}</strong>
-                    <Link className="text-link" href={`/courses/${course.slug}`}>View course <span aria-hidden="true">↗</span></Link>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        )}
+        <span className="eyebrow">THE APTIVIO LEARNING LIBRARY</span>
+        <h1>Choose a skill.<br />Build real understanding.</h1>
+        <p>Every path is broken into lessons, worked examples, practical exercises and a knowledge check. Start free and learn at your own pace.</p>
+        <div className="library-preview-notice">
+          <strong>Learn by doing, not just reading.</strong>
+          <span>Open a path to see its course map. Complete the lessons, practise the concepts and take the timed knowledge check at the end.</span>
+        </div>
+        <div className="library-countline"><strong>{learningPackages.length} learning paths</strong><span>{learningPackages.reduce((sum, item) => sum + getLessonCount(item), 0)} lessons · Free access</span></div>
+        <div className="catalogue-grid">
+          {learningPackages.map((item, index) => (
+            <article className="catalogue-card" key={item.course.slug}>
+              <Link className="catalogue-art-link" href={"/learn/" + item.course.slug} aria-label={"Open " + item.course.title}>
+                <CourseArtwork slug={item.course.slug} title={item.course.title} number={index + 1} />
+              </Link>
+              <div className="catalogue-card-copy">
+                <span className="catalogue-kicker">{item.course.level} · {item.sections.length} sections</span>
+                <h2>{item.course.title}</h2>
+                <p className="catalogue-subtitle">{item.course.subtitle}</p>
+                <div className="catalogue-card-foot">
+                  <strong>{getLessonCount(item)} lessons · {item.course.duration_minutes} min</strong>
+                  <Link className="aptivio-action catalogue-open-button" href={"/learn/" + item.course.slug}>Open learning path <span aria-hidden="true">↗</span></Link>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
     </main>
   );

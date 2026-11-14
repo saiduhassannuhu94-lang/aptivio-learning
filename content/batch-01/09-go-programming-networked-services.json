@@ -1,0 +1,355 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "go-programming-networked-services",
+    "title": "Go Programming for Networked Services",
+    "subtitle": "Build Go programs and HTTP services with clear types, explicit errors and safe concurrency.",
+    "description": "A practical Go course covering the toolchain, packages, types, functions, slices, maps, structs, interfaces, error handling, goroutines, channels, contexts, HTTP handlers, testing, service security and delivery. Learners build a small network service and practise cancellation, diagnostics and predictable API contracts.",
+    "level": "beginner",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 640,
+    "target_audience": [
+      "Computing students learning Go",
+      "Learners interested in backend, cloud or networked services",
+      "Programmers moving from a first language to concurrent systems"
+    ],
+    "prerequisites": [
+      "Basic programming logic",
+      "Familiarity with variables, functions and data structures"
+    ],
+    "outcomes": [
+      "Create and build a Go module",
+      "Use Go types, functions and package visibility",
+      "Choose slices, maps and structs for appropriate data",
+      "Explain interfaces and explicit error handling",
+      "Coordinate goroutines using channels and context",
+      "Build HTTP handlers with documented contracts",
+      "Write table-driven tests and inspect concurrent behaviour",
+      "Deliver a configurable Go service with basic security controls"
+    ],
+    "equipment": [
+      "Laptop or desktop computer",
+      "Go toolchain",
+      "Text editor or IDE",
+      "Terminal and local HTTP testing client"
+    ],
+    "accessibility": "Code examples are selectable text; concurrency diagrams must be described in text. Exercises include expected results and do not rely on colour alone.",
+    "sections": [
+      {
+        "title": "Go Fundamentals and Program Structure",
+        "description": "Understand Go tooling, packages, types and basic control flow.",
+        "lessons": [
+          {
+            "title": "Go toolchain and project workflow",
+            "duration_minutes": 25,
+            "body_markdown": "## Go toolchain and project workflow\n\nGo includes a compiler, formatter, test runner and other tools in its toolchain. A module defines a project's module path and dependencies in `go.mod`. `go run` can build and execute a package during development, while `go build` produces a binary for deployment. `gofmt` formats source consistently; formatting is not proof of correctness. A reproducible project documents its Go version and commands and keeps dependency changes visible in version control.\n\n### Worked example\n\nCreate a module, add a `main` package, run it, build it and format the source with `gofmt`.\n\n### Common failure to avoid\n\nDo not assume code that runs through a local editor has a reproducible module configuration.\n\n### Check your understanding\n\nExplain the data flow and lifecycle in your own words. Identify the caller, the resource or value being managed, the expected success result and the failure or cancellation path. A network service must continue to behave correctly when requests are malformed, slow or disconnected.\n",
+            "exercise": "Write the setup and build commands another learner would use from a clean checkout.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of go toolchain and project workflow.",
+              "Identify one concurrency, error-handling or API contract that affects the design."
+            ]
+          },
+          {
+            "title": "Packages, declarations and visibility",
+            "duration_minutes": 25,
+            "body_markdown": "## Packages, declarations and visibility\n\nGo code is organised into packages. A package name describes the files' package, while an import path identifies the package to other code. An identifier beginning with an uppercase letter is exported; a lowercase identifier is unexported outside its package. Keep package responsibilities focused and avoid circular imports. A `main` package with a `main` function forms an executable entry point. Package boundaries should express ownership of concepts rather than merely mirror the number of files.\n\n### Worked example\n\nCreate `student` and `report` packages, exporting only the types and functions that another package needs.\n\n### Common failure to avoid\n\nDo not export every field or helper automatically; an unnecessarily broad API is harder to change safely.\n\n### Check your understanding\n\nExplain the data flow and lifecycle in your own words. Identify the caller, the resource or value being managed, the expected success result and the failure or cancellation path. A network service must continue to behave correctly when requests are malformed, slow or disconnected.\n",
+            "exercise": "Draw the import direction among packages in a small course-report application.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of packages, declarations and visibility.",
+              "Identify one concurrency, error-handling or API contract that affects the design."
+            ]
+          },
+          {
+            "title": "Types, zero values and control flow",
+            "duration_minutes": 25,
+            "body_markdown": "## Types, zero values and control flow\n\nGo is statically typed and uses explicit declarations or short variable declarations with `:=`. Its zero values are defined for each type, but a zero value is not necessarily valid domain data. `if`, `for` and `switch` form the main control-flow tools; Go has no separate `while` keyword. Conditions must be Boolean, and `for range` iterates across arrays, slices, maps, strings and channels with type-specific behaviour. Use clear names and validate external values even when a variable has a safe zero value.\n\n### Worked example\n\nWrite a loop that totals scores and uses a condition to count passing results.\n\n### Common failure to avoid\n\nDo not interpret a zero value as proof that a required input was provided.\n\n### Check your understanding\n\nExplain the data flow and lifecycle in your own words. Identify the caller, the resource or value being managed, the expected success result and the failure or cancellation path. A network service must continue to behave correctly when requests are malformed, slow or disconnected.\n",
+            "exercise": "Explain the zero values of an integer, Boolean, string, slice and map and how each affects a domain model.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of types, zero values and control flow.",
+              "Identify one concurrency, error-handling or API contract that affects the design."
+            ]
+          },
+          {
+            "title": "Functions, multiple results and pointers",
+            "duration_minutes": 25,
+            "body_markdown": "## Functions, multiple results and pointers\n\nGo functions can return multiple values, commonly a result and an error. Parameters are passed by value; pointers allow a function to access the same underlying object or update caller-owned state. Use a pointer because the contract requires shared mutation or avoids a meaningful copy, not simply because a value is a struct. Avoid returning pointers to data with an invalid lifetime and handle nil pointers deliberately. A clear function contract documents what each result means.\n\n### Worked example\n\nWrite a parser that returns `(int, error)` for a score and test valid, malformed and out-of-range input.\n\n### Common failure to avoid\n\nDo not ignore an error result with `_` unless the failure is genuinely irrelevant and that decision is safe.\n\n### Check your understanding\n\nExplain the data flow and lifecycle in your own words. Identify the caller, the resource or value being managed, the expected success result and the failure or cancellation path. A network service must continue to behave correctly when requests are malformed, slow or disconnected.\n",
+            "exercise": "Design a function signature for loading a student record and explain its result and error values.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of functions, multiple results and pointers.",
+              "Identify one concurrency, error-handling or API contract that affects the design."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Data Modelling and Error Handling",
+        "description": "Use slices, maps, structs, methods and explicit errors.",
+        "lessons": [
+          {
+            "title": "Slices, arrays and capacity",
+            "duration_minutes": 25,
+            "body_markdown": "## Slices, arrays and capacity\n\nAn array has a fixed length that is part of its type. A slice is a descriptor over an underlying array, containing a pointer, length and capacity. Multiple slices may share the same underlying storage, so changing an element through one slice can be visible through another. Appending may allocate a new backing array when capacity is exceeded, which changes sharing behaviour. Use `make` when choosing initial length or capacity and do not confuse `len` with `cap`.\n\n### Worked example\n\nCreate two slices from the same array, update an element and append enough values to observe possible reallocation.\n\n### Common failure to avoid\n\nDo not assume a slice is an independent copy of the elements it references.\n\n### Check your understanding\n\nExplain the data flow and lifecycle in your own words. Identify the caller, the resource or value being managed, the expected success result and the failure or cancellation path. A network service must continue to behave correctly when requests are malformed, slow or disconnected.\n",
+            "exercise": "Draw the relationship between an array, a slice's length and capacity, and its backing storage.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of slices, arrays and capacity.",
+              "Identify one concurrency, error-handling or API contract that affects the design."
+            ]
+          },
+          {
+            "title": "Maps and data modelling",
+            "duration_minutes": 25,
+            "body_markdown": "## Maps and data modelling\n\nA map associates keys with values and supports lookup, insertion and deletion. A lookup can return a second Boolean that indicates whether the key existed, which is different from the zero value of the mapped type. A nil map can be read but cannot accept new entries; initialise it with `make` or a literal before writing. Map iteration order is not guaranteed, so sort keys when stable display order matters. Choose keys that have stable equality semantics and document uniqueness requirements.\n\n### Worked example\n\nUse a map keyed by matriculation number and distinguish a missing student from an existing student whose count is zero.\n\n### Common failure to avoid\n\nDo not depend on map iteration order or write to a nil map.\n\n### Check your understanding\n\nExplain the data flow and lifecycle in your own words. Identify the caller, the resource or value being managed, the expected success result and the failure or cancellation path. A network service must continue to behave correctly when requests are malformed, slow or disconnected.\n",
+            "exercise": "Create a student lookup map and produce a deterministic sorted report.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of maps and data modelling.",
+              "Identify one concurrency, error-handling or API contract that affects the design."
+            ]
+          },
+          {
+            "title": "Structs, methods and interfaces",
+            "duration_minutes": 25,
+            "body_markdown": "## Structs, methods and interfaces\n\nA struct groups related fields. Methods attach behaviour to a type using receiver parameters; pointer receivers can mutate the original value or avoid copying larger structs. Interfaces in Go are satisfied implicitly when a type implements the required method set. Small interfaces make dependencies easier to test, while large interfaces create unnecessary coupling. A nil interface and an interface containing a typed nil value are not always equivalent, which is an important edge case in API design.\n\n### Worked example\n\nDefine a `Student` struct with a method that computes a grade and an interface for exporting a report.\n\n### Common failure to avoid\n\nDo not create broad interfaces before identifying which behaviour a consumer actually needs.\n\n### Check your understanding\n\nExplain the data flow and lifecycle in your own words. Identify the caller, the resource or value being managed, the expected success result and the failure or cancellation path. A network service must continue to behave correctly when requests are malformed, slow or disconnected.\n",
+            "exercise": "Implement one report exporter and show how a second implementation could satisfy the same interface.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of structs, methods and interfaces.",
+              "Identify one concurrency, error-handling or API contract that affects the design."
+            ]
+          },
+          {
+            "title": "Errors, wrapping and validation",
+            "duration_minutes": 25,
+            "body_markdown": "## Errors, wrapping and validation\n\nGo commonly represents expected failures with the `error` interface. Callers should check returned errors and decide whether to return, wrap, translate or handle them. Error wrapping with `%w` preserves the underlying cause for inspection. Avoid using panic for ordinary invalid user input; panic is for conditions where normal recovery is not appropriate or a programmer invariant is broken. Validate data at boundaries and include enough context to diagnose which operation failed.\n\n### Worked example\n\nWrite a function that loads a record and wraps a lower-level read error with the record identifier.\n\n### Common failure to avoid\n\nDo not discard returned errors or panic on a routine malformed form value.\n\n### Check your understanding\n\nExplain the data flow and lifecycle in your own words. Identify the caller, the resource or value being managed, the expected success result and the failure or cancellation path. A network service must continue to behave correctly when requests are malformed, slow or disconnected.\n",
+            "exercise": "Create an error-handling policy for not-found, invalid-input and storage-failure conditions.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of errors, wrapping and validation.",
+              "Identify one concurrency, error-handling or API contract that affects the design."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Concurrency and Networked Services",
+        "description": "Understand goroutines, channels, contexts and HTTP handlers.",
+        "lessons": [
+          {
+            "title": "Goroutines and concurrent execution",
+            "duration_minutes": 25,
+            "body_markdown": "## Goroutines and concurrent execution\n\nA goroutine is a function executing concurrently with other goroutines. Starting one is lightweight, but concurrent execution introduces coordination and shared-state risks. A program must define how workers finish and how errors are reported. A goroutine that is started and never joined or otherwise observed can leak work and hide failures. Concurrency should solve a real coordination or throughput problem, not serve as decoration. Use the race detector during testing when possible.\n\n### Worked example\n\nStart independent calculations as goroutines and wait for all of them to finish before printing the combined result.\n\n### Common failure to avoid\n\nDo not return from `main` while required goroutines are still doing work.\n\n### Check your understanding\n\nExplain the data flow and lifecycle in your own words. Identify the caller, the resource or value being managed, the expected success result and the failure or cancellation path. A network service must continue to behave correctly when requests are malformed, slow or disconnected.\n",
+            "exercise": "Draw a lifecycle showing who starts a worker, who waits and how worker errors are observed.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of goroutines and concurrent execution.",
+              "Identify one concurrency, error-handling or API contract that affects the design."
+            ]
+          },
+          {
+            "title": "Channels and synchronization",
+            "duration_minutes": 25,
+            "body_markdown": "## Channels and synchronization\n\nChannels communicate values between goroutines and can coordinate work. An unbuffered channel synchronises sender and receiver; a buffered channel can hold a limited number of values before send blocks. The sender and receiver must agree on who closes a channel. Sending on a closed channel panics, and receiving from a closed channel returns zero values after queued data is exhausted. A `select` statement handles multiple channel operations and can include a cancellation case.\n\n### Worked example\n\nBuild a worker pool that receives jobs from a channel and sends results back to a collector.\n\n### Common failure to avoid\n\nDo not close a channel from a receiver that does not own the sending lifecycle.\n\n### Check your understanding\n\nExplain the data flow and lifecycle in your own words. Identify the caller, the resource or value being managed, the expected success result and the failure or cancellation path. A network service must continue to behave correctly when requests are malformed, slow or disconnected.\n",
+            "exercise": "Explain how the worker pool terminates and how it avoids leaving blocked goroutines behind.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of channels and synchronization.",
+              "Identify one concurrency, error-handling or API contract that affects the design."
+            ]
+          },
+          {
+            "title": "Context, cancellation and timeouts",
+            "duration_minutes": 25,
+            "body_markdown": "## Context, cancellation and timeouts\n\nThe `context` package carries cancellation signals, deadlines and request-scoped values across API boundaries. A caller should pass a context to operations that may block or outlive the caller's interest. Functions should respect `ctx.Done()` and stop work promptly when cancellation is requested. Context values are not a general-purpose parameter bag; use them only for request-scoped data crossing API boundaries. A server handler's request context is cancelled when the request is cancelled or the handler finishes.\n\n### Worked example\n\nAdd a timeout to a simulated network request and ensure the worker stops when the context is cancelled.\n\n### Common failure to avoid\n\nDo not create background work that ignores cancellation after the user has abandoned the request.\n\n### Check your understanding\n\nExplain the data flow and lifecycle in your own words. Identify the caller, the resource or value being managed, the expected success result and the failure or cancellation path. A network service must continue to behave correctly when requests are malformed, slow or disconnected.\n",
+            "exercise": "Trace a request from handler to service to storage and identify where context must be passed.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of context, cancellation and timeouts.",
+              "Identify one concurrency, error-handling or API contract that affects the design."
+            ]
+          },
+          {
+            "title": "HTTP handlers and API contracts",
+            "duration_minutes": 25,
+            "body_markdown": "## HTTP handlers and API contracts\n\nGo's standard HTTP packages provide primitives for building servers and handlers. A handler receives a request and writes a response. Validate the method, path parameters and body before applying a state change. Use the correct content type and status code, and encode JSON through a JSON encoder rather than string concatenation. A handler should delegate business rules to a service and map domain outcomes to HTTP responses. Do not treat a route's obscurity as access control.\n\n### Worked example\n\nWrite a handler that returns a JSON list of courses and a clear error response for an unsupported method.\n\n### Common failure to avoid\n\nDo not write part of a success response before discovering that the request is invalid.\n\n### Check your understanding\n\nExplain the data flow and lifecycle in your own words. Identify the caller, the resource or value being managed, the expected success result and the failure or cancellation path. A network service must continue to behave correctly when requests are malformed, slow or disconnected.\n",
+            "exercise": "Document request and response shapes for a course-list endpoint and an enrolment endpoint.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of http handlers and api contracts.",
+              "Identify one concurrency, error-handling or API contract that affects the design."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Testing and Service Delivery",
+        "description": "Test, secure and deliver a small maintainable network service.",
+        "lessons": [
+          {
+            "title": "Unit and table-driven testing",
+            "duration_minutes": 25,
+            "body_markdown": "## Unit and table-driven testing\n\nGo's `testing` package supports test functions and benchmarks. Table-driven tests make it easy to cover related cases with named inputs and expected results. Tests should not depend on map iteration order, current time or external services unless those dependencies are controlled. Use test helpers when they improve clarity, and do not hide useful failure context. Run the race detector for concurrent code where supported. A test should be repeatable and fail clearly when behaviour changes.\n\n### Worked example\n\nWrite table-driven tests for a score parser covering valid, empty, malformed, boundary and out-of-range values.\n\n### Common failure to avoid\n\nDo not write tests that pass only because they depend on a particular iteration order.\n\n### Check your understanding\n\nExplain the data flow and lifecycle in your own words. Identify the caller, the resource or value being managed, the expected success result and the failure or cancellation path. A network service must continue to behave correctly when requests are malformed, slow or disconnected.\n",
+            "exercise": "Create a test table with named cases, inputs and expected errors or results.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of unit and table-driven testing.",
+              "Identify one concurrency, error-handling or API contract that affects the design."
+            ]
+          },
+          {
+            "title": "Debugging, profiling and observability",
+            "duration_minutes": 25,
+            "body_markdown": "## Debugging, profiling and observability\n\nA debugger can inspect goroutines, stack traces and variable state. Logs should provide context such as operation and request identifiers without recording passwords, tokens or private payloads. Profiling helps identify CPU, memory or blocking bottlenecks under representative load. Optimisation should be driven by measurement rather than guessing. For concurrent programs, a race detector can reveal unsynchronised access that ordinary tests might not consistently reproduce.\n\n### Worked example\n\nReproduce a shared-map race in a controlled exercise, run the race detector and protect the shared state correctly.\n\n### Common failure to avoid\n\nDo not assume one passing run proves a concurrent program is race-free.\n\n### Check your understanding\n\nExplain the data flow and lifecycle in your own words. Identify the caller, the resource or value being managed, the expected success result and the failure or cancellation path. A network service must continue to behave correctly when requests are malformed, slow or disconnected.\n",
+            "exercise": "Write a short incident note with reproduction, evidence, root cause, correction and regression test.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of debugging, profiling and observability.",
+              "Identify one concurrency, error-handling or API contract that affects the design."
+            ]
+          },
+          {
+            "title": "API security and reliability controls",
+            "duration_minutes": 25,
+            "body_markdown": "## API security and reliability controls\n\nA network service must treat requests as untrusted. Apply authentication and authorisation before returning protected data or changing state. Validate request sizes and field constraints, use parameterised storage operations and avoid returning internal stack traces. Rate limits and timeouts help reduce resource exhaustion; CORS controls browser cross-origin access but is not an authentication mechanism. Secrets belong in deployment configuration, not source code. Security controls must be enforced server-side, even when the normal user interface hides an action.\n\n### Worked example\n\nCreate a threat checklist for an enrolment endpoint covering identity, permissions, input size, request rate and error responses.\n\n### Common failure to avoid\n\nDo not mistake CORS or an obscure route name for access control.\n\n### Check your understanding\n\nExplain the data flow and lifecycle in your own words. Identify the caller, the resource or value being managed, the expected success result and the failure or cancellation path. A network service must continue to behave correctly when requests are malformed, slow or disconnected.\n",
+            "exercise": "Write a security test for a learner attempting to access another learner's enrolment.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of api security and reliability controls.",
+              "Identify one concurrency, error-handling or API contract that affects the design."
+            ]
+          },
+          {
+            "title": "Build, configure and release a Go service",
+            "duration_minutes": 25,
+            "body_markdown": "## Build, configure and release a Go service\n\nA deployable Go service needs repeatable builds, explicit configuration and graceful shutdown. Configuration can come from environment variables or a structured file, but required values should be validated at startup. Do not hard-code credentials. Handle server shutdown so active requests can finish and resources can close. The README should explain build, test, run, configuration and known limitations. Delivery evidence includes a clean build and tests, not only a process that happened to run locally.\n\n### Worked example\n\nBuild an HTTP service with a health route, environment-based port configuration and graceful shutdown.\n\n### Common failure to avoid\n\nDo not swallow startup errors or terminate active requests abruptly without a shutdown policy.\n\n### Check your understanding\n\nExplain the data flow and lifecycle in your own words. Identify the caller, the resource or value being managed, the expected success result and the failure or cancellation path. A network service must continue to behave correctly when requests are malformed, slow or disconnected.\n",
+            "exercise": "Submit a service with endpoint documentation, tests, configuration notes and reproducible run instructions.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of build, configure and release a go service.",
+              "Identify one concurrency, error-handling or API contract that affects the design."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "Go Programming for Networked Services Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions and show reasoning for concurrency and error handling. Code must build with the stated toolchain and include tests.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short_answer",
+          "prompt": "Explain how a Go slice relates to its backing array and why two slices may observe the same element mutation.",
+          "marks": 8,
+          "rubric": [
+            "Describes slice descriptor (3)",
+            "Explains shared backing storage (3)",
+            "Correct example (2)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "implementation",
+          "prompt": "Write a Go function that parses a score and returns a value with an error for malformed or out-of-range input.",
+          "marks": 10,
+          "rubric": [
+            "Correct parsing (3)",
+            "Domain validation (3)",
+            "Useful error result (2)",
+            "Readable implementation (2)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "concurrency",
+          "prompt": "Design a worker pool using jobs and result channels. Explain how workers terminate and how the caller collects all results.",
+          "marks": 12,
+          "rubric": [
+            "Job channel design (3)",
+            "Worker processing (3)",
+            "Termination and channel ownership (3)",
+            "Result collection (3)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "api_design",
+          "prompt": "Specify an HTTP endpoint for course enrolment, including method, body, status codes and failure behaviour.",
+          "marks": 10,
+          "rubric": [
+            "Method and path (2)",
+            "Input validation (3)",
+            "Status/response semantics (3)",
+            "Failure handling (2)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "testing",
+          "prompt": "Create table-driven tests for a function with normal, boundary, malformed and cancellation cases.",
+          "marks": 10,
+          "rubric": [
+            "Named cases (2)",
+            "Normal and boundary tests (3)",
+            "Error/cancellation case (3)",
+            "Clear assertions (2)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit the Course Enrolment HTTP Service with configuration, tests and endpoint documentation.",
+          "marks": 20,
+          "rubric": [
+            "Working API (5)",
+            "Input and error contracts (4)",
+            "Concurrency/context use where appropriate (3)",
+            "Tests (4)",
+            "Documentation and configuration (4)"
+          ]
+        }
+      ],
+      "total_marks": 70
+    },
+    "final_project": {
+      "title": "Course Enrolment HTTP Service",
+      "brief": "Build a Go HTTP service that lists courses and accepts enrolment requests in a controlled local environment. Validate request bodies, return consistent JSON, keep domain rules outside handlers and use context for request-scoped work. Add tests for success, bad requests, not-found conditions and cancellation where relevant.",
+      "deliverables": [
+        "Endpoint and data model specification",
+        "Go module and source packages",
+        "HTTP handlers and service layer",
+        "Input validation and error mapping",
+        "At least 10 tests with expected results",
+        "README with configuration and run instructions",
+        "Short design note about concurrency and cancellation",
+        "Security checklist for protected operations"
+      ],
+      "acceptance_criteria": [
+        "Routes return the documented status and JSON response shape",
+        "Malformed input is rejected safely",
+        "Domain rules are testable outside the handler",
+        "Long-running operations respect cancellation",
+        "Tests cover normal, boundary and error cases",
+        "Configuration is external to source code",
+        "Service starts and shuts down predictably",
+        "Protected operations verify identity and permission server-side"
+      ]
+    },
+    "references": [
+      {
+        "title": "A Tour of Go",
+        "url": "https://go.dev/tour/",
+        "note": "Official interactive introduction to Go syntax and core concepts."
+      },
+      {
+        "title": "Effective Go",
+        "url": "https://go.dev/doc/effective_go",
+        "note": "Guidance on idiomatic Go code and package design."
+      },
+      {
+        "title": "Go documentation",
+        "url": "https://go.dev/doc/",
+        "note": "Official reference for the Go toolchain, packages, HTTP and testing."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft. No authorised academic review has been recorded. Do not invent reviewer identities or dates and do not publish until a real review decision exists.",
+      "language": "English",
+      "content_quality": "Four sections and sixteen substantive lessons, examples, exercises, takeaways, six assessment questions with rubrics, practical project criteria and official references are included. Technical and academic review remain required."
+    }
+  }
+}

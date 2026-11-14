@@ -1,0 +1,354 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "php-programming-web-backends",
+    "title": "PHP Programming for Web Backends",
+    "subtitle": "Build server-side applications with PHP, safe HTTP handling and prepared database queries.",
+    "description": "A practical PHP backend course covering runtime execution, language types, arrays, functions, classes, Composer, HTTP requests, validation, output escaping, sessions, authentication boundaries, PDO, prepared statements, JSON APIs, testing and secure project structure. Learners build a small enrolment API with clear failure behaviour.",
+    "level": "beginner",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 640,
+    "target_audience": [
+      "Computing students learning server-side web programming",
+      "Learners building PHP APIs or database-backed applications",
+      "Beginners with basic programming logic"
+    ],
+    "prerequisites": [
+      "Basic HTML familiarity is helpful",
+      "Basic programming logic and computer literacy"
+    ],
+    "outcomes": [
+      "Explain PHP execution in CLI and web-server environments",
+      "Use PHP types, arrays, functions and classes",
+      "Organise code with namespaces and Composer autoloading",
+      "Design routes with appropriate HTTP methods and status codes",
+      "Validate request data and escape context-sensitive output",
+      "Explain sessions, authentication and authorisation boundaries",
+      "Use PDO prepared statements and transactions safely",
+      "Test and document a small PHP backend"
+    ],
+    "equipment": [
+      "Laptop or desktop computer",
+      "Supported PHP runtime",
+      "Web server or local development environment",
+      "Database supported by PDO and a text editor"
+    ],
+    "accessibility": "Code and response examples are selectable text. API exercises include plain-text request and response examples; diagrams include text descriptions.",
+    "sections": [
+      {
+        "title": "PHP Runtime and Language Basics",
+        "description": "Understand PHP execution, values, types, arrays and language structure.",
+        "lessons": [
+          {
+            "title": "How PHP executes on the server",
+            "duration_minutes": 25,
+            "body_markdown": "## How PHP executes on the server\n\nPHP is commonly executed on the server when a web request is handled. The server sends the generated response to the browser; the browser normally receives HTML, JSON or another response format rather than the PHP source. PHP can also run from the command line for scripts and maintenance tasks. Development environments often use a local web server, but production deployment needs a configured PHP runtime and server integration. Keep development and production configuration separate, and never expose source files or secrets through a public directory.\n\n### Worked example\n\nCreate a small PHP file that prints a heading, run it through the CLI and then through a local web server. Compare the output paths.\n\n### Common failure to avoid\n\nDo not assume that opening a PHP file directly as a local file executes it in a PHP runtime.\n\n### Check your understanding\n\nExplain the request or data flow in your own words. Identify which part is untrusted, which rule validates it, which permission check applies and how a failure is reported. A backend operation must remain safe even when a caller bypasses the intended user interface.\n",
+            "exercise": "Draw a request flow from browser to web server, PHP execution and HTTP response.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of how php executes on the server.",
+              "Identify one security, validation, persistence or testing concern relevant to the topic."
+            ]
+          },
+          {
+            "title": "PHP syntax, variables and types",
+            "duration_minutes": 25,
+            "body_markdown": "## PHP syntax, variables and types\n\nPHP statements commonly begin with `<?php` and variables start with `$`. PHP is dynamically typed, so a variable can refer to values of different types, but relying on accidental type juggling makes code fragile. Scalar types include integers, floats, strings and Booleans; arrays and objects represent more complex data. Type declarations on parameters and return values communicate intent and can catch misuse. Choose strict typing for new project code when it fits the team's conventions, and validate untrusted input even when type declarations exist.\n\n### Worked example\n\nCreate a function with typed parameters and a return type, then call it with valid and invalid values to observe the configured type behaviour.\n\n### Common failure to avoid\n\nDo not assume a form field containing digits is already an integer; HTTP form data usually arrives as text.\n\n### Check your understanding\n\nExplain the request or data flow in your own words. Identify which part is untrusted, which rule validates it, which permission check applies and how a failure is reported. A backend operation must remain safe even when a caller bypasses the intended user interface.\n",
+            "exercise": "Write a typed function that accepts a score and returns whether it meets a pass threshold.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of php syntax, variables and types.",
+              "Identify one security, validation, persistence or testing concern relevant to the topic."
+            ]
+          },
+          {
+            "title": "Expressions, strings and arrays",
+            "duration_minutes": 25,
+            "body_markdown": "## Expressions, strings and arrays\n\nPHP supports indexed and associative arrays. An indexed array is useful for ordered values; an associative array maps keys to values and can represent a simple record. Array keys and values need deliberate handling because missing keys and unexpected types can cause notices or incorrect assumptions. Strings can be joined, inspected and formatted, but user-supplied text should be encoded for its output context rather than trusted as safe HTML. Use `===` when type as well as value should match.\n\n### Worked example\n\nBuild an associative student record, test whether a required key exists and format a plain-text summary.\n\n### Common failure to avoid\n\nDo not use loose equality or assume an array key exists because one sample record contains it.\n\n### Check your understanding\n\nExplain the request or data flow in your own words. Identify which part is untrusted, which rule validates it, which permission check applies and how a failure is reported. A backend operation must remain safe even when a caller bypasses the intended user interface.\n",
+            "exercise": "Create a validator that checks required keys and types before using an associative record.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of expressions, strings and arrays.",
+              "Identify one security, validation, persistence or testing concern relevant to the topic."
+            ]
+          },
+          {
+            "title": "Control flow and loops",
+            "duration_minutes": 25,
+            "body_markdown": "## Control flow and loops\n\n`if`, `elseif` and `else` express decisions; `foreach` iterates over arrays and is common for processing request or database result collections. A loop should make progress and have a clear termination condition. When processing associative arrays, preserve the distinction between a key and its value. Validate numeric ranges before applying business rules. A correct grade classifier, for example, treats the valid score range separately from missing or malformed values.\n\n### Worked example\n\nLoop through a collection of student scores, count passers and reject records outside the allowed score range.\n\n### Common failure to avoid\n\nDo not let invalid values silently fall into a normal grade category.\n\n### Check your understanding\n\nExplain the request or data flow in your own words. Identify which part is untrusted, which rule validates it, which permission check applies and how a failure is reported. A backend operation must remain safe even when a caller bypasses the intended user interface.\n",
+            "exercise": "Trace a loop over five records and write down the count after each iteration.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of control flow and loops.",
+              "Identify one security, validation, persistence or testing concern relevant to the topic."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Functions and Object-Oriented PHP",
+        "description": "Organise reusable logic with functions, classes and explicit error handling.",
+        "lessons": [
+          {
+            "title": "Functions, scope and reusable logic",
+            "duration_minutes": 25,
+            "body_markdown": "## Functions, scope and reusable logic\n\nA function defines a reusable unit with parameters, a return value and a clear responsibility. Parameters should describe required input, while return values should communicate results rather than relying on output side effects. PHP variable scope is local to a function unless values are passed or explicitly imported; avoid unnecessary global state. Return types and parameter types document contracts. Keep input collection, validation, database operations and response formatting in separate functions or services when this improves testability.\n\n### Worked example\n\nWrite separate functions for parsing a score, validating its range and calculating a grade.\n\n### Common failure to avoid\n\nA function that reads globals or prints HTML while calculating a grade is difficult to test in isolation.\n\n### Check your understanding\n\nExplain the request or data flow in your own words. Identify which part is untrusted, which rule validates it, which permission check applies and how a failure is reported. A backend operation must remain safe even when a caller bypasses the intended user interface.\n",
+            "exercise": "Refactor a single long script into input, calculation and output functions.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of functions, scope and reusable logic.",
+              "Identify one security, validation, persistence or testing concern relevant to the topic."
+            ]
+          },
+          {
+            "title": "Classes, objects and encapsulation",
+            "duration_minutes": 25,
+            "body_markdown": "## Classes, objects and encapsulation\n\nA class groups state and behaviour, while an object is an instance. Constructors establish required state and methods provide supported operations. Visibility modifiers such as `private`, `protected` and `public` control access. Typed properties communicate expected values, but runtime input still needs validation. Prefer small cohesive classes over a single class that handles HTTP, SQL, validation and HTML all at once. A model object can protect domain rules while a controller coordinates the request.\n\n### Worked example\n\nCreate a `Student` class that validates a score before changing it and exposes a read-only identifier.\n\n### Common failure to avoid\n\nDo not place every responsibility into one `App` or `Manager` class because the project is small.\n\n### Check your understanding\n\nExplain the request or data flow in your own words. Identify which part is untrusted, which rule validates it, which permission check applies and how a failure is reported. A backend operation must remain safe even when a caller bypasses the intended user interface.\n",
+            "exercise": "Sketch a model, service and controller and explain each responsibility.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of classes, objects and encapsulation.",
+              "Identify one security, validation, persistence or testing concern relevant to the topic."
+            ]
+          },
+          {
+            "title": "Exceptions and predictable failures",
+            "duration_minutes": 25,
+            "body_markdown": "## Exceptions and predictable failures\n\nExceptions signal failures that interrupt ordinary control flow. Throw a meaningful exception when a function cannot uphold its contract, and catch it at a boundary where the application can choose a recovery action or response. Do not expose stack traces or SQL details to ordinary users. Log enough diagnostic context for maintainers while excluding passwords, session identifiers and unnecessary personal data. For expected invalid form input, return field-level validation errors rather than treating every invalid submission as an exceptional system failure.\n\n### Worked example\n\nCreate a validation function that returns field errors and a service function that throws for an unavailable persistence operation.\n\n### Common failure to avoid\n\nDo not catch all exceptions and return an empty success-shaped result; that hides data loss or failed work.\n\n### Check your understanding\n\nExplain the request or data flow in your own words. Identify which part is untrusted, which rule validates it, which permission check applies and how a failure is reported. A backend operation must remain safe even when a caller bypasses the intended user interface.\n",
+            "exercise": "Define which validation errors should be shown to a user and which failures should be logged for maintainers.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of exceptions and predictable failures.",
+              "Identify one security, validation, persistence or testing concern relevant to the topic."
+            ]
+          },
+          {
+            "title": "Namespaces, autoloading and Composer",
+            "duration_minutes": 25,
+            "body_markdown": "## Namespaces, autoloading and Composer\n\nNamespaces organise PHP classes and reduce naming collisions. Composer manages dependencies and can generate an autoloader based on project configuration. PSR-4 maps namespace prefixes to directories, allowing classes to be loaded without manually requiring every file. A dependency declaration should be deliberate and version-controlled. Do not commit generated vendor code as a substitute for declaring dependencies, and do not copy packages into the project without tracking their origin and updates.\n\n### Worked example\n\nCreate a namespace for application services and configure Composer autoloading for a small project.\n\n### Common failure to avoid\n\nA namespace declaration does not automatically make a file load; the runtime still needs an include path or configured autoloader.\n\n### Check your understanding\n\nExplain the request or data flow in your own words. Identify which part is untrusted, which rule validates it, which permission check applies and how a failure is reported. A backend operation must remain safe even when a caller bypasses the intended user interface.\n",
+            "exercise": "Define a PSR-4 mapping and show where one service class should live.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of namespaces, autoloading and composer.",
+              "Identify one security, validation, persistence or testing concern relevant to the topic."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Web Requests, Sessions and Data Access",
+        "description": "Build server-side request flows with validation and safe persistence.",
+        "lessons": [
+          {
+            "title": "HTTP requests, methods and routing",
+            "duration_minutes": 25,
+            "body_markdown": "## HTTP requests, methods and routing\n\nHTTP requests include a method, path, headers and possibly a body. GET is normally used to retrieve a representation, while POST commonly submits data that changes server state; other methods have their own semantics. A backend route should validate the method, authenticate when required and return an appropriate status code and response body. Do not treat a hidden frontend button as an access-control rule. The server must enforce permissions even when a user crafts a request manually.\n\n### Worked example\n\nCreate a route table for viewing courses, enrolling a learner and submitting a lesson-progress update. State methods and authentication needs.\n\n### Common failure to avoid\n\nDo not perform state-changing actions through a route that is intended to be a safe read operation.\n\n### Check your understanding\n\nExplain the request or data flow in your own words. Identify which part is untrusted, which rule validates it, which permission check applies and how a failure is reported. A backend operation must remain safe even when a caller bypasses the intended user interface.\n",
+            "exercise": "Design three endpoints and document their method, input, output and permission requirements.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of http requests, methods and routing.",
+              "Identify one security, validation, persistence or testing concern relevant to the topic."
+            ]
+          },
+          {
+            "title": "Input validation and output escaping",
+            "duration_minutes": 25,
+            "body_markdown": "## Input validation and output escaping\n\nAll request data is untrusted, including query parameters, form fields, cookies and JSON bodies. Validation checks whether input meets the application's rules; escaping makes data safe for a particular output context. For HTML output, encode text with a context-appropriate function such as `htmlspecialchars` using a deliberate character set and flags. Validation is not a replacement for escaping, and escaping is not a replacement for validation. Keep raw input separate from validated values and avoid building SQL by concatenating user input.\n\n### Worked example\n\nAccept a course title from a form, validate its length and render it as HTML text using the appropriate escaping function.\n\n### Common failure to avoid\n\nDo not print raw user input into HTML, attributes or JavaScript contexts.\n\n### Check your understanding\n\nExplain the request or data flow in your own words. Identify which part is untrusted, which rule validates it, which permission check applies and how a failure is reported. A backend operation must remain safe even when a caller bypasses the intended user interface.\n",
+            "exercise": "Create tests for empty input, overly long input, markup characters and valid plain text.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of input validation and output escaping.",
+              "Identify one security, validation, persistence or testing concern relevant to the topic."
+            ]
+          },
+          {
+            "title": "Sessions, cookies and authentication boundaries",
+            "duration_minutes": 25,
+            "body_markdown": "## Sessions, cookies and authentication boundaries\n\nA cookie is stored by a browser and sent with matching requests; a session commonly uses a cookie-held identifier to associate a request with server-side state. Session identifiers must be protected, regenerated at appropriate authentication transitions and invalidated on logout. Cookie flags such as Secure, HttpOnly and SameSite affect exposure and cross-site behaviour, but must be configured for the deployment environment. Authentication identifies a user; authorisation determines what that user may do. Every protected backend action must check both identity and permission.\n\n### Worked example\n\nDesign a login, authenticated request and logout flow, including session renewal and invalidation.\n\n### Common failure to avoid\n\nDo not store a password or trusted role claim in a client-controlled cookie.\n\n### Check your understanding\n\nExplain the request or data flow in your own words. Identify which part is untrusted, which rule validates it, which permission check applies and how a failure is reported. A backend operation must remain safe even when a caller bypasses the intended user interface.\n",
+            "exercise": "Draw the session lifecycle and list the checks for a learner-only route.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of sessions, cookies and authentication boundaries.",
+              "Identify one security, validation, persistence or testing concern relevant to the topic."
+            ]
+          },
+          {
+            "title": "PDO, prepared statements and transactions",
+            "duration_minutes": 25,
+            "body_markdown": "## PDO, prepared statements and transactions\n\nPDO provides a consistent interface for database access. Prepared statements separate SQL structure from parameter values, reducing injection risk when parameters are bound correctly. A prepared statement does not make every dynamic SQL fragment safe; table names and sort directions usually need allow-lists. Transactions group related changes so they can commit together or roll back on failure. Choose the transaction boundary around a business operation, and handle database errors without exposing connection details.\n\n### Worked example\n\nWrite a parameterised query that loads a student's registrations by ID, then describe when an enrolment insert and seat-count update should share a transaction.\n\n### Common failure to avoid\n\nDo not concatenate request values into SQL or assume parameter binding works for arbitrary SQL identifiers.\n\n### Check your understanding\n\nExplain the request or data flow in your own words. Identify which part is untrusted, which rule validates it, which permission check applies and how a failure is reported. A backend operation must remain safe even when a caller bypasses the intended user interface.\n",
+            "exercise": "Design a transaction for enrolling a student and explain its rollback behaviour.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of pdo, prepared statements and transactions.",
+              "Identify one security, validation, persistence or testing concern relevant to the topic."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Project Structure, Testing and Delivery",
+        "description": "Organise a PHP backend and verify it through repeatable tests.",
+        "lessons": [
+          {
+            "title": "JSON APIs and response design",
+            "duration_minutes": 25,
+            "body_markdown": "## JSON APIs and response design\n\nA web backend often exchanges data using JSON. A consistent API response should have documented success and error shapes, appropriate HTTP status codes and a clear content type. Encoding output with a JSON encoder is safer than manually assembling JSON strings. Validate decoded data before using it because syntactically valid JSON can still have the wrong shape or values. Avoid returning database internals, secrets or stack traces. Version a public API when changes could break existing clients.\n\n### Worked example\n\nBuild a JSON response for a course list and an error response for an unauthorised request.\n\n### Common failure to avoid\n\nDo not manually concatenate JSON or return a success status for a failed operation.\n\n### Check your understanding\n\nExplain the request or data flow in your own words. Identify which part is untrusted, which rule validates it, which permission check applies and how a failure is reported. A backend operation must remain safe even when a caller bypasses the intended user interface.\n",
+            "exercise": "Document response shapes for success, validation failure and unauthorised access.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of json apis and response design.",
+              "Identify one security, validation, persistence or testing concern relevant to the topic."
+            ]
+          },
+          {
+            "title": "File handling and configuration",
+            "duration_minutes": 25,
+            "body_markdown": "## File handling and configuration\n\nFile operations can fail because a path is missing, permissions are insufficient or storage is unavailable. Check read/write outcomes and use explicit encodings for text where appropriate. Store secrets and environment-specific settings outside version-controlled source files. Validate required configuration at application startup so a missing database connection is detected clearly. Avoid placing uploads or private data in directories that are directly executable or publicly readable without an access policy.\n\n### Worked example\n\nRead a local JSON configuration file, validate required keys and report a clear startup error when a key is absent.\n\n### Common failure to avoid\n\nDo not hard-code production credentials or assume a file path is writable in every environment.\n\n### Check your understanding\n\nExplain the request or data flow in your own words. Identify which part is untrusted, which rule validates it, which permission check applies and how a failure is reported. A backend operation must remain safe even when a caller bypasses the intended user interface.\n",
+            "exercise": "Write a configuration checklist that separates public settings from secrets.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of file handling and configuration.",
+              "Identify one security, validation, persistence or testing concern relevant to the topic."
+            ]
+          },
+          {
+            "title": "PHP testing and debugging",
+            "duration_minutes": 25,
+            "body_markdown": "## PHP testing and debugging\n\nUnit tests check individual functions or classes without needing a full HTTP server or database. Integration tests exercise boundaries such as routing, persistence and session handling. Use known test data and isolate dependencies so failures are reproducible. A test should verify status, response content and side effects where relevant. Error logs help diagnose production problems, but never log passwords, raw session tokens or unnecessary personal data. Add regression tests after fixing defects.\n\n### Worked example\n\nWrite unit tests for a score validator and an integration-test outline for an enrolment endpoint.\n\n### Common failure to avoid\n\nA page loading successfully does not prove its database writes or authorisation rules are correct.\n\n### Check your understanding\n\nExplain the request or data flow in your own words. Identify which part is untrusted, which rule validates it, which permission check applies and how a failure is reported. A backend operation must remain safe even when a caller bypasses the intended user interface.\n",
+            "exercise": "Create tests for valid data, invalid data, unauthorised access and duplicate requests.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of php testing and debugging.",
+              "Identify one security, validation, persistence or testing concern relevant to the topic."
+            ]
+          },
+          {
+            "title": "Build a secure PHP backend project",
+            "duration_minutes": 25,
+            "body_markdown": "## Build a secure PHP backend project\n\nA backend project should have a clear directory structure, dependency manifest, configuration strategy, routing layer, domain/service logic and repeatable tests. Put only intended public entry points in the document root. Define authentication and authorisation before connecting sensitive operations. Use prepared statements, validate input, encode output and record failure details safely. The README should explain setup, environment variables, database preparation and test commands without including secret values.\n\n### Worked example\n\nBuild a Course Enrolment API with course listing, protected enrolment and a learner's own enrolment summary.\n\n### Common failure to avoid\n\nDo not rely on frontend validation or obscurity of a URL to protect backend data.\n\n### Check your understanding\n\nExplain the request or data flow in your own words. Identify which part is untrusted, which rule validates it, which permission check applies and how a failure is reported. A backend operation must remain safe even when a caller bypasses the intended user interface.\n",
+            "exercise": "Submit source, endpoint documentation, tests and a security review checklist.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of build a secure php backend project.",
+              "Identify one security, validation, persistence or testing concern relevant to the topic."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "PHP Programming for Web Backends Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions. For security questions, distinguish validation, escaping, authentication and authorisation. Code should handle errors without exposing secrets.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short_answer",
+          "prompt": "Explain the difference between validation and output escaping, and give an example of when each is required.",
+          "marks": 8,
+          "rubric": [
+            "Defines validation (3)",
+            "Defines context-sensitive escaping (3)",
+            "Correct use cases (2)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "http_design",
+          "prompt": "Design a protected enrolment endpoint with HTTP method, request shape, authentication check, permission rule and response statuses.",
+          "marks": 10,
+          "rubric": [
+            "Appropriate method and route (2)",
+            "Input contract (2)",
+            "Authentication/authorisation (3)",
+            "Status and response shape (3)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "database",
+          "prompt": "Write a prepared PDO query that retrieves a learner's enrolments using a supplied learner ID. Explain why parameter binding is safer than string concatenation.",
+          "marks": 12,
+          "rubric": [
+            "Prepared statement use (4)",
+            "Bound parameter (3)",
+            "Correct result handling (3)",
+            "Injection explanation (2)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "debugging",
+          "prompt": "A backend receives a role value from a hidden form field and uses it to decide whether a learner can access an admin route. Identify the security flaw and correction.",
+          "marks": 10,
+          "rubric": [
+            "Identifies client-controlled trust (4)",
+            "Explains authorisation failure (3)",
+            "Moves role check to trusted server-side data (3)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "testing",
+          "prompt": "Design tests for valid enrolment, malformed input, unauthorised learner, duplicate request and database failure.",
+          "marks": 10,
+          "rubric": [
+            "Valid path (2)",
+            "Input validation (2)",
+            "Access isolation (2)",
+            "Duplicate/error cases (2)",
+            "Expected responses (2)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit the Course Enrolment API with endpoint documentation, tests and a security checklist.",
+          "marks": 20,
+          "rubric": [
+            "Working endpoints (5)",
+            "Safe persistence and transactions (4)",
+            "Authentication/authorisation (4)",
+            "Validation and error handling (4)",
+            "Documentation (3)"
+          ]
+        }
+      ],
+      "total_marks": 70
+    },
+    "final_project": {
+      "title": "Course Enrolment API",
+      "brief": "Build a PHP backend that lists courses, allows an authenticated learner to enrol and returns only that learner's enrolment summary. Define request and response contracts, validate inputs, enforce identity and permission checks on the server, use prepared database statements and write tests for denied and failed operations.",
+      "deliverables": [
+        "Endpoint and data model specification",
+        "PHP source organised with namespaces and Composer autoloading",
+        "Request validation and output encoding",
+        "Authentication and authorisation rules",
+        "PDO prepared queries and transaction explanation",
+        "At least 10 tests with expected results",
+        "README with setup and environment configuration",
+        "Security review checklist"
+      ],
+      "acceptance_criteria": [
+        "Course listing returns the documented JSON shape",
+        "Only authenticated learners can enrol",
+        "A learner cannot read another learner's private enrolments",
+        "Database writes use parameterised statements",
+        "Duplicate and invalid requests have documented outcomes",
+        "Errors do not expose credentials or stack traces",
+        "Tests cover success, denial, malformed input and persistence failures"
+      ]
+    },
+    "references": [
+      {
+        "title": "PHP Manual",
+        "url": "https://www.php.net/manual/en/",
+        "note": "Official reference for PHP syntax, standard functions, sessions and PDO."
+      },
+      {
+        "title": "Composer Documentation",
+        "url": "https://getcomposer.org/doc/",
+        "note": "Official documentation for dependencies and autoloading."
+      },
+      {
+        "title": "OWASP Cheat Sheet Series",
+        "url": "https://cheatsheetseries.owasp.org/",
+        "note": "Security guidance for input handling, authentication, sessions and injection prevention."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft. No authorised academic review has been recorded. Do not invent reviewer identities or dates and do not publish until a real review decision exists.",
+      "language": "English",
+      "content_quality": "Four sections and sixteen substantive lessons, worked examples, exercises, takeaways, six assessment questions with rubrics, a secure backend project, acceptance criteria and official/security references are included. Technical and academic review remain required."
+    }
+  }
+}

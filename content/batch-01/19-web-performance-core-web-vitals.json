@@ -1,0 +1,373 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "web-performance-core-web-vitals",
+    "title": "Web Performance and Core Web Vitals",
+    "subtitle": "Measure and improve loading, responsiveness and stability for real users and mobile devices.",
+    "description": "An intermediate course on web performance engineering. Learners study Core Web Vitals, browser rendering, network behaviour, responsive images, fonts, JavaScript cost, React and Next.js rendering, caching, database performance, budgets, monitoring, accessibility and evidence-based optimisation.",
+    "level": "intermediate",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 720,
+    "target_audience": [
+      "Frontend developers improving production web experiences",
+      "Computing students studying web engineering",
+      "Developers building mobile-first learning platforms"
+    ],
+    "prerequisites": [
+      "HTML, CSS and JavaScript fundamentals",
+      "Basic browser developer tools",
+      "Basic React or another component framework is helpful"
+    ],
+    "outcomes": [
+      "Explain LCP, INP and CLS and connect them to user experience",
+      "Analyse the browser critical rendering path and network waterfall",
+      "Optimise images, fonts, CSS and JavaScript payloads",
+      "Choose server and client rendering boundaries thoughtfully",
+      "Apply safe caching and improve server/database request patterns",
+      "Create and enforce measurable performance budgets",
+      "Use lab and field tools to diagnose bottlenecks",
+      "Report verified performance improvements without accessibility or security regressions"
+    ],
+    "equipment": [
+      "Computer with a modern browser and developer tools",
+      "Code editor and sample web application",
+      "A mobile device or realistic device/network emulation"
+    ],
+    "accessibility": "Teach performance using semantic text, keyboard-operable tools and accessible charts or tables. Provide text summaries for traces and diagrams. Learners can use browser emulation when physical mobile hardware is unavailable, but should state the limitation.",
+    "sections": [
+      {
+        "title": "Browser Rendering and Core Metrics",
+        "description": "Understand user-centric performance metrics, rendering and network behaviour.",
+        "lessons": [
+          {
+            "title": "What Web Performance Measures",
+            "duration_minutes": 25,
+            "body_markdown": "## What Web Performance Measures\n\nWeb performance describes how quickly a page loads, responds and remains visually stable. Users experience the whole journey: network delay, server response, JavaScript execution, image decoding and layout. A page that eventually loads but ignores taps for several seconds is not fast from the learner's perspective.\n\n### Worked application example\n\nA student opening a lesson on a low-cost phone may have a slow connection and limited memory. Prioritise readable lesson text, navigation and progress controls before loading recommendations or decorative media.\n\n### Common failure to avoid\n\nDo not judge performance only by how quickly a page appears on a developer laptop. Measure representative devices, network conditions and real user journeys. A single synthetic score does not explain every cause.\n\n### Practice task\n\nDescribe the performance risks when a learner opens a course page over a slow mobile connection. Rank the first three user-visible priorities.\n\n### Evidence requirement\n\nRecord the device or emulation profile, viewport, network conditions, cache state and measurement tool. Compare before and after under the same conditions. Explain any trade-off and confirm that the change did not weaken accessibility, privacy, authorization or correctness.",
+            "exercise": "Describe the performance risks when a learner opens a course page over a slow mobile connection. Rank the first three user-visible priorities.",
+            "key_takeaways": [
+              "Measure the learner's actual journey before choosing an optimisation.",
+              "Prioritise content, responsiveness and visual stability on target devices.",
+              "Verify improvements with comparable evidence and protect accessibility and privacy."
+            ]
+          },
+          {
+            "title": "Core Web Vitals and User Experience",
+            "duration_minutes": 25,
+            "body_markdown": "## Core Web Vitals and User Experience\n\nCore Web Vitals are field-oriented metrics that describe loading, interactivity and visual stability. Largest Contentful Paint (LCP) measures when the main content appears; Interaction to Next Paint (INP) measures responsiveness to interactions; Cumulative Layout Shift (CLS) measures unexpected visual movement.\n\n### Worked application example\n\nA course title and lesson body may be the largest content element. If a large image pushes the lesson text downward after loading, CLS increases. If a quiz button waits behind expensive JavaScript, interaction responsiveness suffers.\n\n### Common failure to avoid\n\nDo not optimise one metric while making another worse. A page can load quickly but become unresponsive during interaction. Understand what element or action each metric represents before choosing a fix.\n\n### Practice task\n\nFor a course page, identify likely LCP, INP and CLS contributors. Propose one measurement and one improvement for each.\n\n### Evidence requirement\n\nRecord the device or emulation profile, viewport, network conditions, cache state and measurement tool. Compare before and after under the same conditions. Explain any trade-off and confirm that the change did not weaken accessibility, privacy, authorization or correctness.",
+            "exercise": "For a course page, identify likely LCP, INP and CLS contributors. Propose one measurement and one improvement for each.",
+            "key_takeaways": [
+              "Measure the learner's actual journey before choosing an optimisation.",
+              "Prioritise content, responsiveness and visual stability on target devices.",
+              "Verify improvements with comparable evidence and protect accessibility and privacy."
+            ]
+          },
+          {
+            "title": "The Critical Rendering Path",
+            "duration_minutes": 25,
+            "body_markdown": "## The Critical Rendering Path\n\nThe browser parses HTML, discovers resources, builds the DOM and CSSOM, calculates layout and paints pixels. Blocking CSS and JavaScript can delay rendering. Critical resources should be prioritised, while nonessential work can be deferred or loaded later.\n\n### Worked application example\n\nA large synchronous script in the document head can delay lesson text. Critical styles should arrive early, while analytics and optional widgets can be deferred until after the main content is usable.\n\n### Common failure to avoid\n\nAdding more scripts to solve a UI problem can make the page slower. Avoid blocking the first render with code that is not needed for the first meaningful view.\n\n### Practice task\n\nInspect a page's resource loading order and identify render-blocking CSS or JavaScript. Explain which resources can be deferred.\n\n### Evidence requirement\n\nRecord the device or emulation profile, viewport, network conditions, cache state and measurement tool. Compare before and after under the same conditions. Explain any trade-off and confirm that the change did not weaken accessibility, privacy, authorization or correctness.",
+            "exercise": "Inspect a page's resource loading order and identify render-blocking CSS or JavaScript. Explain which resources can be deferred.",
+            "key_takeaways": [
+              "Measure the learner's actual journey before choosing an optimisation.",
+              "Prioritise content, responsiveness and visual stability on target devices.",
+              "Verify improvements with comparable evidence and protect accessibility and privacy."
+            ]
+          },
+          {
+            "title": "Network Requests, Latency and Compression",
+            "duration_minutes": 40,
+            "body_markdown": "## Network Requests, Latency and Compression\n\nEvery request has overhead, and high latency makes many small sequential requests expensive. Compression reduces transfer size for text resources. HTTP caching and modern transport protocols can help, but the application must still avoid unnecessary waterfalls and oversized payloads.\n\n### Worked application example\n\nA lesson page should request the lesson and essential metadata efficiently rather than fetching each small section in a chain. Compress text assets and avoid sending full database rows when the interface needs only a few fields.\n\n### Common failure to avoid\n\nDo not assume a smaller file is always faster if it requires many extra requests or expensive decoding. Measure transfer size, request count and time to first useful content.\n\n### Practice task\n\nCompare a page that makes 30 sequential requests with one that makes a few parallel requests. Estimate which bottleneck dominates on a high-latency connection.\n\n### Evidence requirement\n\nRecord the device or emulation profile, viewport, network conditions, cache state and measurement tool. Compare before and after under the same conditions. Explain any trade-off and confirm that the change did not weaken accessibility, privacy, authorization or correctness.",
+            "exercise": "Compare a page that makes 30 sequential requests with one that makes a few parallel requests. Estimate which bottleneck dominates on a high-latency connection.",
+            "key_takeaways": [
+              "Measure the learner's actual journey before choosing an optimisation.",
+              "Prioritise content, responsiveness and visual stability on target devices.",
+              "Verify improvements with comparable evidence and protect accessibility and privacy."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Assets, JavaScript and Framework Architecture",
+        "description": "Optimise media, fonts, scripts and component rendering.",
+        "lessons": [
+          {
+            "title": "Image Optimisation and Responsive Media",
+            "duration_minutes": 25,
+            "body_markdown": "## Image Optimisation and Responsive Media\n\nImages can dominate page weight. Choose dimensions close to the displayed size, use modern formats when supported, compress appropriately and provide responsive sources. Reserve width and height so the browser can allocate layout space before the image arrives.\n\n### Worked application example\n\nA course thumbnail shown at 320 pixels wide should not require a 3000-pixel source image. A hero image can use responsive variants, while below-the-fold decorative images can be lazy-loaded.\n\n### Common failure to avoid\n\nDo not lazy-load the main above-the-fold image if it is the LCP element. Do not omit dimensions and allow images to shift the layout as they decode.\n\n### Practice task\n\nAudit five images on a sample page. Record source dimensions, displayed dimensions, format, file size and whether loading priority is appropriate.\n\n### Evidence requirement\n\nRecord the device or emulation profile, viewport, network conditions, cache state and measurement tool. Compare before and after under the same conditions. Explain any trade-off and confirm that the change did not weaken accessibility, privacy, authorization or correctness.",
+            "exercise": "Audit five images on a sample page. Record source dimensions, displayed dimensions, format, file size and whether loading priority is appropriate.",
+            "key_takeaways": [
+              "Measure the learner's actual journey before choosing an optimisation.",
+              "Prioritise content, responsiveness and visual stability on target devices.",
+              "Verify improvements with comparable evidence and protect accessibility and privacy."
+            ]
+          },
+          {
+            "title": "Fonts, CSS and Layout Stability",
+            "duration_minutes": 25,
+            "body_markdown": "## Fonts, CSS and Layout Stability\n\nFonts affect both visual identity and layout. Loading a different font after initial paint can change text wrapping and shift nearby elements. CSS should be organised to avoid large unused styles and expensive layout changes. Reserve space for dynamic content.\n\n### Worked application example\n\nA course heading may wrap onto three lines after a web font arrives, pushing the lesson controls downward. Use sensible font fallbacks, efficient font loading and stable component dimensions.\n\n### Common failure to avoid\n\nDo not load multiple heavy font families and weights without a clear need. Avoid injecting banners or images above content without reserving their space.\n\n### Practice task\n\nFind a layout-shift risk caused by fonts, images or late banners. Propose a fix that preserves readable typography.\n\n### Evidence requirement\n\nRecord the device or emulation profile, viewport, network conditions, cache state and measurement tool. Compare before and after under the same conditions. Explain any trade-off and confirm that the change did not weaken accessibility, privacy, authorization or correctness.",
+            "exercise": "Find a layout-shift risk caused by fonts, images or late banners. Propose a fix that preserves readable typography.",
+            "key_takeaways": [
+              "Measure the learner's actual journey before choosing an optimisation.",
+              "Prioritise content, responsiveness and visual stability on target devices.",
+              "Verify improvements with comparable evidence and protect accessibility and privacy."
+            ]
+          },
+          {
+            "title": "JavaScript Cost and Main-Thread Work",
+            "duration_minutes": 25,
+            "body_markdown": "## JavaScript Cost and Main-Thread Work\n\nJavaScript download, parsing, compilation and execution consume bandwidth and CPU. Long tasks can block the main thread and delay input response. Reduce unnecessary dependencies, split code by route and keep interactive components focused.\n\n### Worked application example\n\nA lesson reading page does not need the full quiz editor bundle. Load quiz interaction only when the learner opens a quiz, and keep static explanation content server-rendered where possible.\n\n### Common failure to avoid\n\nDo not add a large library for a small interaction. Code splitting helps only when the split code is not immediately downloaded and executed anyway.\n\n### Practice task\n\nInspect a bundle report and identify large dependencies or duplicated code. Suggest a smaller implementation for one feature.\n\n### Evidence requirement\n\nRecord the device or emulation profile, viewport, network conditions, cache state and measurement tool. Compare before and after under the same conditions. Explain any trade-off and confirm that the change did not weaken accessibility, privacy, authorization or correctness.",
+            "exercise": "Inspect a bundle report and identify large dependencies or duplicated code. Suggest a smaller implementation for one feature.",
+            "key_takeaways": [
+              "Measure the learner's actual journey before choosing an optimisation.",
+              "Prioritise content, responsiveness and visual stability on target devices.",
+              "Verify improvements with comparable evidence and protect accessibility and privacy."
+            ]
+          },
+          {
+            "title": "React and Next.js Rendering Performance",
+            "duration_minutes": 40,
+            "body_markdown": "## React and Next.js Rendering Performance\n\nComponent architecture affects the amount of JavaScript sent to the browser and the work performed during rendering. Server components can reduce client bundles; memoisation can help when measured repeated work exists, but it is not a substitute for sound component design.\n\n### Worked application example\n\nA course page can render lesson content on the server and isolate a quiz answer selector or bookmark control as a client component. Fetch shared data once and avoid unnecessary repeated requests during navigation.\n\n### Common failure to avoid\n\nDo not add memoisation everywhere based on guesswork. Excessive client boundaries, effects and duplicated state can increase complexity and still fail to improve performance.\n\n### Practice task\n\nChoose which components in a course page should be server or client components. Justify each boundary in terms of interactivity and data.\n\n### Evidence requirement\n\nRecord the device or emulation profile, viewport, network conditions, cache state and measurement tool. Compare before and after under the same conditions. Explain any trade-off and confirm that the change did not weaken accessibility, privacy, authorization or correctness.",
+            "exercise": "Choose which components in a course page should be server or client components. Justify each boundary in terms of interactivity and data.",
+            "key_takeaways": [
+              "Measure the learner's actual journey before choosing an optimisation.",
+              "Prioritise content, responsiveness and visual stability on target devices.",
+              "Verify improvements with comparable evidence and protect accessibility and privacy."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Caching, Server Work and Measurement",
+        "description": "Improve data access, caching, budgets, accessibility and monitoring.",
+        "lessons": [
+          {
+            "title": "Caching Strategies and CDN Delivery",
+            "duration_minutes": 25,
+            "body_markdown": "## Caching Strategies and CDN Delivery\n\nCaching stores reusable responses closer to users. Browser caches, CDNs and application caches have different lifetimes and invalidation rules. Public static assets and published catalogue metadata are easier to cache than private learner progress.\n\n### Worked application example\n\nA versioned image can be cached for a long time because its URL changes when the asset changes. Public course metadata can use a controlled freshness policy. Learner progress must be isolated by identity and should not enter a shared cache.\n\n### Common failure to avoid\n\nA stale public title is inconvenient; another learner's private progress appearing in a shared response is a security failure. Never use a shared cache key for user-specific content.\n\n### Practice task\n\nCreate a cache policy table for images, scripts, catalogue metadata, lesson bodies, enrolment and learner progress.\n\n### Evidence requirement\n\nRecord the device or emulation profile, viewport, network conditions, cache state and measurement tool. Compare before and after under the same conditions. Explain any trade-off and confirm that the change did not weaken accessibility, privacy, authorization or correctness.",
+            "exercise": "Create a cache policy table for images, scripts, catalogue metadata, lesson bodies, enrolment and learner progress.",
+            "key_takeaways": [
+              "Measure the learner's actual journey before choosing an optimisation.",
+              "Prioritise content, responsiveness and visual stability on target devices.",
+              "Verify improvements with comparable evidence and protect accessibility and privacy."
+            ]
+          },
+          {
+            "title": "Database and Server Performance",
+            "duration_minutes": 25,
+            "body_markdown": "## Database and Server Performance\n\nA slow page may be waiting for a database query or server computation rather than the browser. Use indexes that match real query patterns, select only needed columns, paginate large datasets and inspect query plans. Avoid N+1 queries that fetch related records one at a time.\n\n### Worked application example\n\nA dashboard can retrieve course enrolments and completion counts with a bounded query or aggregate instead of issuing one query per course. Index foreign keys and filter columns based on measured workload.\n\n### Common failure to avoid\n\nAdding indexes without understanding write cost and query plans can waste storage and slow updates. Do not solve a query problem by caching private data unsafely.\n\n### Practice task\n\nReview a dashboard query pattern and identify an N+1 risk. Propose an indexed or aggregated alternative and explain how to measure it.\n\n### Evidence requirement\n\nRecord the device or emulation profile, viewport, network conditions, cache state and measurement tool. Compare before and after under the same conditions. Explain any trade-off and confirm that the change did not weaken accessibility, privacy, authorization or correctness.",
+            "exercise": "Review a dashboard query pattern and identify an N+1 risk. Propose an indexed or aggregated alternative and explain how to measure it.",
+            "key_takeaways": [
+              "Measure the learner's actual journey before choosing an optimisation.",
+              "Prioritise content, responsiveness and visual stability on target devices.",
+              "Verify improvements with comparable evidence and protect accessibility and privacy."
+            ]
+          },
+          {
+            "title": "Performance Budgets and Monitoring",
+            "duration_minutes": 25,
+            "body_markdown": "## Performance Budgets and Monitoring\n\nA performance budget sets measurable limits for page weight, JavaScript, image size, request count or user-centric metrics. Budgets help teams catch regressions before they become normal. Monitor both synthetic lab tests and real user measurements where available.\n\n### Worked application example\n\nA team may set a JavaScript budget for the course reader and a maximum initial image payload for mobile. CI can warn when a build exceeds the agreed budget, while real-user metrics reveal actual device conditions.\n\n### Common failure to avoid\n\nA budget without ownership and enforcement becomes a decorative document. Choose budgets based on target devices and user needs, then review exceptions explicitly.\n\n### Practice task\n\nPropose a performance budget for a mobile course reader. Define the metric, threshold, test method and owner.\n\n### Evidence requirement\n\nRecord the device or emulation profile, viewport, network conditions, cache state and measurement tool. Compare before and after under the same conditions. Explain any trade-off and confirm that the change did not weaken accessibility, privacy, authorization or correctness.",
+            "exercise": "Propose a performance budget for a mobile course reader. Define the metric, threshold, test method and owner.",
+            "key_takeaways": [
+              "Measure the learner's actual journey before choosing an optimisation.",
+              "Prioritise content, responsiveness and visual stability on target devices.",
+              "Verify improvements with comparable evidence and protect accessibility and privacy."
+            ]
+          },
+          {
+            "title": "Accessibility and Performance Together",
+            "duration_minutes": 40,
+            "body_markdown": "## Accessibility and Performance Together\n\nAccessible design and performance often reinforce each other: semantic HTML reduces unnecessary scripting, clear text loads faster than decorative media and keyboard-operable controls need predictable interaction. However, accessibility must not be sacrificed for a synthetic performance score.\n\n### Worked application example\n\nA lesson page can use semantic headings, native buttons, visible focus and plain text. It can defer decorative animation while keeping controls and content available immediately.\n\n### Common failure to avoid\n\nDo not remove labels, focus indicators or meaningful content to reduce bytes. A fast interface that a learner cannot operate is not a successful optimisation.\n\n### Practice task\n\nAudit a course page for keyboard access, labels, motion and loading behaviour. Identify changes that improve both accessibility and performance.\n\n### Evidence requirement\n\nRecord the device or emulation profile, viewport, network conditions, cache state and measurement tool. Compare before and after under the same conditions. Explain any trade-off and confirm that the change did not weaken accessibility, privacy, authorization or correctness.",
+            "exercise": "Audit a course page for keyboard access, labels, motion and loading behaviour. Identify changes that improve both accessibility and performance.",
+            "key_takeaways": [
+              "Measure the learner's actual journey before choosing an optimisation.",
+              "Prioritise content, responsiveness and visual stability on target devices.",
+              "Verify improvements with comparable evidence and protect accessibility and privacy."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Evidence-Based Optimisation Project",
+        "description": "Measure a real mobile journey and verify improvements without regressions.",
+        "lessons": [
+          {
+            "title": "Performance Testing and Tooling",
+            "duration_minutes": 25,
+            "body_markdown": "## Performance Testing and Tooling\n\nUse browser developer tools, Lighthouse-style audits, network throttling, performance traces and bundle analysers to identify bottlenecks. Test repeatably with documented settings. Lab tests help isolate causes; field data shows what real users experience.\n\n### Worked application example\n\nA team can record a baseline for the course reader on a mobile profile, inspect the network waterfall and trace a delayed quiz interaction. After a code change, repeat the same test and compare results.\n\n### Common failure to avoid\n\nDo not compare measurements from different devices or network profiles as if they were controlled experiments. Record the conditions and avoid treating one score as a complete diagnosis.\n\n### Practice task\n\nCreate a repeatable test protocol for a course page, including viewport, device profile, network, cache state and metrics.\n\n### Evidence requirement\n\nRecord the device or emulation profile, viewport, network conditions, cache state and measurement tool. Compare before and after under the same conditions. Explain any trade-off and confirm that the change did not weaken accessibility, privacy, authorization or correctness.",
+            "exercise": "Create a repeatable test protocol for a course page, including viewport, device profile, network, cache state and metrics.",
+            "key_takeaways": [
+              "Measure the learner's actual journey before choosing an optimisation.",
+              "Prioritise content, responsiveness and visual stability on target devices.",
+              "Verify improvements with comparable evidence and protect accessibility and privacy."
+            ]
+          },
+          {
+            "title": "Third-Party Scripts and Privacy",
+            "duration_minutes": 25,
+            "body_markdown": "## Third-Party Scripts and Privacy\n\nAnalytics, chat widgets, advertising and embedded media can add requests, JavaScript and privacy obligations. Load only services that have a clear purpose, understand their data collection and avoid blocking the main user journey.\n\n### Worked application example\n\nA learning platform may defer an optional support widget until the page is interactive. Essential lesson content should not depend on a third-party analytics provider being available.\n\n### Common failure to avoid\n\nA third-party outage should not prevent a learner from reading a lesson. Do not send personal learning history to analytics without a lawful, transparent purpose and appropriate controls.\n\n### Practice task\n\nInventory third-party scripts on a sample page. Rank them by purpose, performance cost, privacy impact and whether they can be removed or deferred.\n\n### Evidence requirement\n\nRecord the device or emulation profile, viewport, network conditions, cache state and measurement tool. Compare before and after under the same conditions. Explain any trade-off and confirm that the change did not weaken accessibility, privacy, authorization or correctness.",
+            "exercise": "Inventory third-party scripts on a sample page. Rank them by purpose, performance cost, privacy impact and whether they can be removed or deferred.",
+            "key_takeaways": [
+              "Measure the learner's actual journey before choosing an optimisation.",
+              "Prioritise content, responsiveness and visual stability on target devices.",
+              "Verify improvements with comparable evidence and protect accessibility and privacy."
+            ]
+          },
+          {
+            "title": "Optimising a Real User Journey",
+            "duration_minutes": 25,
+            "body_markdown": "## Optimising a Real User Journey\n\nOptimisation should start with a user journey and evidence. Identify the slow step, measure the bottleneck, change one meaningful factor and retest. A technically impressive improvement is irrelevant if it does not improve the learner's task.\n\n### Worked application example\n\nMeasure the journey from opening a course to reading the first lesson and saving progress. Track loading of the lesson body, response to the progress action and stability of the page during media loading.\n\n### Common failure to avoid\n\nAvoid changing several unrelated things at once and then guessing which change helped. Keep a baseline and verify that correctness, accessibility and security remain intact.\n\n### Practice task\n\nChoose one slow journey, collect a baseline, form a hypothesis, implement one improvement and report the measured result.\n\n### Evidence requirement\n\nRecord the device or emulation profile, viewport, network conditions, cache state and measurement tool. Compare before and after under the same conditions. Explain any trade-off and confirm that the change did not weaken accessibility, privacy, authorization or correctness.",
+            "exercise": "Choose one slow journey, collect a baseline, form a hypothesis, implement one improvement and report the measured result.",
+            "key_takeaways": [
+              "Measure the learner's actual journey before choosing an optimisation.",
+              "Prioritise content, responsiveness and visual stability on target devices.",
+              "Verify improvements with comparable evidence and protect accessibility and privacy."
+            ]
+          },
+          {
+            "title": "Capstone: Mobile-First Course Performance Audit",
+            "duration_minutes": 40,
+            "body_markdown": "## Capstone: Mobile-First Course Performance Audit\n\nAudit and improve a course-reader experience for a modest Android device and constrained connection. Measure LCP, INP and CLS where possible, inspect the network waterfall, analyse JavaScript and image payloads, review server queries and check accessibility.\n\n### Worked application example\n\nA useful submission includes a baseline, a prioritised bottleneck list, a small set of changes and a retest under the same conditions. Improvements might include responsive images, server-rendered lesson text, deferred nonessential scripts and fewer sequential requests.\n\n### Common failure to avoid\n\nDo not claim a performance improvement without comparable measurements. Do not make private data cacheable or remove accessibility features to improve a score.\n\n### Practice task\n\nSubmit the test protocol, baseline evidence, code changes, before-and-after measurements, accessibility notes and a short explanation of trade-offs.\n\n### Evidence requirement\n\nRecord the device or emulation profile, viewport, network conditions, cache state and measurement tool. Compare before and after under the same conditions. Explain any trade-off and confirm that the change did not weaken accessibility, privacy, authorization or correctness.",
+            "exercise": "Submit the test protocol, baseline evidence, code changes, before-and-after measurements, accessibility notes and a short explanation of trade-offs.",
+            "key_takeaways": [
+              "Measure the learner's actual journey before choosing an optimisation.",
+              "Prioritise content, responsiveness and visual stability on target devices.",
+              "Verify improvements with comparable evidence and protect accessibility and privacy."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "Web Performance and Core Web Vitals: Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions using metric definitions and evidence-based reasoning. Distinguish lab measurements from field data.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short_answer",
+          "prompt": "Define LCP, INP and CLS and give one example of a course-page issue that can affect each metric.",
+          "marks": 12,
+          "rubric": [
+            "Correct metric definitions (6)",
+            "Relevant examples (6)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "diagnosis",
+          "prompt": "A page has a large image, several blocking scripts and a delayed font. Explain how you would identify the main rendering bottleneck.",
+          "marks": 10,
+          "rubric": [
+            "Uses network and performance traces (4)",
+            "Identifies likely blocking resources (3)",
+            "Proposes measurable tests (3)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "optimisation",
+          "prompt": "Propose an image strategy for a responsive course catalogue with mobile and desktop layouts.",
+          "marks": 10,
+          "rubric": [
+            "Responsive dimensions and formats (4)",
+            "Loading priority and lazy loading (3)",
+            "Layout stability (3)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "architecture",
+          "prompt": "Explain how server components and smaller client boundaries can affect a course reader's JavaScript cost.",
+          "marks": 10,
+          "rubric": [
+            "Correct rendering explanation (4)",
+            "Identifies bundle and hydration impact (3)",
+            "Notes that server work still needs measurement (3)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "caching",
+          "prompt": "Create a safe cache classification for public assets, catalogue data and private learner progress.",
+          "marks": 10,
+          "rubric": [
+            "Correct public/private classification (4)",
+            "Freshness and invalidation (3)",
+            "Cross-account privacy protection (3)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit a mobile-first course performance audit with baseline, changes, retest and accessibility review.",
+          "marks": 20,
+          "rubric": [
+            "Repeatable test protocol (4)",
+            "Correct diagnosis and prioritisation (4)",
+            "Measured improvements (5)",
+            "Accessibility and privacy checks (4)",
+            "Clear report and trade-offs (3)"
+          ]
+        }
+      ],
+      "total_marks": 72
+    },
+    "final_project": {
+      "title": "Mobile-First Course Performance Audit",
+      "deliverables": [
+        "Target user journey and device profile",
+        "Baseline LCP, INP and CLS measurements where available",
+        "Network waterfall and asset inventory",
+        "JavaScript bundle and server-query analysis",
+        "Prioritised improvement plan",
+        "Implemented performance changes",
+        "Before-and-after measurements under controlled conditions",
+        "Accessibility, privacy and correctness regression checklist"
+      ],
+      "acceptance_criteria": [
+        "Measurements are repeatable and conditions are documented",
+        "Bottlenecks are linked to evidence rather than guesswork",
+        "Changes improve a meaningful user journey",
+        "No private learner data is placed in unsafe shared caches",
+        "Keyboard access, semantic structure and readable content remain intact",
+        "Trade-offs and remaining limitations are documented"
+      ]
+    },
+    "references": [
+      {
+        "title": "Web Vitals",
+        "url": "https://web.dev/articles/vitals",
+        "note": "Primary overview of Core Web Vitals and user-centric performance measurement."
+      },
+      {
+        "title": "Optimize Largest Contentful Paint",
+        "url": "https://web.dev/articles/optimize-lcp",
+        "note": "Guidance for diagnosing and improving LCP."
+      },
+      {
+        "title": "Optimize Interaction to Next Paint",
+        "url": "https://web.dev/articles/optimize-inp",
+        "note": "Guidance for diagnosing and improving responsiveness."
+      },
+      {
+        "title": "Optimize Cumulative Layout Shift",
+        "url": "https://web.dev/articles/optimize-cls",
+        "note": "Guidance for preventing unexpected layout movement."
+      },
+      {
+        "title": "MDN Performance",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Performance",
+        "note": "Browser performance concepts and tooling."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft. Verify current metric definitions and tooling guidance, run practical measurements and align with curriculum before publication. No academic approval is claimed.",
+      "language": "English",
+      "content_quality": "Four sections, sixteen lessons, six assessment questions, a measurement-led capstone and official web performance references. Technical and academic review remains required."
+    }
+  }
+}

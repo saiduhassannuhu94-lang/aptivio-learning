@@ -86,6 +86,11 @@ jobs:
       - name: Run unit tests
         run: npm run test
 
+      - name: Validate course content packages
+        run: npm run validate:courses
+      - name: Dry-run Batch 1 course import
+        run: npm run import:courses
+
       - name: Audit production dependencies
         run: npm audit --omit=dev --audit-level=high
 

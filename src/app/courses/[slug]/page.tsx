@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+
+export const dynamic = "force-dynamic";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { getLearningPackage } from "@/lib/learning/library";
 import { createClient } from "@/lib/supabase/server";
 import { formatMoney } from "@/lib/format/currency";
 import { CourseAccessButton } from "./course-access-button";
@@ -11,6 +14,8 @@ type CoursePageProps = {
 
 export async function generateMetadata({ params }: CoursePageProps): Promise<Metadata> {
   const { slug } = await params;
+  const libraryItem = getLearningPackage(slug);
+  if (libraryItem) return { title: libraryItem.course.title, description: libraryItem.course.description };
   const supabase = await createClient();
 
   const { data: course } = await supabase
@@ -38,6 +43,7 @@ export async function generateMetadata({ params }: CoursePageProps): Promise<Met
 
 export default async function CourseDetailPage({ params }: CoursePageProps) {
   const { slug } = await params;
+  if (getLearningPackage(slug)) redirect("/learn/" + slug);
   const supabase = await createClient();
 
   const { data: course, error: courseError } = await supabase
@@ -91,9 +97,22 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
         .select("id")
         .eq("user_id", authData.user.id)
         .eq("course_id", course.id)
+        .eq("course_version_id", version.id)
         .in("status", ["active", "completed"])
         .maybeSingle()
     : { data: null };
+
+  const { data: courseAssessment, error: courseAssessmentError } = enrollment
+    ? await supabase
+        .from("course_assessments")
+        .select("id")
+        .eq("course_version_id", version.id)
+        .maybeSingle()
+    : { data: null, error: null };
+
+  if (courseAssessmentError) {
+    throw new Error("Course assessment details could not be loaded.");
+  }
 
   const lessonsBySection = new Map<string, typeof lessons>();
   for (const lesson of lessons ?? []) {
@@ -146,6 +165,11 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
               currency={course.currency}
             />
           )}
+          {enrollment && courseAssessment && (
+            <Link className="text-link" href={`/courses/${course.slug}/assessment`}>
+              Open final assessment <span aria-hidden="true">↗</span>
+            </Link>
+          )}
           <small>Secure access · Version-specific course content</small>
         </aside>
       </section>
@@ -192,7 +216,11 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
                         <ul>
                           {sectionLessons.map((lesson) => (
                             <li key={lesson.id}>
-                              <span>{lesson.title}</span>
+                              {lesson.is_preview || enrollment ? (
+                                <Link href={`/learn/${lesson.id}`}>{lesson.title}</Link>
+                              ) : (
+                                <span>{lesson.title}</span>
+                              )}
                               <small>
                                 {lesson.is_preview ? "Preview" : "Enrolled learners"}
                                 {lesson.duration_seconds > 0

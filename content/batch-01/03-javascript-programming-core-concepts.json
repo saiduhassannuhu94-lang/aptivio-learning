@@ -1,0 +1,350 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "javascript-programming-core-concepts",
+    "title": "JavaScript Programming: Core Concepts",
+    "subtitle": "Understand JavaScript values, functions, objects, asynchronous behaviour and modern language structure.",
+    "description": "A practical language-foundation course for JavaScript. Learners work with runtime environments, values, equality, control flow, functions, arrays, objects, scope, modules, errors and asynchronous code. The emphasis is on reasoning about behaviour and writing small maintainable programs rather than memorising syntax.",
+    "level": "beginner",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 600,
+    "target_audience": [
+      "Beginners learning JavaScript as a first or second language",
+      "Computing students preparing for browser and server-side development",
+      "Learners who need a strong foundation before React or Node.js"
+    ],
+    "prerequisites": [
+      "Basic computer literacy",
+      "Familiarity with files and folders; no prior JavaScript required"
+    ],
+    "outcomes": [
+      "Run JavaScript in a browser console and supported runtime",
+      "Use primitive values, variables, operators and explicit conversions",
+      "Explain truthiness, equality and coercion hazards",
+      "Write branching logic, loops and reusable functions",
+      "Work with arrays, objects and common collection methods",
+      "Explain lexical scope and closures",
+      "Use modules and handle errors intentionally",
+      "Read and write Promise-based asynchronous code"
+    ],
+    "equipment": [
+      "Laptop or desktop recommended",
+      "Modern browser and developer tools",
+      "Supported JavaScript runtime",
+      "Text editor or IDE"
+    ],
+    "accessibility": "Code is selectable text, not screenshots. Diagrams need text alternatives. Exercises should not rely on colour alone and should have plain-text expected outputs.",
+    "sections": [
+      {
+        "title": "Runtime, Values and Expressions",
+        "description": "Learn how JavaScript executes and how its value model affects results.",
+        "lessons": [
+          {
+            "title": "Where JavaScript runs",
+            "duration_minutes": 25,
+            "body_markdown": "## Where JavaScript runs\n\nJavaScript is a language; a browser engine or server-side runtime executes it. In a browser, the developer console evaluates expressions and displays errors. A script in an HTML page can interact with browser APIs, while a server runtime can use APIs unavailable to a webpage. The language core and the host environment are different layers. A program should not assume that `document` exists in every JavaScript runtime. Identify the execution environment before using a host-specific API.\n\n### Worked example\n\nRun `console.log(\"APTIVIO\")` in a browser console, then name one browser feature unavailable in a plain server process.\n\n### Common failure to avoid\n\nDo not confuse JavaScript itself with the browser DOM or server runtime libraries; they belong to host environments.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for a new input. A sound explanation identifies the value, operation, expected result and any precondition that must hold. Copying a code fragment without reasoning about its contract is not enough.\n",
+            "exercise": "Compare a browser script and server-side script, identifying one API each can use.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of where javascript runs.",
+              "Apply the idea to a new example and name one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Declarations, bindings and naming",
+            "duration_minutes": 25,
+            "body_markdown": "## Declarations, bindings and naming\n\n`const` creates a binding that cannot be reassigned, while `let` creates a binding that can be reassigned. `var` has older function-scoped behaviour and can make reasoning about declarations harder, so modern code normally prefers `const` and uses `let` only when reassignment is needed. A `const` object can still have its properties changed because the binding is fixed, not the object deeply frozen. Use names that reveal purpose and keep a variable's lifetime as narrow as practical.\n\n### Worked example\n\nCreate a `const` course object, update one property, then try to reassign the object variable and explain the two outcomes.\n\n### Common failure to avoid\n\nDo not claim that `const` makes every nested object immutable. It protects reassignment of the binding.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for a new input. A sound explanation identifies the value, operation, expected result and any precondition that must hold. Copying a code fragment without reasoning about its contract is not enough.\n",
+            "exercise": "Refactor a snippet that uses `var` into `const` and `let`, explaining each choice.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of declarations, bindings and naming.",
+              "Apply the idea to a new example and name one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Primitive and reference values",
+            "duration_minutes": 25,
+            "body_markdown": "## Primitive and reference values\n\nJavaScript primitives include strings, numbers, BigInts, Booleans, `undefined`, `null` and symbols. Objects, including arrays and functions, are reference values. Assigning a primitive copies its value; assigning an object copies a reference to the same object. This explains why mutation through one variable can be visible through another. `typeof null` returns `\"object\"` for historical reasons, so use an explicit null comparison when that distinction matters. Understand the data being passed before assuming a copy is independent.\n\n### Worked example\n\nAssign an object to two variables, mutate a property through one variable and inspect the other. Repeat with a number to compare behaviour.\n\n### Common failure to avoid\n\nDo not use `typeof` as a complete validation system. Its result for `null` is a historical edge case.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for a new input. A sound explanation identifies the value, operation, expected result and any precondition that must hold. Copying a code fragment without reasoning about its contract is not enough.\n",
+            "exercise": "Create a demonstration showing primitive assignment and shared object references.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of primitive and reference values.",
+              "Apply the idea to a new example and name one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Operators, equality and conversion",
+            "duration_minutes": 25,
+            "body_markdown": "## Operators, equality and conversion\n\nJavaScript has strict equality (`===`) and loose equality (`==`). Strict equality avoids many implicit-conversion surprises and should be the default for ordinary comparisons. Operators can trigger coercion; for example, `+` can concatenate strings or add numbers depending on operand types. Explicit conversion with `Number`, `String` or `Boolean` communicates intent, but conversion still needs validation: `Number(\"hello\")` produces `NaN`. A robust program checks invalid numeric results with `Number.isNaN` or suitable parsing logic.\n\n### Worked example\n\nEvaluate `\"5\" + 2`, `\"5\" - 2`, `\"5\" === 5` and `Number(\"five\")`. Explain each result.\n\n### Common failure to avoid\n\nDo not use a truthy/falsy check as proof that a value is a valid number. Zero is falsy but can be valid.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for a new input. A sound explanation identifies the value, operation, expected result and any precondition that must hold. Copying a code fragment without reasoning about its contract is not enough.\n",
+            "exercise": "Write a safe conversion function for a score and test empty text, alphabetic text, zero and 75.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of operators, equality and conversion.",
+              "Apply the idea to a new example and name one boundary or failure case."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Control Flow and Functions",
+        "description": "Express decisions, repetition and reusable behaviour.",
+        "lessons": [
+          {
+            "title": "Truthiness, conditions and branching",
+            "duration_minutes": 25,
+            "body_markdown": "## Truthiness, conditions and branching\n\nConditions in JavaScript coerce values to Boolean. Values such as `false`, `0`, `-0`, `0n`, empty string, `null`, `undefined` and `NaN` are falsy; most other values, including empty arrays and empty objects, are truthy. This differs from assumptions learners may bring from other languages. Use `if`, `else if` and `else` to express decisions, and prefer explicit comparisons when zero or an empty string has a valid meaning. Keep each condition aligned with a named requirement and make boundary rules visible.\n\n### Worked example\n\nWrite a login-form check where an empty username is rejected but a numeric identifier of zero is handled according to a documented rule.\n\n### Common failure to avoid\n\nAn empty array is truthy in JavaScript. Testing `if (items)` does not tell you whether the array contains elements.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for a new input. A sound explanation identifies the value, operation, expected result and any precondition that must hold. Copying a code fragment without reasoning about its contract is not enough.\n",
+            "exercise": "List five falsy values and demonstrate why `items.length > 0` differs from `if (items)`.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of truthiness, conditions and branching.",
+              "Apply the idea to a new example and name one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Loops and array iteration",
+            "duration_minutes": 25,
+            "body_markdown": "## Loops and array iteration\n\n`for`, `while` and `for...of` support different iteration needs. `for...of` visits values from an iterable, while `for...in` visits enumerable property keys and is not the normal choice for arrays. Array methods such as `map`, `filter` and `reduce` express transformation, selection and aggregation. `map` produces one output per input; `filter` keeps matching items; `reduce` combines values into an accumulator. Choose the construct that describes the task and understand the callback's return value.\n\n### Worked example\n\nUse an array of scores to create a list of passers with `filter` and display strings with `map`.\n\n### Common failure to avoid\n\nDo not use `map` when you discard the returned array. That is usually a sign that `forEach` or a loop fits better.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for a new input. A sound explanation identifies the value, operation, expected result and any precondition that must hold. Copying a code fragment without reasoning about its contract is not enough.\n",
+            "exercise": "Implement total, average and passing-count operations on the same score array.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of loops and array iteration.",
+              "Apply the idea to a new example and name one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Functions, parameters and return values",
+            "duration_minutes": 25,
+            "body_markdown": "## Functions, parameters and return values\n\nFunctions can be declared with `function` or expressed as arrow functions. Arrow functions have lexical `this` and do not create their own `arguments` binding, which makes them useful for callbacks but not a universal replacement for methods. Parameters receive arguments; return values send results to callers. Calculation functions should usually return data rather than print it, because callers and tests need to reuse the result. Default parameters apply when an argument is `undefined`, not for every falsy value.\n\n### Worked example\n\nWrite a named function for fee calculation and an arrow callback that transforms an array of fee records. Test an omitted default and an explicit zero.\n\n### Common failure to avoid\n\nDo not choose an arrow function for an object method merely because it is shorter; its `this` behaviour may be wrong. Do not use `value || default` when zero is valid.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for a new input. A sound explanation identifies the value, operation, expected result and any precondition that must hold. Copying a code fragment without reasoning about its contract is not enough.\n",
+            "exercise": "Create a function that accepts an options object, validates required fields and returns a computed result.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of functions, parameters and return values.",
+              "Apply the idea to a new example and name one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Scope, closures and callbacks",
+            "duration_minutes": 25,
+            "body_markdown": "## Scope, closures and callbacks\n\nLexical scope determines which bindings a function can access based on where it was created. A closure occurs when a function retains access to variables from its surrounding scope after that outer function has finished. This is useful for private state and callback behaviour, but can retain data longer than expected. `let` and `const` are block-scoped; `var` is function-scoped. Declaration choice inside loops can affect which value each callback observes. Keep scope narrow and avoid unnecessary global state.\n\n### Worked example\n\nWrite a function that returns a counter closure, call the returned function several times and explain where the counter is stored.\n\n### Common failure to avoid\n\nA closure is not a snapshot of every outer variable. It preserves access to relevant lexical bindings.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for a new input. A sound explanation identifies the value, operation, expected result and any precondition that must hold. Copying a code fragment without reasoning about its contract is not enough.\n",
+            "exercise": "Build a small counter and explain which state is private and which state is exposed.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of scope, closures and callbacks.",
+              "Apply the idea to a new example and name one boundary or failure case."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Objects, Collections and Modules",
+        "description": "Model related data and organise code into reusable units.",
+        "lessons": [
+          {
+            "title": "Objects, properties and methods",
+            "duration_minutes": 25,
+            "body_markdown": "## Objects, properties and methods\n\nObjects group related data and behaviour. Properties can be read with dot or bracket notation; bracket notation is useful when a key is dynamic or contains characters unsuitable for dot notation. A method is a function stored as a property. Property access can return `undefined` when a key is absent, so external object data should be validated. Use a stable shape for records that move between functions, and make required properties explicit in the validation step.\n\n### Worked example\n\nCreate a student object with `matricNo`, `name` and a `getLabel` method; read one property using a dynamic key.\n\n### Common failure to avoid\n\nDo not assume a property exists simply because one sample record contains it.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for a new input. A sound explanation identifies the value, operation, expected result and any precondition that must hold. Copying a code fragment without reasoning about its contract is not enough.\n",
+            "exercise": "Write a function that validates a student record before formatting it.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of objects, properties and methods.",
+              "Apply the idea to a new example and name one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Arrays, destructuring and object updates",
+            "duration_minutes": 25,
+            "body_markdown": "## Arrays, destructuring and object updates\n\nArrays are ordered collections, while objects represent named properties. Destructuring assigns properties or elements to local bindings and can improve readability when used selectively. Spread syntax creates shallow copies: nested objects may still be shared. This matters when updating application state or preparing a new record. Use immutable update patterns when you need to preserve the previous value for comparison or predictable rendering. Avoid copying a large object repeatedly without understanding the cost.\n\n### Worked example\n\nCreate a new student record from an existing object with one changed property using spread syntax, then check whether a nested object is still shared.\n\n### Common failure to avoid\n\nA spread copy is shallow, not a deep clone. Nested references require their own strategy.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for a new input. A sound explanation identifies the value, operation, expected result and any precondition that must hold. Copying a code fragment without reasoning about its contract is not enough.\n",
+            "exercise": "Demonstrate a safe update for a nested profile object and explain the copy boundary.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of arrays, destructuring and object updates.",
+              "Apply the idea to a new example and name one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Sets, maps and collection choice",
+            "duration_minutes": 25,
+            "body_markdown": "## Sets, maps and collection choice\n\nA `Set` stores unique values and is useful for membership and deduplication. A `Map` stores key-value pairs and can use values other than strings as keys. Plain objects are often appropriate for records with named string keys, while Maps are useful for lookup tables with richer key types or frequent insertion and deletion. Choose a collection from the operations the application needs, not fashion. Document whether duplicates and ordering matter.\n\n### Worked example\n\nDeduplicate course codes with a Set, then use a Map to associate each code with an enrolment count.\n\n### Common failure to avoid\n\nDo not use an array for repeated membership checks without considering the cost and clarity of the operation.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for a new input. A sound explanation identifies the value, operation, expected result and any precondition that must hold. Copying a code fragment without reasoning about its contract is not enough.\n",
+            "exercise": "Model course enrolment counts using a Map and explain why a Set alone is insufficient.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of sets, maps and collection choice.",
+              "Apply the idea to a new example and name one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Errors, modules and code organisation",
+            "duration_minutes": 25,
+            "body_markdown": "## Errors, modules and code organisation\n\nJavaScript errors can be thrown by the language, host APIs or application code. `try...catch` handles synchronous exceptions; a rejected asynchronous operation must also be awaited or chained into a rejection handler. Throw meaningful Error objects and avoid empty catch blocks. ES modules use `export` and `import` to share code across files. Keep module responsibilities coherent and avoid import cycles. Validate data at boundaries such as forms, URLs, storage and APIs before core logic uses it.\n\n### Worked example\n\nCreate a parser that rejects a missing required field, export it from one module and import it into a separate runner.\n\n### Common failure to avoid\n\nDo not catch an error and pretend the operation succeeded; do not mix CommonJS and ES module syntax without understanding runtime configuration.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for a new input. A sound explanation identifies the value, operation, expected result and any precondition that must hold. Copying a code fragment without reasoning about its contract is not enough.\n",
+            "exercise": "Split a small application into validation, calculation and presentation modules and draw the dependency direction.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of errors, modules and code organisation.",
+              "Apply the idea to a new example and name one boundary or failure case."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Asynchronous JavaScript and Quality",
+        "description": "Understand promises, test behaviour and deliver a small application.",
+        "lessons": [
+          {
+            "title": "Promises and asynchronous results",
+            "duration_minutes": 25,
+            "body_markdown": "## Promises and asynchronous results\n\nA Promise represents the eventual result of an asynchronous operation. It can be pending, fulfilled or rejected. Calling `.then()` registers work for a fulfilled result; `.catch()` handles rejection in the chain. A Promise is not the result itself, so using it as ordinary data leads to confusing output. Asynchronous code must make success and failure paths visible. Avoid starting an operation and ignoring its rejection; a rejected promise that is not handled can become an unhandled rejection.\n\n### Worked example\n\nCreate a Promise that resolves with a sample course list after a controlled delay, then consume it with `then` and `catch`.\n\n### Common failure to avoid\n\nDo not log a Promise and assume you have logged its eventual value.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for a new input. A sound explanation identifies the value, operation, expected result and any precondition that must hold. Copying a code fragment without reasoning about its contract is not enough.\n",
+            "exercise": "Draw pending, fulfilled and rejected paths for a simple data request.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of promises and asynchronous results.",
+              "Apply the idea to a new example and name one boundary or failure case."
+            ]
+          },
+          {
+            "title": "async and await",
+            "duration_minutes": 25,
+            "body_markdown": "## async and await\n\nAn `async` function always returns a Promise. `await` pauses that function's execution until the awaited Promise settles, without blocking the entire JavaScript runtime. Place `await` inside an `async` function and use `try...catch` for failures. A try block can contain sequential operations, but unnecessary sequential waits can increase total time when tasks are independent. Distinguish operations that depend on earlier results from operations that can safely run together using `Promise.all`.\n\n### Worked example\n\nWrite an async function that loads a profile and then loads that profile's courses. Handle a rejected request with a user-safe error result.\n\n### Common failure to avoid\n\nDo not use `await` on unrelated tasks sequentially when they can run concurrently without dependency.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for a new input. A sound explanation identifies the value, operation, expected result and any precondition that must hold. Copying a code fragment without reasoning about its contract is not enough.\n",
+            "exercise": "Compare sequential awaits with `Promise.all` for two independent read operations.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of async and await.",
+              "Apply the idea to a new example and name one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Debugging and automated checks",
+            "duration_minutes": 25,
+            "body_markdown": "## Debugging and automated checks\n\nA debugger lets you pause execution, inspect variables and step through statements. Logging can help, but it should be structured and reduced before release. Automated tests verify expected behaviour repeatedly. Test individual functions and important interactions between modules. Use strict equality in assertions when type matters. A test should fail for a meaningful reason, not merely repeat the implementation's assumptions. Keep test inputs small enough that a failure can be understood.\n\n### Worked example\n\nWrite tests for a grade function covering the pass boundary, the top boundary and invalid input. Use assertions with explicit expected values.\n\n### Common failure to avoid\n\nA test that copies the implementation logic can reproduce the same bug instead of detecting it.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for a new input. A sound explanation identifies the value, operation, expected result and any precondition that must hold. Copying a code fragment without reasoning about its contract is not enough.\n",
+            "exercise": "Create a test matrix with normal, boundary, invalid and regression cases.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of debugging and automated checks.",
+              "Apply the idea to a new example and name one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Designing a small JavaScript application",
+            "duration_minutes": 25,
+            "body_markdown": "## Designing a small JavaScript application\n\nA good small application has a clear user problem, a data model, named responsibilities and a testable core. Keep calculations separate from browser display or terminal interaction. Define how the program behaves when data is missing, malformed or empty. Use standard language features before adding dependencies. Provide a README with setup steps, usage examples, expected input and known limitations. Another person must be able to run the project and understand the design.\n\n### Worked example\n\nBuild a Course Registration Summary that validates records, counts unique courses, computes totals and exports a clear result.\n\n### Common failure to avoid\n\nDo not mix every responsibility into one large callback or rely on hard-coded sample records as the final data source.\n\n### Check your understanding\n\nExplain the rule in your own words, then predict the behaviour for a new input. A sound explanation identifies the value, operation, expected result and any precondition that must hold. Copying a code fragment without reasoning about its contract is not enough.\n",
+            "exercise": "Present the project with a design explanation, automated tests and a list of limitations.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of designing a small javascript application.",
+              "Apply the idea to a new example and name one boundary or failure case."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "JavaScript Programming: Core Concepts Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions and show reasoning. Code submissions must be readable, state assumptions and include test cases with expected results.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short_answer",
+          "prompt": "Explain the difference between a primitive value and an object reference. Include an example showing shared-reference mutation.",
+          "marks": 8,
+          "rubric": [
+            "Defines primitives and reference values (3)",
+            "Explains assignment behaviour (3)",
+            "Example is correct (2)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "code_trace",
+          "prompt": "Trace a snippet using strict equality, truthiness and an array method. State the final value and type of each important variable.",
+          "marks": 10,
+          "rubric": [
+            "Correct execution order (4)",
+            "Correct values and types (4)",
+            "Correct output (2)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "implementation",
+          "prompt": "Write a function that validates an array of course records and returns a summary of unique course codes and record count.",
+          "marks": 12,
+          "rubric": [
+            "Validates input shape (3)",
+            "Uses an appropriate collection (4)",
+            "Correct result (3)",
+            "Readable code (2)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "debugging",
+          "prompt": "A rejected Promise is not handled and the UI stays in a loading state. Explain the failure and show where recovery behaviour belongs.",
+          "marks": 10,
+          "rubric": [
+            "Identifies unhandled rejection (3)",
+            "Explains state impact (3)",
+            "Adds correct error path (4)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "testing",
+          "prompt": "Design six tests for score validation including valid, boundary, empty and invalid values.",
+          "marks": 10,
+          "rubric": [
+            "Normal cases (2)",
+            "Boundaries (3)",
+            "Invalid/empty values (3)",
+            "Expected results (2)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit the Course Registration Summary project with code, tests and documentation.",
+          "marks": 20,
+          "rubric": [
+            "Functional requirements (6)",
+            "Appropriate language features (5)",
+            "Meaningful tests (4)",
+            "Design reflection (3)",
+            "Documentation (2)"
+          ]
+        }
+      ],
+      "total_marks": 70
+    },
+    "final_project": {
+      "title": "Course Registration Summary",
+      "brief": "Build an application that validates course-registration records, counts unique courses, calculates summaries and exports a readable report. Keep validation, calculations and presentation in separate modules. State how malformed or empty data is handled.",
+      "deliverables": [
+        "Problem statement and requirements",
+        "Record data model and validation rules",
+        "Readable JavaScript source code",
+        "Separate modules for validation, calculations and presentation",
+        "At least 10 test cases with expected results",
+        "README with setup and usage instructions",
+        "Design reflection and known limitations"
+      ],
+      "acceptance_criteria": [
+        "Requirements are demonstrably implemented",
+        "Malformed records are rejected or reported without corrupting valid records",
+        "Unique course counts are correct",
+        "Normal, boundary, empty and invalid cases are tested",
+        "Asynchronous work has visible success and failure paths when used",
+        "Another learner can run the project using the README"
+      ]
+    },
+    "references": [
+      {
+        "title": "MDN JavaScript Guide",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide",
+        "note": "Reference for language syntax, functions, objects, promises and modules."
+      },
+      {
+        "title": "ECMAScript Language Specification",
+        "url": "https://tc39.es/ecma262/",
+        "note": "Normative specification for language behaviour."
+      },
+      {
+        "title": "MDN JavaScript Reference",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference",
+        "note": "Reference for built-in objects, operators and statements."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft. No authorised academic review has been recorded. Do not create reviewer identities or dates and do not publish until an actual review decision exists.",
+      "language": "English",
+      "content_quality": "Four sections, sixteen substantive lessons, worked examples, exercises, takeaways, six assessed questions with rubrics, an applied project and authoritative references are included. Technical and academic review remain required."
+    }
+  }
+}

@@ -1,0 +1,352 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "c-programming-memory-fundamentals",
+    "title": "C Programming and Memory Fundamentals",
+    "subtitle": "Learn structured C programming while understanding arrays, pointers, memory and safe resource handling.",
+    "description": "An introductory C course that builds a precise mental model of compilation, types, control flow, functions, arrays, strings, pointers, structures, dynamic allocation and files. Learners practise tracing memory-related behaviour and use warnings and sanitising tools where available. Examples are designed to avoid undefined behaviour and teach safe habits.",
+    "level": "beginner",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 640,
+    "target_audience": [
+      "Computing students studying C and low-level programming",
+      "Beginners who want to understand memory and compiled programs",
+      "Learners preparing for systems programming or embedded development"
+    ],
+    "prerequisites": [
+      "Basic computer literacy",
+      "Basic arithmetic and patience for careful tracing"
+    ],
+    "outcomes": [
+      "Explain the C compile-link-run workflow",
+      "Use primitive types, operators and formatted input/output",
+      "Design conditions, loops and functions",
+      "Work safely with arrays and null-terminated strings",
+      "Explain pointers, addresses and pointer arithmetic",
+      "Use structures and dynamic allocation with clear ownership rules",
+      "Read and write files while checking failures",
+      "Compile with warnings and debug small programs"
+    ],
+    "equipment": [
+      "Laptop or desktop computer",
+      "C compiler supporting the course's selected standard",
+      "Text editor or IDE",
+      "Debugger and sanitizer where available"
+    ],
+    "accessibility": "Code is selectable text and memory diagrams must include text descriptions. Exercises should avoid colour-only meaning and include expected textual outcomes.",
+    "sections": [
+      {
+        "title": "C Toolchain and Core Syntax",
+        "description": "Learn the compilation workflow and the language's basic value model.",
+        "lessons": [
+          {
+            "title": "Source code, compiler and executable",
+            "duration_minutes": 25,
+            "body_markdown": "## Source code, compiler and executable\n\nC source is translated by a compiler into object code, then linked with required code to produce an executable. The compiler checks syntax and many type-related issues, but a successful build does not prove that the program is correct. A runtime defect may still cause an incorrect result, a crash or undefined behaviour. Use compiler warnings as a learning tool and treat them as useful evidence. Different platforms may use different compiler commands, but the stages of translation and linking remain important concepts.\n\n### Worked example\n\nCompile a small `main.c` with a compiler that supports the C standard used in class. Record the command, warnings and executable name.\n\n### Common failure to avoid\n\nDo not treat compilation as a substitute for tests or runtime checks.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the object, its lifetime, the valid memory range and the operation being attempted. When a function receives a pointer, state who owns the pointed-to object and how long that object remains valid.\n",
+            "exercise": "Draw the path from source file through compilation and linking to execution.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of source code, compiler and executable.",
+              "Identify the relevant bounds, error condition or ownership rule before applying the concept."
+            ]
+          },
+          {
+            "title": "Structure of a C program",
+            "duration_minutes": 25,
+            "body_markdown": "## Structure of a C program\n\nA hosted C program commonly defines `main`, which returns an integer status to the environment. Header files provide declarations for library functions, while source files contain definitions. `#include` is handled by the preprocessor. A semicolon ends a statement; braces define blocks. C is case-sensitive, and every function used should have a suitable declaration visible before use under modern C rules. Keep the program's structure simple while learning which declarations belong in headers and which belong in source files.\n\n### Worked example\n\nCreate a program that includes `stdio.h`, defines `main`, prints a message and returns success.\n\n### Common failure to avoid\n\nDo not omit required headers or assume the compiler will safely infer every function declaration.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the object, its lifetime, the valid memory range and the operation being attempted. When a function receives a pointer, state who owns the pointed-to object and how long that object remains valid.\n",
+            "exercise": "Label the preprocessor directive, function definition, statement and return value.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of structure of a c program.",
+              "Identify the relevant bounds, error condition or ownership rule before applying the concept."
+            ]
+          },
+          {
+            "title": "Types, variables and integer behaviour",
+            "duration_minutes": 25,
+            "body_markdown": "## Types, variables and integer behaviour\n\nC provides integer types, floating-point types, character types and derived types. A variable declaration determines the storage and interpretation of a value. Integer division discards the fractional part when both operands are integers. Signed overflow is not safe to rely on; it can produce undefined behaviour. Choose types based on documented ranges and use format specifiers that match the actual argument types in formatted input/output. Initialising variables before reading them avoids using indeterminate values.\n\n### Worked example\n\nCalculate an average from three integers using a floating-point expression and print it with a matching format specifier.\n\n### Common failure to avoid\n\nA format-string mismatch can cause undefined behaviour. Do not guess specifiers or ignore compiler warnings.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the object, its lifetime, the valid memory range and the operation being attempted. When a function receives a pointer, state who owns the pointed-to object and how long that object remains valid.\n",
+            "exercise": "Choose types and format specifiers for an age, score, average and character code.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of types, variables and integer behaviour.",
+              "Identify the relevant bounds, error condition or ownership rule before applying the concept."
+            ]
+          },
+          {
+            "title": "Operators, input and output",
+            "duration_minutes": 25,
+            "body_markdown": "## Operators, input and output\n\nC operators include arithmetic, relational, logical, assignment and bitwise families. `printf` formats output, while `scanf` reads formatted input and requires addresses for ordinary scalar destinations. Always check the return value of `scanf` to confirm the expected number of fields was read. For more robust line-oriented input, use `fgets` and parse the line with appropriate conversion functions. Whitespace and leftover characters can affect later input operations, so understand the input stream rather than patching with arbitrary reads.\n\n### Worked example\n\nRead an integer score, check the input operation's return value and print a result only when conversion succeeds.\n\n### Common failure to avoid\n\nDo not pass a variable instead of its address to `scanf` when the conversion expects a pointer.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the object, its lifetime, the valid memory range and the operation being attempted. When a function receives a pointer, state who owns the pointed-to object and how long that object remains valid.\n",
+            "exercise": "Demonstrate valid numeric input, alphabetic input and an out-of-range score.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of operators, input and output.",
+              "Identify the relevant bounds, error condition or ownership rule before applying the concept."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Control Flow, Functions and Data",
+        "description": "Develop algorithms using C's blocks, arrays and function interfaces.",
+        "lessons": [
+          {
+            "title": "Conditions and switch statements",
+            "duration_minutes": 25,
+            "body_markdown": "## Conditions and switch statements\n\n`if`, `else if` and `else` select a path based on a scalar expression that can be interpreted as true or false; zero is false and nonzero is true. `switch` is useful for selecting among integral constant cases. Each `case` normally needs a `break` to prevent unintended fall-through. A `default` branch handles unmatched values. Use braces even when a block contains one statement because they reduce mistakes during later changes. Keep domain validation separate from the decision.\n\n### Worked example\n\nImplement a menu that accepts options 1, 2 and 0, and reports all other values as invalid.\n\n### Common failure to avoid\n\nDo not forget that `switch` can fall through when `break` is missing.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the object, its lifetime, the valid memory range and the operation being attempted. When a function receives a pointer, state who owns the pointed-to object and how long that object remains valid.\n",
+            "exercise": "Trace a grade classifier and a menu switch using valid and invalid inputs.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of conditions and switch statements.",
+              "Identify the relevant bounds, error condition or ownership rule before applying the concept."
+            ]
+          },
+          {
+            "title": "Loops and termination",
+            "duration_minutes": 25,
+            "body_markdown": "## Loops and termination\n\nC supports `for`, `while` and `do...while` loops. A `for` loop makes initialisation, continuation and update visible in one place, while `while` expresses repetition controlled by a condition. A `do...while` executes its body at least once. Loop counters and array indexes should use types that can represent valid positions without underflow. Off-by-one errors can become memory errors when an invalid index is used. Make the termination condition explicit and test the smallest allowed input.\n\n### Worked example\n\nUse a loop to calculate the total of ten entered scores and test how the program handles invalid data.\n\n### Common failure to avoid\n\nA loop that runs one extra iteration can read or write beyond an array's valid range.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the object, its lifetime, the valid memory range and the operation being attempted. When a function receives a pointer, state who owns the pointed-to object and how long that object remains valid.\n",
+            "exercise": "Trace a loop from its initial value through its final update and show when the condition becomes false.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of loops and termination.",
+              "Identify the relevant bounds, error condition or ownership rule before applying the concept."
+            ]
+          },
+          {
+            "title": "Functions and prototypes",
+            "duration_minutes": 25,
+            "body_markdown": "## Functions and prototypes\n\nA function has a return type, name, parameters and body. A prototype declares the function's interface so the compiler can check calls before seeing the definition. Pass values when the function needs a copy; pass pointers when it must update caller-owned data or access an array. A function should document assumptions about pointers, lengths and valid inputs. Avoid using global variables as a shortcut for passing data because globals make dependencies and tests harder to understand.\n\n### Worked example\n\nWrite a function that receives an array pointer and a length, then returns the sum of its elements.\n\n### Common failure to avoid\n\nA pointer parameter alone does not tell the function how many array elements are valid; pass a length separately.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the object, its lifetime, the valid memory range and the operation being attempted. When a function receives a pointer, state who owns the pointed-to object and how long that object remains valid.\n",
+            "exercise": "Write prototypes for total, maximum and average functions and define their input contracts.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of functions and prototypes.",
+              "Identify the relevant bounds, error condition or ownership rule before applying the concept."
+            ]
+          },
+          {
+            "title": "Arrays and bounds",
+            "duration_minutes": 25,
+            "body_markdown": "## Arrays and bounds\n\nAn array stores a fixed number of elements of the same type in contiguous memory. Its valid indexes range from zero through length minus one. C does not automatically check array bounds, so reading or writing outside the array is undefined behaviour. The array length should be tracked explicitly and passed to functions when needed. When an array is passed to a function, it is adjusted to a pointer parameter; `sizeof` inside the function does not reveal the original array length.\n\n### Worked example\n\nCreate an array of five scores, calculate the maximum and reject an index outside the valid range before reading.\n\n### Common failure to avoid\n\nDo not use `sizeof(array)` inside a function parameter to infer the caller's array length.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the object, its lifetime, the valid memory range and the operation being attempted. When a function receives a pointer, state who owns the pointed-to object and how long that object remains valid.\n",
+            "exercise": "Write a function that prints an array using an explicit length parameter.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of arrays and bounds.",
+              "Identify the relevant bounds, error condition or ownership rule before applying the concept."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Memory, Structures and Ownership",
+        "description": "Understand pointers, object lifetime and explicit memory-management rules.",
+        "lessons": [
+          {
+            "title": "Strings and character arrays",
+            "duration_minutes": 25,
+            "body_markdown": "## Strings and character arrays\n\nA C string is a sequence of characters ending in a null character (`\\0`). A character array is not automatically a safe string: it needs enough space for the terminator and all characters. Functions such as `strlen`, `strcmp` and `strncpy` have different contracts, and none removes the need to understand buffer capacity. Prefer bounded input with `fgets`, then remove a trailing newline only when present. Never assume a user-entered string fits in a fixed buffer.\n\n### Worked example\n\nRead a name into a fixed-size buffer with `fgets`, detect whether the line was truncated and display it safely.\n\n### Common failure to avoid\n\nA buffer of 20 bytes can hold at most 19 ordinary characters plus the terminating null byte.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the object, its lifetime, the valid memory range and the operation being attempted. When a function receives a pointer, state who owns the pointed-to object and how long that object remains valid.\n",
+            "exercise": "Write a function that checks a string's length against a documented maximum.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of strings and character arrays.",
+              "Identify the relevant bounds, error condition or ownership rule before applying the concept."
+            ]
+          },
+          {
+            "title": "Pointers and addresses",
+            "duration_minutes": 25,
+            "body_markdown": "## Pointers and addresses\n\nA pointer stores an address of an object or function of a compatible type. The address-of operator `&` obtains an object's address, and the dereference operator `*` accesses the object through a valid pointer. A null pointer represents no valid object target and must not be dereferenced. Pointer types communicate how pointed-to memory is interpreted. Pointer arithmetic is defined only within an array object or one position past its end. Avoid using a pointer after the object's lifetime ends.\n\n### Worked example\n\nDeclare an integer, store its address in an `int *`, and safely read and update the integer through the pointer.\n\n### Common failure to avoid\n\nDo not dereference an uninitialised or null pointer, and do not invent addresses by casting arbitrary integers.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the object, its lifetime, the valid memory range and the operation being attempted. When a function receives a pointer, state who owns the pointed-to object and how long that object remains valid.\n",
+            "exercise": "Draw a memory diagram showing a variable, its address and a pointer that refers to it.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of pointers and addresses.",
+              "Identify the relevant bounds, error condition or ownership rule before applying the concept."
+            ]
+          },
+          {
+            "title": "Pointer parameters and caller-owned data",
+            "duration_minutes": 25,
+            "body_markdown": "## Pointer parameters and caller-owned data\n\nWhen a pointer is passed to a function, the pointer value is copied. The function can use that copied pointer to modify the object it points to, but assigning a new address to the local pointer does not reassign the caller's pointer. To update the caller's pointer itself, a pointer to pointer may be needed. This distinction is central to functions that allocate memory or initialise caller-owned structures. Document whether a function borrows memory or takes ownership of it.\n\n### Worked example\n\nWrite one function that changes an integer through an `int *` and another that updates an `int *` supplied through an `int **`.\n\n### Common failure to avoid\n\nDo not confuse changing the pointed-to value with changing the caller's pointer variable.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the object, its lifetime, the valid memory range and the operation being attempted. When a function receives a pointer, state who owns the pointed-to object and how long that object remains valid.\n",
+            "exercise": "Explain the difference between `int *p` and `int **pp` with a labelled memory sketch.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of pointer parameters and caller-owned data.",
+              "Identify the relevant bounds, error condition or ownership rule before applying the concept."
+            ]
+          },
+          {
+            "title": "Structures and enumerations",
+            "duration_minutes": 25,
+            "body_markdown": "## Structures and enumerations\n\nA structure groups fields that describe one record. Each field retains its own type, and the compiler may insert padding to satisfy alignment requirements. An enumeration gives names to a set of integral constants, making state values easier to read than unexplained numbers. Use typedef only when it improves clarity; hiding pointer or ownership semantics can make code harder to review. Initialise structures deliberately and validate fields before using them in calculations.\n\n### Worked example\n\nDefine a `Student` structure with an ID, name buffer and score, plus an enum for enrolment status.\n\n### Common failure to avoid\n\nDo not assume structure members are packed without padding or that an unvalidated record is safe to process.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the object, its lifetime, the valid memory range and the operation being attempted. When a function receives a pointer, state who owns the pointed-to object and how long that object remains valid.\n",
+            "exercise": "Create a function that validates and displays a student record.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of structures and enumerations.",
+              "Identify the relevant bounds, error condition or ownership rule before applying the concept."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Files, Tooling and Systems Project",
+        "description": "Handle external resources, inspect defects and deliver a reproducible program.",
+        "lessons": [
+          {
+            "title": "Dynamic memory and ownership",
+            "duration_minutes": 25,
+            "body_markdown": "## Dynamic memory and ownership\n\nDynamic allocation requests memory during runtime. `malloc` returns allocated storage or a null pointer on failure; `calloc` also initialises allocated bytes to zero; `realloc` may move the block; `free` releases a block allocated by the matching allocation family. Every successful allocation needs a clear owner responsible for freeing it exactly once. After freeing memory, do not dereference the old pointer. A common safe pattern stores the result of `realloc` in a temporary pointer so the original allocation is not lost if resizing fails.\n\n### Worked example\n\nAllocate space for a requested number of scores, check allocation success, use the block and free it on every exit path.\n\n### Common failure to avoid\n\nDo not free the same allocation twice or access it after free; both are memory-safety defects.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the object, its lifetime, the valid memory range and the operation being attempted. When a function receives a pointer, state who owns the pointed-to object and how long that object remains valid.\n",
+            "exercise": "Write an allocation ownership table showing who allocates, uses and releases each block.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of dynamic memory and ownership.",
+              "Identify the relevant bounds, error condition or ownership rule before applying the concept."
+            ]
+          },
+          {
+            "title": "Files and error checking",
+            "duration_minutes": 25,
+            "body_markdown": "## Files and error checking\n\nC file operations use a `FILE *` handle returned by functions such as `fopen`. A null result means the file could not be opened. Check return values from `fread`, `fwrite`, `fprintf` and `fclose` as appropriate. Choose text or binary mode intentionally and close files when finished. File paths are interpreted by the process environment and may differ across operating systems. Never assume a write succeeded simply because no error was printed.\n\n### Worked example\n\nOpen a text file, write a small report, check each operation and close the file even when a later operation fails.\n\n### Common failure to avoid\n\nA null `FILE *` must not be passed to ordinary file functions.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the object, its lifetime, the valid memory range and the operation being attempted. When a function receives a pointer, state who owns the pointed-to object and how long that object remains valid.\n",
+            "exercise": "Design a file-export routine with explicit success and failure outcomes.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of files and error checking.",
+              "Identify the relevant bounds, error condition or ownership rule before applying the concept."
+            ]
+          },
+          {
+            "title": "Undefined behaviour and defensive coding",
+            "duration_minutes": 25,
+            "body_markdown": "## Undefined behaviour and defensive coding\n\nUndefined behaviour means the C standard does not define what happens for a particular execution. Examples include out-of-bounds access, dereferencing invalid pointers, signed integer overflow and using objects outside their lifetime. The compiler is free to optimise under the assumption that well-defined programs do not perform these actions. A defect may appear to work in one build and fail in another. Enable warnings, initialise variables, validate lengths and use sanitising tools where available. Treat suspicious memory behaviour as a correctness issue, not a random compiler mood.\n\n### Worked example\n\nCompile a deliberately unsafe array example with warnings and, where supported, an address or undefined-behaviour sanitizer; then correct the defect.\n\n### Common failure to avoid\n\nDo not rely on a program that merely appears to work once; undefined behaviour has no dependable outcome.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the object, its lifetime, the valid memory range and the operation being attempted. When a function receives a pointer, state who owns the pointed-to object and how long that object remains valid.\n",
+            "exercise": "List five unsafe operations and their safe alternatives.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of undefined behaviour and defensive coding.",
+              "Identify the relevant bounds, error condition or ownership rule before applying the concept."
+            ]
+          },
+          {
+            "title": "Multi-file builds, debugging and review",
+            "duration_minutes": 25,
+            "body_markdown": "## Multi-file builds, debugging and review\n\nA multi-file C program separates declarations from definitions. Header files expose function prototypes and shared types; source files implement them. Include guards prevent repeated inclusion of the same header in a translation unit. A build command must compile and link all required source files. A debugger can inspect variables and execution order, while sanitizers can detect some memory errors during tests. A clean build is useful evidence that dependencies are explicit, but neither a clean build nor one sanitizer run proves the absence of every defect.\n\n### Worked example\n\nSplit a small program into `student.h`, `student.c` and `main.c`, then compile and link all source files with warnings enabled.\n\n### Common failure to avoid\n\nDo not put normal global definitions in headers or assume a warning-free build proves behavioural correctness.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the object, its lifetime, the valid memory range and the operation being attempted. When a function receives a pointer, state who owns the pointed-to object and how long that object remains valid.\n",
+            "exercise": "Prepare a debugging log showing symptom, location, root cause, fix and regression test.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of multi-file builds, debugging and review.",
+              "Identify the relevant bounds, error condition or ownership rule before applying the concept."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "C Programming and Memory Fundamentals Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions and show memory reasoning. Code submissions must compile with the stated compiler settings, check error returns and include boundary tests.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short_answer",
+          "prompt": "Explain the compile, link and execute stages of a C program and state one type of defect that each stage may reveal.",
+          "marks": 8,
+          "rubric": [
+            "Correct build-stage explanation (4)",
+            "Appropriate defect examples (3)",
+            "Clear distinction (1)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "memory_trace",
+          "prompt": "Given an integer, a pointer to it and a function that receives the pointer, explain which value changes when the function dereferences the pointer and why.",
+          "marks": 10,
+          "rubric": [
+            "Explains address and pointer (3)",
+            "Explains dereference (3)",
+            "Explains pass-by-value of pointer (4)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "implementation",
+          "prompt": "Write a function that searches an integer array using a pointer and explicit length, returning a documented result when the target is absent.",
+          "marks": 12,
+          "rubric": [
+            "Correct bounds (4)",
+            "Correct pointer/array use (3)",
+            "Defined not-found result (3)",
+            "Readable contract (2)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "debugging",
+          "prompt": "A program allocates a buffer, uses it after `free` and later frees it again. Identify both defects and propose a safe ownership fix.",
+          "marks": 10,
+          "rubric": [
+            "Identifies use-after-free (3)",
+            "Identifies double free (3)",
+            "Defines ownership and cleanup (4)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "testing",
+          "prompt": "Design six tests for a bounded input routine including normal, maximum-length, too-long, empty and invalid input.",
+          "marks": 10,
+          "rubric": [
+            "Normal cases (2)",
+            "Length boundaries (3)",
+            "Invalid/empty cases (3)",
+            "Expected outcomes (2)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit the Safe Student Record Utility with source, build command, tests and memory ownership notes.",
+          "marks": 20,
+          "rubric": [
+            "Functional behaviour (5)",
+            "Bounds and ownership safety (5)",
+            "File/error handling (4)",
+            "Tests and build evidence (4)",
+            "Documentation (2)"
+          ]
+        }
+      ],
+      "total_marks": 70
+    },
+    "final_project": {
+      "title": "Safe Student Record Utility",
+      "brief": "Build a command-line utility that stores and searches student records. Define the record representation, maximum input sizes, memory ownership rules and file format before coding. Validate input lengths and numeric ranges, check allocation and file operations, and ensure every acquired resource has a defined cleanup path.",
+      "deliverables": [
+        "Problem statement and requirements",
+        "Record structure and input constraints",
+        "Source split into appropriate header and implementation files",
+        "Documented memory allocation and ownership rules",
+        "File persistence with checked return values",
+        "At least 10 test cases with expected results",
+        "Build and run instructions",
+        "Short review of limitations and safety decisions"
+      ],
+      "acceptance_criteria": [
+        "Records can be added, listed and searched as specified",
+        "Input is bounded and malformed input is handled",
+        "Array and buffer accesses stay within documented bounds",
+        "Allocation failures and file errors are checked",
+        "Every allocation and file handle has a cleanup path",
+        "Normal, boundary and invalid cases are tested",
+        "A clean build can be reproduced from documented commands"
+      ]
+    },
+    "references": [
+      {
+        "title": "SEI CERT C Coding Standard",
+        "url": "https://wiki.sei.cmu.edu/confluence/display/c",
+        "note": "Secure coding guidance for common C language hazards."
+      },
+      {
+        "title": "GCC Warning Options",
+        "url": "https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html",
+        "note": "Compiler warning reference for diagnostic coverage."
+      },
+      {
+        "title": "cppreference: C language",
+        "url": "https://en.cppreference.com/w/c",
+        "note": "Language reference for declarations, expressions, library functions and memory behaviour."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft. No authorised academic review has been recorded. Do not create reviewer identities or dates and do not publish until an actual review decision exists.",
+      "language": "English",
+      "content_quality": "Four sections and sixteen substantive lessons with worked examples, exercises, takeaways, six assessment questions with rubrics, a practical project, ownership and safety criteria, and authoritative references are included. Technical and academic review remain required."
+    }
+  }
+}

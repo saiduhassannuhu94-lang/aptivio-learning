@@ -1,0 +1,369 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "progressive-web-apps-offline-first-design",
+    "title": "Progressive Web Apps and Offline-First Design",
+    "subtitle": "Build installable, resilient web experiences with service workers, caching and safe synchronisation.",
+    "description": "An intermediate practical course on progressive web applications. Learners study manifests, service-worker lifecycle, Cache Storage, network strategies, IndexedDB, offline-first interaction, background sync, push notifications, media storage, security, accessibility, testing and release management. The capstone is an offline-ready learning experience.",
+    "level": "intermediate",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 720,
+    "target_audience": [
+      "Frontend developers building resilient mobile web applications",
+      "Computing students studying modern web platform capabilities",
+      "Developers supporting learners with intermittent connectivity"
+    ],
+    "prerequisites": [
+      "HTML, CSS and JavaScript fundamentals",
+      "Basic browser storage and HTTP concepts",
+      "Service workers and asynchronous JavaScript are helpful but not required"
+    ],
+    "outcomes": [
+      "Explain PWA installability and manifest fields",
+      "Describe service-worker registration, activation and update lifecycle",
+      "Choose cache strategies based on freshness and privacy",
+      "Store structured offline data with IndexedDB",
+      "Design honest pending and synchronisation states",
+      "Implement opt-in notification and media-download concepts",
+      "Protect cached and local data on shared devices",
+      "Test offline, reconnect, update and deployment behaviour"
+    ],
+    "equipment": [
+      "Computer with a modern browser and developer tools",
+      "Code editor and local development server",
+      "Android device or browser emulation for installation and offline tests"
+    ],
+    "accessibility": "The web experience must remain usable without installation. Use semantic controls, keyboard navigation, visible focus and accessible status announcements. Provide text descriptions for lifecycle diagrams and offline flows. Test with a screen reader where available.",
+    "sections": [
+      {
+        "title": "PWA Foundations and Service Workers",
+        "description": "Understand installability, manifests and the service-worker lifecycle.",
+        "lessons": [
+          {
+            "title": "What Makes a Progressive Web App",
+            "duration_minutes": 25,
+            "body_markdown": "## What Makes a Progressive Web App\n\nA Progressive Web App uses web platform capabilities to provide an installable, reliable and engaging experience. It remains a website and should preserve a useful core journey in an ordinary browser. Installation is an enhancement, not a requirement for basic access.\n\n### Worked application example\n\nA learner may open a course catalogue in Chrome, add the platform to the home screen and later return through an app-like launch icon. The same public course information should remain usable when installation is unavailable.\n\n### Common failure to avoid\n\nDo not confuse a PWA with a native application or assume every browser supports every feature. Build the essential website first and progressively enhance where the browser supports it.\n\n### Practice task\n\nDescribe the core course-reading journey that must work in a normal browser before adding install prompts or offline support.\n\n### Verification\n\nTest the behaviour in a normal browser and under the relevant offline or update condition. Record what data is cached, how old it may be, whether it is private, and what the user sees when an operation is pending or fails. A PWA is reliable only when its limits are visible and its server-side security rules still apply.",
+            "exercise": "Describe the core course-reading journey that must work in a normal browser before adding install prompts or offline support.",
+            "key_takeaways": [
+              "Build the core web journey before adding install and offline enhancements.",
+              "Choose cache and sync rules according to freshness, privacy and user consent.",
+              "Test cold start, offline, reconnect, update and shared-device behaviour."
+            ]
+          },
+          {
+            "title": "Web App Manifest and Installability",
+            "duration_minutes": 25,
+            "body_markdown": "## Web App Manifest and Installability\n\nA web app manifest describes an application's name, icons, start URL, display mode, theme and related install metadata. Browsers use it with other criteria to decide whether an application can be installed. Manifest values should accurately describe the application and its entry route.\n\n### Worked application example\n\nA learning platform manifest can provide a short name such as APTIVIO, suitable icon sizes, a standalone display preference and a start URL that opens the public or learner home page appropriately.\n\n### Common failure to avoid\n\nA manifest does not make an application offline or secure. Incorrect icon paths, scope or start URL can produce confusing install behaviour. Test installation on the actual target browsers.\n\n### Practice task\n\nCreate a manifest plan with name, short name, icons, theme, display mode, start URL and scope. Explain how each field affects launch behaviour.\n\n### Verification\n\nTest the behaviour in a normal browser and under the relevant offline or update condition. Record what data is cached, how old it may be, whether it is private, and what the user sees when an operation is pending or fails. A PWA is reliable only when its limits are visible and its server-side security rules still apply.",
+            "exercise": "Create a manifest plan with name, short name, icons, theme, display mode, start URL and scope. Explain how each field affects launch behaviour.",
+            "key_takeaways": [
+              "Build the core web journey before adding install and offline enhancements.",
+              "Choose cache and sync rules according to freshness, privacy and user consent.",
+              "Test cold start, offline, reconnect, update and shared-device behaviour."
+            ]
+          },
+          {
+            "title": "Service Worker Lifecycle",
+            "duration_minutes": 25,
+            "body_markdown": "## Service Worker Lifecycle\n\nA service worker is a script that can intercept eligible network requests and manage caches. Its lifecycle includes registration, installation, activation and updates. It runs separately from the page and has constraints; it is not a permanent background process.\n\n### Worked application example\n\nA service worker can cache the application shell and selected public assets so a returning learner sees a useful starting page during a temporary connection loss.\n\n### Common failure to avoid\n\nA newly installed worker may wait until existing pages are controlled or closed. Aggressive update logic can leave users with mixed versions. Never assume registration means every page is already controlled.\n\n### Practice task\n\nDraw the service-worker lifecycle and describe what happens when a new version is installed while an old page remains open.\n\n### Verification\n\nTest the behaviour in a normal browser and under the relevant offline or update condition. Record what data is cached, how old it may be, whether it is private, and what the user sees when an operation is pending or fails. A PWA is reliable only when its limits are visible and its server-side security rules still apply.",
+            "exercise": "Draw the service-worker lifecycle and describe what happens when a new version is installed while an old page remains open.",
+            "key_takeaways": [
+              "Build the core web journey before adding install and offline enhancements.",
+              "Choose cache and sync rules according to freshness, privacy and user consent.",
+              "Test cold start, offline, reconnect, update and shared-device behaviour."
+            ]
+          },
+          {
+            "title": "Cache Storage and Cache Versioning",
+            "duration_minutes": 40,
+            "body_markdown": "## Cache Storage and Cache Versioning\n\nThe Cache API stores request-response pairs under named caches. Use explicit cache names and versioning so old assets can be retired safely. Cache only responses that are appropriate for offline use and understand how to handle opaque or failed responses.\n\n### Worked application example\n\nA versioned cache can hold the app shell, logo, CSS and selected public lesson assets. When a new application version activates, it can remove older caches after ensuring the new shell is ready.\n\n### Common failure to avoid\n\nDo not cache every response indiscriminately. Private learner data, session responses and progress updates need a deliberate privacy and freshness strategy. A cache hit must not bypass authorization.\n\n### Practice task\n\nDesign cache names and an update plan for app shell, images, public course content and private learner progress.\n\n### Verification\n\nTest the behaviour in a normal browser and under the relevant offline or update condition. Record what data is cached, how old it may be, whether it is private, and what the user sees when an operation is pending or fails. A PWA is reliable only when its limits are visible and its server-side security rules still apply.",
+            "exercise": "Design cache names and an update plan for app shell, images, public course content and private learner progress.",
+            "key_takeaways": [
+              "Build the core web journey before adding install and offline enhancements.",
+              "Choose cache and sync rules according to freshness, privacy and user consent.",
+              "Test cold start, offline, reconnect, update and shared-device behaviour."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Caching and Offline Data",
+        "description": "Choose network strategies and store structured data safely for offline use.",
+        "lessons": [
+          {
+            "title": "Network Strategies: Cache First and Network First",
+            "duration_minutes": 25,
+            "body_markdown": "## Network Strategies: Cache First and Network First\n\nDifferent resources need different fetch strategies. Cache-first suits versioned static assets; network-first can suit data that should be fresh but may use a cached fallback; stale-while-revalidate can show cached public content while refreshing it. The strategy must match the data's privacy and freshness requirements.\n\n### Worked application example\n\nA versioned logo can use cache-first. A public catalogue can use network-first with a clearly dated cached fallback. A private progress update should be sent to the server and must not be silently treated as saved merely because a page is offline.\n\n### Common failure to avoid\n\nA stale response is not always acceptable. Never show cached private data to another account, and do not display an offline progress update as confirmed server persistence until it has been safely queued and later acknowledged.\n\n### Practice task\n\nChoose a network strategy for static assets, catalogue summaries, lesson text, enrolment and progress. Justify freshness and privacy trade-offs.\n\n### Verification\n\nTest the behaviour in a normal browser and under the relevant offline or update condition. Record what data is cached, how old it may be, whether it is private, and what the user sees when an operation is pending or fails. A PWA is reliable only when its limits are visible and its server-side security rules still apply.",
+            "exercise": "Choose a network strategy for static assets, catalogue summaries, lesson text, enrolment and progress. Justify freshness and privacy trade-offs.",
+            "key_takeaways": [
+              "Build the core web journey before adding install and offline enhancements.",
+              "Choose cache and sync rules according to freshness, privacy and user consent.",
+              "Test cold start, offline, reconnect, update and shared-device behaviour."
+            ]
+          },
+          {
+            "title": "Offline-First Design and Honest States",
+            "duration_minutes": 25,
+            "body_markdown": "## Offline-First Design and Honest States\n\nOffline-first design makes a useful subset of the application available when connectivity is absent. It requires a clear decision about what data is stored, how old it may be and which actions must wait for a server. The interface must communicate offline and pending states honestly.\n\n### Worked application example\n\nA learner can read a previously downloaded public lesson and see an offline indicator. A quiz answer might be saved locally as pending, then synchronised when the network returns if the assessment policy allows it.\n\n### Common failure to avoid\n\nDo not pretend that a server-side enrolment, payment or progress update succeeded while offline. Avoid storing sensitive information on shared devices without a clear protection and sign-out policy.\n\n### Practice task\n\nDesign offline, reconnecting, pending-sync, synced and conflict states for a learner who loses connection during a lesson.\n\n### Verification\n\nTest the behaviour in a normal browser and under the relevant offline or update condition. Record what data is cached, how old it may be, whether it is private, and what the user sees when an operation is pending or fails. A PWA is reliable only when its limits are visible and its server-side security rules still apply.",
+            "exercise": "Design offline, reconnecting, pending-sync, synced and conflict states for a learner who loses connection during a lesson.",
+            "key_takeaways": [
+              "Build the core web journey before adding install and offline enhancements.",
+              "Choose cache and sync rules according to freshness, privacy and user consent.",
+              "Test cold start, offline, reconnect, update and shared-device behaviour."
+            ]
+          },
+          {
+            "title": "IndexedDB for Structured Offline Data",
+            "duration_minutes": 25,
+            "body_markdown": "## IndexedDB for Structured Offline Data\n\nIndexedDB stores structured data in the browser and supports larger, indexed datasets than simple key-value storage. It is asynchronous and can store objects, but data remains under browser storage policies and may be evicted. Design a schema and migration strategy for local data.\n\n### Worked application example\n\nA learner's downloaded lesson index can be stored by course version and lesson ID. A local notes feature might store note text and an update timestamp, then synchronise under the authenticated account when online.\n\n### Common failure to avoid\n\nBrowser storage is not a guaranteed permanent backup. Do not store passwords, service secrets or highly sensitive records in IndexedDB. Plan for quota limits, schema upgrades and clearing data on sign-out when required.\n\n### Practice task\n\nDesign an IndexedDB schema for downloaded lessons and pending notes. Include keys, indexes, version upgrade and sign-out behaviour.\n\n### Verification\n\nTest the behaviour in a normal browser and under the relevant offline or update condition. Record what data is cached, how old it may be, whether it is private, and what the user sees when an operation is pending or fails. A PWA is reliable only when its limits are visible and its server-side security rules still apply.",
+            "exercise": "Design an IndexedDB schema for downloaded lessons and pending notes. Include keys, indexes, version upgrade and sign-out behaviour.",
+            "key_takeaways": [
+              "Build the core web journey before adding install and offline enhancements.",
+              "Choose cache and sync rules according to freshness, privacy and user consent.",
+              "Test cold start, offline, reconnect, update and shared-device behaviour."
+            ]
+          },
+          {
+            "title": "Background Sync and Deferred Work",
+            "duration_minutes": 40,
+            "body_markdown": "## Background Sync and Deferred Work\n\nBackground Sync can defer some work until connectivity returns in supporting browsers, but support and execution timing vary. A robust application must also provide a foreground retry path because the browser may not run a background task when expected.\n\n### Worked application example\n\nA learner's note update can be placed in an outbox with a unique operation ID and retried when the browser reports connectivity. The server acknowledges the operation, after which the local record is marked synced.\n\n### Common failure to avoid\n\nDo not rely on background sync as the only delivery mechanism. Requests can be delivered more than once, so server operations need idempotency and a visible pending state.\n\n### Practice task\n\nDesign an outbox queue for a note update. Specify operation ID, retry policy, server acknowledgement and duplicate handling.\n\n### Verification\n\nTest the behaviour in a normal browser and under the relevant offline or update condition. Record what data is cached, how old it may be, whether it is private, and what the user sees when an operation is pending or fails. A PWA is reliable only when its limits are visible and its server-side security rules still apply.",
+            "exercise": "Design an outbox queue for a note update. Specify operation ID, retry policy, server acknowledgement and duplicate handling.",
+            "key_takeaways": [
+              "Build the core web journey before adding install and offline enhancements.",
+              "Choose cache and sync rules according to freshness, privacy and user consent.",
+              "Test cold start, offline, reconnect, update and shared-device behaviour."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Background Features, Security and Accessibility",
+        "description": "Design sync, notifications, media storage and privacy-aware offline behaviour.",
+        "lessons": [
+          {
+            "title": "Push Notifications and Permission",
+            "duration_minutes": 25,
+            "body_markdown": "## Push Notifications and Permission\n\nWeb push can notify users when an application is not open, but it requires permission, a subscription and a server-side delivery system. Ask for permission in a context where the user understands the value, not immediately on first load.\n\n### Worked application example\n\nA learner may opt in to a reminder for a scheduled study session. The platform stores the subscription securely and sends a notification only for a meaningful event the learner has agreed to receive.\n\n### Common failure to avoid\n\nNotification permission can be denied and subscriptions can expire. Do not spam learners or expose private lesson details on a lock screen. Provide preference controls and an unsubscribe path.\n\n### Practice task\n\nDesign an opt-in study reminder flow. Include permission timing, subscription storage, privacy and unsubscribe behaviour.\n\n### Verification\n\nTest the behaviour in a normal browser and under the relevant offline or update condition. Record what data is cached, how old it may be, whether it is private, and what the user sees when an operation is pending or fails. A PWA is reliable only when its limits are visible and its server-side security rules still apply.",
+            "exercise": "Design an opt-in study reminder flow. Include permission timing, subscription storage, privacy and unsubscribe behaviour.",
+            "key_takeaways": [
+              "Build the core web journey before adding install and offline enhancements.",
+              "Choose cache and sync rules according to freshness, privacy and user consent.",
+              "Test cold start, offline, reconnect, update and shared-device behaviour."
+            ]
+          },
+          {
+            "title": "Offline Media and Storage Budgets",
+            "duration_minutes": 25,
+            "body_markdown": "## Offline Media and Storage Budgets\n\nAudio and video consume significant storage and bandwidth. Offline media should be optional, user-initiated and subject to clear size and storage information. Use appropriate formats, streaming for online playback and explicit download management where supported.\n\n### Worked application example\n\nA learner can choose to download a short audio lesson over Wi-Fi. The app shows file size, download progress, available storage estimate and a remove-download action.\n\n### Common failure to avoid\n\nDo not silently download large media on a limited mobile data plan. Browser storage may be cleared by the operating system, so never promise permanent availability.\n\n### Practice task\n\nPlan offline audio downloads with user consent, size display, storage limits, progress, cancellation and removal.\n\n### Verification\n\nTest the behaviour in a normal browser and under the relevant offline or update condition. Record what data is cached, how old it may be, whether it is private, and what the user sees when an operation is pending or fails. A PWA is reliable only when its limits are visible and its server-side security rules still apply.",
+            "exercise": "Plan offline audio downloads with user consent, size display, storage limits, progress, cancellation and removal.",
+            "key_takeaways": [
+              "Build the core web journey before adding install and offline enhancements.",
+              "Choose cache and sync rules according to freshness, privacy and user consent.",
+              "Test cold start, offline, reconnect, update and shared-device behaviour."
+            ]
+          },
+          {
+            "title": "Security and Privacy in a PWA",
+            "duration_minutes": 25,
+            "body_markdown": "## Security and Privacy in a PWA\n\nA PWA runs in the browser's security model. Use HTTPS, a restrictive Content Security Policy where practical, safe dependency practices and secure authentication. Service workers can control requests within scope, so cache rules are part of the application's security design.\n\n### Worked application example\n\nA public course shell can be cached, while protected lesson requests still require a valid session and server-side authorization. On sign-out, clear account-specific local data and avoid displaying it to the next person using the device.\n\n### Common failure to avoid\n\nA service worker is not an authorization server. Never let a cached lesson response grant access after enrolment is revoked. Shared-device privacy and local data cleanup matter on campus devices.\n\n### Practice task\n\nThreat-model a shared-device PWA. Identify cached private data, sign-out cleanup, session expiry and revoked-enrolment behaviour.\n\n### Verification\n\nTest the behaviour in a normal browser and under the relevant offline or update condition. Record what data is cached, how old it may be, whether it is private, and what the user sees when an operation is pending or fails. A PWA is reliable only when its limits are visible and its server-side security rules still apply.",
+            "exercise": "Threat-model a shared-device PWA. Identify cached private data, sign-out cleanup, session expiry and revoked-enrolment behaviour.",
+            "key_takeaways": [
+              "Build the core web journey before adding install and offline enhancements.",
+              "Choose cache and sync rules according to freshness, privacy and user consent.",
+              "Test cold start, offline, reconnect, update and shared-device behaviour."
+            ]
+          },
+          {
+            "title": "Accessibility and Install Experience",
+            "duration_minutes": 40,
+            "body_markdown": "## Accessibility and Install Experience\n\nAn installed PWA must remain accessible: semantic structure, keyboard operation, focus management, readable contrast and meaningful offline status are still required. Install prompts should be helpful and dismissible rather than blocking the user.\n\n### Worked application example\n\nA learner can use the web app in a browser without installing it. If installation is available, a small prompt explains the benefit and can be dismissed. Offline status is announced accessibly without repeatedly interrupting screen-reader users.\n\n### Common failure to avoid\n\nDo not make installation a prerequisite for reading. Avoid custom controls that remove native keyboard behaviour, and do not rely on colour alone to communicate offline state.\n\n### Practice task\n\nAudit the install and offline states for keyboard, screen-reader, focus and non-colour status communication.\n\n### Verification\n\nTest the behaviour in a normal browser and under the relevant offline or update condition. Record what data is cached, how old it may be, whether it is private, and what the user sees when an operation is pending or fails. A PWA is reliable only when its limits are visible and its server-side security rules still apply.",
+            "exercise": "Audit the install and offline states for keyboard, screen-reader, focus and non-colour status communication.",
+            "key_takeaways": [
+              "Build the core web journey before adding install and offline enhancements.",
+              "Choose cache and sync rules according to freshness, privacy and user consent.",
+              "Test cold start, offline, reconnect, update and shared-device behaviour."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Testing, Deployment and Capstone",
+        "description": "Verify offline journeys and deliver a maintainable learning PWA.",
+        "lessons": [
+          {
+            "title": "Testing Offline and Update Behaviour",
+            "duration_minutes": 25,
+            "body_markdown": "## Testing Offline and Update Behaviour\n\nPWA testing must cover online, offline, slow network, cache miss, service-worker update and storage failure. Browser devtools can simulate offline conditions, but real devices reveal lifecycle and storage behaviour that emulation may miss.\n\n### Worked application example\n\nTest a first visit with no cache, a repeat visit with cached shell, opening a downloaded lesson offline, reconnecting to sync a pending note and updating to a new service-worker version.\n\n### Common failure to avoid\n\nA page that works offline only after a developer has preloaded its cache is not a successful first-use experience. Test cold start, update and recovery paths explicitly.\n\n### Practice task\n\nWrite a test matrix for first install, repeat visit, offline lesson, pending sync, sign-out and service-worker update.\n\n### Verification\n\nTest the behaviour in a normal browser and under the relevant offline or update condition. Record what data is cached, how old it may be, whether it is private, and what the user sees when an operation is pending or fails. A PWA is reliable only when its limits are visible and its server-side security rules still apply.",
+            "exercise": "Write a test matrix for first install, repeat visit, offline lesson, pending sync, sign-out and service-worker update.",
+            "key_takeaways": [
+              "Build the core web journey before adding install and offline enhancements.",
+              "Choose cache and sync rules according to freshness, privacy and user consent.",
+              "Test cold start, offline, reconnect, update and shared-device behaviour."
+            ]
+          },
+          {
+            "title": "PWA Performance and Reliability",
+            "duration_minutes": 25,
+            "body_markdown": "## PWA Performance and Reliability\n\nA PWA should start quickly and avoid unnecessary work. Cache versioned assets, minimise service-worker startup overhead and avoid large synchronous tasks. Reliability also requires clear recovery when storage is full, a request fails or a cached version is outdated.\n\n### Worked application example\n\nA learner opening the app from the home screen can receive the cached shell quickly, then refresh public course data when the network is available. A stale lesson version should be labelled and refreshed when access permits.\n\n### Common failure to avoid\n\nCaching everything can increase storage pressure and make updates confusing. Measure startup, cache hit behaviour and storage usage on a target mobile device.\n\n### Practice task\n\nCreate a startup budget and cache-retention policy. Define what to evict first when browser storage approaches its limit.\n\n### Verification\n\nTest the behaviour in a normal browser and under the relevant offline or update condition. Record what data is cached, how old it may be, whether it is private, and what the user sees when an operation is pending or fails. A PWA is reliable only when its limits are visible and its server-side security rules still apply.",
+            "exercise": "Create a startup budget and cache-retention policy. Define what to evict first when browser storage approaches its limit.",
+            "key_takeaways": [
+              "Build the core web journey before adding install and offline enhancements.",
+              "Choose cache and sync rules according to freshness, privacy and user consent.",
+              "Test cold start, offline, reconnect, update and shared-device behaviour."
+            ]
+          },
+          {
+            "title": "Deployment, Scope and Release Management",
+            "duration_minutes": 25,
+            "body_markdown": "## Deployment, Scope and Release Management\n\nService-worker scope determines which pages it can control. Deployment paths, HTTPS, headers and cache naming affect registration and updates. A release should ensure that HTML, JavaScript and service-worker versions remain compatible during rollout.\n\n### Worked application example\n\nA PWA hosted at the domain root can use a root-scoped worker. If deployed under a subpath, the worker file and scope must be configured deliberately. New releases should activate only when the new asset set is ready.\n\n### Common failure to avoid\n\nA stale cached HTML file can reference JavaScript chunks that no longer exist after deployment. Use versioned assets, safe update behaviour and a recovery route rather than deleting caches blindly.\n\n### Practice task\n\nWrite a release plan for service-worker updates, asset versioning, rollback and users who keep an old tab open.\n\n### Verification\n\nTest the behaviour in a normal browser and under the relevant offline or update condition. Record what data is cached, how old it may be, whether it is private, and what the user sees when an operation is pending or fails. A PWA is reliable only when its limits are visible and its server-side security rules still apply.",
+            "exercise": "Write a release plan for service-worker updates, asset versioning, rollback and users who keep an old tab open.",
+            "key_takeaways": [
+              "Build the core web journey before adding install and offline enhancements.",
+              "Choose cache and sync rules according to freshness, privacy and user consent.",
+              "Test cold start, offline, reconnect, update and shared-device behaviour."
+            ]
+          },
+          {
+            "title": "Capstone: Offline-Ready Learning Experience",
+            "duration_minutes": 40,
+            "body_markdown": "## Capstone: Offline-Ready Learning Experience\n\nBuild a progressive web experience for a course catalogue and reader. The app must work as a normal website, offer installation where supported, cache a useful shell and let a learner access selected public or authorised lesson material offline according to a clear policy.\n\n### Worked application example\n\nThe learner visits a course online, chooses a lesson for offline use, loses connectivity and reads the downloaded material. A note can be queued locally and synchronised when online, with a visible pending state until the server confirms it.\n\n### Common failure to avoid\n\nDo not claim enrolment, assessment submission or progress persistence while offline unless a safe synchronisation design exists. Protect local account data on shared devices and handle revoked access when the app reconnects.\n\n### Practice task\n\nSubmit manifest, service-worker strategy, cache policy, IndexedDB schema, offline-state UI, sync design, security and accessibility tests, and a deployment/update checklist.\n\n### Verification\n\nTest the behaviour in a normal browser and under the relevant offline or update condition. Record what data is cached, how old it may be, whether it is private, and what the user sees when an operation is pending or fails. A PWA is reliable only when its limits are visible and its server-side security rules still apply.",
+            "exercise": "Submit manifest, service-worker strategy, cache policy, IndexedDB schema, offline-state UI, sync design, security and accessibility tests, and a deployment/update checklist.",
+            "key_takeaways": [
+              "Build the core web journey before adding install and offline enhancements.",
+              "Choose cache and sync rules according to freshness, privacy and user consent.",
+              "Test cold start, offline, reconnect, update and shared-device behaviour."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "Progressive Web Apps and Offline-First Design: Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions. Explain which behaviour is guaranteed by the web platform and which depends on browser support or application design.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short_answer",
+          "prompt": "Explain the purpose of a web app manifest and a service worker. Why does neither one alone make an application fully offline?",
+          "marks": 10,
+          "rubric": [
+            "Correct manifest purpose (3)",
+            "Correct service-worker purpose (3)",
+            "Explains cache/data strategy and browser limits (4)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "design",
+          "prompt": "Choose cache strategies for versioned static assets, public catalogue data and private learner progress.",
+          "marks": 10,
+          "rubric": [
+            "Appropriate strategies (4)",
+            "Freshness and update reasoning (3)",
+            "Privacy and isolation (3)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "storage",
+          "prompt": "Design an IndexedDB store for downloaded lessons and pending notes. Include keys, indexes and sign-out handling.",
+          "marks": 10,
+          "rubric": [
+            "Appropriate schema and keys (4)",
+            "Upgrade and quota considerations (3)",
+            "Privacy cleanup (3)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "sync",
+          "prompt": "Explain how a pending offline note update can be synchronised safely when connectivity returns.",
+          "marks": 10,
+          "rubric": [
+            "Outbox and unique operation ID (3)",
+            "Retry and idempotency (4)",
+            "Visible acknowledgement state (3)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "security",
+          "prompt": "A learner's enrolment is revoked while their device is offline. Explain how the PWA should behave when it reconnects.",
+          "marks": 10,
+          "rubric": [
+            "Does not treat cache as authorization (4)",
+            "Refreshes access state on reconnect (3)",
+            "Handles local copy and user messaging safely (3)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit the offline-ready learning experience with manifest, cache policy, sync design and test evidence.",
+          "marks": 20,
+          "rubric": [
+            "Correct manifest and install experience (3)",
+            "Useful offline shell and lesson policy (4)",
+            "Safe local storage and sync design (5)",
+            "Security and accessibility checks (4)",
+            "Offline/update test evidence (4)"
+          ]
+        }
+      ],
+      "total_marks": 70
+    },
+    "final_project": {
+      "title": "Offline-Ready Learning Experience",
+      "deliverables": [
+        "Web app manifest and installability test",
+        "Service-worker registration and lifecycle notes",
+        "Cache versioning and network strategy matrix",
+        "IndexedDB schema and migration plan",
+        "Offline and pending-sync user interface",
+        "Optional notification and media-download design",
+        "Security, shared-device and accessibility test matrix",
+        "Deployment and service-worker update checklist"
+      ],
+      "acceptance_criteria": [
+        "The core course journey works without installation",
+        "A returning user can access the defined offline shell",
+        "Only intentionally selected and permitted content is cached",
+        "Private data is not exposed across accounts or shared-device sessions",
+        "Pending operations are not shown as server-confirmed until acknowledged",
+        "Offline, reconnect, update and storage-failure paths are tested and documented"
+      ]
+    },
+    "references": [
+      {
+        "title": "MDN Progressive Web Apps",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps",
+        "note": "Primary overview of PWA concepts and browser capabilities."
+      },
+      {
+        "title": "MDN Service Worker API",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API",
+        "note": "Reference for registration, lifecycle and request interception."
+      },
+      {
+        "title": "MDN IndexedDB API",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API",
+        "note": "Reference for structured browser-side storage."
+      },
+      {
+        "title": "web.dev PWA",
+        "url": "https://web.dev/learn/pwa/",
+        "note": "Practical learning material for installability, caching and offline design."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft. Verify browser support and API behaviour against current target browsers, run offline and security tests, and align with curriculum before publication. No academic approval is claimed.",
+      "language": "English",
+      "content_quality": "Four sections, sixteen lessons, six assessment questions, an offline-ready capstone and authoritative web-platform references. Technical and academic review remains required."
+    }
+  }
+}

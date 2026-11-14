@@ -1,0 +1,351 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "java-programming-object-oriented-design",
+    "title": "Java Programming and Object-Oriented Design",
+    "subtitle": "Learn Java from core syntax to classes, interfaces, collections and tested object-oriented programs.",
+    "description": "A structured introduction to Java and object-oriented design. Learners work with the JVM model, types, control flow, methods, classes, encapsulation, inheritance, interfaces, exceptions, collections and testing. The course emphasises explicit contracts, readable class design and practical program behaviour.",
+    "level": "beginner",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 600,
+    "target_audience": [
+      "Computing students learning Java for coursework or software development",
+      "Learners preparing for object-oriented programming",
+      "Beginners who understand basic computer use and want a structured programming language"
+    ],
+    "prerequisites": [
+      "Basic computer literacy",
+      "Basic arithmetic and willingness to practise writing code"
+    ],
+    "outcomes": [
+      "Explain source compilation, bytecode and JVM execution",
+      "Use Java primitive types, reference types and control flow",
+      "Write methods with parameters, return types and clear contracts",
+      "Design classes that encapsulate state and behaviour",
+      "Use constructors and access modifiers correctly",
+      "Explain inheritance, overriding and interface-based design",
+      "Handle exceptions and choose common collection types",
+      "Build and test a small object-oriented application"
+    ],
+    "equipment": [
+      "Laptop or desktop computer",
+      "Supported JDK",
+      "Java IDE or text editor",
+      "Notebook for class diagrams and tracing"
+    ],
+    "accessibility": "Code is selectable text and diagrams must include text descriptions. Exercises should not rely on colour alone and should state expected output in plain text.",
+    "sections": [
+      {
+        "title": "Java Platform and Language Foundations",
+        "description": "Understand the development workflow, types and basic control flow.",
+        "lessons": [
+          {
+            "title": "JDK, JVM and the compile-run process",
+            "duration_minutes": 25,
+            "body_markdown": "## JDK, JVM and the compile-run process\n\nJava development commonly uses the Java Development Kit, which includes development tools, and a Java Virtual Machine that executes bytecode. A source file such as `Main.java` is compiled by `javac` into class files. The `java` launcher starts the program on a compatible runtime. This separation explains why source code is not the same thing as compiled output. Version compatibility matters: a class compiled for a newer runtime may not run on an older one. Use a consistent JDK and inspect compiler messages rather than treating compilation as mysterious.\n\n### Worked example\n\nCreate a minimal `Main` class, compile it with `javac Main.java`, then run it with `java Main`. Record the Java and compiler versions.\n\n### Common failure to avoid\n\nDo not confuse the JDK, JVM and source file; each has a different role in building and executing a program.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the declared type, the value being processed, the operation and the expected result. If a design depends on a precondition, state that precondition explicitly.\n",
+            "exercise": "Draw the path from source code through bytecode to runtime execution.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of jdk, jvm and the compile-run process.",
+              "Apply the idea to a new example and identify one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Program structure and the main method",
+            "duration_minutes": 25,
+            "body_markdown": "## Program structure and the main method\n\nA Java class groups declarations under a name, and a basic application starts at a recognised `main` method. Java is case-sensitive, so `Main` and `main` are different identifiers. Braces define class and method bodies. Statements usually end with semicolons, while blocks use braces. Public top-level class names normally match their file names in file-based compilation. Indentation is not the source of block meaning, but consistent formatting helps people inspect nesting and scope.\n\n### Worked example\n\nCreate a class named `CourseReport` with a `main` method that prints a heading and one result line.\n\n### Common failure to avoid\n\nA missing brace or mismatched public class filename can prevent compilation even when the intended algorithm is correct.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the declared type, the value being processed, the operation and the expected result. If a design depends on a precondition, state that precondition explicitly.\n",
+            "exercise": "Label the class, entry point, statement and output in a short Java program.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of program structure and the main method.",
+              "Apply the idea to a new example and identify one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Primitive types, variables and expressions",
+            "duration_minutes": 25,
+            "body_markdown": "## Primitive types, variables and expressions\n\nJava is statically typed: a variable declaration specifies a type, and the compiler checks many type errors before execution. Primitive types include `int`, `long`, `double`, `float`, `boolean`, `char`, `byte` and `short`. Reference variables hold references to objects. Numeric conversion can be widening or narrowing; narrowing may lose information and requires an explicit cast. Integer division truncates the fractional part, so choose a floating-point calculation for averages. Use format specifiers that match the actual argument types.\n\n### Worked example\n\nCalculate an average from three integer scores and compare integer division with division after converting one operand to `double`.\n\n### Common failure to avoid\n\nDo not assume `int / int` produces a decimal just because the receiving variable is a `double`.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the declared type, the value being processed, the operation and the expected result. If a design depends on a precondition, state that precondition explicitly.\n",
+            "exercise": "Choose appropriate Java types for an ID, score, average, pass flag and name.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of primitive types, variables and expressions.",
+              "Apply the idea to a new example and identify one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Input, output and conditionals",
+            "duration_minutes": 25,
+            "body_markdown": "## Input, output and conditionals\n\nConsole programs can read input using `Scanner`, but input needs validation before conversion or calculation. `System.out.println` writes to standard output. `if`, `else if` and `else` select an execution path based on a Boolean expression. Java does not treat arbitrary numbers as Boolean conditions; the condition must be boolean. Define ranges in a consistent order and handle values outside the intended domain explicitly. Keep input collection separate from the grading rule when that makes the logic easier to test.\n\n### Worked example\n\nRead a score, reject values outside 0–100 and classify a valid score using documented grade boundaries.\n\n### Common failure to avoid\n\nDo not confuse an invalid score with a valid low score; validate the domain before applying the grade rule.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the declared type, the value being processed, the operation and the expected result. If a design depends on a precondition, state that precondition explicitly.\n",
+            "exercise": "Write and trace a grading decision tree with tests at every boundary.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of input, output and conditionals.",
+              "Apply the idea to a new example and identify one boundary or failure case."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Methods and Object Modelling",
+        "description": "Move from statements to reusable behaviour and meaningful objects.",
+        "lessons": [
+          {
+            "title": "Loops and arrays",
+            "duration_minutes": 25,
+            "body_markdown": "## Loops and arrays\n\nJava supports `for`, enhanced `for` and `while` loops. Arrays have a fixed length after creation and use zero-based indexes. Accessing an index outside the valid range causes an `ArrayIndexOutOfBoundsException`. The enhanced `for` loop is suitable when each element is needed but the index is not. When the index matters, a traditional loop makes that relationship explicit. Check `array.length` before indexing and decide how an empty array should behave in calculations.\n\n### Worked example\n\nUse an array of scores to calculate a total and count scores greater than or equal to 50. Test an empty array.\n\n### Common failure to avoid\n\nDo not use `<= array.length` as the final loop condition; the last valid index is one less than the length.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the declared type, the value being processed, the operation and the expected result. If a design depends on a precondition, state that precondition explicitly.\n",
+            "exercise": "Trace a loop over four values and show the index and accumulator at each step.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of loops and arrays.",
+              "Apply the idea to a new example and identify one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Methods, parameters and return types",
+            "duration_minutes": 25,
+            "body_markdown": "## Methods, parameters and return types\n\nA method defines reusable behaviour within a class. Its signature includes a name and parameter types; its return type states what value, if any, it returns. Java passes arguments by value. When an object reference is passed, the reference value is copied, so the method can mutate the referenced object but cannot replace the caller's variable by reassigning its local parameter. Methods should have clear responsibilities and avoid unexpected side effects. Static methods belong to a class rather than an individual object.\n\n### Worked example\n\nWrite `calculateAverage(int[] scores)` and define explicit behaviour for an empty array.\n\n### Common failure to avoid\n\nA method that depends on hidden console input or global mutable state is harder to reuse and test.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the declared type, the value being processed, the operation and the expected result. If a design depends on a precondition, state that precondition explicitly.\n",
+            "exercise": "Write total and average methods, then test them with known inputs.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of methods, parameters and return types.",
+              "Apply the idea to a new example and identify one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Classes, objects and constructors",
+            "duration_minutes": 25,
+            "body_markdown": "## Classes, objects and constructors\n\nA class is a blueprint that defines fields and methods; an object is an instance created from that class. A constructor establishes initial state and is called when an object is created. Constructor parameters should ensure required fields are provided. Java supplies a default constructor only in certain conditions; adding a constructor changes what is automatically available. Object references can point to the same instance, so changing a mutable field through one reference affects what another reference observes.\n\n### Worked example\n\nCreate a `Student` class with a constructor, `matricNumber` and `name`, then instantiate two separate students.\n\n### Common failure to avoid\n\nDo not assume two variables containing references represent two independent objects.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the declared type, the value being processed, the operation and the expected result. If a design depends on a precondition, state that precondition explicitly.\n",
+            "exercise": "Explain the difference between a class definition, constructor call and object instance.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of classes, objects and constructors.",
+              "Apply the idea to a new example and identify one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Encapsulation and access control",
+            "duration_minutes": 25,
+            "body_markdown": "## Encapsulation and access control\n\nEncapsulation protects an object's invariants by controlling how its state is accessed and changed. `private` fields prevent arbitrary external modification, while public methods expose supported operations. A setter is not automatically good design: it should validate changes and should be omitted when a value should not change after construction. Access modifiers such as `public`, `protected` and package-private determine visibility. Design methods around meaningful actions rather than exposing every internal field.\n\n### Worked example\n\nAdd a private score field and a method that updates it only when the proposed score is between 0 and 100.\n\n### Common failure to avoid\n\nDo not expose mutable internal collections directly if outside code could violate the object's rules.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the declared type, the value being processed, the operation and the expected result. If a design depends on a precondition, state that precondition explicitly.\n",
+            "exercise": "Design a `Course` class with protected invariants and explain which operations should be public.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of encapsulation and access control.",
+              "Apply the idea to a new example and identify one boundary or failure case."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Object-Oriented Design and Collections",
+        "description": "Use abstraction, inheritance and collection types deliberately.",
+        "lessons": [
+          {
+            "title": "Inheritance, composition and overriding",
+            "duration_minutes": 25,
+            "body_markdown": "## Inheritance, composition and overriding\n\nInheritance allows a subclass to specialise a superclass, and method overriding changes inherited behaviour under a compatible signature. Use inheritance when the relationship is genuinely an “is-a” relationship and shared behaviour is stable. Composition builds one object from other objects and is often more flexible when the relationship is “has-a”. The `@Override` annotation helps the compiler detect mistakes. Avoid deep inheritance hierarchies because changes in a base class can have surprising effects on many subclasses.\n\n### Worked example\n\nModel a `Person` and `Student` relationship, then compare it with a `Student` that contains an `Address` object.\n\n### Common failure to avoid\n\nDo not use inheritance solely to reuse a few lines of code. Prefer composition when there is no true subtype relationship.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the declared type, the value being processed, the operation and the expected result. If a design depends on a precondition, state that precondition explicitly.\n",
+            "exercise": "Give two examples where composition is more accurate than inheritance.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of inheritance, composition and overriding.",
+              "Apply the idea to a new example and identify one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Abstract classes and interfaces",
+            "duration_minutes": 25,
+            "body_markdown": "## Abstract classes and interfaces\n\nAn abstract class can share state and implementation while leaving some operations for subclasses. An interface defines a contract that implementing classes promise to provide, and can support multiple interface implementations. Program against an abstraction when the caller needs behaviour rather than a specific implementation. An interface can make testing easier because a replacement implementation can be supplied. Keep interface methods coherent and avoid creating an interface with unrelated responsibilities.\n\n### Worked example\n\nCreate a `Payable` interface with a method that returns an amount, then implement it for two different record types.\n\n### Common failure to avoid\n\nDo not create interfaces merely to add ceremony; identify the variation or contract that justifies one.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the declared type, the value being processed, the operation and the expected result. If a design depends on a precondition, state that precondition explicitly.\n",
+            "exercise": "Design a small interface for a report exporter and list two possible implementations.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of abstract classes and interfaces.",
+              "Apply the idea to a new example and identify one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Polymorphism and dynamic dispatch",
+            "duration_minutes": 25,
+            "body_markdown": "## Polymorphism and dynamic dispatch\n\nPolymorphism lets code work with a common parent type or interface while the actual object provides its specific implementation. When an overridden instance method is called through a superclass reference, Java uses the runtime object's implementation. This is dynamic dispatch. Field access and static method hiding do not behave in the same way, so do not assume every member is dynamically selected. Polymorphism reduces condition-heavy code when behaviour belongs naturally to the object.\n\n### Worked example\n\nStore several objects implementing `Payable` in a collection and call the same method on each.\n\n### Common failure to avoid\n\nDo not confuse overloading, which is selected at compile time from a method signature, with overriding and runtime dispatch.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the declared type, the value being processed, the operation and the expected result. If a design depends on a precondition, state that precondition explicitly.\n",
+            "exercise": "Trace a method call through an interface reference and identify the concrete method that runs.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of polymorphism and dynamic dispatch.",
+              "Apply the idea to a new example and identify one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Collections and generics",
+            "duration_minutes": 25,
+            "body_markdown": "## Collections and generics\n\nThe Java Collections Framework provides interfaces and implementations for common data structures. A `List` preserves sequence and allows duplicates; a `Set` represents uniqueness; a `Map` associates keys with values. Generics communicate the expected element type, such as `List<String>`, and help the compiler detect incorrect use. Choose a collection from the operations and ordering rules the application needs. Avoid raw types because they remove useful compile-time checks.\n\n### Worked example\n\nStore unique course codes in a `Set`, ordered assessment scores in a `List`, and student-to-average values in a `Map`.\n\n### Common failure to avoid\n\nDo not choose a collection only because it is familiar; its semantics should match the data requirement.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the declared type, the value being processed, the operation and the expected result. If a design depends on a precondition, state that precondition explicitly.\n",
+            "exercise": "Compare a List, Set and Map for three student-record tasks.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of collections and generics.",
+              "Apply the idea to a new example and identify one boundary or failure case."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Robustness and Application Delivery",
+        "description": "Handle failures, test behaviour and build a complete console application.",
+        "lessons": [
+          {
+            "title": "Exceptions and resource handling",
+            "duration_minutes": 25,
+            "body_markdown": "## Exceptions and resource handling\n\nExceptions represent abnormal conditions that interrupt normal control flow. Checked exceptions must be handled or declared; unchecked exceptions generally represent programming errors or conditions not enforced by the compiler. Catch the narrowest exception that can be handled meaningfully. Use try-with-resources for resources that implement `AutoCloseable`, such as many file and database handles. Do not use exceptions as routine substitutes for simple validation. Preserve causes when translating an error into a higher-level exception.\n\n### Worked example\n\nRead a text file with try-with-resources and handle a missing-file case with a useful message.\n\n### Common failure to avoid\n\nA catch block that ignores a failure makes a program appear successful when its data is incomplete.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the declared type, the value being processed, the operation and the expected result. If a design depends on a precondition, state that precondition explicitly.\n",
+            "exercise": "Create a file-read method with a documented exception contract.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of exceptions and resource handling.",
+              "Apply the idea to a new example and identify one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Testing and debugging Java code",
+            "duration_minutes": 25,
+            "body_markdown": "## Testing and debugging Java code\n\nUnit tests examine small units of behaviour. A test defines an input, an expected result and an assertion that fails when actual behaviour differs. Test constructors, validation boundaries, collection edge cases and overridden behaviour. A debugger allows breakpoints, step execution and variable inspection. Compiler warnings and static analysis can reveal issues before a user encounters them. Keep tests deterministic and avoid relying on current time or network services unless those dependencies are controlled.\n\n### Worked example\n\nWrite tests for grade boundaries and constructor validation in the `Student` model.\n\n### Common failure to avoid\n\nA program compiling successfully does not prove the result is correct; compilation and behavioural testing answer different questions.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the declared type, the value being processed, the operation and the expected result. If a design depends on a precondition, state that precondition explicitly.\n",
+            "exercise": "Create a test matrix covering normal, boundary, invalid and regression cases.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of testing and debugging java code.",
+              "Apply the idea to a new example and identify one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Packages, builds and project structure",
+            "duration_minutes": 25,
+            "body_markdown": "## Packages, builds and project structure\n\nPackages group related Java types and prevent name collisions. A source project should use a predictable directory structure and a build tool when dependency and test management become significant. A small exercise can compile directly, but a larger project benefits from a repeatable build configuration such as Maven or Gradle. Keep package names lowercase and organise by cohesive responsibility. A build should be reproducible from a clean checkout, not dependent on files that exist only on one computer.\n\n### Worked example\n\nOrganise a console application into model, service and application packages, then compile it from a clean directory.\n\n### Common failure to avoid\n\nDo not rely on hidden local IDE configuration or leave required source files outside version control.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the declared type, the value being processed, the operation and the expected result. If a design depends on a precondition, state that precondition explicitly.\n",
+            "exercise": "Document the build and run commands another learner can follow.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of packages, builds and project structure.",
+              "Apply the idea to a new example and identify one boundary or failure case."
+            ]
+          },
+          {
+            "title": "Build and review an object-oriented application",
+            "duration_minutes": 25,
+            "body_markdown": "## Build and review an object-oriented application\n\nA practical application integrates language features and design choices. Define the domain model, validation rules, operations and output before writing all the code. Use constructors to establish valid state, private fields to protect invariants, interfaces only where a useful contract exists, and collections that match access patterns. Keep console interaction at the boundary so business logic can be tested separately. A release candidate needs tests for empty records, invalid input and restart behaviour, not only a successful demonstration.\n\n### Worked example\n\nBuild a Student Records Console App that can add, list, search and summarise students without allowing invalid scores.\n\n### Common failure to avoid\n\nDo not let presentation code become the only place where validation exists; core rules belong in testable methods.\n\n### Check your understanding\n\nExplain the rule in your own words and trace one new example. A useful explanation identifies the declared type, the value being processed, the operation and the expected result. If a design depends on a precondition, state that precondition explicitly.\n",
+            "exercise": "Submit source code, a class diagram, test output and a short explanation of design decisions.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of build and review an object-oriented application.",
+              "Apply the idea to a new example and identify one boundary or failure case."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "Java Programming and Object-Oriented Design Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions and show reasoning. Code submissions must compile with the stated JDK, state assumptions and include tests with expected results.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short_answer",
+          "prompt": "Distinguish the JDK, JVM and bytecode, and describe their roles in executing a Java program.",
+          "marks": 8,
+          "rubric": [
+            "Defines the three components (3)",
+            "Explains compile and run stages (3)",
+            "Notes version/runtime compatibility (2)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "code_trace",
+          "prompt": "Trace a Java method call involving an array and an accumulator. Show the values after each iteration.",
+          "marks": 10,
+          "rubric": [
+            "Correct loop trace (4)",
+            "Correct values (4)",
+            "Correct final result (2)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "design",
+          "prompt": "Design a Student class with valid initial state, encapsulated fields and one operation that enforces a score invariant.",
+          "marks": 12,
+          "rubric": [
+            "Appropriate fields and constructor (3)",
+            "Encapsulation (3)",
+            "Validation invariant (4)",
+            "Clear method interface (2)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "debugging",
+          "prompt": "A program stores different payment types in a list but uses repeated `instanceof` branches to calculate each amount. Explain how polymorphism or an interface could simplify the design.",
+          "marks": 10,
+          "rubric": [
+            "Identifies design problem (3)",
+            "Proposes a suitable abstraction (4)",
+            "Explains expected benefit (3)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "testing",
+          "prompt": "Design tests for a constructor and score-update method, including boundaries and invalid values.",
+          "marks": 10,
+          "rubric": [
+            "Normal cases (2)",
+            "Boundary values (3)",
+            "Invalid values (3)",
+            "Expected outcomes (2)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit the Student Records Console Application with source, class diagram, tests and README.",
+          "marks": 20,
+          "rubric": [
+            "Functional requirements (6)",
+            "Sound object-oriented design (5)",
+            "Meaningful tests (4)",
+            "Documentation and build steps (3)",
+            "Limitations (2)"
+          ]
+        }
+      ],
+      "total_marks": 70
+    },
+    "final_project": {
+      "title": "Student Records Console Application",
+      "brief": "Build a Java console application to add, list, search and summarise student records. Use constructors to establish valid state, private fields to protect invariants, appropriate collection types and focused methods. Keep console interaction separate from business rules so the core logic can be tested.",
+      "deliverables": [
+        "Problem statement and requirements",
+        "Class diagram and responsibility notes",
+        "Java source in a clear package structure",
+        "Input validation and exception handling",
+        "At least 10 tests with expected results",
+        "README with JDK and build/run instructions",
+        "Design reflection and known limitations"
+      ],
+      "acceptance_criteria": [
+        "The stated operations work for valid inputs",
+        "Invalid score values are rejected by the model or service rules",
+        "Search returns the correct record or a clear not-found result",
+        "Empty collection behaviour is defined",
+        "Tests cover normal, boundary and invalid cases",
+        "Build succeeds from a clean source checkout",
+        "Design choices and limitations are documented"
+      ]
+    },
+    "references": [
+      {
+        "title": "The Java Tutorials",
+        "url": "https://docs.oracle.com/javase/tutorial/",
+        "note": "Language fundamentals and object-oriented programming."
+      },
+      {
+        "title": "Java Language Specification",
+        "url": "https://docs.oracle.com/javase/specs/",
+        "note": "Normative reference for Java language behaviour."
+      },
+      {
+        "title": "JUnit 5 User Guide",
+        "url": "https://junit.org/junit5/docs/current/user-guide/",
+        "note": "Reference for automated Java testing."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft. No authorised academic review has been recorded. Do not create reviewer identities or review dates and do not publish until an actual review decision exists.",
+      "language": "English",
+      "content_quality": "Four sections and sixteen substantive lessons with worked examples, exercises, takeaways, six assessment questions with rubrics, a practical project, acceptance criteria and authoritative references are included. Technical and academic review remain required."
+    }
+  }
+}

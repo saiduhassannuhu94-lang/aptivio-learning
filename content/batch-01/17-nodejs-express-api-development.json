@@ -1,0 +1,369 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "nodejs-express-api-development",
+    "title": "Node.js and Express API Development",
+    "subtitle": "Build maintainable, secure HTTP services with Node.js, Express and reliable database practices.",
+    "description": "An intermediate practical course covering the Node.js runtime, asynchronous JavaScript, modules, configuration, Express routing and middleware, validation, authentication, authorization, database transactions, testing, uploads, rate limiting and deployment. Learners finish with a documented course API.",
+    "level": "intermediate",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 720,
+    "target_audience": [
+      "Computing students who know JavaScript and want backend skills",
+      "Frontend developers moving into API development",
+      "Junior developers building maintainable Node services"
+    ],
+    "prerequisites": [
+      "JavaScript functions, objects, arrays and ES modules",
+      "Basic HTTP, JSON and command-line usage",
+      "Basic SQL concepts and relational data are helpful"
+    ],
+    "outcomes": [
+      "Explain the Node.js runtime and event-loop implications",
+      "Organise a Node project with modules and reproducible dependencies",
+      "Build Express routes and middleware with correct HTTP semantics",
+      "Validate untrusted input and return consistent errors",
+      "Implement authentication and resource-level authorization",
+      "Use parameterised database access and transactions safely",
+      "Test APIs across unit, integration and end-to-end levels",
+      "Deploy and observe a Node service with safe operational practices"
+    ],
+    "equipment": [
+      "Computer with a supported Node.js LTS release",
+      "Code editor and terminal",
+      "Local or hosted test database"
+    ],
+    "accessibility": "Use selectable code examples, semantic documentation, keyboard-accessible API tooling and text alternatives for architecture diagrams. Provide a mock repository adapter option where database provisioning is unavailable, while preserving security tests.",
+    "sections": [
+      {
+        "title": "Node.js Runtime and Server Fundamentals",
+        "description": "Understand the Node runtime, modules, configuration and asynchronous execution.",
+        "lessons": [
+          {
+            "title": "Node.js Runtime and Event Loop",
+            "duration_minutes": 25,
+            "body_markdown": "## Node.js Runtime and Event Loop\n\nNode.js runs JavaScript outside the browser using the V8 engine and a set of runtime APIs. Its event loop coordinates callbacks and asynchronous work so a process can handle many I/O operations without creating one operating-system thread for every request.\n\n### Worked application example\n\nA service can read a course record from a database while other requests continue to be accepted. File access, network calls and timers often complete asynchronously, while CPU-heavy synchronous work can block the event loop.\n\n### Common failure to avoid\n\nDo not assume asynchronous means parallel CPU execution. A long synchronous loop can delay every request in the process. Keep request handlers short and move heavy workloads to a worker or job system when justified.\n\n### Practice task\n\nExplain the event loop using a request that reads a file and then queries a database. Identify which work blocks the main thread.\n\n### Verification\n\nTest the normal request and at least one invalid or unauthorized request. Record the expected HTTP status, response shape and whether a database write should occur. Explain what evidence would show that the behaviour is correct rather than merely appearing correct in the browser.",
+            "exercise": "Explain the event loop using a request that reads a file and then queries a database. Identify which work blocks the main thread.",
+            "key_takeaways": [
+              "Keep HTTP handling separate from domain rules and persistence.",
+              "Validate and authorize every request on the server.",
+              "Use database constraints, tests and observability to protect production behaviour."
+            ]
+          },
+          {
+            "title": "Modules, npm and Project Configuration",
+            "duration_minutes": 25,
+            "body_markdown": "## Modules, npm and Project Configuration\n\nNode applications use modules to organise code. CommonJS uses `require` and `module.exports`; ECMAScript modules use `import` and `export`. A project should choose and configure its module system deliberately, keep dependencies declared and commit a lockfile for reproducible installation.\n\n### Worked application example\n\nA small API can separate `server.js`, route modules, validation schemas and database access. `package.json` defines scripts and dependencies; the lockfile records resolved versions so a teammate and CI install consistent packages.\n\n### Common failure to avoid\n\nMixing module systems without understanding package configuration causes confusing import errors. Do not install packages globally as a substitute for declaring project dependencies. Review package scripts before running unfamiliar commands.\n\n### Practice task\n\nCreate a minimal Node project with a start script, one module export and a test script. Explain the purpose of package.json and the lockfile.\n\n### Verification\n\nTest the normal request and at least one invalid or unauthorized request. Record the expected HTTP status, response shape and whether a database write should occur. Explain what evidence would show that the behaviour is correct rather than merely appearing correct in the browser.",
+            "exercise": "Create a minimal Node project with a start script, one module export and a test script. Explain the purpose of package.json and the lockfile.",
+            "key_takeaways": [
+              "Keep HTTP handling separate from domain rules and persistence.",
+              "Validate and authorize every request on the server.",
+              "Use database constraints, tests and observability to protect production behaviour."
+            ]
+          },
+          {
+            "title": "Environment Variables and Configuration",
+            "duration_minutes": 25,
+            "body_markdown": "## Environment Variables and Configuration\n\nConfiguration varies between local development, testing and production. Environment variables keep deployment-specific values out of source code, but they are not automatically secret merely because they are variables. Validate required configuration at startup and fail clearly when a mandatory value is absent.\n\n### Worked application example\n\nAn API may need a database URL, a session secret and a port. Load local variables with an approved development setup, validate their presence and pass them to the modules that need them rather than reading process.env everywhere.\n\n### Common failure to avoid\n\nNever commit credentials or expose server secrets in API responses or browser bundles. Do not silently fall back to a production credential when local configuration is missing.\n\n### Practice task\n\nDesign a configuration module that validates a database URL and session secret. Describe how you would rotate a leaked secret.\n\n### Verification\n\nTest the normal request and at least one invalid or unauthorized request. Record the expected HTTP status, response shape and whether a database write should occur. Explain what evidence would show that the behaviour is correct rather than merely appearing correct in the browser.",
+            "exercise": "Design a configuration module that validates a database URL and session secret. Describe how you would rotate a leaked secret.",
+            "key_takeaways": [
+              "Keep HTTP handling separate from domain rules and persistence.",
+              "Validate and authorize every request on the server.",
+              "Use database constraints, tests and observability to protect production behaviour."
+            ]
+          },
+          {
+            "title": "Asynchronous JavaScript and Promises",
+            "duration_minutes": 40,
+            "body_markdown": "## Asynchronous JavaScript and Promises\n\nPromises represent work that may finish later. `async` functions return promises, and `await` pauses that function until a promise settles without blocking the entire Node process. Use `try/catch` for expected failure handling and preserve useful error context.\n\n### Worked application example\n\nA route may await a database lookup and return a response when the query completes. Two independent lookups can run with Promise.all; dependent operations must remain ordered so a write does not occur before a required permission check.\n\n### Common failure to avoid\n\nAn unhandled rejected promise can create unstable behaviour. Do not start asynchronous work and forget to await or handle it. Do not run independent tasks sequentially unless their results depend on each other.\n\n### Practice task\n\nRewrite a callback-based file read as an async function. Include missing-file and permission-error handling.\n\n### Verification\n\nTest the normal request and at least one invalid or unauthorized request. Record the expected HTTP status, response shape and whether a database write should occur. Explain what evidence would show that the behaviour is correct rather than merely appearing correct in the browser.",
+            "exercise": "Rewrite a callback-based file read as an async function. Include missing-file and permission-error handling.",
+            "key_takeaways": [
+              "Keep HTTP handling separate from domain rules and persistence.",
+              "Validate and authorize every request on the server.",
+              "Use database constraints, tests and observability to protect production behaviour."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Project Structure and Asynchronous JavaScript",
+        "description": "Build HTTP applications with Express, middleware and clear service boundaries.",
+        "lessons": [
+          {
+            "title": "HTTP Fundamentals and Express Application",
+            "duration_minutes": 25,
+            "body_markdown": "## HTTP Fundamentals and Express Application\n\nExpress is a web framework that maps HTTP requests to middleware and route handlers. An application receives a method, path, headers and possibly a body, then returns a status, headers and response. Understand HTTP before treating Express as magic.\n\n### Worked application example\n\nA GET `/api/courses` route can return public course summaries. A POST `/api/enrolments` route can accept an enrolment request, validate it and return a created or conflict response.\n\n### Common failure to avoid\n\nA route that always returns 200 hides failures from clients and monitoring. Use correct methods and status codes, and never trust the request body just because JSON parsing succeeded.\n\n### Practice task\n\nDesign three routes for a course API and specify method, path, input, response and likely error statuses.\n\n### Verification\n\nTest the normal request and at least one invalid or unauthorized request. Record the expected HTTP status, response shape and whether a database write should occur. Explain what evidence would show that the behaviour is correct rather than merely appearing correct in the browser.",
+            "exercise": "Design three routes for a course API and specify method, path, input, response and likely error statuses.",
+            "key_takeaways": [
+              "Keep HTTP handling separate from domain rules and persistence.",
+              "Validate and authorize every request on the server.",
+              "Use database constraints, tests and observability to protect production behaviour."
+            ]
+          },
+          {
+            "title": "Express Middleware and Request Lifecycle",
+            "duration_minutes": 25,
+            "body_markdown": "## Express Middleware and Request Lifecycle\n\nMiddleware functions run during the request-response lifecycle. They can parse bodies, attach request context, authenticate a caller, log safe metadata or handle errors. Middleware order matters because each function may pass control onward, end the response or raise an error.\n\n### Worked application example\n\nA request can pass through JSON parsing, request ID assignment, authentication, route validation and a final error handler. Public catalogue routes may not require learner authentication, while protected lesson routes do.\n\n### Common failure to avoid\n\nMiddleware that neither responds nor calls next leaves the request hanging. Authentication middleware should not accidentally protect public routes or trust a role sent by the client.\n\n### Practice task\n\nDraw the middleware order for public and protected API routes. Identify where errors should be forwarded and handled.\n\n### Verification\n\nTest the normal request and at least one invalid or unauthorized request. Record the expected HTTP status, response shape and whether a database write should occur. Explain what evidence would show that the behaviour is correct rather than merely appearing correct in the browser.",
+            "exercise": "Draw the middleware order for public and protected API routes. Identify where errors should be forwarded and handled.",
+            "key_takeaways": [
+              "Keep HTTP handling separate from domain rules and persistence.",
+              "Validate and authorize every request on the server.",
+              "Use database constraints, tests and observability to protect production behaviour."
+            ]
+          },
+          {
+            "title": "Routing, Controllers and Domain Services",
+            "duration_minutes": 25,
+            "body_markdown": "## Routing, Controllers and Domain Services\n\nKeep route declarations, HTTP translation and business rules separate. A controller interprets the request and response; a domain service enforces application rules; a repository or data-access module handles persistence. This separation makes business logic easier to test without an HTTP server.\n\n### Worked application example\n\nAn enrolment controller can validate the incoming course ID, call an enrolment service and translate outcomes into 201, 409 or 404. The service checks course publication and duplicate enrolment before saving.\n\n### Common failure to avoid\n\nPutting SQL, authorization, validation and response formatting in one giant route makes changes risky. Do not duplicate the same business rule across multiple controllers.\n\n### Practice task\n\nRefactor a single route into controller, service and repository layers. Write a unit test for the service without starting Express.\n\n### Verification\n\nTest the normal request and at least one invalid or unauthorized request. Record the expected HTTP status, response shape and whether a database write should occur. Explain what evidence would show that the behaviour is correct rather than merely appearing correct in the browser.",
+            "exercise": "Refactor a single route into controller, service and repository layers. Write a unit test for the service without starting Express.",
+            "key_takeaways": [
+              "Keep HTTP handling separate from domain rules and persistence.",
+              "Validate and authorize every request on the server.",
+              "Use database constraints, tests and observability to protect production behaviour."
+            ]
+          },
+          {
+            "title": "Validation, Errors and API Responses",
+            "duration_minutes": 40,
+            "body_markdown": "## Validation, Errors and API Responses\n\nTreat all incoming data as untrusted. Validate shape, type, range, length and allowed values before domain logic. Return consistent error structures and avoid leaking stack traces, SQL messages or internal paths to clients.\n\n### Worked application example\n\nA progress endpoint may accept a lesson ID and a position between zero and the lesson duration. Reject negative values, oversized payloads and unknown identifiers before writing to the database.\n\n### Common failure to avoid\n\nClient-side validation is only a usability feature. An attacker can call the API directly. Do not use broad catch blocks that turn every failure into a successful empty response.\n\n### Practice task\n\nCreate a validation schema for a course creation request. Include missing fields, excessive title length and invalid price cases.\n\n### Verification\n\nTest the normal request and at least one invalid or unauthorized request. Record the expected HTTP status, response shape and whether a database write should occur. Explain what evidence would show that the behaviour is correct rather than merely appearing correct in the browser.",
+            "exercise": "Create a validation schema for a course creation request. Include missing fields, excessive title length and invalid price cases.",
+            "key_takeaways": [
+              "Keep HTTP handling separate from domain rules and persistence.",
+              "Validate and authorize every request on the server.",
+              "Use database constraints, tests and observability to protect production behaviour."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Express Routing and Middleware",
+        "description": "Validate input, authenticate users and protect database operations.",
+        "lessons": [
+          {
+            "title": "Authentication and Session Security",
+            "duration_minutes": 25,
+            "body_markdown": "## Authentication and Session Security\n\nAuthentication establishes the caller's identity. Session management maintains that identity across requests. Use established libraries or managed identity providers rather than inventing password storage and token cryptography. Store password hashes, not plaintext passwords, and use secure cookie settings for browser sessions.\n\n### Worked application example\n\nA protected route can read a signed session from an HttpOnly, Secure and appropriately SameSite cookie, then resolve the user on the server. The browser should not be able to read an HttpOnly session cookie through JavaScript.\n\n### Common failure to avoid\n\nA valid token does not prove the caller owns every record. Do not store long-lived secrets in localStorage without understanding the threat model, and never log session tokens.\n\n### Practice task\n\nDescribe a sign-in flow from credential submission to session validation. Identify cookie attributes and the server-side ownership check.\n\n### Verification\n\nTest the normal request and at least one invalid or unauthorized request. Record the expected HTTP status, response shape and whether a database write should occur. Explain what evidence would show that the behaviour is correct rather than merely appearing correct in the browser.",
+            "exercise": "Describe a sign-in flow from credential submission to session validation. Identify cookie attributes and the server-side ownership check.",
+            "key_takeaways": [
+              "Keep HTTP handling separate from domain rules and persistence.",
+              "Validate and authorize every request on the server.",
+              "Use database constraints, tests and observability to protect production behaviour."
+            ]
+          },
+          {
+            "title": "Authorization, Roles and Database Security",
+            "duration_minutes": 25,
+            "body_markdown": "## Authorization, Roles and Database Security\n\nAuthorization evaluates whether an authenticated user may perform a specific action on a resource. Roles can describe broad capabilities, but ownership and resource state often matter too. Enforce important restrictions in the service and database, not only in route visibility.\n\n### Worked application example\n\nA learner can read their own progress and enrolled lessons. An instructor may manage assigned course content. A content reviewer may approve a version but should not approve their own work if policy forbids it.\n\n### Common failure to avoid\n\nNever trust a `role` field in the request body. A service-role database credential can bypass row-level security, so use it only in tightly controlled server code with explicit authorization.\n\n### Practice task\n\nCreate a role-permission matrix for learner, instructor and reviewer. Add one ownership rule that a role alone cannot express.\n\n### Verification\n\nTest the normal request and at least one invalid or unauthorized request. Record the expected HTTP status, response shape and whether a database write should occur. Explain what evidence would show that the behaviour is correct rather than merely appearing correct in the browser.",
+            "exercise": "Create a role-permission matrix for learner, instructor and reviewer. Add one ownership rule that a role alone cannot express.",
+            "key_takeaways": [
+              "Keep HTTP handling separate from domain rules and persistence.",
+              "Validate and authorize every request on the server.",
+              "Use database constraints, tests and observability to protect production behaviour."
+            ]
+          },
+          {
+            "title": "Database Access and Transactions",
+            "duration_minutes": 25,
+            "body_markdown": "## Database Access and Transactions\n\nDatabase operations should use parameterised queries or a well-designed data client. Transactions keep related writes consistent: either all required changes commit or none do. Use database constraints to protect invariants against concurrent requests.\n\n### Worked application example\n\nFree enrolment might insert an enrolment row only when the course is published and the learner has no existing active enrolment. A unique constraint can prevent duplicates even if two requests arrive at nearly the same time.\n\n### Common failure to avoid\n\nChecking for a duplicate in application code and then inserting without a database constraint creates a race condition. Never concatenate user input into SQL strings.\n\n### Practice task\n\nDesign a transaction for enrolling a learner and recording an audit event. State which constraints and rollback behaviour are required.\n\n### Verification\n\nTest the normal request and at least one invalid or unauthorized request. Record the expected HTTP status, response shape and whether a database write should occur. Explain what evidence would show that the behaviour is correct rather than merely appearing correct in the browser.",
+            "exercise": "Design a transaction for enrolling a learner and recording an audit event. State which constraints and rollback behaviour are required.",
+            "key_takeaways": [
+              "Keep HTTP handling separate from domain rules and persistence.",
+              "Validate and authorize every request on the server.",
+              "Use database constraints, tests and observability to protect production behaviour."
+            ]
+          },
+          {
+            "title": "Testing Node and Express Services",
+            "duration_minutes": 40,
+            "body_markdown": "## Testing Node and Express Services\n\nUnit tests check pure functions and domain services. Integration tests verify routes, middleware and database interactions. End-to-end tests validate the real user journey. Use isolated test data and ensure tests clean up after themselves.\n\n### Worked application example\n\nTest a course route with a valid request, malformed body, unauthenticated caller, unauthorized learner, missing course and database failure. Verify both the HTTP status and response shape.\n\n### Common failure to avoid\n\nA test suite that only mocks every database call cannot prove database constraints or row-level security. Avoid shared mutable fixtures that make tests order-dependent.\n\n### Practice task\n\nWrite a test matrix for an enrolment endpoint with happy path, duplicate retry, invalid input and unauthorized access.\n\n### Verification\n\nTest the normal request and at least one invalid or unauthorized request. Record the expected HTTP status, response shape and whether a database write should occur. Explain what evidence would show that the behaviour is correct rather than merely appearing correct in the browser.",
+            "exercise": "Write a test matrix for an enrolment endpoint with happy path, duplicate retry, invalid input and unauthorized access.",
+            "key_takeaways": [
+              "Keep HTTP handling separate from domain rules and persistence.",
+              "Validate and authorize every request on the server.",
+              "Use database constraints, tests and observability to protect production behaviour."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Secure APIs, Testing and Deployment",
+        "description": "Test, operate and deploy a maintainable API through a practical project.",
+        "lessons": [
+          {
+            "title": "File Uploads and External Services",
+            "duration_minutes": 25,
+            "body_markdown": "## File Uploads and External Services\n\nFile uploads introduce size, type, storage and malware risks. Validate file metadata on the server, use private storage for restricted materials and issue short-lived signed access where appropriate. External service calls need timeouts and failure handling.\n\n### Worked application example\n\nA course material upload can check the authenticated editor role, enforce a size limit, allow only expected document types and store the object under a course-version-specific path.\n\n### Common failure to avoid\n\nDo not trust a filename extension or browser-supplied MIME type as proof of file safety. Avoid storing large binary content directly in ordinary application rows without a deliberate reason.\n\n### Practice task\n\nDesign a secure upload flow for a PDF lesson resource, including authorization, limits, storage policy and download access.\n\n### Verification\n\nTest the normal request and at least one invalid or unauthorized request. Record the expected HTTP status, response shape and whether a database write should occur. Explain what evidence would show that the behaviour is correct rather than merely appearing correct in the browser.",
+            "exercise": "Design a secure upload flow for a PDF lesson resource, including authorization, limits, storage policy and download access.",
+            "key_takeaways": [
+              "Keep HTTP handling separate from domain rules and persistence.",
+              "Validate and authorize every request on the server.",
+              "Use database constraints, tests and observability to protect production behaviour."
+            ]
+          },
+          {
+            "title": "Rate Limits, Logging and Operational Safety",
+            "duration_minutes": 25,
+            "body_markdown": "## Rate Limits, Logging and Operational Safety\n\nRate limiting reduces abuse and protects expensive endpoints. Logs help diagnose failures, but should contain request IDs, operation names and safe metadata rather than credentials or sensitive content. Health checks should report service readiness without exposing secrets.\n\n### Worked application example\n\nA sign-in endpoint may have per-IP and per-account limits. A progress endpoint may accept repeated idempotent updates but should still have payload and request limits.\n\n### Common failure to avoid\n\nRate limits must account for shared networks and legitimate retries. Logging an Authorization header or full request body can turn observability into a data breach.\n\n### Practice task\n\nPropose rate limits and structured log fields for sign-in, course search and file upload. List fields that must never be logged.\n\n### Verification\n\nTest the normal request and at least one invalid or unauthorized request. Record the expected HTTP status, response shape and whether a database write should occur. Explain what evidence would show that the behaviour is correct rather than merely appearing correct in the browser.",
+            "exercise": "Propose rate limits and structured log fields for sign-in, course search and file upload. List fields that must never be logged.",
+            "key_takeaways": [
+              "Keep HTTP handling separate from domain rules and persistence.",
+              "Validate and authorize every request on the server.",
+              "Use database constraints, tests and observability to protect production behaviour."
+            ]
+          },
+          {
+            "title": "Deployment and Graceful Shutdown",
+            "duration_minutes": 25,
+            "body_markdown": "## Deployment and Graceful Shutdown\n\nA production Node service needs a repeatable build, configuration validation, health checks and controlled shutdown. On shutdown, stop accepting new requests, allow in-flight work to finish within a deadline and close database connections. Deployments should be observable and reversible.\n\n### Worked application example\n\nA container or managed host can start the API with a defined command, expose a health endpoint and receive a termination signal during release. The server should close its database pool before exiting.\n\n### Common failure to avoid\n\nA process that works on a developer laptop may fail in production because of missing variables, wrong start scripts or assumptions about writable local storage. Do not store durable uploads on ephemeral disk.\n\n### Practice task\n\nWrite a deployment checklist with environment validation, health check, migration plan, shutdown behaviour and rollback criteria.\n\n### Verification\n\nTest the normal request and at least one invalid or unauthorized request. Record the expected HTTP status, response shape and whether a database write should occur. Explain what evidence would show that the behaviour is correct rather than merely appearing correct in the browser.",
+            "exercise": "Write a deployment checklist with environment validation, health check, migration plan, shutdown behaviour and rollback criteria.",
+            "key_takeaways": [
+              "Keep HTTP handling separate from domain rules and persistence.",
+              "Validate and authorize every request on the server.",
+              "Use database constraints, tests and observability to protect production behaviour."
+            ]
+          },
+          {
+            "title": "Capstone: Build a Course API",
+            "duration_minutes": 40,
+            "body_markdown": "## Capstone: Build a Course API\n\nBuild an Express API that lists published courses, returns course details, accepts free enrolment, serves protected lesson metadata and records learner progress. Separate routes, controllers, services and data access. Document the API and use a consistent error format.\n\n### Worked application example\n\nThe enrolment flow derives the learner from a verified session, checks publication and duplicate state, then writes safely. Lesson access verifies active enrolment in the exact course version. Progress updates are bounded and idempotent.\n\n### Common failure to avoid\n\nA route hidden in the UI is still callable. The capstone is not secure until direct requests from an unauthenticated user and a different learner are denied. Keep privileged credentials server-only and use database constraints.\n\n### Practice task\n\nSubmit source code, route documentation, schema or data model, tests, security matrix, setup instructions and deployment checklist.\n\n### Verification\n\nTest the normal request and at least one invalid or unauthorized request. Record the expected HTTP status, response shape and whether a database write should occur. Explain what evidence would show that the behaviour is correct rather than merely appearing correct in the browser.",
+            "exercise": "Submit source code, route documentation, schema or data model, tests, security matrix, setup instructions and deployment checklist.",
+            "key_takeaways": [
+              "Keep HTTP handling separate from domain rules and persistence.",
+              "Validate and authorize every request on the server.",
+              "Use database constraints, tests and observability to protect production behaviour."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "Node.js and Express API Development: Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions and justify security decisions. For endpoint design, include methods, status codes, validation and failure behaviour.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short_answer",
+          "prompt": "Explain why CPU-heavy synchronous work can affect multiple requests in a Node.js process. Give one mitigation.",
+          "marks": 8,
+          "rubric": [
+            "Explains event-loop blocking (4)",
+            "Gives appropriate mitigation and trade-off (4)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "architecture",
+          "prompt": "Design an Express middleware and route structure for public course search and protected lesson access.",
+          "marks": 10,
+          "rubric": [
+            "Correct middleware ordering (3)",
+            "Separates routes/controllers/services (3)",
+            "Applies authentication and authorization appropriately (4)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "security",
+          "prompt": "Explain how to protect a lesson endpoint from a signed-in learner who is not enrolled in the exact course version.",
+          "marks": 12,
+          "rubric": [
+            "Authentication (2)",
+            "Resource-level authorization (4)",
+            "Database policy/constraints (3)",
+            "Negative test evidence (3)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "database",
+          "prompt": "Explain why an application-level duplicate check is not enough to prevent duplicate enrolments under concurrent requests.",
+          "marks": 10,
+          "rubric": [
+            "Identifies race condition (4)",
+            "Uses unique constraint or transaction (3)",
+            "Explains retry-safe behaviour (3)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "testing",
+          "prompt": "Create a test matrix for a POST enrolment endpoint with valid, duplicate, malformed, unauthenticated and unavailable-course cases.",
+          "marks": 10,
+          "rubric": [
+            "Covers all required cases (5)",
+            "Correct expected status and persistence outcome (3)",
+            "Includes isolation or retry reasoning (2)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit the documented course API capstone with tests, security matrix and deployment checklist.",
+          "marks": 20,
+          "rubric": [
+            "Working route and service architecture (4)",
+            "Validation, authentication and authorization (5)",
+            "Database integrity and tests (5)",
+            "Documentation and operations evidence (3)",
+            "Reproducible setup (3)"
+          ]
+        }
+      ],
+      "total_marks": 70
+    },
+    "final_project": {
+      "title": "Secure Course API",
+      "deliverables": [
+        "Express application with documented routes",
+        "Controller, service and repository separation",
+        "Database schema or data model with integrity constraints",
+        "Authentication and authorization implementation",
+        "Input validation and consistent error responses",
+        "Unit, integration and end-to-end tests",
+        "Rate-limit and logging policy",
+        "Deployment and rollback checklist"
+      ],
+      "acceptance_criteria": [
+        "Public catalogue routes expose only published course metadata",
+        "Protected lesson routes deny unauthenticated and unenrolled users",
+        "Enrolment retries do not create duplicate records",
+        "Database operations use parameterised queries and appropriate transactions",
+        "Tests cover invalid input, authorization failures and service errors",
+        "Secrets are not committed or logged and deployment is reproducible"
+      ]
+    },
+    "references": [
+      {
+        "title": "Node.js Documentation",
+        "url": "https://nodejs.org/docs/latest/api/",
+        "note": "Official reference for runtime APIs, modules, process behaviour and deployment considerations."
+      },
+      {
+        "title": "Express Documentation",
+        "url": "https://expressjs.com/en/guide/routing.html",
+        "note": "Official reference for routing, middleware and error handling."
+      },
+      {
+        "title": "MDN HTTP Overview",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview",
+        "note": "Reference for HTTP request and response semantics."
+      },
+      {
+        "title": "OWASP API Security Top 10",
+        "url": "https://owasp.org/API-Security/",
+        "note": "Security risks and defensive practices for API services."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft. Verify code against the selected Node.js and Express versions, run all examples, review security claims and align with curriculum before publication. No academic approval is claimed.",
+      "language": "English",
+      "content_quality": "Four sections, sixteen lessons, six assessment questions, a secure API capstone and official references. Technical and academic review remains required."
+    }
+  }
+}

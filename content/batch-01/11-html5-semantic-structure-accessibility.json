@@ -1,0 +1,358 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "html5-semantic-structure-accessibility",
+    "title": "HTML5: Semantic Structure and Accessibility",
+    "subtitle": "Create well-structured, accessible websites with semantic HTML, meaningful forms and media.",
+    "description": "A practical HTML course covering document anatomy, metadata, semantic landmarks, heading hierarchy, text semantics, lists, links, images and alternative text, data tables, forms, native controls, media, keyboard accessibility, validation and browser inspection. Learners build a multi-page website and verify both markup quality and user access.",
+    "level": "beginner",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 640,
+    "target_audience": [
+      "Computing students learning web foundations",
+      "Beginners building their first multi-page website",
+      "Learners who need semantic HTML before CSS and JavaScript"
+    ],
+    "prerequisites": [
+      "Basic computer literacy",
+      "Ability to create and save files in folders"
+    ],
+    "outcomes": [
+      "Create a valid HTML document with suitable metadata",
+      "Use semantic landmarks and a logical heading hierarchy",
+      "Represent text, lists, links, images and tables appropriately",
+      "Build forms with labels, grouping and clear error states",
+      "Choose native interactive elements that support keyboard use",
+      "Provide suitable text alternatives for informative media",
+      "Explain foundational WCAG accessibility principles",
+      "Validate and inspect a multi-page HTML site"
+    ],
+    "equipment": [
+      "Laptop or desktop computer",
+      "Modern web browser",
+      "Text editor",
+      "HTML validator and browser developer tools"
+    ],
+    "accessibility": "The course demonstrates semantic content, selectable code and text alternatives. Exercises can be completed in a text editor and browser without paid software.",
+    "sections": [
+      {
+        "title": "Document Structure and Semantics",
+        "description": "Build well-formed documents with meaningful structural elements.",
+        "lessons": [
+          {
+            "title": "HTML document anatomy",
+            "duration_minutes": 25,
+            "body_markdown": "## HTML document anatomy\n\nAn HTML document has a doctype declaration, a root `html` element, a `head` for metadata and linked resources, and a `body` for document content. The doctype places modern browsers into standards mode. The `lang` attribute on the root helps assistive technologies and language-aware tools choose appropriate pronunciation and processing. A document title should describe the page and appear in the browser tab. HTML is a structured language, not a visual design language; CSS controls presentation and JavaScript adds behaviour.\n\n### Worked example\n\nCreate a minimal document with a meaningful title, `lang=\"en\"`, viewport metadata and one visible heading. Inspect the document in browser developer tools.\n\n### Common failure to avoid\n\nDo not omit metadata or use the document title as a substitute for the visible page heading.\n\n### Check your understanding\n\nExplain which meaning the markup communicates, how a browser or assistive technology can interpret it and which user task it supports. Where a technique has limitations, state what additional validation or testing is needed.\n",
+            "exercise": "Explain which document elements contain metadata and which contain user-facing content.",
+            "key_takeaways": [
+              "Explain the semantic purpose of html document anatomy.",
+              "Apply the element or accessibility practice to a realistic page and name one failure case."
+            ]
+          },
+          {
+            "title": "Metadata, character encoding and responsive viewport",
+            "duration_minutes": 25,
+            "body_markdown": "## Metadata, character encoding and responsive viewport\n\nThe `head` can declare character encoding, a page title, description metadata, viewport behaviour and links to stylesheets or icons. UTF-8 is a widely used encoding that supports characters across many writing systems. Viewport metadata tells mobile browsers how to size the layout viewport; it does not itself make a layout responsive, but it prevents a common default scaling problem. Metadata should accurately describe the page and should not contain copied boilerplate that misrepresents its purpose. Resource links should use correct paths and stable filenames.\n\n### Worked example\n\nAdd UTF-8 and viewport metadata to a page that includes Hausa and English text, then verify that both render correctly.\n\n### Common failure to avoid\n\nDo not use the viewport declaration as proof that the page layout works at different screen widths.\n\n### Check your understanding\n\nExplain which meaning the markup communicates, how a browser or assistive technology can interpret it and which user task it supports. Where a technique has limitations, state what additional validation or testing is needed.\n",
+            "exercise": "Create metadata for a course detail page and explain the purpose of each tag.",
+            "key_takeaways": [
+              "Explain the semantic purpose of metadata, character encoding and responsive viewport.",
+              "Apply the element or accessibility practice to a realistic page and name one failure case."
+            ]
+          },
+          {
+            "title": "Semantic landmarks and sectioning elements",
+            "duration_minutes": 25,
+            "body_markdown": "## Semantic landmarks and sectioning elements\n\nSemantic elements describe the role of content. `header`, `nav`, `main`, `footer`, `article`, `section` and `aside` provide meaning that browsers and assistive technologies can expose. A `main` element identifies the dominant content area; a `nav` element groups major navigation; an `article` is suitable for independently reusable content. A `section` is a thematic grouping and should normally have a heading. Use `div` when no more specific semantic element is appropriate, not as the default for every region.\n\n### Worked example\n\nConvert a page built from nested `div` elements into meaningful header, navigation, main, article and footer regions.\n\n### Common failure to avoid\n\nDo not select elements solely because of their default visual appearance; choose them for their meaning.\n\n### Check your understanding\n\nExplain which meaning the markup communicates, how a browser or assistive technology can interpret it and which user task it supports. Where a technique has limitations, state what additional validation or testing is needed.\n",
+            "exercise": "Draw a semantic outline for a course lesson page and label each landmark.",
+            "key_takeaways": [
+              "Explain the semantic purpose of semantic landmarks and sectioning elements.",
+              "Apply the element or accessibility practice to a realistic page and name one failure case."
+            ]
+          },
+          {
+            "title": "Headings and document hierarchy",
+            "duration_minutes": 25,
+            "body_markdown": "## Headings and document hierarchy\n\nHeading elements from `h1` to `h6` express a hierarchy of sections. They help readers scan a document and allow assistive technologies to navigate by headings. Choose heading levels based on structure, not on the font size you want. A page should have a clear main heading, and nested sections should use a logical hierarchy. If a heading looks too large or small, style it with CSS rather than skipping levels to obtain a visual result. Heading text should tell readers what the following section contains.\n\n### Worked example\n\nCreate a lesson page outline with one page title, section headings and nested subsection headings.\n\n### Common failure to avoid\n\nDo not use headings as a shortcut for bold text or choose heading levels only to control their default size.\n\n### Check your understanding\n\nExplain which meaning the markup communicates, how a browser or assistive technology can interpret it and which user task it supports. Where a technique has limitations, state what additional validation or testing is needed.\n",
+            "exercise": "Review a heading outline and fix skipped or misleading levels.",
+            "key_takeaways": [
+              "Explain the semantic purpose of headings and document hierarchy.",
+              "Apply the element or accessibility practice to a realistic page and name one failure case."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Content, Links and Media",
+        "description": "Represent text, navigation, images and media with suitable HTML.",
+        "lessons": [
+          {
+            "title": "Text semantics and readable content",
+            "duration_minutes": 25,
+            "body_markdown": "## Text semantics and readable content\n\nHTML includes elements for paragraphs, emphasis, strong importance, quotations, code, definitions and other textual roles. Use `p` for paragraphs, `strong` when content has importance and `em` when stress emphasis changes meaning. Inline elements such as `code`, `kbd` and `samp` identify technical content, keyboard input and sample output. Plain language, short paragraphs and descriptive headings improve comprehension for many readers. CSS should control typography without replacing the underlying text structure.\n\n### Worked example\n\nWrite a short programming lesson using paragraphs, a list, inline code and a quoted requirement with correct semantics.\n\n### Common failure to avoid\n\nDo not use semantic elements only to obtain bold or italic appearance; choose them for the meaning they express.\n\n### Check your understanding\n\nExplain which meaning the markup communicates, how a browser or assistive technology can interpret it and which user task it supports. Where a technique has limitations, state what additional validation or testing is needed.\n",
+            "exercise": "Rewrite a wall of text into a structured section with meaningful paragraph and inline semantics.",
+            "key_takeaways": [
+              "Explain the semantic purpose of text semantics and readable content.",
+              "Apply the element or accessibility practice to a realistic page and name one failure case."
+            ]
+          },
+          {
+            "title": "Lists and grouped content",
+            "duration_minutes": 25,
+            "body_markdown": "## Lists and grouped content\n\nOrdered lists represent sequences where order matters, while unordered lists represent collections where order does not determine meaning. Description lists associate terms with descriptions and can be useful for glossaries or metadata. List items must be placed inside the appropriate list container. A list should be used because the content is conceptually a list, not simply because bullets are visually convenient. Nested lists should remain understandable and should not become an excuse for deeply nested navigation.\n\n### Worked example\n\nRepresent a course learning-outcomes list, a numbered setup sequence and a glossary using suitable list elements.\n\n### Common failure to avoid\n\nDo not simulate lists using line breaks and typed bullet characters when a real list structure is appropriate.\n\n### Check your understanding\n\nExplain which meaning the markup communicates, how a browser or assistive technology can interpret it and which user task it supports. Where a technique has limitations, state what additional validation or testing is needed.\n",
+            "exercise": "Choose list types for five examples and justify the semantic choice.",
+            "key_takeaways": [
+              "Explain the semantic purpose of lists and grouped content.",
+              "Apply the element or accessibility practice to a realistic page and name one failure case."
+            ]
+          },
+          {
+            "title": "Links, URLs and navigation",
+            "duration_minutes": 25,
+            "body_markdown": "## Links, URLs and navigation\n\nAn anchor element with an `href` creates a hyperlink. Link text should describe the destination or action, because people may navigate through a list of links without reading surrounding paragraphs. Avoid generic repeated labels such as “click here”. Use relative URLs for resources within the same site when suitable, and absolute URLs for external destinations. A link navigates to a resource; a button performs an action. Navigation structures should be consistent and should not depend on colour alone to identify interactive text.\n\n### Worked example\n\nBuild a page navigation menu with descriptive labels and one in-page contents link.\n\n### Common failure to avoid\n\nDo not use a button for ordinary navigation or an anchor without a meaningful destination.\n\n### Check your understanding\n\nExplain which meaning the markup communicates, how a browser or assistive technology can interpret it and which user task it supports. Where a technique has limitations, state what additional validation or testing is needed.\n",
+            "exercise": "Audit a set of links for descriptive text, correct destinations and keyboard focus visibility.",
+            "key_takeaways": [
+              "Explain the semantic purpose of links, urls and navigation.",
+              "Apply the element or accessibility practice to a realistic page and name one failure case."
+            ]
+          },
+          {
+            "title": "Images, figures and alternative text",
+            "duration_minutes": 25,
+            "body_markdown": "## Images, figures and alternative text\n\nAn `img` element embeds an image resource. Alternative text communicates the relevant purpose or information when the image cannot be perceived. The text depends on context: a meaningful chart may need a concise description of its key information, while a decorative image should generally have empty alternative text so it is not announced unnecessarily. A `figure` can group media with a `figcaption`. Do not write filenames or generic phrases as alternative text. Avoid repeating nearby text without adding useful information.\n\n### Worked example\n\nAdd a meaningful course diagram and write alternative text that communicates its purpose without describing every pixel.\n\n### Common failure to avoid\n\nDo not use the same generic alt text for every image or put essential text only inside an image.\n\n### Check your understanding\n\nExplain which meaning the markup communicates, how a browser or assistive technology can interpret it and which user task it supports. Where a technique has limitations, state what additional validation or testing is needed.\n",
+            "exercise": "Write alternative text for a decorative logo, an instructional diagram and a data chart.",
+            "key_takeaways": [
+              "Explain the semantic purpose of images, figures and alternative text.",
+              "Apply the element or accessibility practice to a realistic page and name one failure case."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Forms, Tables and Interaction",
+        "description": "Build usable data-entry and interactive structures.",
+        "lessons": [
+          {
+            "title": "Tables for tabular data",
+            "duration_minutes": 25,
+            "body_markdown": "## Tables for tabular data\n\nA table represents relationships between row and column data; it should not be used to create page layout. Header cells identify the meaning of associated data cells. Use `thead`, `tbody`, `th` and `td` appropriately, and provide `scope` when it clarifies row or column headers. Captions can describe the table's purpose. Complex tables may require explicit associations, but simpler structure is usually easier to navigate. On small screens, consider a responsive wrapper or an alternative presentation without removing the relationships.\n\n### Worked example\n\nCreate a course timetable with a caption, column headings and row labels using semantic table markup.\n\n### Common failure to avoid\n\nDo not use a table merely to align unrelated page elements or use bold text as a substitute for header cells.\n\n### Check your understanding\n\nExplain which meaning the markup communicates, how a browser or assistive technology can interpret it and which user task it supports. Where a technique has limitations, state what additional validation or testing is needed.\n",
+            "exercise": "Audit a timetable for captions, header associations and small-screen usability.",
+            "key_takeaways": [
+              "Explain the semantic purpose of tables for tabular data.",
+              "Apply the element or accessibility practice to a realistic page and name one failure case."
+            ]
+          },
+          {
+            "title": "Forms, labels and field grouping",
+            "duration_minutes": 25,
+            "body_markdown": "## Forms, labels and field grouping\n\nA form groups controls that submit user data. Each control needs a programmatic label, commonly through a `label` associated by `for` and `id`. `fieldset` and `legend` group related controls such as radio buttons. Input types communicate expected data and can provide useful browser behaviour, but they do not replace server-side validation. Placeholder text is not a substitute for a persistent label. Instructions and error messages should identify the field they relate to.\n\n### Worked example\n\nBuild an enrolment form with labelled name, email and course controls, plus a fieldset for study mode.\n\n### Common failure to avoid\n\nDo not use placeholder-only labels or rely on visual position to communicate which label belongs to which input.\n\n### Check your understanding\n\nExplain which meaning the markup communicates, how a browser or assistive technology can interpret it and which user task it supports. Where a technique has limitations, state what additional validation or testing is needed.\n",
+            "exercise": "Test the form using only the keyboard and confirm every input has a clear name.",
+            "key_takeaways": [
+              "Explain the semantic purpose of forms, labels and field grouping.",
+              "Apply the element or accessibility practice to a realistic page and name one failure case."
+            ]
+          },
+          {
+            "title": "Native validation and accessible error messages",
+            "duration_minutes": 25,
+            "body_markdown": "## Native validation and accessible error messages\n\nHTML attributes such as `required`, `min`, `max`, `minlength` and suitable input types can express simple constraints. Browser validation improves user feedback but can vary and can be bypassed by crafted requests. Server validation remains authoritative. Error messages should describe the problem and how to correct it, and should be associated with the relevant field. Do not communicate errors through colour alone. Preserve valid values when a submission fails so a user does not have to re-enter everything.\n\n### Worked example\n\nAdd required and length constraints to a registration form, then test missing and malformed values. Design a visible error message tied to the field.\n\n### Common failure to avoid\n\nDo not treat browser constraint validation as a security boundary or assume every invalid input will be blocked.\n\n### Check your understanding\n\nExplain which meaning the markup communicates, how a browser or assistive technology can interpret it and which user task it supports. Where a technique has limitations, state what additional validation or testing is needed.\n",
+            "exercise": "Create an error-state design for a form with three different validation failures.",
+            "key_takeaways": [
+              "Explain the semantic purpose of native validation and accessible error messages.",
+              "Apply the element or accessibility practice to a realistic page and name one failure case."
+            ]
+          },
+          {
+            "title": "Buttons, controls and native interaction",
+            "duration_minutes": 25,
+            "body_markdown": "## Buttons, controls and native interaction\n\nNative HTML controls already include keyboard and accessibility behaviour that custom elements must recreate. Use a `button` for an action and choose its `type` deliberately, especially inside forms where a button may otherwise submit by default. `details` and `summary` provide a native disclosure pattern; `dialog` can represent a modal or non-modal dialog when its focus and closing behaviour are managed correctly. Interactive controls need an accessible name and a clear state. Avoid nested interactive elements.\n\n### Worked example\n\nAdd a submit button, a reset action and a disclosure section to a form. Test keyboard activation and focus order.\n\n### Common failure to avoid\n\nDo not use a clickable `div` when a native button or link already expresses the intended behaviour.\n\n### Check your understanding\n\nExplain which meaning the markup communicates, how a browser or assistive technology can interpret it and which user task it supports. Where a technique has limitations, state what additional validation or testing is needed.\n",
+            "exercise": "Review a page's interactive elements and replace generic containers with native controls where appropriate.",
+            "key_takeaways": [
+              "Explain the semantic purpose of buttons, controls and native interaction.",
+              "Apply the element or accessibility practice to a realistic page and name one failure case."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Accessibility and Project Delivery",
+        "description": "Apply semantic accessibility and validate a complete page set.",
+        "lessons": [
+          {
+            "title": "Audio, video and embedded content",
+            "duration_minutes": 25,
+            "body_markdown": "## Audio, video and embedded content\n\nHTML media elements can present audio and video with native controls. Captions provide text alternatives for spoken content in video; transcripts help people access audio information and support search and review. Provide fallback content when an external embed cannot load. Do not autoplay sound unexpectedly. Embedded third-party content may introduce privacy, performance and security considerations, so load only what the page needs and explain relevant controls to users.\n\n### Worked example\n\nAdd an instructional video with captions and a transcript link; document how the lesson works when the media is unavailable.\n\n### Common failure to avoid\n\nDo not publish spoken instructional content without an equivalent text path when accessibility requires it.\n\n### Check your understanding\n\nExplain which meaning the markup communicates, how a browser or assistive technology can interpret it and which user task it supports. Where a technique has limitations, state what additional validation or testing is needed.\n",
+            "exercise": "Prepare a media checklist covering captions, transcript, controls, fallback and privacy.",
+            "key_takeaways": [
+              "Explain the semantic purpose of audio, video and embedded content.",
+              "Apply the element or accessibility practice to a realistic page and name one failure case."
+            ]
+          },
+          {
+            "title": "Accessibility, keyboard use and source order",
+            "duration_minutes": 25,
+            "body_markdown": "## Accessibility, keyboard use and source order\n\nSemantic HTML creates built-in accessibility hooks, but a page still needs keyboard access, logical focus order, meaningful names and understandable instructions. Source order matters because assistive technology and keyboard navigation follow the document structure even when CSS changes visual positions. Use visible focus indicators and do not remove browser focus styling without a usable replacement. WCAG 2.2 adds criteria beyond earlier versions, so use the current published standard as a reference while avoiding claims of full compliance based on one test.\n\n### Worked example\n\nNavigate a lesson page using only the keyboard, then inspect headings and landmarks with an accessibility tree or screen reader.\n\n### Common failure to avoid\n\nDo not rely on visual layout alone to communicate sequence, grouping or interaction state.\n\n### Check your understanding\n\nExplain which meaning the markup communicates, how a browser or assistive technology can interpret it and which user task it supports. Where a technique has limitations, state what additional validation or testing is needed.\n",
+            "exercise": "Create a keyboard and screen-reader review checklist for a multi-section page.",
+            "key_takeaways": [
+              "Explain the semantic purpose of accessibility, keyboard use and source order.",
+              "Apply the element or accessibility practice to a realistic page and name one failure case."
+            ]
+          },
+          {
+            "title": "HTML validation and browser inspection",
+            "duration_minutes": 25,
+            "body_markdown": "## HTML validation and browser inspection\n\nAn HTML validator can identify malformed markup and conformance errors, while browser developer tools help inspect the DOM, network activity and console. Automated accessibility checkers can find some issues but cannot determine whether all content descriptions are meaningful or whether a workflow is understandable. Test at multiple viewport sizes and with keyboard-only navigation. Treat validation as one part of review, then manually inspect the page's semantics and content. Fix errors at their cause rather than hiding warnings with arbitrary markup.\n\n### Worked example\n\nValidate a page, inspect its DOM and test the same form on a narrow viewport and with keyboard-only input.\n\n### Common failure to avoid\n\nA green automated report does not prove a page is fully accessible or usable.\n\n### Check your understanding\n\nExplain which meaning the markup communicates, how a browser or assistive technology can interpret it and which user task it supports. Where a technique has limitations, state what additional validation or testing is needed.\n",
+            "exercise": "Record validation output, manual checks and unresolved issues for a sample page.",
+            "key_takeaways": [
+              "Explain the semantic purpose of html validation and browser inspection.",
+              "Apply the element or accessibility practice to a realistic page and name one failure case."
+            ]
+          },
+          {
+            "title": "Build an accessible multi-page website",
+            "duration_minutes": 25,
+            "body_markdown": "## Build an accessible multi-page website\n\nA complete site should use consistent document structure, meaningful navigation, descriptive titles, semantic content and accessible forms. Define a shared header/footer pattern while giving each page its own main heading and content. Images need context-sensitive alternatives, tables need headers and forms need labels and usable errors. Use CSS for layout rather than non-semantic markup. Check the site at realistic screen sizes and use both automated validation and manual keyboard review. Document known limitations honestly.\n\n### Worked example\n\nBuild a small NAUB student-support website with home, course information, timetable and contact pages.\n\n### Common failure to avoid\n\nDo not count pages as complete if navigation is broken, forms are unlabeled or mobile users cannot reach the main content.\n\n### Check your understanding\n\nExplain which meaning the markup communicates, how a browser or assistive technology can interpret it and which user task it supports. Where a technique has limitations, state what additional validation or testing is needed.\n",
+            "exercise": "Submit source files, a page map, validation results and a manual accessibility checklist.",
+            "key_takeaways": [
+              "Explain the semantic purpose of build an accessible multi-page website.",
+              "Apply the element or accessibility practice to a realistic page and name one failure case."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "HTML5: Semantic Structure and Accessibility Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions with semantic examples. For accessibility answers, identify the user need and explain what the markup enables.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "document_design",
+          "prompt": "Design the semantic structure for a course lesson page, including landmarks and heading hierarchy.",
+          "marks": 8,
+          "rubric": [
+            "Appropriate landmarks (3)",
+            "Logical heading hierarchy (3)",
+            "Clear main content region (2)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "accessibility",
+          "prompt": "Write appropriate alternative-text decisions for a decorative image, an instructional diagram and a chart.",
+          "marks": 10,
+          "rubric": [
+            "Decorative image handled appropriately (3)",
+            "Diagram communicates relevant purpose (3)",
+            "Chart alternative communicates key data (4)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "form_design",
+          "prompt": "Create a labelled enrolment form with grouped options and constraints, and explain which checks must also happen on the server.",
+          "marks": 12,
+          "rubric": [
+            "Programmatic labels (3)",
+            "Suitable controls and grouping (3)",
+            "Useful constraints and error path (3)",
+            "Server validation distinction (3)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "debugging",
+          "prompt": "A page uses clickable `div` elements for every menu item and removes focus outlines. Explain the usability and accessibility problems and propose native alternatives.",
+          "marks": 10,
+          "rubric": [
+            "Keyboard/focus problem (3)",
+            "Semantic issue (3)",
+            "Native element correction (4)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "testing",
+          "prompt": "Create a manual and automated validation checklist for a multi-page website, including narrow viewport and keyboard tests.",
+          "marks": 10,
+          "rubric": [
+            "Markup validation (2)",
+            "Keyboard checks (3)",
+            "Responsive checks (2)",
+            "Accessibility review (3)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit the accessible multi-page website with source, page map, validation results and manual checklist.",
+          "marks": 20,
+          "rubric": [
+            "Semantic document structure (4)",
+            "Navigation and content quality (4)",
+            "Accessible forms/media (4)",
+            "Responsive and keyboard testing (4)",
+            "Documentation (4)"
+          ]
+        }
+      ],
+      "total_marks": 70
+    },
+    "final_project": {
+      "title": "Accessible Student Support Website",
+      "brief": "Build a four-page student-support site with meaningful page titles, shared navigation, semantic content, a timetable represented as a data table, and a labelled contact form. Include appropriate alternative text, keyboard focus and mobile-friendly source order. Verify the markup and record manual accessibility findings.",
+      "deliverables": [
+        "Home, course information, timetable and contact pages",
+        "Semantic page structure and heading outline",
+        "Accessible navigation and form",
+        "Context-appropriate image alternatives",
+        "HTML validation results",
+        "Keyboard and narrow-screen test checklist",
+        "README with local preview instructions",
+        "Known limitations and improvement plan"
+      ],
+      "acceptance_criteria": [
+        "Each page has a descriptive title and main heading",
+        "Landmarks and headings form a logical structure",
+        "Navigation links have meaningful text and correct destinations",
+        "Form controls have programmatic labels and understandable errors",
+        "Informative images have appropriate text alternatives",
+        "The site works using keyboard navigation",
+        "The layout remains usable on narrow screens",
+        "Validation and manual test findings are documented"
+      ]
+    },
+    "references": [
+      {
+        "title": "MDN HTML elements reference",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements",
+        "note": "Reference for semantic, text, table, form and interactive HTML elements."
+      },
+      {
+        "title": "HTML: A good basis for accessibility",
+        "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Accessibility/HTML",
+        "note": "Practical semantic HTML and accessibility guidance."
+      },
+      {
+        "title": "Web Content Accessibility Guidelines (WCAG) 2.2",
+        "url": "https://www.w3.org/TR/WCAG22/",
+        "note": "W3C Recommendation for web content accessibility criteria."
+      },
+      {
+        "title": "W3C WAI WCAG overview",
+        "url": "https://www.w3.org/WAI/standards-guidelines/wcag/",
+        "note": "Overview of published WCAG versions and supporting guidance."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft. No authorised academic review has been recorded. Do not invent reviewer identities or dates and do not publish until a real review decision exists.",
+      "language": "English",
+      "content_quality": "Four sections and sixteen substantive lessons, examples, exercises, takeaways, assessment questions with rubrics, a multi-page accessible project, acceptance criteria and authoritative references are included. Technical and academic review remain required."
+    }
+  }
+}

@@ -1,0 +1,352 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "csharp-dotnet-application-development",
+    "title": "C# and .NET Application Development",
+    "subtitle": "Build maintainable C# applications with object-oriented design, collections, LINQ and asynchronous code.",
+    "description": "A practical introduction to C# and .NET covering project execution, types, nullability, control flow, methods, classes, interfaces, collections, LINQ, exceptions, asynchronous programming, testing and build delivery. The course emphasises testable business logic and responsible handling of external data.",
+    "level": "beginner",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 640,
+    "target_audience": [
+      "Computing students learning C# and .NET",
+      "Learners preparing for backend or desktop application development",
+      "Beginners with basic programming logic"
+    ],
+    "prerequisites": [
+      "Basic computer literacy",
+      "Basic understanding of variables and problem solving"
+    ],
+    "outcomes": [
+      "Explain the roles of C#, the .NET SDK and runtime",
+      "Use types, nullability, parsing and control flow",
+      "Write reusable methods with clear contracts",
+      "Design classes and interfaces that protect invariants",
+      "Choose generic collections for specific operations",
+      "Use LINQ to transform and aggregate data",
+      "Write asynchronous methods with clear cancellation and error handling",
+      "Build and test a small .NET application"
+    ],
+    "equipment": [
+      "Laptop or desktop computer",
+      "Compatible .NET SDK",
+      "C# editor or IDE",
+      "Terminal and test runner"
+    ],
+    "accessibility": "Code is selectable text. Any architecture diagram must have a text description, and exercises must include plain-text expected outcomes.",
+    "sections": [
+      {
+        "title": "C# and .NET Foundations",
+        "description": "Learn the .NET runtime, C# syntax, types and program structure.",
+        "lessons": [
+          {
+            "title": "The .NET platform and execution model",
+            "duration_minutes": 25,
+            "body_markdown": "## The .NET platform and execution model\n\nC# is a programming language commonly used with the .NET platform. A project is compiled into an intermediate representation that the .NET runtime executes, using just-in-time compilation or other runtime mechanisms depending on deployment. The .NET SDK provides tools to create, build, test and run projects. These are different responsibilities: source code expresses the program, the compiler checks and translates it, and the runtime executes it. Check the installed SDK and target framework rather than assuming a project uses the newest available version.\n\n### Worked example\n\nCreate a console project with the .NET CLI, inspect its project file and run it from the command line.\n\n### Common failure to avoid\n\nDo not confuse the C# language, the .NET SDK and the runtime; each has a different role.\n\n### Check your understanding\n\nExplain the rule in your own words and test it with one new input. Identify the data contract, expected result and at least one failure or boundary condition. A reliable explanation should distinguish what the compiler checks from what the program must validate at runtime.\n",
+            "exercise": "Describe the path from source files through build output to program execution.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of the .net platform and execution model.",
+              "Apply the idea to a new example and identify a relevant boundary or failure case."
+            ]
+          },
+          {
+            "title": "Program structure and namespaces",
+            "duration_minutes": 25,
+            "body_markdown": "## Program structure and namespaces\n\nA C# project groups source files, namespaces, types and methods. A console application has an entry point, which may be written explicitly with a `Main` method or use top-level statements in supported project configurations. Namespaces organise types and reduce naming collisions. The `using` directive makes names from a namespace easier to reference; it does not copy the types into the current file. Project structure should reflect coherent responsibilities rather than every file becoming one huge class.\n\n### Worked example\n\nCreate a console application with separate files for the entry point and a fee-calculation service.\n\n### Common failure to avoid\n\nDo not assume a `using` directive imports an entire library's runtime behaviour; it mainly affects name resolution.\n\n### Check your understanding\n\nExplain the rule in your own words and test it with one new input. Identify the data contract, expected result and at least one failure or boundary condition. A reliable explanation should distinguish what the compiler checks from what the program must validate at runtime.\n",
+            "exercise": "Draw the relationship between the project, namespace, class and method.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of program structure and namespaces.",
+              "Apply the idea to a new example and identify a relevant boundary or failure case."
+            ]
+          },
+          {
+            "title": "Types, variables and nullability",
+            "duration_minutes": 25,
+            "body_markdown": "## Types, variables and nullability\n\nC# is statically typed. Value types such as integers and structs hold values, while reference types such as classes hold references to objects. Nullable value types and nullable reference-type annotations help express when a value may be absent, but annotations do not replace runtime validation of external data. Use `var` when the right-hand side makes the type clear; use explicit types when they improve understanding of an API or important domain value. Initialisation and null handling should be deliberate.\n\n### Worked example\n\nDeclare a score, optional student nickname and collection of marks. Explain which values can be absent and how that is represented.\n\n### Common failure to avoid\n\nDo not treat nullable annotations as proof that a database or network response contains valid data.\n\n### Check your understanding\n\nExplain the rule in your own words and test it with one new input. Identify the data contract, expected result and at least one failure or boundary condition. A reliable explanation should distinguish what the compiler checks from what the program must validate at runtime.\n",
+            "exercise": "Define a small data model with required and optional fields and state its invariants.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of types, variables and nullability.",
+              "Apply the idea to a new example and identify a relevant boundary or failure case."
+            ]
+          },
+          {
+            "title": "Expressions, conversion and control flow",
+            "duration_minutes": 25,
+            "body_markdown": "## Expressions, conversion and control flow\n\nC# supports arithmetic, comparison, Boolean and pattern-matching expressions. A conditional branch should express a clear requirement and keep boundary rules explicit. Conversions may be implicit or explicit, and parsing text from users should use a method such as `int.TryParse` when invalid input is expected. `TryParse` returns success separately from the parsed value, so a program can report invalid input without relying on exceptions for ordinary validation. Avoid broad catch blocks around predictable data-entry mistakes.\n\n### Worked example\n\nUse `TryParse` to read a score, validate 0–100 and classify a valid score using a clear `if` or `switch` structure.\n\n### Common failure to avoid\n\nDo not assume text from a console, form or file is already a valid number.\n\n### Check your understanding\n\nExplain the rule in your own words and test it with one new input. Identify the data contract, expected result and at least one failure or boundary condition. A reliable explanation should distinguish what the compiler checks from what the program must validate at runtime.\n",
+            "exercise": "Implement a grade classifier with tests immediately below, at and above every threshold.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of expressions, conversion and control flow.",
+              "Apply the idea to a new example and identify a relevant boundary or failure case."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Methods and Object-Oriented C#",
+        "description": "Build reusable methods and model software with classes and interfaces.",
+        "lessons": [
+          {
+            "title": "Loops and arrays",
+            "duration_minutes": 25,
+            "body_markdown": "## Loops and arrays\n\nC# includes `for`, `foreach`, `while` and `do` loops. Arrays have a fixed length and are accessed with zero-based indexes. A `foreach` loop expresses iteration over values when the index is unnecessary, while `for` is useful when the position controls the operation. A range error can cause an exception, so validate indexes and define what an empty collection means. Prefer collection abstractions over fixed arrays when the number of items must change during execution.\n\n### Worked example\n\nCalculate the average of an array of marks and define the result for an empty array.\n\n### Common failure to avoid\n\nDo not use `i <= array.Length` as a loop condition; the last valid index is `Length - 1`.\n\n### Check your understanding\n\nExplain the rule in your own words and test it with one new input. Identify the data contract, expected result and at least one failure or boundary condition. A reliable explanation should distinguish what the compiler checks from what the program must validate at runtime.\n",
+            "exercise": "Trace a loop over four scores and show the index and accumulator after each iteration.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of loops and arrays.",
+              "Apply the idea to a new example and identify a relevant boundary or failure case."
+            ]
+          },
+          {
+            "title": "Methods, parameters and return values",
+            "duration_minutes": 25,
+            "body_markdown": "## Methods, parameters and return values\n\nA method groups behaviour behind a name, parameters and return type. A method that calculates data should normally return the result rather than print it, so callers can reuse and test the logic. C# supports value and reference parameter behaviours, but `ref`, `out` and `in` should be chosen only when the contract requires them. Optional and named arguments can improve call sites, but too many parameters may indicate that an options object or domain type would be clearer.\n\n### Worked example\n\nCreate `CalculateAverage` that receives a collection of scores and returns a decimal result with a defined empty-input policy.\n\n### Common failure to avoid\n\nDo not use `out` merely to avoid returning a useful result object or to create hidden side effects.\n\n### Check your understanding\n\nExplain the rule in your own words and test it with one new input. Identify the data contract, expected result and at least one failure or boundary condition. A reliable explanation should distinguish what the compiler checks from what the program must validate at runtime.\n",
+            "exercise": "Write method signatures for validation, calculation and formatting, then explain their contracts.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of methods, parameters and return values.",
+              "Apply the idea to a new example and identify a relevant boundary or failure case."
+            ]
+          },
+          {
+            "title": "Classes, properties and constructors",
+            "duration_minutes": 25,
+            "body_markdown": "## Classes, properties and constructors\n\nA class models data and operations. Constructors establish required initial state, while properties can expose controlled reads and writes. Auto-properties are convenient when no invariant needs enforcing; custom property accessors are useful when validation or computed behaviour is required. A record can be suitable for data-centric values where value-based equality is meaningful, while a class is often appropriate for identity and mutable lifecycle. Choose based on semantics, not syntax fashion.\n\n### Worked example\n\nCreate a `Student` model with a required ID, a name and a validated score property.\n\n### Common failure to avoid\n\nDo not assume a public setter is harmless; it may allow callers to violate an invariant.\n\n### Check your understanding\n\nExplain the rule in your own words and test it with one new input. Identify the data contract, expected result and at least one failure or boundary condition. A reliable explanation should distinguish what the compiler checks from what the program must validate at runtime.\n",
+            "exercise": "Identify which fields should be immutable, privately set or publicly mutable.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of classes, properties and constructors.",
+              "Apply the idea to a new example and identify a relevant boundary or failure case."
+            ]
+          },
+          {
+            "title": "Interfaces, inheritance and dependency design",
+            "duration_minutes": 25,
+            "body_markdown": "## Interfaces, inheritance and dependency design\n\nAn interface describes a capability that implementing types promise to support. Inheritance expresses a subtype relationship, while composition expresses that one object uses or contains another. Dependency injection supplies a dependency from outside a class, making the class easier to test and replace. Do not introduce an interface for every class automatically; abstraction is useful when callers need a contract or implementations may vary. Keep interfaces small and cohesive.\n\n### Worked example\n\nDefine an `IReportExporter` interface and provide two implementations with different output formats.\n\n### Common failure to avoid\n\nDo not use inheritance simply to share a few lines of code; composition or a helper may be clearer.\n\n### Check your understanding\n\nExplain the rule in your own words and test it with one new input. Identify the data contract, expected result and at least one failure or boundary condition. A reliable explanation should distinguish what the compiler checks from what the program must validate at runtime.\n",
+            "exercise": "Draw the dependency flow between a report service and its exporter.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of interfaces, inheritance and dependency design.",
+              "Apply the idea to a new example and identify a relevant boundary or failure case."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Collections, LINQ and Asynchronous Code",
+        "description": "Process data clearly and understand asynchronous operations.",
+        "lessons": [
+          {
+            "title": "Collections and generic types",
+            "duration_minutes": 25,
+            "body_markdown": "## Collections and generic types\n\nGeneric collections express the type of their contents and help the compiler catch mismatches. `List<T>` preserves sequence, `HashSet<T>` maintains uniqueness, and `Dictionary<TKey,TValue>` supports keyed lookup. Choose a collection based on the operations needed and understand that dictionary keys must obey equality and hashing contracts. Expose interfaces such as `IReadOnlyList<T>` when callers should inspect but not structurally modify an internal list. Avoid returning mutable internal collections that allow external code to corrupt invariants.\n\n### Worked example\n\nStore ordered assessment attempts in a list, unique course codes in a set and ID-to-profile lookup in a dictionary.\n\n### Common failure to avoid\n\nDo not expose an internal mutable list when callers only need to read it.\n\n### Check your understanding\n\nExplain the rule in your own words and test it with one new input. Identify the data contract, expected result and at least one failure or boundary condition. A reliable explanation should distinguish what the compiler checks from what the program must validate at runtime.\n",
+            "exercise": "Choose collections for four use cases and justify lookup, ordering and uniqueness.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of collections and generic types.",
+              "Apply the idea to a new example and identify a relevant boundary or failure case."
+            ]
+          },
+          {
+            "title": "LINQ and query reasoning",
+            "duration_minutes": 25,
+            "body_markdown": "## LINQ and query reasoning\n\nLanguage Integrated Query (LINQ) provides operators for filtering, projection, grouping, sorting and aggregation. Methods such as `Where`, `Select`, `OrderBy` and `GroupBy` can make data transformations expressive. Many LINQ queries use deferred execution, meaning the query runs when enumerated rather than when the query variable is created. Re-enumerating a query can repeat work or observe changed source data. Keep queries readable and avoid hiding side effects inside predicates or projections.\n\n### Worked example\n\nFilter a list of students who passed, project their names and order the result by name.\n\n### Common failure to avoid\n\nDo not assume constructing a LINQ query has already performed the work; understand when it is enumerated.\n\n### Check your understanding\n\nExplain the rule in your own words and test it with one new input. Identify the data contract, expected result and at least one failure or boundary condition. A reliable explanation should distinguish what the compiler checks from what the program must validate at runtime.\n",
+            "exercise": "Write a query that groups registrations by course and calculates counts.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of linq and query reasoning.",
+              "Apply the idea to a new example and identify a relevant boundary or failure case."
+            ]
+          },
+          {
+            "title": "Exceptions, validation and resource disposal",
+            "duration_minutes": 25,
+            "body_markdown": "## Exceptions, validation and resource disposal\n\nExceptions represent exceptional failures; they should not replace simple expected validation. Use `TryParse` or explicit validation for ordinary user input. `using` statements and declarations dispose resources such as streams when their scope ends, including when an exception occurs. Catch exceptions at boundaries where the application can provide a useful response, and preserve diagnostic information for developers without exposing sensitive details to users. Do not catch all exceptions and continue with partial or corrupted data.\n\n### Worked example\n\nRead a file with a disposal-safe pattern and handle a missing-file case with a meaningful user response.\n\n### Common failure to avoid\n\nA swallowed exception can make an incomplete operation appear successful.\n\n### Check your understanding\n\nExplain the rule in your own words and test it with one new input. Identify the data contract, expected result and at least one failure or boundary condition. A reliable explanation should distinguish what the compiler checks from what the program must validate at runtime.\n",
+            "exercise": "Write a file-import method that validates records, disposes resources and reports failures honestly.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of exceptions, validation and resource disposal.",
+              "Apply the idea to a new example and identify a relevant boundary or failure case."
+            ]
+          },
+          {
+            "title": "Asynchronous programming with Task",
+            "duration_minutes": 25,
+            "body_markdown": "## Asynchronous programming with Task\n\nAsynchronous methods commonly return `Task` or `Task<T>`. `await` allows a method to suspend until an operation completes without blocking the calling thread in the usual asynchronous I/O pattern. Awaiting does not mean a new thread is always created. Use cancellation tokens when callers should be able to request cancellation, and propagate cancellation rather than reporting it as ordinary success. Avoid `.Result` and `.Wait()` in asynchronous application flows because they can block and create deadlock or responsiveness problems.\n\n### Worked example\n\nWrite an asynchronous method that reads a file and returns its text, accepting a cancellation token.\n\n### Common failure to avoid\n\nDo not claim that `async` automatically makes CPU-heavy work faster or that every awaited operation runs on a new thread.\n\n### Check your understanding\n\nExplain the rule in your own words and test it with one new input. Identify the data contract, expected result and at least one failure or boundary condition. A reliable explanation should distinguish what the compiler checks from what the program must validate at runtime.\n",
+            "exercise": "Compare a synchronous file read and an asynchronous read, including their suitable use cases.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of asynchronous programming with task.",
+              "Apply the idea to a new example and identify a relevant boundary or failure case."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Testing and .NET Application Delivery",
+        "description": "Test, debug and deliver a maintainable C# application.",
+        "lessons": [
+          {
+            "title": "Unit tests and testable design",
+            "duration_minutes": 25,
+            "body_markdown": "## Unit tests and testable design\n\nUnit tests verify the behaviour of a small component without requiring the whole application. Keep business rules separate from console or UI interaction so the rules can be tested with ordinary inputs. Tests should cover normal values, boundaries, invalid data and regressions. Dependency injection can provide fake or controlled implementations for external services. A test should assert observable behaviour and avoid depending on private implementation details that are likely to change.\n\n### Worked example\n\nWrite tests for a score-validation service and verify the exact boundary outcomes.\n\n### Common failure to avoid\n\nA test that checks only that no exception occurred may miss an incorrect result.\n\n### Check your understanding\n\nExplain the rule in your own words and test it with one new input. Identify the data contract, expected result and at least one failure or boundary condition. A reliable explanation should distinguish what the compiler checks from what the program must validate at runtime.\n",
+            "exercise": "Create a test table for valid score, lower boundary, upper boundary and invalid values.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of unit tests and testable design.",
+              "Apply the idea to a new example and identify a relevant boundary or failure case."
+            ]
+          },
+          {
+            "title": "Debugging, diagnostics and logging",
+            "duration_minutes": 25,
+            "body_markdown": "## Debugging, diagnostics and logging\n\nA debugger supports breakpoints, stepping and inspection of variables and call stacks. Logging provides a record of important events, but logs should avoid passwords, access tokens and unnecessary personal data. Distinguish a developer diagnostic from a user-facing message. Use structured logs where practical so fields can be searched and correlated. A reliable debugging report records the observed symptom, reproduction steps, root cause, correction and a test that prevents recurrence.\n\n### Worked example\n\nReproduce a validation defect, inspect the call stack and add a regression test after correcting it.\n\n### Common failure to avoid\n\nDo not log secrets or claim an error is fixed merely because the symptom did not recur once.\n\n### Check your understanding\n\nExplain the rule in your own words and test it with one new input. Identify the data contract, expected result and at least one failure or boundary condition. A reliable explanation should distinguish what the compiler checks from what the program must validate at runtime.\n",
+            "exercise": "Prepare a bug report containing reproduction steps, evidence and regression coverage.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of debugging, diagnostics and logging.",
+              "Apply the idea to a new example and identify a relevant boundary or failure case."
+            ]
+          },
+          {
+            "title": "Build, configuration and dependency management",
+            "duration_minutes": 25,
+            "body_markdown": "## Build, configuration and dependency management\n\nThe .NET CLI can restore dependencies, build a project, run tests and publish deployment artifacts. A project file states target frameworks and dependencies; configuration should distinguish development and production values. Secrets should not be hard-coded into source control. A clean checkout is an important reproducibility test: another developer should be able to restore and build using documented tools. Package dependencies should be added because they solve a real need, and their versions should be reviewed deliberately.\n\n### Worked example\n\nBuild and test the project from a clean directory after restoring its dependencies.\n\n### Common failure to avoid\n\nDo not commit connection strings, API keys or machine-specific absolute paths.\n\n### Check your understanding\n\nExplain the rule in your own words and test it with one new input. Identify the data contract, expected result and at least one failure or boundary condition. A reliable explanation should distinguish what the compiler checks from what the program must validate at runtime.\n",
+            "exercise": "Write a README with SDK prerequisites, restore, build, test and run commands.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of build, configuration and dependency management.",
+              "Apply the idea to a new example and identify a relevant boundary or failure case."
+            ]
+          },
+          {
+            "title": "Deliver a small .NET application",
+            "duration_minutes": 25,
+            "body_markdown": "## Deliver a small .NET application\n\nA finished application combines a clear model, tested business rules, safe I/O and usable output. Define the user problem and acceptance criteria before implementation. Separate input parsing, domain operations and presentation. Keep state transitions explicit and document how empty, duplicate and malformed records are handled. The final review should verify the clean build, tests and a realistic demonstration. A project is not complete because its happy path works once; another learner should be able to reproduce the result.\n\n### Worked example\n\nBuild a Student Course Register that can add records, search by ID, report course counts and export a summary.\n\n### Common failure to avoid\n\nDo not put data rules only in the menu handler or use hard-coded sample records as the real data source.\n\n### Check your understanding\n\nExplain the rule in your own words and test it with one new input. Identify the data contract, expected result and at least one failure or boundary condition. A reliable explanation should distinguish what the compiler checks from what the program must validate at runtime.\n",
+            "exercise": "Submit the application with tests, setup notes and a short architecture explanation.",
+            "key_takeaways": [
+              "Explain the purpose and behaviour of deliver a small .net application.",
+              "Apply the idea to a new example and identify a relevant boundary or failure case."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "C# and .NET Application Development Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions. Code must compile with the stated target framework and include tests with expected results.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short_answer",
+          "prompt": "Explain the roles of the C# compiler, .NET SDK and runtime in a typical application build and execution flow.",
+          "marks": 8,
+          "rubric": [
+            "Correct language/compiler explanation (3)",
+            "Correct SDK/runtime roles (3)",
+            "Clear build/execution sequence (2)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "implementation",
+          "prompt": "Write a method that uses `TryParse` to validate a score and returns a clear success/failure result.",
+          "marks": 10,
+          "rubric": [
+            "Uses parsing safely (3)",
+            "Validates allowed range (3)",
+            "Clear result contract (2)",
+            "Readable code (2)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "data_processing",
+          "prompt": "Use generic collections and LINQ to group student registrations by course and calculate each group count.",
+          "marks": 12,
+          "rubric": [
+            "Appropriate data structures (3)",
+            "Correct grouping (4)",
+            "Correct aggregate (3)",
+            "Readable query (2)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "debugging",
+          "prompt": "An async method blocks on `.Result` while awaiting a service operation. Explain the responsiveness and deadlock risks and propose an async flow.",
+          "marks": 10,
+          "rubric": [
+            "Identifies blocking (3)",
+            "Explains risk (3)",
+            "Proposes async/await correction (4)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "testing",
+          "prompt": "Design six tests for a score-validation service including valid, boundary, malformed and absent input.",
+          "marks": 10,
+          "rubric": [
+            "Normal cases (2)",
+            "Boundaries (3)",
+            "Malformed/absent data (3)",
+            "Expected outcomes (2)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit the Student Course Register with tests, setup documentation and architecture notes.",
+          "marks": 20,
+          "rubric": [
+            "Functional operations (5)",
+            "Model and validation design (4)",
+            "Test coverage (4)",
+            "I/O and error handling (4)",
+            "Documentation (3)"
+          ]
+        }
+      ],
+      "total_marks": 70
+    },
+    "final_project": {
+      "title": "Student Course Register",
+      "brief": "Build a .NET application that can add student records, search by identifier, report course counts and export a summary. Keep data validation and business rules separate from user interaction. Use typed models, generic collections, and asynchronous I/O only where it improves the design.",
+      "deliverables": [
+        "Requirements and acceptance criteria",
+        "Student and course data model",
+        "C# source with clear responsibilities",
+        "Validation and error-handling rules",
+        "At least 10 tests with expected results",
+        "README with SDK, restore, build, test and run steps",
+        "Design reflection and known limitations"
+      ],
+      "acceptance_criteria": [
+        "Records can be added and searched as specified",
+        "Invalid or missing data is handled deliberately",
+        "Course counts match the supplied test data",
+        "I/O resources are disposed safely",
+        "Tests cover normal, boundary, malformed and empty cases",
+        "The project builds from a clean checkout",
+        "Known limitations are documented"
+      ]
+    },
+    "references": [
+      {
+        "title": "C# documentation",
+        "url": "https://learn.microsoft.com/en-us/dotnet/csharp/",
+        "note": "Microsoft reference for C# syntax and language features."
+      },
+      {
+        "title": ".NET documentation",
+        "url": "https://learn.microsoft.com/en-us/dotnet/",
+        "note": "Official guidance for the .NET platform, SDK, runtime and application development."
+      },
+      {
+        "title": "Unit testing in .NET",
+        "url": "https://learn.microsoft.com/en-us/dotnet/core/testing/",
+        "note": "Official reference for .NET test projects and testing tools."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft. No authorised academic review has been recorded. Do not invent reviewer identities or dates and do not publish until a real review decision exists.",
+      "language": "English",
+      "content_quality": "Four sections, sixteen substantive lessons, worked examples, exercises, takeaways, six assessed questions and rubrics, a practical project, acceptance criteria and official documentation references are included. Technical and academic review remain required."
+    }
+  }
+}

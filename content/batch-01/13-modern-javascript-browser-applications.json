@@ -1,0 +1,358 @@
+{
+  "schema_version": "aptivio.course-package.v1",
+  "course": {
+    "slug": "modern-javascript-browser-applications",
+    "title": "Modern JavaScript for Browser Applications",
+    "subtitle": "Build interactive browser interfaces with the DOM, events, fetch, storage and secure user interactions.",
+    "description": "A hands-on browser JavaScript course covering the browser runtime, DOM selection and safe updates, modules, event propagation, forms, keyboard access, fetch, HTTP response handling, async cancellation, browser storage, URL/history, XSS prevention, developer tools, privacy and resilient UI states. Learners build a course explorer that works under realistic network conditions.",
+    "level": "beginner",
+    "language_code": "en",
+    "currency": "NGN",
+    "price_minor": 0,
+    "duration_minutes": 640,
+    "target_audience": [
+      "Learners who know JavaScript fundamentals",
+      "Computing students building interactive websites",
+      "Frontend beginners preparing for React or another UI framework"
+    ],
+    "prerequisites": [
+      "Basic JavaScript syntax, functions and arrays",
+      "Basic HTML and CSS knowledge"
+    ],
+    "outcomes": [
+      "Explain the browser environment and page lifecycle",
+      "Read and update DOM nodes safely",
+      "Handle event propagation and delegate dynamic interactions",
+      "Build validated and keyboard-accessible forms",
+      "Use fetch and inspect HTTP response failures",
+      "Cancel obsolete requests and prevent stale UI updates",
+      "Use browser storage and URL state responsibly",
+      "Prevent common DOM XSS defects and test a browser application"
+    ],
+    "equipment": [
+      "Laptop or desktop computer",
+      "Modern browser and developer tools",
+      "Text editor",
+      "Local static web server or development server"
+    ],
+    "accessibility": "All code is selectable text. Interaction lessons include keyboard tests, visible focus and accessible error feedback. Exercises can be completed without paid tools.",
+    "sections": [
+      {
+        "title": "The Browser Platform and DOM",
+        "description": "Understand the browser environment, document tree and safe DOM updates.",
+        "lessons": [
+          {
+            "title": "The browser runtime and page lifecycle",
+            "duration_minutes": 25,
+            "body_markdown": "## The browser runtime and page lifecycle\n\nA browser provides a host environment for JavaScript. It exposes APIs such as the DOM, events, storage and fetch, but those APIs are not part of the ECMAScript language itself. The browser parses HTML, constructs a document tree, loads styles and scripts, and renders a page. Script placement and loading attributes affect when code executes relative to parsing. A script that queries an element before the element exists may receive `null`. Understand the lifecycle before adding timing workarounds; prefer clear module loading and deliberate initialization.\n\n### Worked example\n\nCreate a page with a module script and inspect when the script runs relative to DOM parsing.\n\n### Common failure to avoid\n\nDo not assume a browser-only API such as `document` exists in every JavaScript runtime.\n\n### Check your understanding\n\nExplain which browser API is involved, what input it receives, which state changes and how failure is surfaced. Distinguish browser-side convenience from server-side security enforcement. A reliable interaction must work for keyboard users and when network responses arrive late or fail.\n",
+            "exercise": "Draw a simplified sequence from HTML parsing through DOM construction, script execution and rendering.",
+            "key_takeaways": [
+              "Explain the browser API or pattern behind the browser runtime and page lifecycle.",
+              "Identify one error, accessibility or security condition that must be tested."
+            ]
+          },
+          {
+            "title": "DOM nodes and selecting elements",
+            "duration_minutes": 25,
+            "body_markdown": "## DOM nodes and selecting elements\n\nThe Document Object Model represents a document as nodes that scripts can inspect and modify. `querySelector` returns the first matching element or `null`; `querySelectorAll` returns a static NodeList of matching elements at the time of the query. Use stable IDs, classes or data attributes for selection rather than brittle positional selectors. Check that a selected element exists before calling methods on it. Keep DOM traversal focused and avoid repeatedly querying the same element inside a hot loop when a reference can be reused.\n\n### Worked example\n\nSelect a course card, its title and its progress label, then update a text node after verifying each element exists.\n\n### Common failure to avoid\n\nDo not assume a selector always matches or that `querySelectorAll` automatically updates after later DOM changes.\n\n### Check your understanding\n\nExplain which browser API is involved, what input it receives, which state changes and how failure is surfaced. Distinguish browser-side convenience from server-side security enforcement. A reliable interaction must work for keyboard users and when network responses arrive late or fail.\n",
+            "exercise": "Write a function that safely finds a learner card and returns a typed or documented result when it is absent.",
+            "key_takeaways": [
+              "Explain the browser API or pattern behind dom nodes and selecting elements.",
+              "Identify one error, accessibility or security condition that must be tested."
+            ]
+          },
+          {
+            "title": "Changing the DOM safely",
+            "duration_minutes": 25,
+            "body_markdown": "## Changing the DOM safely\n\nJavaScript can update text, attributes, classes and nodes. Use `textContent` for plain text because it does not parse the value as HTML. `innerHTML` interprets markup and can create cross-site scripting risks when untrusted data is inserted. Create elements with DOM methods and set validated attributes. A DOM update should preserve semantic structure and accessible names, not merely produce the desired pixels. Avoid rebuilding a large subtree unnecessarily because it can discard focus, event state or user input.\n\n### Worked example\n\nRender a list of course titles using `createElement` and `textContent`, including a title that contains markup-like characters.\n\n### Common failure to avoid\n\nDo not insert untrusted strings into `innerHTML` and assume they are harmless because they came from a database.\n\n### Check your understanding\n\nExplain which browser API is involved, what input it receives, which state changes and how failure is surfaced. Distinguish browser-side convenience from server-side security enforcement. A reliable interaction must work for keyboard users and when network responses arrive late or fail.\n",
+            "exercise": "Create a safe render function for a course list and test a title containing `<` and `>`.",
+            "key_takeaways": [
+              "Explain the browser API or pattern behind changing the dom safely.",
+              "Identify one error, accessibility or security condition that must be tested."
+            ]
+          },
+          {
+            "title": "Modules and event-driven code",
+            "duration_minutes": 25,
+            "body_markdown": "## Modules and event-driven code\n\nJavaScript modules let a page import reusable code with `import` and `export`. Module scripts are deferred by default and have their own scope, which helps avoid accidental global variables. An event-driven application reacts to user input and browser events instead of running one long procedural script. Separate data transformation from DOM updates so calculations can be tested without a browser. Keep initialization explicit and avoid registering the same handler more than once when a component is mounted repeatedly.\n\n### Worked example\n\nSplit a course-list page into a data module, a rendering module and an application entry point.\n\n### Common failure to avoid\n\nDo not attach every function to `window` simply to make it accessible from another script.\n\n### Check your understanding\n\nExplain which browser API is involved, what input it receives, which state changes and how failure is surfaced. Distinguish browser-side convenience from server-side security enforcement. A reliable interaction must work for keyboard users and when network responses arrive late or fail.\n",
+            "exercise": "Draw module dependencies for a small course filter interface.",
+            "key_takeaways": [
+              "Explain the browser API or pattern behind modules and event-driven code.",
+              "Identify one error, accessibility or security condition that must be tested."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Events, Forms and User Interaction",
+        "description": "Respond to input and build accessible browser interactions.",
+        "lessons": [
+          {
+            "title": "Event listeners and event objects",
+            "duration_minutes": 25,
+            "body_markdown": "## Event listeners and event objects\n\nAn event listener runs when a browser event occurs. The event object contains information about the event target, current target and input details. `addEventListener` is generally preferable to inline HTML event attributes because it separates behaviour from markup and supports multiple listeners. Remove listeners when the component or lifecycle requires cleanup, especially when listeners are attached to long-lived objects. Use the event object deliberately; `target` may be a nested element while `currentTarget` is the element with the listener.\n\n### Worked example\n\nAttach a click listener to a course card action and compare `event.target` with `event.currentTarget`.\n\n### Common failure to avoid\n\nDo not assume the event target is always the element on which the listener was registered.\n\n### Check your understanding\n\nExplain which browser API is involved, what input it receives, which state changes and how failure is surfaced. Distinguish browser-side convenience from server-side security enforcement. A reliable interaction must work for keyboard users and when network responses arrive late or fail.\n",
+            "exercise": "Create and remove an event listener in a controlled initialization/cleanup function.",
+            "key_takeaways": [
+              "Explain the browser API or pattern behind event listeners and event objects.",
+              "Identify one error, accessibility or security condition that must be tested."
+            ]
+          },
+          {
+            "title": "Bubbling, capturing and delegation",
+            "duration_minutes": 25,
+            "body_markdown": "## Bubbling, capturing and delegation\n\nMany DOM events travel through a capture phase, target phase and bubbling phase. Event delegation places a listener on a common ancestor and checks which descendant initiated the action. This can reduce listener count for dynamic lists, but the code must verify that the target matches the intended control and belongs to the expected container. `stopPropagation` changes event flow and should not be used as a default fix for every interaction conflict. Choose delegation based on a clear event model.\n\n### Worked example\n\nAdd one listener to a course list that handles clicks on dynamically inserted enrolment buttons using `closest`.\n\n### Common failure to avoid\n\nDo not trust any nested click target without checking that it matches the expected control inside the intended list.\n\n### Check your understanding\n\nExplain which browser API is involved, what input it receives, which state changes and how failure is surfaced. Distinguish browser-side convenience from server-side security enforcement. A reliable interaction must work for keyboard users and when network responses arrive late or fail.\n",
+            "exercise": "Test clicks on a button, its icon and unrelated card content.",
+            "key_takeaways": [
+              "Explain the browser API or pattern behind bubbling, capturing and delegation.",
+              "Identify one error, accessibility or security condition that must be tested."
+            ]
+          },
+          {
+            "title": "Forms, submission and validation",
+            "duration_minutes": 25,
+            "body_markdown": "## Forms, submission and validation\n\nA form's `submit` event is the correct place to coordinate validation and submission behaviour. Use native input types and attributes where appropriate, but add clear error messages for rules that need custom logic. Prevent the default navigation only when the script is deliberately handling the form. Associate errors with their fields and move focus or announce results appropriately. Browser-side validation improves feedback but cannot replace server-side validation because a request can be constructed outside the page.\n\n### Worked example\n\nBuild a registration form that validates a course choice, preserves entered values after errors and shows field-specific feedback.\n\n### Common failure to avoid\n\nDo not treat client-side validation as a security boundary or remove native form semantics without providing an equivalent interaction.\n\n### Check your understanding\n\nExplain which browser API is involved, what input it receives, which state changes and how failure is surfaced. Distinguish browser-side convenience from server-side security enforcement. A reliable interaction must work for keyboard users and when network responses arrive late or fail.\n",
+            "exercise": "Write test cases for empty, malformed and valid form submissions.",
+            "key_takeaways": [
+              "Explain the browser API or pattern behind forms, submission and validation.",
+              "Identify one error, accessibility or security condition that must be tested."
+            ]
+          },
+          {
+            "title": "Keyboard access and accessible interaction",
+            "duration_minutes": 25,
+            "body_markdown": "## Keyboard access and accessible interaction\n\nInteractive behaviour should work without a pointer. Native buttons, links and form controls already provide keyboard semantics; custom keyboard interactions need explicit focusability, names and expected key handling. Focus should remain visible, and dialogs or menus need a sensible focus order and closing behaviour. Do not attach click handlers to generic text containers and expect keyboard or screen-reader users to discover them. Test tab sequence, Enter/Space activation and Escape behaviour where relevant.\n\n### Worked example\n\nImplement a small disclosure interaction using a native button with an accurate expanded state.\n\n### Common failure to avoid\n\nDo not remove focus outlines unless a clearly visible and equivalent focus treatment replaces them.\n\n### Check your understanding\n\nExplain which browser API is involved, what input it receives, which state changes and how failure is surfaced. Distinguish browser-side convenience from server-side security enforcement. A reliable interaction must work for keyboard users and when network responses arrive late or fail.\n",
+            "exercise": "Create a keyboard test checklist for a filter panel and a modal dialog.",
+            "key_takeaways": [
+              "Explain the browser API or pattern behind keyboard access and accessible interaction.",
+              "Identify one error, accessibility or security condition that must be tested."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Network Requests and Browser Storage",
+        "description": "Work with HTTP, JSON, persistence and asynchronous failures.",
+        "lessons": [
+          {
+            "title": "HTTP, fetch and response handling",
+            "duration_minutes": 25,
+            "body_markdown": "## HTTP, fetch and response handling\n\nThe Fetch API sends network requests and returns a Promise that resolves to a Response when a response is available. A non-success HTTP status such as 404 does not automatically reject the fetch Promise, so code must inspect `response.ok` or `status`. Network failures and HTTP application errors are different failure classes. Check the expected content type and parse JSON deliberately. Handle loading, success, empty and failure states in the interface; do not show stale data as if a failed refresh succeeded.\n\n### Worked example\n\nFetch a course list, check `response.ok`, parse JSON and render distinct loading, empty and error states.\n\n### Common failure to avoid\n\nDo not interpret a resolved fetch Promise as proof that the server returned a successful status.\n\n### Check your understanding\n\nExplain which browser API is involved, what input it receives, which state changes and how failure is surfaced. Distinguish browser-side convenience from server-side security enforcement. A reliable interaction must work for keyboard users and when network responses arrive late or fail.\n",
+            "exercise": "Build a network helper that distinguishes transport failure, non-2xx status and invalid JSON.",
+            "key_takeaways": [
+              "Explain the browser API or pattern behind http, fetch and response handling.",
+              "Identify one error, accessibility or security condition that must be tested."
+            ]
+          },
+          {
+            "title": "Async control flow, cancellation and races",
+            "duration_minutes": 25,
+            "body_markdown": "## Async control flow, cancellation and races\n\n`async` functions return Promises and `await` makes asynchronous control flow easier to read. A request can become obsolete when a learner changes filters or leaves a page before the response arrives. `AbortController` can cancel supported fetch operations, while a request sequence or state check can prevent an older response overwriting newer results. Always handle failures and clean up pending work when the interface no longer needs it. Cancellation is not the same as a server transaction rollback.\n\n### Worked example\n\nCreate a search box that cancels the previous fetch when a new query is submitted.\n\n### Common failure to avoid\n\nDo not allow a slow earlier response to replace the results of a newer search.\n\n### Check your understanding\n\nExplain which browser API is involved, what input it receives, which state changes and how failure is surfaced. Distinguish browser-side convenience from server-side security enforcement. A reliable interaction must work for keyboard users and when network responses arrive late or fail.\n",
+            "exercise": "Test rapid query changes and verify that stale results never replace the current result.",
+            "key_takeaways": [
+              "Explain the browser API or pattern behind async control flow, cancellation and races.",
+              "Identify one error, accessibility or security condition that must be tested."
+            ]
+          },
+          {
+            "title": "Web Storage and persistent state",
+            "duration_minutes": 25,
+            "body_markdown": "## Web Storage and persistent state\n\n`localStorage` and `sessionStorage` store string key-value pairs in the browser. They are synchronous, origin-scoped and available to scripts running on that origin. They should not be used for secrets or trusted authorisation decisions because JavaScript and a local user can access or alter the values. Parse stored JSON defensively and handle missing or malformed data. Use IndexedDB for larger structured data or asynchronous storage needs. Decide what should persist and when it should expire.\n\n### Worked example\n\nSave a non-sensitive theme preference to local storage and recover gracefully from invalid stored JSON.\n\n### Common failure to avoid\n\nDo not store passwords, access tokens or trusted roles in local storage as a security boundary.\n\n### Check your understanding\n\nExplain which browser API is involved, what input it receives, which state changes and how failure is surfaced. Distinguish browser-side convenience from server-side security enforcement. A reliable interaction must work for keyboard users and when network responses arrive late or fail.\n",
+            "exercise": "Write a storage policy for preferences, draft text and authenticated session material.",
+            "key_takeaways": [
+              "Explain the browser API or pattern behind web storage and persistent state.",
+              "Identify one error, accessibility or security condition that must be tested."
+            ]
+          },
+          {
+            "title": "URL state, navigation and browser history",
+            "duration_minutes": 25,
+            "body_markdown": "## URL state, navigation and browser history\n\nThe URL can represent shareable interface state such as a search query, selected course or page number. `URLSearchParams` reads and updates query parameters safely. The History API can add or replace history entries for client-side navigation, but the application must still support direct loads and browser Back/Forward behaviour. State stored only in memory disappears on refresh; URL state is more durable and shareable when it is safe to expose. Avoid putting secrets or private personal data in query strings.\n\n### Worked example\n\nImplement a course catalogue filter that updates a query parameter and restores the filter when the page reloads.\n\n### Common failure to avoid\n\nDo not put access tokens or sensitive learner details in URLs, where they may appear in logs and browser history.\n\n### Check your understanding\n\nExplain which browser API is involved, what input it receives, which state changes and how failure is surfaced. Distinguish browser-side convenience from server-side security enforcement. A reliable interaction must work for keyboard users and when network responses arrive late or fail.\n",
+            "exercise": "Test direct navigation, refresh, back and forward after changing a filter.",
+            "key_takeaways": [
+              "Explain the browser API or pattern behind url state, navigation and browser history.",
+              "Identify one error, accessibility or security condition that must be tested."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Security, Testing and Browser Project",
+        "description": "Protect the browser boundary and deliver a tested application.",
+        "lessons": [
+          {
+            "title": "Cross-site scripting and browser security",
+            "duration_minutes": 25,
+            "body_markdown": "## Cross-site scripting and browser security\n\nCross-site scripting occurs when untrusted content is interpreted as executable markup or script in a page. Prefer text-based DOM APIs for plain content and use vetted sanitisation only when rich HTML is an explicit requirement. A Content Security Policy can reduce the impact of some injection paths but does not repair unsafe rendering. Treat URL parameters, API responses, stored values and user-generated content as untrusted. Authentication and permission checks belong on the server; client-side hiding is not authorisation.\n\n### Worked example\n\nRender an API-supplied course title safely and demonstrate how inserting the same string through `innerHTML` changes the risk.\n\n### Common failure to avoid\n\nDo not assume content is safe because it came from your own API or database.\n\n### Check your understanding\n\nExplain which browser API is involved, what input it receives, which state changes and how failure is surfaced. Distinguish browser-side convenience from server-side security enforcement. A reliable interaction must work for keyboard users and when network responses arrive late or fail.\n",
+            "exercise": "Create a threat table for DOM XSS sources, dangerous sinks and mitigations.",
+            "key_takeaways": [
+              "Explain the browser API or pattern behind cross-site scripting and browser security.",
+              "Identify one error, accessibility or security condition that must be tested."
+            ]
+          },
+          {
+            "title": "Browser testing and developer tools",
+            "duration_minutes": 25,
+            "body_markdown": "## Browser testing and developer tools\n\nBrowser developer tools expose the DOM, computed styles, console, network requests, storage and performance data. Use them to identify whether a defect originates in markup, script execution, network response or browser state. Unit tests can verify pure functions; DOM tests can verify interaction logic; browser automation can exercise complete user journeys. Control test data and avoid relying on the live production service for routine tests. A good bug report includes the browser, viewport, steps, console/network evidence and expected result.\n\n### Worked example\n\nReproduce a failed course search request and use the Network and Console panels to isolate the failure.\n\n### Common failure to avoid\n\nDo not report “JavaScript is broken” when the evidence shows a 401 response or a malformed API payload.\n\n### Check your understanding\n\nExplain which browser API is involved, what input it receives, which state changes and how failure is surfaced. Distinguish browser-side convenience from server-side security enforcement. A reliable interaction must work for keyboard users and when network responses arrive late or fail.\n",
+            "exercise": "Create a debugging note with reproduction steps and evidence from browser tools.",
+            "key_takeaways": [
+              "Explain the browser API or pattern behind browser testing and developer tools.",
+              "Identify one error, accessibility or security condition that must be tested."
+            ]
+          },
+          {
+            "title": "Performance, privacy and resilient UX",
+            "duration_minutes": 25,
+            "body_markdown": "## Performance, privacy and resilient UX\n\nBrowser work competes for the main thread with input and rendering. Avoid long synchronous tasks, excessive DOM work and unnecessary event handlers. Load only required resources, handle network uncertainty and provide useful feedback when content is unavailable. Ask permission before using sensitive browser capabilities, and explain what data is collected. Privacy-friendly defaults avoid unnecessary storage and background activity. Resilient interfaces distinguish offline, loading, empty and error states instead of leaving users with a blank screen.\n\n### Worked example\n\nSimulate an API delay and failure, then ensure the page remains responsive and explains what happened.\n\n### Common failure to avoid\n\nDo not block the interface with a long loop or silently collect data the learner did not expect.\n\n### Check your understanding\n\nExplain which browser API is involved, what input it receives, which state changes and how failure is surfaced. Distinguish browser-side convenience from server-side security enforcement. A reliable interaction must work for keyboard users and when network responses arrive late or fail.\n",
+            "exercise": "Design loading, empty, offline and retry states for a course catalogue.",
+            "key_takeaways": [
+              "Explain the browser API or pattern behind performance, privacy and resilient ux.",
+              "Identify one error, accessibility or security condition that must be tested."
+            ]
+          },
+          {
+            "title": "Build a browser-based course explorer",
+            "duration_minutes": 25,
+            "body_markdown": "## Build a browser-based course explorer\n\nA browser application integrates the DOM, events, forms, network requests, URL state and persistence. Define the data contract and the user's tasks before writing the interface. Keep data access and transformations separate from rendering, validate responses, and use safe DOM methods. Include accessible controls and ensure the page remains useful when the network fails. Test keyboard access and use realistic malformed data rather than only a perfect sample response.\n\n### Worked example\n\nBuild a course explorer that filters courses, updates the URL, saves a display preference and handles network failure.\n\n### Common failure to avoid\n\nDo not make the feature depend on a one-time hard-coded array or hide failure states from the user.\n\n### Check your understanding\n\nExplain which browser API is involved, what input it receives, which state changes and how failure is surfaced. Distinguish browser-side convenience from server-side security enforcement. A reliable interaction must work for keyboard users and when network responses arrive late or fail.\n",
+            "exercise": "Submit source, test cases, keyboard test evidence and a short security review.",
+            "key_takeaways": [
+              "Explain the browser API or pattern behind build a browser-based course explorer.",
+              "Identify one error, accessibility or security condition that must be tested."
+            ]
+          }
+        ]
+      }
+    ],
+    "assessment": {
+      "title": "Modern JavaScript for Browser Applications Final Assessment",
+      "pass_mark_percent": 70,
+      "instructions": "Answer all questions with browser-specific reasoning. For security and accessibility questions, explain the user's risk and the relevant browser/server boundary.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short_answer",
+          "prompt": "Explain why `textContent` is safer than assigning untrusted data to `innerHTML` for plain text.",
+          "marks": 8,
+          "rubric": [
+            "Explains text versus HTML parsing (3)",
+            "Identifies injection risk (3)",
+            "Gives correct usage case (2)"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "event_model",
+          "prompt": "Describe the capture, target and bubbling phases and explain how event delegation can handle a dynamically inserted button.",
+          "marks": 10,
+          "rubric": [
+            "Correct event phases (4)",
+            "Delegation design (3)",
+            "Target validation (3)"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "networking",
+          "prompt": "Write the steps required to fetch JSON while distinguishing transport failure, non-success HTTP status and invalid JSON.",
+          "marks": 12,
+          "rubric": [
+            "Fetch and response handling (3)",
+            "Checks response status (3)",
+            "Handles JSON parsing (3)",
+            "Distinct error states (3)"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "debugging",
+          "prompt": "A slow earlier search response overwrites the result of a later query. Explain the race and propose cancellation or stale-response protection.",
+          "marks": 10,
+          "rubric": [
+            "Identifies response ordering race (4)",
+            "Proposes AbortController or sequence check (4)",
+            "Handles cleanup (2)"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "accessibility",
+          "prompt": "Design keyboard tests for a disclosure control, a form with errors and a modal interaction.",
+          "marks": 10,
+          "rubric": [
+            "Keyboard order and activation (3)",
+            "Field error association (3)",
+            "Dialog focus/close behaviour (4)"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "project",
+          "prompt": "Submit the Course Explorer with source, tests, network error states, keyboard evidence and XSS review.",
+          "marks": 20,
+          "rubric": [
+            "Functional data and filter behaviour (4)",
+            "Correct URL/storage state (3)",
+            "Network error/cancellation handling (4)",
+            "Accessibility (3)",
+            "Security and testing evidence (4)",
+            "Documentation (2)"
+          ]
+        }
+      ],
+      "total_marks": 70
+    },
+    "final_project": {
+      "title": "Interactive Course Explorer",
+      "brief": "Build a browser application that loads course records from a documented API or controlled fixture, filters and searches the results, writes shareable filter state to the URL and saves a non-sensitive display preference. Use safe DOM rendering, accessible controls and robust loading, empty, offline and error states. Include a stale-request strategy for rapid searches.",
+      "deliverables": [
+        "HTML/CSS/JavaScript source",
+        "Course data contract and sample fixtures",
+        "DOM rendering and event-handling modules",
+        "Filter state reflected in URL",
+        "Non-sensitive preference persistence",
+        "At least 10 tests with expected results",
+        "Keyboard and responsive test notes",
+        "Security checklist for untrusted content"
+      ],
+      "acceptance_criteria": [
+        "Search and filtering return correct results",
+        "Untrusted text is not interpreted as markup",
+        "HTTP errors and malformed JSON are handled distinctly",
+        "Earlier requests cannot overwrite newer results",
+        "Keyboard users can operate every control",
+        "Refresh/back/forward restore expected URL state",
+        "The application explains network and empty states",
+        "Tests and known limitations are documented"
+      ]
+    },
+    "references": [
+      {
+        "title": "MDN JavaScript Guide",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide",
+        "note": "Language foundation for browser JavaScript and modules."
+      },
+      {
+        "title": "MDN Document Object Model",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model",
+        "note": "Reference for DOM tree concepts and document APIs."
+      },
+      {
+        "title": "MDN Fetch API",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API",
+        "note": "Reference for network requests and Response handling."
+      },
+      {
+        "title": "OWASP Cross Site Scripting Prevention Cheat Sheet",
+        "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html",
+        "note": "Guidance on safe DOM sinks and contextual output handling."
+      }
+    ],
+    "authoring_notes": {
+      "content_status": "draft_for_technical_and_academic_review",
+      "academic_review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "warning": "Original instructional draft. No authorised academic review has been recorded. Do not invent reviewer identities or dates and do not publish until a real review decision exists.",
+      "language": "English",
+      "content_quality": "Four sections and sixteen substantive lessons with examples, exercises, takeaways, assessment rubrics, applied project, acceptance criteria and authoritative references are included. Technical and academic review remain required."
+    }
+  }
+}
