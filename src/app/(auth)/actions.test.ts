@@ -117,7 +117,7 @@ describe("authentication server actions", () => {
       password: "correct-horse-battery",
       options: {
         data: { display_name: "Learner One" },
-        emailRedirectTo: "https://aptivio-preview.example/auth/callback?next=/dashboard",
+        emailRedirectTo: "https://aptivio-preview.example/auth/callback?next=%2Fdashboard",
       },
     });
   });
