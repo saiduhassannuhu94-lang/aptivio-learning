@@ -26,6 +26,15 @@ export function QuizPlayer({ courseSlug, courseTitle, questions, nextCourse }: P
   const [secondsLeft, setSecondsLeft] = useState(300);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
+  const score = useMemo(
+    () => questions.reduce((total, question, index) => total + (answers[index] === question.correctIndex ? 1 : 0), 0),
+    [answers, questions],
+  );
+  const percentage = Math.round((score / questions.length) * 100);
+  const passed = percentage >= 70;
+  const currentQuestion = questions[currentIndex];
+  const selectedOption = answers[currentIndex];
+  const hasAnsweredCurrent = selectedOption !== undefined;
   useEffect(() => {
     if (!started || finished) return;
     const ticker = window.setInterval(() => {
@@ -99,7 +108,7 @@ export function QuizPlayer({ courseSlug, courseTitle, questions, nextCourse }: P
           <div><strong>05:00</strong><span>Time limit</span></div>
           <div><strong>70%</strong><span>Pass mark</span></div>
         </div>
-        <div className="quiz-start-note"><b>How it works</b><span>One question appears at a time. Feedback appears after each answer. You need at least 70% to unlock the next learning path. This is a practice assessment, not a standardised IQ test.</span></div>
+        <div className="quiz-start-note"><b>How it works</b><span>One question appears at a time. Feedback appears after each answer. A score of at least 70% counts as a pass and shows the next learning path. This is a practice assessment, not a standardised IQ test.</span></div>
         <button type="button" className="aptivio-action quiz-primary-action" onClick={() => setStarted(true)}>Start assessment <span aria-hidden="true">→</span></button>
       </section>
     );
