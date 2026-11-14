@@ -21,10 +21,10 @@ APTIVIO is a free learning library and reasoning-practice platform. It is not an
    - `supabase/migrations/20261113065537_add_learning_library_progress.sql`
 3. Confirm the five seeded challenges exist in `brain_challenges` and each has five questions and five answer keys. Confirm `learning_library_progress` has RLS enabled with four owner-only policies. The currently connected project has already been migrated and verified.
 4. Confirm the Vercel project has these environment variables in the deployment environment:
-   - `NEXT_PUBLIC_SITE_URL`
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
-   - `SUPABASE_SECRET_KEY` (server-only; never expose it with a `NEXT_PUBLIC_` prefix)
+   - `SUPABASE_SECRET_KEY` (required by server-side challenge APIs; server-only, never expose it with a `NEXT_PUBLIC_` prefix)
+   - `NEXT_PUBLIC_SITE_URL` is an optional canonical URL override. The app falls back to the APTIVIO production domain and uses Vercel's deployment URL for previews.
 5. Confirm Supabase Auth email confirmation and redirect URLs include the deployed APTIVIO domain.
 6. Enable the Google provider in Supabase Auth and configure its Google OAuth client credentials. Add the production callback `https://aptivio-learning.vercel.app/auth/callback` to the allowed redirect URLs. Google sign-in cannot work until this provider setup is complete.
 7. Enable leaked-password protection in Supabase Auth as a production security hardening step.
