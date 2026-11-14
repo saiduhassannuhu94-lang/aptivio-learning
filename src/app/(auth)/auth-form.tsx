@@ -48,6 +48,7 @@ export function AuthForm({ mode, action, initialState, googleError }: AuthFormPr
     initialState,
   );
   const content = copy[mode];
+  const googleAuthEnabled = process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED === "true";
 
   return (
     <section className="auth-card" aria-labelledby="auth-title">
@@ -168,16 +169,22 @@ export function AuthForm({ mode, action, initialState, googleError }: AuthFormPr
       )}
 
       {(mode === "sign-in" || mode === "sign-up") && (
-        <>
-          <div className="auth-divider"><span>OR</span></div>
-          {googleError && <p className="auth-feedback auth-error" role="alert">{googleError}</p>}
-          <form action={signInWithGoogleAction} className="auth-google-form">
-            <button className="button button-outline auth-google-button" type="submit">
-              <span className="google-mark" aria-hidden="true">G</span>
-              Continue with Google
-            </button>
-          </form>
-        </>
+        googleAuthEnabled ? (
+          <>
+            <div className="auth-divider"><span>OR</span></div>
+            {googleError && <p className="auth-feedback auth-error" role="alert">{googleError}</p>}
+            <form action={signInWithGoogleAction} className="auth-google-form">
+              <button className="button button-outline auth-google-button" type="submit">
+                <span className="google-mark" aria-hidden="true">G</span>
+                Continue with Google
+              </button>
+            </form>
+          </>
+        ) : (
+          <p className="auth-google-note" role="note">
+            Google sign-in is not enabled yet. Use your email and password to access APTIVIO.
+          </p>
+        )
       )}
 
       {mode === "sign-in" && (
