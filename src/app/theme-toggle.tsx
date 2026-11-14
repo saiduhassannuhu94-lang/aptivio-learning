@@ -8,8 +8,8 @@ export function ThemeToggle() {
   useEffect(() => {
     const stored = window.localStorage.getItem("aptivio-theme");
     const preferred = stored === "dark" || (stored !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-    setDark(preferred);
     document.documentElement.dataset.theme = preferred ? "dark" : "light";
+    window.requestAnimationFrame(() => setDark(preferred));
   }, []);
 
   function toggle() {
