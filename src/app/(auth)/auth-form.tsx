@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useActionState } from "react";
-import { signInWithGoogleAction, type AuthActionState } from "./actions";
+import { resendSignupConfirmationAction, signInWithGoogleAction, type AuthActionState } from "./actions";
+import { ThemeToggle } from "@/app/theme-toggle";
 
 type AuthMode = "sign-in" | "sign-up" | "forgot-password" | "update-password";
 type AuthAction = (
@@ -42,14 +43,21 @@ const copy: Record<AuthMode, { title: string; description: string; submit: strin
 
 export function AuthForm({ mode, action, initialState, googleError }: AuthFormProps) {
   const [state, formAction, pending] = useActionState(action, initialState);
+  const [resendState, resendFormAction, resendPending] = useActionState(
+    resendSignupConfirmationAction,
+    initialState,
+  );
   const content = copy[mode];
 
   return (
     <section className="auth-card" aria-labelledby="auth-title">
-      <Link className="brand auth-brand" href="/" aria-label="APTIVIO home">
-        <span className="brand-mark">A</span>
-        <span>APTIVIO</span>
-      </Link>
+      <div className="auth-topline">
+        <Link className="brand auth-brand" href="/" aria-label="APTIVIO home">
+          <span className="brand-mark">A</span>
+          <span>APTIVIO</span>
+        </Link>
+        <ThemeToggle />
+      </div>
 
       <div className="auth-heading">
         <span className="eyebrow">YOUR LEARNING JOURNEY</span>
@@ -131,6 +139,33 @@ export function AuthForm({ mode, action, initialState, googleError }: AuthFormPr
           <span aria-hidden="true">↗</span>
         </button>
       </form>
+
+      {mode === "sign-in" && (
+        <details className="auth-resend">
+          <summary>Didn&apos;t receive your verification email?</summary>
+          <div className="auth-resend-content">
+            <p>Enter the email address you used to register. We&apos;ll request a fresh confirmation link.</p>
+            <form action={resendFormAction} className="auth-resend-form">
+              <label className="auth-field">
+                <span>Account email</span>
+                <input
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  maxLength={254}
+                  placeholder="you@example.com"
+                  required
+                />
+              </label>
+              {resendState.error && <p className="auth-feedback auth-error" role="alert">{resendState.error}</p>}
+              {resendState.message && <p className="auth-feedback auth-success" role="status">{resendState.message}</p>}
+              <button className="button button-outline auth-resend-submit" type="submit" disabled={resendPending}>
+                {resendPending ? "Sending…" : "Resend confirmation email"}
+              </button>
+            </form>
+          </div>
+        </details>
+      )}
 
       {(mode === "sign-in" || mode === "sign-up") && (
         <>

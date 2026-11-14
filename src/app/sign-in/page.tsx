@@ -12,7 +12,7 @@ type SignInPageProps = { searchParams: Promise<{ error?: string }> };
 export default async function SignInPage({ searchParams }: SignInPageProps) {
   const query = await searchParams;
   const googleError = query.error === "google"
-    ? "Google sign-in could not start. The Google provider may need to be enabled in Supabase Auth."
+    ? "Google sign-in is not enabled for this project yet. Use your email and password for now."
     : null;
   return (
     <main className="auth-page">

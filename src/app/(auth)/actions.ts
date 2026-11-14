@@ -36,6 +36,13 @@ export async function signInAction(
   const { error } = await supabase.auth.signInWithPassword(parsed.data);
 
   if (error) {
+    if (error.code === "email_not_confirmed") {
+      return {
+        error: "Your email address is not confirmed yet. Open the verification email from APTIVIO, then return here to sign in. Check your Spam or Junk folder too.",
+        message: null,
+      };
+    }
+
     return { error: "We could not sign you in with those details. Check them and try again.", message: null };
   }
 
@@ -123,6 +130,62 @@ export async function signUpAction(
   return {
     error: null,
     message: "Your account request is ready. Check your email for the verification link to finish signing up.",
+  };
+}
+
+export async function resendSignupConfirmationAction(
+  _previousState: AuthActionState,
+  formData: FormData,
+): Promise<AuthActionState> {
+  const email = z.string().trim().email().max(254).safeParse(formData.get("email"));
+
+  if (!email.success) {
+    return { error: "Enter a valid email address.", message: null };
+  }
+
+  try {
+    const callbackUrl = new URL("/auth/callback", `${getSiteUrl()}/`);
+    callbackUrl.searchParams.set("next", "/dashboard");
+
+    const supabase = await createClient();
+    const { error } = await supabase.auth.resend({
+      type: "signup",
+      email: email.data,
+      options: { emailRedirectTo: callbackUrl.toString() },
+    });
+
+    if (error) {
+      if (error.status === 429) {
+        return {
+          error: "A confirmation email was requested recently. Wait a little before trying again.",
+          message: null,
+        };
+      }
+
+      console.error("[auth.resendSignupConfirmation] Supabase rejected the request", {
+        code: error.code ?? null,
+        status: error.status ?? null,
+      });
+
+      return {
+        error: "We could not resend the confirmation email right now. Check the address and try again later.",
+        message: null,
+      };
+    }
+  } catch (cause) {
+    console.error("[auth.resendSignupConfirmation] Request failed", {
+      name: cause instanceof Error ? cause.name : "UnknownError",
+    });
+
+    return {
+      error: "The registration service could not be reached. Please try again later.",
+      message: null,
+    };
+  }
+
+  return {
+    error: null,
+    message: "If this account still needs verification, a new confirmation email has been requested. Check your Inbox and Spam folder.",
   };
 }
 
