@@ -2590,3 +2590,49 @@ body {
   }
   .quiz-confetti { display: none; }
 }
+
+
+/* Consistent tactile feedback for remaining application actions. */
+button:not(:disabled):not(.quiz-answer-option):not(.sidebar-signout),
+a.button,
+a.app-button,
+.site-dashboard-link,
+.learner-mobile-menu summary {
+  transition: transform 220ms cubic-bezier(.2,.75,.25,1), box-shadow 220ms ease, border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+button:not(:disabled):not(.quiz-answer-option):not(.sidebar-signout):hover,
+a.button:hover,
+a.app-button:hover,
+.site-dashboard-link:hover,
+.learner-mobile-menu summary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px #087f682b, 0 0 0 3px #087f6810;
+}
+button:not(:disabled):not(.quiz-answer-option):not(.sidebar-signout):active,
+a.button:active,
+a.app-button:active,
+.site-dashboard-link:active,
+.learner-mobile-menu summary:active {
+  transform: translateY(1px) scale(.985);
+  box-shadow: 0 4px 12px #087f6820;
+}
+button:focus-visible,
+a.button:focus-visible,
+a.app-button:focus-visible {
+  outline: 3px solid #e8bd60;
+  outline-offset: 3px;
+}
+@media (max-width: 620px) {
+  .learner-sidebar {
+    position: sticky;
+    z-index: 95;
+    top: 0;
+    background: #fff;
+    box-shadow: 0 5px 18px #183b330a;
+  }
+  .learner-mobile-menu summary {
+    min-height: 44px;
+    padding-inline: 13px;
+    box-shadow: 0 4px 12px #183b330c;
+  }
+}
